@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsanKaynaklariYonetimiPlatformu", "InsanKaynaklariYonetimiPlatformu\InsanKaynaklariYonetimiPlatformu.csproj", "{5C8E4CE5-5A91-4F12-9875-20512B7BA80C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsanKaynaklariYonetimiPlatformu.UI", "InsanKaynaklariYonetimiPlatformu\InsanKaynaklariYonetimiPlatformu.UI.csproj", "{5C8E4CE5-5A91-4F12-9875-20512B7BA80C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsanKaynaklariYonetimiPlatformu.Entity", "InsanKaynaklariYonetimiPlatformu.Entity\InsanKaynaklariYonetimiPlatformu.Entity.csproj", "{913EA23A-DADC-44A8-96F0-0097F623A1CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsanKaynaklariYonetimiPlatformu.DAL", "InsanKaynaklariYonetimiPlatformu.DAL\InsanKaynaklariYonetimiPlatformu.DAL.csproj", "{D62FF4AB-6495-495F-9E4C-EDD2B1F9CE23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsanKaynaklariYonetimiPlatformu.BLL", "InsanKaynaklariYonetimiPlatformu.BLL\InsanKaynaklariYonetimiPlatformu.BLL.csproj", "{28A24B00-9137-4D2C-BE8F-C235CA01707E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsanKaynaklariYonetimiPlatformu.ViewModels", "InsanKaynaklariYonetimiPlatformu.ViewModels\InsanKaynaklariYonetimiPlatformu.ViewModels.csproj", "{16769445-E989-49A3-8220-1798BC4CD130}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{5C8E4CE5-5A91-4F12-9875-20512B7BA80C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C8E4CE5-5A91-4F12-9875-20512B7BA80C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C8E4CE5-5A91-4F12-9875-20512B7BA80C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{913EA23A-DADC-44A8-96F0-0097F623A1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{913EA23A-DADC-44A8-96F0-0097F623A1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{913EA23A-DADC-44A8-96F0-0097F623A1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{913EA23A-DADC-44A8-96F0-0097F623A1CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D62FF4AB-6495-495F-9E4C-EDD2B1F9CE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D62FF4AB-6495-495F-9E4C-EDD2B1F9CE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D62FF4AB-6495-495F-9E4C-EDD2B1F9CE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D62FF4AB-6495-495F-9E4C-EDD2B1F9CE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28A24B00-9137-4D2C-BE8F-C235CA01707E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28A24B00-9137-4D2C-BE8F-C235CA01707E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28A24B00-9137-4D2C-BE8F-C235CA01707E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28A24B00-9137-4D2C-BE8F-C235CA01707E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16769445-E989-49A3-8220-1798BC4CD130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16769445-E989-49A3-8220-1798BC4CD130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16769445-E989-49A3-8220-1798BC4CD130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16769445-E989-49A3-8220-1798BC4CD130}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
