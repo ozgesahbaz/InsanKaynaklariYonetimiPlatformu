@@ -11,5 +11,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }
         public string CompanyLogo { get; set; }
+        public string CompanyEmail { get; set; }
+        public bool IsApproval { get; set; }
     }
 }
