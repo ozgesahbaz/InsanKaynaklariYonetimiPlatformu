@@ -10,6 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.Entity\InsanKaynaklariYonetimiPlatformu.Entity.csproj" />
+    <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.ViewModels\InsanKaynaklariYonetimiPlatformu.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\Dashboard\public\plugins\" />
     <Folder Include="wwwroot\Dashboard\public\vendors\%40popper\" />
     <Folder Include="wwwroot\Dashboard\public\vendors\popper\" />

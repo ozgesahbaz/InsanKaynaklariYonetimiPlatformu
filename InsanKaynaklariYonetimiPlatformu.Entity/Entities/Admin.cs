@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.Entity
+namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
-   public class Comment
+    class Admin
     {
-        public int CommentId { get; set; }
-        public string Description { get; set; }
+        public int AdminId { get; set; }
+        public string FullName { get; set; }
         public int ManagerId { get; set; }
     }
 }
