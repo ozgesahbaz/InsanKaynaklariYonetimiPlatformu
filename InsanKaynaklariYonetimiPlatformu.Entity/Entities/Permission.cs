@@ -7,11 +7,15 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.Entity
 {
-   public class Permissions
+   public class Permission
     {
         public int PermissionId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public PermissionType PermissionType { get; set; }
+        public int ManagerId { get; set; }
+        public int? PersonelId { get; set; }
+
+
     }
 }

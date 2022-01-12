@@ -11,5 +11,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity
     {
         public int MemberId { get; set; }
         public MembershipType MembershipType { get; set; }
+        public int ManagerId { get; set; }
+      
     }
 }
