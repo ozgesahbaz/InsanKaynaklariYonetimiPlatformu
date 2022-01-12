@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,15 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity
                 Database.Migrate();
             }
         }
+
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
         {
@@ -26,7 +36,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity
             {
                 optionsBuilder.UseSqlServer("name = ConnectionStrings:DefaultConnection");
             }
-
+             
           
         }
     }
