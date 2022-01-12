@@ -9,4 +9,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Dashboard\public\plugins\" />
+    <Folder Include="wwwroot\Dashboard\public\vendors\%40popper\" />
+    <Folder Include="wwwroot\Dashboard\public\vendors\popper\" />
+    <Folder Include="wwwroot\Dashboard\src\pug\mixins\layouts\" />
+    <Folder Include="wwwroot\Dashboard\src\pug\pages\" />
+  </ItemGroup>
+
 </Project>

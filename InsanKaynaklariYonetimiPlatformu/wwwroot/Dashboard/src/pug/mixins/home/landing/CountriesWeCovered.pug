@@ -1,0 +1,72 @@
+append variables
+  -
+    var countries= [
+      {
+        image:'country-1.png',
+        title: 'Study in Australia',
+        text: 'Ut aut corporis accusantium illo ullam qui laudantium. Maxime rerum sunt et sequi sed qui',
+      },
+      {
+        image:'country-2.png',
+        title: 'Study in Canada',
+        text: 'Ut aut corporis accusantium illo ullam qui laudantium. Maxime rerum sunt et sequi sed qui',
+      },
+      {
+        image:'country-3.png',
+        title: 'Study in Uk',
+        text:'Ut aut corporis accusantium illo ullam qui laudantium. Maxime rerum sunt et sequi sed qui',
+      },
+    
+    ];
+
+
+mixin Country(config)
+  .col-md-4.mb-4
+    .card.h-100.shadow.card-span.bg-100
+      img.card-img-top(src=`${CWD}assets/img/gallery/${config.image}`  alt='news')
+      .card-body
+        h5.fs-lg-1.my-3.fw-light=config.title
+        p.mb-0.fw-light.lh-base=config.text
+
+mixin Countries
+  +Section.bg-100#country
+    .row
+      .col-lg-7.mx-auto.text-center.my-5
+        h5.fw-light.fs-3.fs-lg-5.lh-sm.mb-3 Countries We Covered
+        p.mb-3 Sunt autem nusquam hoc epicurus in gravissimo bello animadversionis metu degendae praesidia firmissima. Torquatos nostros? quos tu paulo ante cum teneam sententiam, quid bonum esse vult.
+    .row.flex-center.h-100
+      .col-xl-9
+        #carouselCountries.carousel.slide(data-bs-ride='carousel')
+          .carousel-inner
+            .carousel-item.active(data-bs-interval='10000')
+              .row.h-100.justify-content-center                
+                +Country(countries[0])                  
+                +Country(countries[1])                  
+                +Country(countries[2])                  
+                                
+            .carousel-item(data-bs-interval='5000')
+              .row.h-100.justify-content-center                
+                +Country(countries[0])                  
+                +Country(countries[1])                  
+                +Country(countries[2])   
+                
+            .carousel-item(data-bs-interval='3000')
+              .row.h-100.justify-content-center                
+                +Country(countries[0])                  
+                +Country(countries[1])                  
+                +Country(countries[2])    
+            .carousel-item
+              .row.h-100.justify-content-center          
+                +Country(countries[0])
+                +Country(countries[1])                  
+                +Country(countries[2]) 
+              
+                                           
+          .row.mt-3.mb-7.flex-center
+            .col-auto.position-relative.z-index-2
+              ol.carousel-indicators
+                li.active.mx-2(data-bs-target='#carouselCountries' data-bs-slide-to='0')
+                li.mx-2(data-bs-target='#carouselCountries' data-bs-slide-to='1')
+                li.mx-2(data-bs-target='#carouselCountries' data-bs-slide-to='2')
+                li.mx-2(data-bs-target='#carouselCountries' data-bs-slide-to='3')
+
