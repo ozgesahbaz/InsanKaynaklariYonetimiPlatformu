@@ -1,0 +1,44 @@
+mixin University(image)
+  .col-sm-6.col-lg-4.col-xl-3.text-xl-start&attributes(attributes)
+    img(src=`${CWD}assets/img/gallery/${image}`  alt='universities').mb-4
+
+mixin Universities
+  +Section.bg-100.py-5
+    .row 
+      .col-12.mx-auto.align-items-center.text-center 
+        h6.mb-4.text-uppercase.fw-light.fs-1.mb-6 Featured Universities
+        #carouselExampleDark.carousel.slide(data-bs-ride='carousel')
+          .carousel-inner
+            .carousel-item.active(data-bs-interval='10000')
+              .row.h-100.justify-content-center
+                +University('mac-uni.png')                  
+                +University('charles-uni.png')                  
+                +University('newcastle-uni.png')                  
+                +University('la-trobe-uni.png')                  
+            .carousel-item(data-bs-interval='2000')
+              .row.h-100.justify-content-center
+                +University('mac-uni.png')                  
+                +University('charles-uni.png')                  
+                +University('newcastle-uni.png')                  
+                +University('la-trobe-uni.png')   
+            .carousel-item(data-bs-interval='1000')
+              .row.h-100.justify-content-center
+                +University('mac-uni.png')                  
+                +University('charles-uni.png')                  
+                +University('newcastle-uni.png')                  
+                +University('la-trobe-uni.png') 
+            .carousel-item
+              .row.h-100.justify-content-center
+                +University('mac-uni.png')                  
+                +University('charles-uni.png')                  
+                +University('newcastle-uni.png') 
+                                 
+          .row.mt-5.flex-center
+            .col-auto.position-relative.z-index-2
+              ol.carousel-indicators
+                li.active.mx-2(data-bs-target='#carouselExampleDark' data-bs-slide-to='0')
+                li.mx-2(data-bs-target='#carouselExampleDark' data-bs-slide-to='1')
+                li.mx-2(data-bs-target='#carouselExampleDark' data-bs-slide-to='2')
+                li.mx-2(data-bs-target='#carouselExampleDark' data-bs-slide-to='3')
+  
+      
