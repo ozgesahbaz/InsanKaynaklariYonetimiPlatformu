@@ -14,23 +14,22 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public Manager()
         {
             Employees = new HashSet<Employee>();
-            //Permissions = new HashSet<Permission>();
+            Permissions = new HashSet<Permission>();
         }
-        [Key]
+      
         public int ManagerId { get; set; }
         public string FullName { get; set; }
         public string Photo { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public StatusType StatusType { get; set; }
+       
         public bool IsActive { get; set; }
         public bool IsApproved { get; set; }
       
         public virtual Admin Admin { get; set; }
         public virtual Comment Comment { get; set; }
-        [ForeignKey("Company")]
-        public virtual int CompanyId { get; set; }
+       public virtual int CompanyId { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
-        //public virtual ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<Permission> Permissions { get; set; }
     }
 }

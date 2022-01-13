@@ -14,7 +14,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
         public void Configure(EntityTypeBuilder<Company> builder)
         {
             builder.ToTable("Şirketler");
-            builder.HasKey(a => a.CompanyId);
+            builder.Property(a => a.CompanyName).IsRequired().HasMaxLength(250);
+            builder.Property(a => a.Address).IsRequired().HasMaxLength(250);
+            builder.Property(a => a.MailExtension).IsRequired().HasMaxLength(100);
+            builder.Property(a => a.CompanyLogo).HasColumnType("image");
+
         }
     }
 }

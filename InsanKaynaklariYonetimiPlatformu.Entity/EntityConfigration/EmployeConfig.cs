@@ -15,6 +15,14 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
         {
             builder.ToTable("Personeller");
             builder.HasKey(a => a.EmployeeId);
+            builder.Property(a => a.FullName).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Status).IsRequired().HasMaxLength(100);
+            builder.HasIndex(a => a.Email).IsUnique();
+            builder.Property(a => a.Email).IsRequired().HasMaxLength(100);
+            builder.Property(a => a.Password).IsRequired().HasMaxLength(20);
+            builder.Property(a => a.IsActive).IsRequired();
+            builder.Property(a => a.ManagerId).IsRequired();
+            builder.Property(a => a.Salary).HasMaxLength(10);
         }
     }
 }

@@ -4,14 +4,16 @@ using InsanKaynaklariYonetimiPlatformu.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    partial class HRDataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220113151255_initial2")]
+    partial class initial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,7 +200,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ManagerId")
+                    b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<int>("PermissionType")
@@ -210,8 +212,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasKey("PermissionId");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("ManagerId");
 
                     b.ToTable("İzinler");
                 });
@@ -263,10 +263,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", null)
                         .WithMany("Permissions")
                         .HasForeignKey("EmployeeId");
-
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", null)
-                        .WithMany("Permissions")
-                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>
@@ -291,8 +287,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Comment");
 
                     b.Navigation("Employees");
-
-                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }
