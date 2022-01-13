@@ -14,7 +14,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         {
             Permissions = new HashSet<Permission>();
         }
-        [Key]
+       
         public int EmployeeId { get; set; }
         public string FullName { get; set; }
         public string Photo { get; set; }
@@ -24,7 +24,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public bool IsActive { get; set; }
         public decimal? Salary { get; set; }
       
-        //Her employee için birden çok permission' a sahip olabilir.
+       
         public virtual ICollection<Permission> Permissions { get; set; }
      
         public  int ManagerId { get; set; }

@@ -2,18 +2,10 @@
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class initial3 : Migration
+    public partial class fixed2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<int>(
-                name: "ManagerId",
-                table: "İzinler",
-                type: "int",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "int");
-
             migrationBuilder.CreateIndex(
                 name: "IX_İzinler_ManagerId",
                 table: "İzinler",
@@ -37,16 +29,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_İzinler_ManagerId",
                 table: "İzinler");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "ManagerId",
-                table: "İzinler",
-                type: "int",
-                nullable: false,
-                defaultValue: 0,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
         }
     }
 }

@@ -21,8 +21,7 @@ public void Configure(EntityTypeBuilder<Manager> builder)
             builder.HasIndex(a => a.Email).IsUnique();
             builder.Property(a => a.Password).IsRequired().HasMaxLength(20);
             builder.Property(a => a.IsActive).IsRequired();
-            builder.Property(a => a.IsApproved).IsRequired();
-            builder.Property(a => a.Admin.AdminId).IsRequired();
+            builder.Property(a => a.IsApproved).IsRequired();           
             builder.Property(a => a.CompanyId).IsRequired();
 
         }

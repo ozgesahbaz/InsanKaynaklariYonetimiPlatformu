@@ -14,7 +14,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public int CommentId { get; set; }
         public string Description { get; set; }
         
-        //Her Manageromment'e ilişkili olacak
+     
         public int ManagerId { get; set; }
         public Manager Manager { get; set; }
 

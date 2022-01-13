@@ -64,7 +64,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
             {
                 FullName = register.ManagerFullName,
                 CompanyId = company.CompanyId,
-                StatusType = StatusType.CompanyManager,
+                //StatusType = StatusType.CompanyManager, // statustype propertisi kaldırıldı admin db olusturuldugundan 
                 Password = register.ManagerPassword,
                 Email = register.ManagerMail,
                 IsActive=false,
@@ -82,7 +82,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
 
         public bool ManagerApproval(int id)
         {
-            managerRepository.managerApproval(id);
+           return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
         }
     }
 }

@@ -16,7 +16,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
             Employees = new HashSet<Employee>();
             Permissions = new HashSet<Permission>();
         }
-      
+
         public int ManagerId { get; set; }
         public string FullName { get; set; }
         public string Photo { get; set; }

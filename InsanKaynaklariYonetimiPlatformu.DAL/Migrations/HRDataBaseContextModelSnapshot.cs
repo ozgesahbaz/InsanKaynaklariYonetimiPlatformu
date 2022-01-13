@@ -27,7 +27,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("AdminId");
 
@@ -42,6 +44,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ManagerId")
@@ -49,7 +52,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex("ManagerId");
+                    b.HasIndex("ManagerId")
+                        .IsUnique();
 
                     b.ToTable("Yorumlar");
                 });
@@ -62,16 +66,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
-                    b.Property<string>("CompanyLogo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("CompanyLogo")
+                        .HasColumnType("image");
 
                     b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("MailExtension")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("CompanyId");
 
@@ -89,7 +102,14 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -97,27 +117,29 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Salary")
+                    b.Property<decimal?>("Salary")
+                        .HasMaxLength(10)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Surname")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("EmployeeId");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("ManagerId");
 
@@ -131,17 +153,21 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdminId")
+                    b.Property<int?>("AdminId")
                         .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -150,19 +176,21 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StatusType")
-                        .HasColumnType("int");
 
                     b.HasKey("ManagerId");
 
                     b.HasIndex("AdminId");
 
                     b.HasIndex("CompanyId")
+                        .IsUnique();
+
+                    b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Yöneticiler");
@@ -211,6 +239,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("isAproved")
+                        .HasColumnType("bit");
+
                     b.HasKey("PermissionId");
 
                     b.HasIndex("EmployeeId");
@@ -223,8 +254,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Comment", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
-                        .WithMany()
-                        .HasForeignKey("ManagerId")
+                        .WithOne("Comment")
+                        .HasForeignKey("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Comment", "ManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -237,32 +268,26 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .WithMany("Employees")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", null)
                         .WithMany("Employees")
                         .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", "Admin")
                         .WithMany("Managers")
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AdminId");
 
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", "Company")
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", null)
                         .WithOne("Manager")
                         .HasForeignKey("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Admin");
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Membership", b =>
@@ -278,7 +303,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Permission", b =>
                 {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", null)
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
                         .WithMany("Permissions")
                         .HasForeignKey("EmployeeId");
 
@@ -312,6 +337,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
+                    b.Navigation("Comment");
+
                     b.Navigation("Employees");
 
                     b.Navigation("Permissions");
