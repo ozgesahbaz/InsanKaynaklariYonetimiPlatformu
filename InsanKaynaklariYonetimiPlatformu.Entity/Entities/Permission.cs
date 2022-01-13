@@ -17,12 +17,12 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public DateTime FinishDate { get; set; }
         public PermissionType PermissionType { get; set; }
 
-      // Her Permission bir employee ait olacak
+      // Her Permission bir employee ait olacak. Null geçilebilir çakışma olmaması için
         public  int? EmployeeId { get; set; }     
         public  Employee Employee { get; set; }
 
-        // Her Permission bir manager ait olacak
-        public  int? ManagerId { get; set; }
+        // Her Permission bir manager ait olacak. Null geçilebilir çakışma olmaması için
+        public int? ManagerId { get; set; }
         public Manager Manager { get; set; }
     }
 }
