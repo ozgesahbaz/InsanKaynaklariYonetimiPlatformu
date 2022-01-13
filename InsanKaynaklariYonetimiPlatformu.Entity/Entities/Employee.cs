@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.Entity
+namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
    public class Employee
     {
+        [Key]
         public int EmployeeId { get; set; }
         public string Name { get; set; }
         public int Surname { get; set; }
@@ -17,8 +20,9 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity
         public string Password { get; set; }
         public bool IsActive { get; set; }
         public decimal Salary { get; set; }
-        public int ManagerId { get; set; }
-        public ICollection<Permission> Permissions { get; set; }
-
+      
+        public virtual ICollection<Permission> Permissions { get; set; }
+        [ForeignKey("Manager")]
+        public virtual int ManagerId { get; set; }
     }
 }

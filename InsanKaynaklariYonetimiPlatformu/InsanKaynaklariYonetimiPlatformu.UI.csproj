@@ -10,8 +10,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.DAL\InsanKaynaklariYonetimiPlatformu.DAL.csproj" />
     <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.Entity\InsanKaynaklariYonetimiPlatformu.Entity.csproj" />
     <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.ViewModels\InsanKaynaklariYonetimiPlatformu.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Dashboard\public\plugins\" />
+    <Folder Include="wwwroot\Dashboard\public\vendors\%40popper\" />
+    <Folder Include="wwwroot\Dashboard\public\vendors\popper\" />
+    <Folder Include="wwwroot\Dashboard\src\pug\mixins\layouts\" />
+    <Folder Include="wwwroot\Dashboard\src\pug\pages\" />
   </ItemGroup>
 
 </Project>

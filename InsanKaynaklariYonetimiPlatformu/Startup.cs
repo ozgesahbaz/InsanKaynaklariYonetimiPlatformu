@@ -1,4 +1,5 @@
-using InsanKaynaklariYonetimiPlatformu.Entity;
+
+using InsanKaynaklariYonetimiPlatformu.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,9 +25,11 @@ namespace InsanKaynaklariYonetimiPlatformu
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<HRContext>(opts => {
-                opts.UseSqlServer (Configuration.GetConnectionString("DatabaseContext"));
+
+            services.AddDbContext<HRDataBaseContext>(opts => {
+                opts.UseSqlServer(Configuration.GetConnectionString("DatabaseContext"));
             });
+           
             services.AddControllersWithViews();
         }
 

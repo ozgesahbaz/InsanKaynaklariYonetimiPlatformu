@@ -1,0 +1,55 @@
+append variables
+  -
+    var services= [
+      {
+        image:'career.png',
+        title  :'Career Counselling',
+        text: 'Maiores voluptas laboriosam non dolorum perferendis fuga repellat aut. Blanditiis quos in minus. Voluptatum ',
+      },
+      {
+        image:'admission.png',
+        title  :'University Admissions',
+        text: 'Maiores voluptas laboriosam non dolorum perferendis fuga repellat aut. Blanditiis quos in minus. Voluptatum ',
+      },
+      {
+        image:'visa.png',
+        title  :'Visa COnsultancy',
+        text: 'Maiores voluptas laboriosam non dolorum perferendis fuga repellat aut. Blanditiis quos in minus. Voluptatum ',
+      },
+      {
+        image:'accommodation.png',
+        title  :'Accommodation',
+        text: 'Maiores voluptas laboriosam non dolorum perferendis fuga repellat aut. Blanditiis quos in minus. Voluptatum ',
+      },
+      {
+        image:'departure.png',
+        title  :'Pre-Departure Briefing',
+        text: 'Maiores voluptas laboriosam non dolorum perferendis fuga repellat aut. Blanditiis quos in minus. Voluptatum ',
+      },
+
+    ];
+
+mixin Service(config)
+  .col-md-4.mb-4
+    .card.h-100.shadow.px-4.px-md-2.px-lg-3.card-span.pt-4
+      .text-center.text-md-start.card-hover
+        img(src=`${CWD}assets/img/icons/${config.image}` height="60" alt='services').ps-3.icons
+        .card-body
+          h6.fw-light.fs-1.heading-color=config.title
+          p.mt-3.mb-md-0.mb-lg-3=config.text
+          a.btn.btn-lg.ps-0.pe-3.text-primary(href='#' role='button') Learn more
+            svg.bi.bi-arrow-right-short(xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' viewBox='0 0 16 16')
+              path(fill-rule='evenodd' d='M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z')
+
+
+mixin Services
+  +Section#services
+    .row
+      .col-lg-7.mx-auto.text-center.mb-4
+        h5.fw-light.fs-3.fs-lg-5.lh-sm.mb-3 Our Services
+        p.mb-5 Executive Trade International is an University Application Centre, guiding Bangladeshi students to Australian, British, Canadian and Irish universities!
+    .row.flex-center.h-100
+      .col-xl-9
+        .row.justify-content-center
+          each Service in services
+            +Service(Service)

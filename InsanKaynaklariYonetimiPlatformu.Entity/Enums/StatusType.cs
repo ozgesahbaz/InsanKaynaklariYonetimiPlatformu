@@ -8,7 +8,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Enums
 {
     public enum StatusType
     {
-        CompanyManager=1,
-            Admin=2
+        CompanyManager,
+            Admin,
     };
 }
