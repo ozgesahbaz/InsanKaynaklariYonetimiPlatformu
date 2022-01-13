@@ -8,7 +8,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Enums
 {
     public enum PermissionType
     {
-        YıllıkIzın = 1,
+        YıllıkIzın,
         DoğumIznı,
         BabalıkIznı,
         UcretsızIzın
