@@ -1,4 +1,6 @@
-﻿using InsanKaynaklariYonetimiPlatformu.ViewModels;
+﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services;
+using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,13 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
     public class ManagerController : Controller
     {
+        ManagerService managerService;
+
+        public ManagerController()
+        {
+            managerService = new ManagerService();
+        }
+       
         public IActionResult Index()
         {
             return View();
@@ -44,12 +53,35 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         public IActionResult Register(ManagerRegisterVM register)
         {
             //Vm buraya gelecek isvalid kontrolü yapılacak
-            //Böyle bir kullanıcı zaten var mı kontrolü yapılacak
-            //Company ve manager oluşturulacak anca manager is active=false, company isapproval=false olarak
+           
+            if (ModelState.IsValid)
+            {
+                
+                try
+                {
+                   Company company = managerService.AddCompany(register.CompanyName,register.ManagerMail);
+                    Manager manager;
+                    if (company.CompanyId>0)
+                    {
+                        manager = managerService.AddManager(register, company);
+                        if (manager.ManagerId>0)
+                        {
+                            throw new Exception("Kayıdınız onaylandığında mail adresinize doğrulama linki gönderilecektir. Linke tıklayarak mailinizi doğrulayabilirsiniz.");
+                        } 
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+
+                    ModelState.AddModelError("exception", ex.Message);
+                }
+            }
+            
             //Şirket mailine doğrulama maili atılacak (Şifre veya link olarak? link olursa yanına mutlaka şirket ıdsi eklenecek)
             //Şirket mailine giden kodu onaylayınız sayfası gelecek.
-            
-            return View();
+
+            return View(register);
         }
 
     }
