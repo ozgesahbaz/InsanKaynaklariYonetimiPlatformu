@@ -11,6 +11,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
     public class Manager
     {
+        public Manager()
+        {
+            Employees = new HashSet<Employee>();
+            //Permissions = new HashSet<Permission>();
+        }
         [Key]
         public int ManagerId { get; set; }
         public string FullName { get; set; }

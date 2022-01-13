@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220113023047_initial")]
+    [Migration("20220113145637_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,6 +200,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PermissionType")
                         .HasColumnType("int");
 
@@ -257,13 +260,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Permission", b =>
                 {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", null)
                         .WithMany("Permissions")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>

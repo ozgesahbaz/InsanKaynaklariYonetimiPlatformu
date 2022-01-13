@@ -10,6 +10,10 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
    public class Employee
     {
+        public Employee()
+        {
+            Permissions = new HashSet<Permission>();
+        }
         [Key]
         public int EmployeeId { get; set; }
         public string Name { get; set; }

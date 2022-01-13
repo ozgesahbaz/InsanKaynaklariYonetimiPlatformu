@@ -198,6 +198,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ManagerId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PermissionType")
                         .HasColumnType("int");
 
@@ -207,6 +210,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasKey("PermissionId");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("İzinler");
                 });
@@ -255,13 +260,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Permission", b =>
                 {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", null)
                         .WithMany("Permissions")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Employee");
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", null)
+                        .WithMany("Permissions")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>
@@ -286,6 +295,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Comment");
 
                     b.Navigation("Employees");
+
+                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }

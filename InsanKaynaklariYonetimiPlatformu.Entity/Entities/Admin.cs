@@ -9,6 +9,10 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
    public class Admin
     {
+        public Admin()
+        {
+            Managers = new HashSet<Manager>();
+        }
         [Key]
         public int AdminId { get; set; }
         public string FullName { get; set; }
