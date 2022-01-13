@@ -19,11 +19,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Login()
-        {
+        //public IActionResult Login()
+        //{
             
-            return View();
-        }
+        //    return View();
+        //}
         [HttpPost]
         public IActionResult Login(ManagerLoginVM manager)
         {
