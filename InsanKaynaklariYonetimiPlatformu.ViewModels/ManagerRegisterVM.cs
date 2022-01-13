@@ -12,11 +12,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Firma Adı", Prompt = "Bilge Adam")]
         public string CompanyName { get; set; }
-        
-        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
-        [Display(Name = "Firma Mail Adresi", Prompt = "firmaadi@firmaadi.com")]
-        [DataType(DataType.EmailAddress)]        
-        public string CompanyMail { get; set; }
+       
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Yönetici İsim Soyisim")]
