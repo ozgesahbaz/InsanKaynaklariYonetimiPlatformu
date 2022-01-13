@@ -11,7 +11,12 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
     public class Manager
     {
-        [Key]
+        public Manager()
+        {
+            Employees = new HashSet<Employee>();
+            Permissions = new HashSet<Permission>();
+        }
+       
         public int ManagerId { get; set; }
         public string FullName { get; set; }
         public string Photo { get; set; }
@@ -20,12 +25,19 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public StatusType StatusType { get; set; }
         public bool IsActive { get; set; }
         public bool IsApproved { get; set; }
-      
-        public virtual Admin Admin { get; set; }
-        public virtual Comment Comment { get; set; }
-        [ForeignKey("Company")]
-        public virtual int CompanyId { get; set; }
+
+        //Her manager bir admini olacak
+        public int AdminId { get; set; }
+        public  Admin Admin { get; set; }
+        
+        //Her manager bir company' e ait olacak
+        public  int CompanyId { get; set; }
+        public Company Company { get; set; }
+
+        //Her manager birden çok çalışana sahip olacak
         public virtual ICollection<Employee> Employees { get; set; }
-        //public virtual ICollection<Permission> Permissions { get; set; }
+
+        //Her manager birden çok permission'u olacak
+        public virtual ICollection<Permission> Permissions { get; set; }
     }
 }

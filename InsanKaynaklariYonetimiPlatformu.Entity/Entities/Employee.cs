@@ -10,7 +10,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
    public class Employee
     {
-        [Key]
+        public Employee()
+        {
+            Permissions = new HashSet<Permission>();
+        }
+     
         public int EmployeeId { get; set; }
         public string Name { get; set; }
         public int Surname { get; set; }
@@ -21,8 +25,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public bool IsActive { get; set; }
         public decimal Salary { get; set; }
       
+        //Her employee için birden çok permission' a sahip olabilir.
         public virtual ICollection<Permission> Permissions { get; set; }
-        [ForeignKey("Manager")]
-        public virtual int ManagerId { get; set; }
+        
+        //Her çalışanın bir manager'ı olacak
+        public  int ManagerId { get; set; }
+        public Manager Manager { get; set; }
     }
 }

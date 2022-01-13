@@ -9,12 +9,17 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
    public class Admin
     {
-        [Key]
+        public Admin()
+        {
+            Managers = new HashSet<Manager>();
+        }
         public int AdminId { get; set; }
         public string FullName { get; set; }
 
-        public virtual ICollection<Manager> Managers { get; set; }
-        
+        //Admin birden çok manager ile ilişkilendirilebilir.
+        public ICollection<Manager> Managers { get; set; }
+
+      
     }
 }
 

@@ -11,11 +11,12 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
   public  class Membership
     {
-        [Key]
+       
         public  int MembershipId { get; set; }
         public MembershipType MembershipType { get; set; }
-        [ForeignKey("Company")]
-        public virtual int CompanyId { get; set; }
-
+        
+        //Her company'nin bir üyeliği olacak
+        public  int CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }

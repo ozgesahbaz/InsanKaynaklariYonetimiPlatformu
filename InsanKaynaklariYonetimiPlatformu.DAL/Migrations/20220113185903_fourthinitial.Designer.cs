@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220113023047_initial")]
-    partial class initial
+    [Migration("20220113185903_fourthinitial")]
+    partial class fourthinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,8 +51,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex("ManagerId")
-                        .IsUnique();
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("Yorumlar");
                 });
@@ -88,6 +87,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -117,6 +119,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.HasKey("EmployeeId");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("ManagerId");
 
                     b.ToTable("Personeller");
@@ -129,7 +133,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AdminId")
+                    b.Property<int>("AdminId")
                         .HasColumnType("int");
 
                     b.Property<int>("CompanyId")
@@ -194,11 +198,14 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PermissionType")
                         .HasColumnType("int");
@@ -210,60 +217,80 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.HasIndex("EmployeeId");
 
+                    b.HasIndex("ManagerId");
+
                     b.ToTable("İzinler");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Comment", b =>
                 {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", null)
-                        .WithOne("Comment")
-                        .HasForeignKey("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Comment", "ManagerId")
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
                 {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", null)
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", null)
+                        .WithMany("Employees")
+                        .HasForeignKey("CompanyId");
+
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
                         .WithMany("Employees")
                         .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", "Admin")
                         .WithMany("Managers")
-                        .HasForeignKey("AdminId");
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", null)
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", "Company")
                         .WithOne("Manager")
                         .HasForeignKey("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Admin");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Membership", b =>
                 {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", null)
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", "Company")
                         .WithOne("Membership")
                         .HasForeignKey("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Membership", "CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Permission", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
                         .WithMany("Permissions")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+                        .WithMany("Permissions")
+                        .HasForeignKey("ManagerId");
 
                     b.Navigation("Employee");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>
@@ -273,6 +300,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", b =>
                 {
+                    b.Navigation("Employees");
+
                     b.Navigation("Manager");
 
                     b.Navigation("Membership");
@@ -285,9 +314,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
-                    b.Navigation("Comment");
-
                     b.Navigation("Employees");
+
+                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class initial : Migration
+    public partial class fourthinitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     StatusType = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
-                    AdminId = table.Column<int>(type: "int", nullable: true),
+                    AdminId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -80,7 +80,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.AdminId,
                         principalTable: "Adminler",
                         principalColumn: "AdminId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Yöneticiler_Şirketler_CompanyId",
                         column: x => x.CompanyId,
@@ -103,11 +103,18 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ManagerId = table.Column<int>(type: "int", nullable: false)
+                    ManagerId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Personeller", x => x.EmployeeId);
+                    table.ForeignKey(
+                        name: "FK_Personeller_Şirketler_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Şirketler",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Personeller_Yöneticiler_ManagerId",
                         column: x => x.ManagerId,
@@ -145,7 +152,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PermissionType = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: true),
+                    ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -155,13 +163,29 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Personeller",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_İzinler_Yöneticiler_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "Yöneticiler",
+                        principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_İzinler_EmployeeId",
                 table: "İzinler",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_İzinler_ManagerId",
+                table: "İzinler",
+                column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personeller_CompanyId",
+                table: "Personeller",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Personeller_ManagerId",
@@ -177,8 +201,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Yorumlar_ManagerId",
                 table: "Yorumlar",
-                column: "ManagerId",
-                unique: true);
+                column: "ManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Yöneticiler_AdminId",

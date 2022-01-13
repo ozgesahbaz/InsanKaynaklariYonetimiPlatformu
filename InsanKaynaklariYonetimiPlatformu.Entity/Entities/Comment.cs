@@ -10,12 +10,15 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
    public class Comment
     {
-        [Key]
+        
         public int CommentId { get; set; }
         public string Description { get; set; }
-        [ForeignKey("Manager")]
-        public virtual int ManagerId { get; set; }
         
+        //Her Manageromment'e ilişkili olacak
+        public int ManagerId { get; set; }
+        public Manager Manager { get; set; }
+
+
 
     }
 }

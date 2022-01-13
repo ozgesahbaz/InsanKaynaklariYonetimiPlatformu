@@ -37,7 +37,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HRContextDb;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=.;Database=HRContextDb;Integrated Security=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
