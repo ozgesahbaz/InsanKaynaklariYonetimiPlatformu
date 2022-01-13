@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class @fixed : Migration
+    public partial class initial13012022 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -164,12 +164,23 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         principalTable: "Personeller",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_İzinler_Yöneticiler_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "Yöneticiler",
+                        principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_İzinler_EmployeeId",
                 table: "İzinler",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_İzinler_ManagerId",
+                table: "İzinler",
+                column: "ManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Personeller_CompanyId",

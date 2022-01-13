@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220113203847_fixed")]
-    partial class @fixed
+    [Migration("20220113204949_initial13.01.2022")]
+    partial class initial13012022
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -248,6 +248,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.HasIndex("EmployeeId");
 
+                    b.HasIndex("ManagerId");
+
                     b.ToTable("İzinler");
                 });
 
@@ -307,7 +309,13 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .WithMany("Permissions")
                         .HasForeignKey("EmployeeId");
 
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+                        .WithMany("Permissions")
+                        .HasForeignKey("ManagerId");
+
                     b.Navigation("Employee");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>
@@ -334,6 +342,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Comment");
 
                     b.Navigation("Employees");
+
+                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }
