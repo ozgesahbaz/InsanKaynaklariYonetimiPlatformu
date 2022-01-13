@@ -24,8 +24,9 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public bool IsActive { get; set; }
         public decimal? Salary { get; set; }
       
+        //Her employee için birden çok permission' a sahip olabilir.
         public virtual ICollection<Permission> Permissions { get; set; }
-        [ForeignKey("Manager")]
+     
         public  int ManagerId { get; set; }
     }
 }

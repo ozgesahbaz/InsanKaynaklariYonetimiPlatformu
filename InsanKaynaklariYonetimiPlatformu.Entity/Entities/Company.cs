@@ -9,6 +9,10 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 {
     public class Company
     {
+        public Company()
+        {
+            Employees = new HashSet<Employee>();
+        }
         
         public int CompanyId { get; set; }
         public string CompanyName { get; set; }

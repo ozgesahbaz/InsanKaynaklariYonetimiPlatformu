@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using InsanKaynaklariYonetimiPlatformu.ViewModels;
 using InsanKaynaklariYonetimiPlatformu.Entity.Enums;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
 {
@@ -77,6 +78,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
             {
                 throw new Exception("Bir hata oluştu.");
             }
+        }
+
+        public bool ManagerApproval(int id)
+        {
+            managerRepository.managerApproval(id);
         }
     }
 }

@@ -36,5 +36,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             dbContext.Managers.Add(manager);
             return dbContext.SaveChanges();
         }
+
+        public bool managerApproval(int id)
+        {
+            Manager manager=dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
+            return dbContext.SaveChanges() > 0;
+        }
     }
 }

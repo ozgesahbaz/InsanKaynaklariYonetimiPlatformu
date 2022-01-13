@@ -13,12 +13,13 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         {
             Managers = new HashSet<Manager>();
         }
-        [Key]
+       
         public int AdminId { get; set; }
         public string FullName { get; set; }
 
         public virtual ICollection<Manager> Managers { get; set; }
-        
+
+
     }
 }
 

@@ -18,10 +18,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public PermissionType PermissionType { get; set; }
         public bool isAproved { get; set; }
 
-        public  int? EmployeeId { get; set; }
+      
+        public virtual int EmployeeId { get; set; }
         //public virtual Manager Manager { get; set; }
-        //public virtual Employee Employee { get; set; }
-        public  int? ManagerId { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual int ManagerId { get; set; }
 
     }
 }
