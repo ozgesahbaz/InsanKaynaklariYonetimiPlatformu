@@ -18,12 +18,12 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             managerService = new ManagerService();
         }
-
         public IActionResult Index()
         {
             return View();
         }
                 
+        }
         [HttpPost]
         public IActionResult Register(ManagerRegisterVM register)
         {
@@ -62,14 +62,19 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             
             try
             {
-                managerService.ManagerApproval(id);
+                if (managerService.ManagerApproval(id))
+                {
+                    return RedirectToAction("Login");
+                } 
+                
             }
             catch (Exception ex)
             {
 
                 ModelState.AddModelError("exception", ex.Message);
             }
-            return RedirectToAction("Login");
+            return View();
+            
         }
 
     }
