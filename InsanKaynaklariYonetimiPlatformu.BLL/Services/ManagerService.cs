@@ -40,6 +40,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
             }
         }
 
+       
+
         private static string GetMailExtension(string managerMail)
         {
             string mailextension;
@@ -47,6 +49,16 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
             string[] mailextensionPart = mailPart[1].Split('.');
             mailextension = mailextensionPart[0];
             return mailextension;
+        }
+
+        public Manager CheckLogin(LoginVM Login)
+        {
+           Manager manager = ManagerRepository.CheckLogin(Login.Email, Login.Password);
+            if (manager.IsApproved && manager.IsActive)
+            {
+                return manager;
+            }
+            return null;
         }
 
         public Manager AddManager(ManagerRegisterVM register, Company company)

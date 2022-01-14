@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 {
-    public class ManagerLoginVM
+    public class LoginVM
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
-        [Display(Name = "Yönetici Mail Adresi", Prompt = "isimsoyisim@firmaadi.com")]
+        [Display(Name = " Mail Adresi", Prompt = "isimsoyisim@firmaadi.com")]
         [DataType(DataType.EmailAddress)]
-        public string ManagerEmail { get; set; }
+        public string Email { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
-        public string ManagerPassword { get; set; }
+        public string Password { get; set; }
         [Display(Name = "Beni Hatırla")]
         public bool IsRemember { get; set; }
 

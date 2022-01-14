@@ -23,39 +23,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             return View();
         }
-
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            
-            return View();
-        }
-        [HttpGet]
-        //public IActionResult Login()
-        //{
-            
-        //    return View();
-        //}
-        [HttpPost]
-        public IActionResult Login(ManagerLoginVM manager)
-        {
-            //loginvm gelecek ve isvalid kontrolü yapılacak
-            //böyle bir kullanıcı var mı konrolü yapılacak
-            //kullanıcının company isapprovali true mu kontrolü yapılacak
-            //false ise kullanıcıya önce şirket mailinden doğrulama yapılmalıdır uyarısı verilecek
-            //true ise kullanıcı is active mi kontrolü yapılacak
-            //true ise kullanıcı managerindex'e yönlendirilecek
-            //false ise kullanıcıya uyarı gönderilecek
-            return View();
-        }
-
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+                
         [HttpPost]
         public IActionResult Register(ManagerRegisterVM register)
         {
