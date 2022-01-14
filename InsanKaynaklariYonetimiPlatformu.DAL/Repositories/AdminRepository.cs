@@ -18,10 +18,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
         }
         public List<Company> GetListPassiveCompanies()
         {
-            return dbContext.Companies.Where(a => a.Manager.IsActive == false).ToList() ;
-
-
-
+            return dbContext.Companies.Include("Manager").Where(a => a.Manager.IsActive == false).ToList() ;
         }
 
         public Manager ActivateManager(int id)

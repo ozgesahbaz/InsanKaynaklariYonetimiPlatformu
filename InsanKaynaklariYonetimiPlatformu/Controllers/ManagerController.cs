@@ -18,19 +18,23 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             managerService = new ManagerService();
         }
-
         public IActionResult Index()
         {
             return View();
         }
 
-
         [HttpGet]
         public IActionResult Login()
         {
-
+            
             return View();
         }
+        [HttpGet]
+        //public IActionResult Login()
+        //{
+            
+        //    return View();
+        //}
         [HttpPost]
         public IActionResult Login(ManagerLoginVM manager)
         {
@@ -88,14 +92,19 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             
             try
             {
-                managerService.ManagerApproval(id);
+                if (managerService.ManagerApproval(id))
+                {
+                    return RedirectToAction("Login");
+                } 
+                
             }
             catch (Exception ex)
             {
 
                 ModelState.AddModelError("exception", ex.Message);
             }
-            return RedirectToAction("Login");
+            return View();
+            
         }
 
     }

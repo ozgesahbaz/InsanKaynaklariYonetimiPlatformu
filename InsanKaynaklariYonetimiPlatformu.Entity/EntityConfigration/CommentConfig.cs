@@ -14,7 +14,8 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.ToTable("Yorumlar");
-            builder.HasKey(a => a.CommentId);
+            builder.Property(a => a.Description).IsRequired();
+            builder.Property(a => a.ManagerId).IsRequired();
         }
     }
 }

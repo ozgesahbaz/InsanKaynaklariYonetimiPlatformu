@@ -13,7 +13,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     AdminId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,10 +26,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     CompanyId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MailExtension = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyLogo = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CompanyName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    MailExtension = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CompanyLogo = table.Column<byte[]>(type: "image", nullable: true),
+                    RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,11 +63,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     ManagerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StatusType = table.Column<int>(type: "int", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Photo = table.Column<byte[]>(type: "image", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     AdminId = table.Column<int>(type: "int", nullable: true),
@@ -95,19 +95,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Surname = table.Column<int>(type: "int", nullable: false),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Photo = table.Column<byte[]>(type: "image", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ManagerId = table.Column<int>(type: "int", nullable: false)
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", maxLength: 10, nullable: true),
+                    ManagerId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Personeller", x => x.EmployeeId);
+                    table.ForeignKey(
+                        name: "FK_Personeller_Şirketler_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Şirketler",
+                        principalColumn: "CompanyId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Personeller_Yöneticiler_ManagerId",
                         column: x => x.ManagerId,
@@ -122,7 +128,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     CommentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ManagerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -145,7 +151,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PermissionType = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    isAproved = table.Column<bool>(type: "bit", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true),
+                    ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -155,13 +163,35 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "Personeller",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_İzinler_Yöneticiler_ManagerId",
+                        column: x => x.ManagerId,
+                        principalTable: "Yöneticiler",
+                        principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_İzinler_EmployeeId",
                 table: "İzinler",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_İzinler_ManagerId",
+                table: "İzinler",
+                column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personeller_CompanyId",
+                table: "Personeller",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personeller_Email",
+                table: "Personeller",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Personeller_ManagerId",
@@ -189,6 +219,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 name: "IX_Yöneticiler_CompanyId",
                 table: "Yöneticiler",
                 column: "CompanyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Yöneticiler_Email",
+                table: "Yöneticiler",
+                column: "Email",
                 unique: true);
         }
 

@@ -16,6 +16,9 @@ public void Configure(EntityTypeBuilder<Membership> builder)
         {
             builder.ToTable("ÜyelikTürleri");
             builder.HasKey(a => a.MembershipId);
+            builder.Property(a => a.CompanyId).IsRequired();
+            builder.Property(a => a.MembershipType).IsRequired();
+
         }
     }
 }

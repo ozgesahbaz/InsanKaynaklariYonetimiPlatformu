@@ -15,7 +15,11 @@ public    class PermissionConfig : IEntityTypeConfiguration<Permission>
         {
             builder.ToTable("İzinler");
             builder.HasKey(a => a.PermissionId);
-           
+            builder.Property(a => a.StartDate).IsRequired();
+            builder.Property(a => a.FinishDate).IsRequired();
+            builder.Property(a => a.PermissionType).IsRequired();
+            
+          
         }
     }
 }
