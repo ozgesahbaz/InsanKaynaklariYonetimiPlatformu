@@ -82,11 +82,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
 
         public bool ManagerApproval(int id)
         {
-<<<<<<< HEAD
-            return managerRepository.managerApproval(id);
-=======
            return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
->>>>>>> faf7b786eb672bff545b29465d70847498cbc4ab
         }
     }
 }
