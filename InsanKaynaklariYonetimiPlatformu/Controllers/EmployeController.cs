@@ -10,6 +10,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
     public class EmployeController
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
         [HttpGet]
         public IActionResult Login()
         {

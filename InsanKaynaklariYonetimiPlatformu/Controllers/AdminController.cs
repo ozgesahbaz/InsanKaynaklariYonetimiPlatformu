@@ -19,6 +19,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             adminService = new AdminService();
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult PassiveCompany()
         {
             List<Company> pasifCompanyler;
