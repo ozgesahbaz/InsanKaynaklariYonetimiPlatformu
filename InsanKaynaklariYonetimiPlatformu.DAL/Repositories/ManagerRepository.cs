@@ -25,7 +25,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             dbContext.Companies.Add(company);
             return dbContext.SaveChanges();
         }
-         
+
         public bool AnyMail(string managerMail)
         {
             return dbContext.Managers.Any(a => a.Email == managerMail);
@@ -39,7 +39,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
 
         public bool managerApproval(int id)
         {
-            Manager manager=dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
+            Manager manager = dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
             return dbContext.SaveChanges() > 0;
         }
     }

@@ -18,7 +18,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
         }
         public List<Company> GetListPassiveCompanies()
         {
-            return dbContext.Companies.Where(a => a.Manager.IsActive == false).ToList() ;
+            return dbContext.Companies.Where(a => a.Manager.IsActive == false).ToList();
 
 
 
@@ -26,8 +26,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
 
         public Manager ActivateManager(int id)
         {
-           Manager manager= dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
-           manager.IsActive = true;
+            Manager manager = dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
+            manager.IsActive = true;
             if (dbContext.SaveChanges() > 0)
             {
                 return manager;
@@ -36,7 +36,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             {
                 return null;
             }
-            
+
         }
     }
 }

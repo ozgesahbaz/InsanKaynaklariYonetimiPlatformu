@@ -18,13 +18,13 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         }
         public HRDataBaseContext(DbContextOptions<HRDataBaseContext> options) : base(options)
         {
-//#if DEBUG
+#if DEBUG
 
-//#endif
-//            if (Database.GetPendingMigrations().Count() > 0)
-//            {
-//                Database.Migrate();
-//            }
+#endif
+            if (Database.GetPendingMigrations().Count() > 0)
+            {
+                Database.Migrate();
+            }
         }
 
         public DbSet<Comment> Comments { get; set; }
