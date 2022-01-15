@@ -71,7 +71,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             {
                 if (managerService.ManagerApproval(id))
                 {
-                    return RedirectToAction("Login");
+                    return RedirectToAction();
                 } 
                 
             }

@@ -40,6 +40,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
         public bool managerApproval(int id)
         {
             Manager manager=dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
+            manager.IsApproved = true;
             return dbContext.SaveChanges() > 0;
         }
 
