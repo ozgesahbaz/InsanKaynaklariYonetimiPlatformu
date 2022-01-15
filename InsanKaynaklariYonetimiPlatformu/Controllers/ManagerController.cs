@@ -2,9 +2,12 @@
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +25,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             return View();
         }
-                
+
+        [HttpGet]
+        public IActionResult Register(/*ManagerRegisterVM register*/)
+        {
+            return View();
         }
         [HttpPost]
         public IActionResult Register(ManagerRegisterVM register)
@@ -34,7 +41,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
                 try
                 {
-                    Company company = managerService.AddCompany(register.CompanyName, register.ManagerMail);
+                    Company company = managerService.AddCompany(register.CompanyName, register.ManagerMail,register.Membership,register.Address);
                     Manager manager;
                     if (company.CompanyId > 0)
                     {

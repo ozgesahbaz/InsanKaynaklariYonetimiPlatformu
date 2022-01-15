@@ -49,5 +49,13 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
            return dbContext.Managers.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }
+
+        public int InsertMemberShip(Membership membershipp)
+        {
+            dbContext.Memberships.Add(membershipp);
+            return dbContext.SaveChanges();
+        }
+
+       
     }
 }

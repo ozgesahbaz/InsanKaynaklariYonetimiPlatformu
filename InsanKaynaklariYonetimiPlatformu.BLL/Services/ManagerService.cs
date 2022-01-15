@@ -18,7 +18,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
         {
             managerRepository = new ManagerRepository();
         }
-        public Company AddCompany(string companyName, string managerMail)
+        public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
             string mailextension = GetMailExtension(managerMail);
             if (managerRepository.AnyMailExtension(mailextension))
@@ -28,19 +28,26 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
             Company company = new Company()
             {
                 CompanyName = companyName,
-                MailExtension = mailextension
+                MailExtension = mailextension,
+                RegisterDate = DateTime.Now,
+                Address = address
             };
             if (managerRepository.InsertCompany(company) > 0)
             {
-                return company;
+                Membership membershipp = new Membership
+                {
+                    MembershipType = membership,
+                    CompanyId = company.CompanyId
+                };
+                if (managerRepository.InsertMemberShip(membershipp) > 0)
+                {
+                    return company;
+                }
             }
-            else
-            {
-                throw new Exception("Bir hata oluştu.");
-            }
+            throw new Exception("Bir hata oluştu.");
         }
 
-       
+
 
         private static string GetMailExtension(string managerMail)
         {
@@ -53,7 +60,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
 
         public Manager CheckLogin(LoginVM Login)
         {
-           Manager manager = ManagerRepository.CheckLogin(Login.Email, Login.Password);
+            Manager manager = ManagerRepository.CheckLogin(Login.Email, Login.Password);
             if (manager.IsApproved && manager.IsActive)
             {
                 return manager;
@@ -79,8 +86,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
                 //StatusType = StatusType.CompanyManager, // statustype propertisi kaldırıldı admin db olusturuldugundan 
                 Password = register.ManagerPassword,
                 Email = register.ManagerMail,
-                IsActive=false,
-                IsApproved=false
+                IsActive = false,
+                IsApproved = false
             };
             if (managerRepository.InsertManager(manager) > 0)
             {
@@ -94,7 +101,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
 
         public bool ManagerApproval(int id)
         {
-           return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
+            return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
         }
     }
 }
