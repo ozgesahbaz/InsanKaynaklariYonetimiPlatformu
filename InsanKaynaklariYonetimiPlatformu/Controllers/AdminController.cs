@@ -19,6 +19,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             adminService = new AdminService();
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult PassiveCompany()
         {
             List<Company> pasifCompanyler;
@@ -48,19 +52,19 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             if (manager.IsActive)
             {
                 MailMessage msg = new MailMessage();
-                msg.Subject = "....... SİTESİ ONAY LİNKİ";
-                msg.From = new MailAddress("ozgeesahbazz@gmail.com");
-                msg.To.Add(new MailAddress($"{manager.Email}"));
+                msg.Subject = "Üyeliğinizi doğrulayın.";
+                msg.From = new MailAddress("kirmizitakim1@hotmail.com");
+                msg.To.Add(new MailAddress(manager.Email));
                 msg.IsBodyHtml = true;
-                msg.Body ="<h1>Merhaba</h1>"+
+                msg.Body =$"<h3>Merhaba {manager.FullName}</h1>"+
                 "<h4> Üyeliğiniz onaylanmıştır.Lütfen aşağıdaki linke tıklayarak mailinizi doğrulayın</h4>" +
-                $" <a href='http://localhost:8021/Manager/ApprovalPage/{id}'></a>";
+                $"<a href='http://localhost:8021/Manager/ApprovalPage/{id}'>Buraya tıklayınız.</a>";
 
-                SmtpClient smtp = new SmtpClient("smtp.siteadi.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
-                NetworkCredential AccountInfo = new NetworkCredential("gondericiadresi@siteadi.com", "e-posta şifresi");
+                SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
+                NetworkCredential AccountInfo = new NetworkCredential("kirmizitakim1@hotmail.com", "123toci123");
                 smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
                 smtp.Credentials = AccountInfo;
-                smtp.EnableSsl = false;
+                smtp.EnableSsl = true;
 
                 try
                 {

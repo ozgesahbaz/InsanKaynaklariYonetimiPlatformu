@@ -8,7 +8,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Enums
 {
     public enum MembershipType
     {
-        Aylık ,
-        Yıllık,
+        Aylık=1 ,
+        Yıllık=2,
     };
 }

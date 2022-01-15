@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.Entity.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,7 +14,10 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Firma Adı", Prompt = "Bilge Adam")]
         public string CompanyName { get; set; }
-       
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
+        [Display(Name = "Firma Adres")]
+        public string Address { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Yönetici İsim Soyisim")]
@@ -26,6 +31,15 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
         public string ManagerPassword { get; set; }
-      
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
+        [Display(Name = "Üyelik Tipi")]
+        public MembershipType Membership { get; set; }
+
     }
+
+    //public class MemberShipVM
+    //{
+    //    public int MembershipId { get; set; }
+    //    public MembershipType MembershipType { get; set; }
+    //}
 }

@@ -14,6 +14,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
         public void Configure(EntityTypeBuilder<Admin> builder)
         {
             builder.ToTable("Adminler");
+            builder.HasKey(a => a.AdminId);
             builder.Property(a => a.FullName).IsRequired().HasMaxLength(100);
         }
     }
