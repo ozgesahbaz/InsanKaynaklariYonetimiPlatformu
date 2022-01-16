@@ -42,7 +42,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Request.Cookies.ContainsKey("Email") && HttpContext.Request.Cookies.ContainsKey("Password"))
+            if (HttpContext.Request.Cookies.ContainsKey("E-mail") && HttpContext.Request.Cookies.ContainsKey("Password"))
             {
                 //Oturum açan kullanıcı tekrar tekrar oturum açmak zorunda kalmayacak. Cooki tarafından bilgiler direk girilebilecek.
                 //if (HttpContext.Request.Cookies.Any("Statü", "Manager"))
@@ -50,10 +50,24 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
 
                 //}
                 ManagerService managerService = new ManagerService();
-                string Email = HttpContext.Request.Cookies["Email"];
+                string Email = HttpContext.Request.Cookies["E-mail"];
                 string Password = HttpContext.Request.Cookies["Password"];
                 Manager manager = managerService.CheckLogin(new LoginVM() { Password = Password, Email=Email });
-                return RedirectToAction("ManagerIndex");
+
+                if (manager==null)
+                {
+                    EmployeeService employeeService = new EmployeeService();
+                    Employee employee = employeeService.CheckLogin(new LoginVM() { Password = Password, Email = Email });
+                    if (employee!=null)
+                    {
+                     return RedirectToAction("Index", "Employee");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Manager");
+                }
+               
             }
             return View();
         }
@@ -81,10 +95,9 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                             //Cooki devreye giriyor.
                             HttpContext.Response.Cookies.Append("E-Mail", manager.Email, cookieOptions);
                             HttpContext.Response.Cookies.Append("Password", manager.Password, cookieOptions);
-                            HttpContext.Response.Cookies.Append("Statü", "Manager", cookieOptions);
 
                         }
-                        return RedirectToAction("ManagerIndex"); //Oluşturulan Manager Sayfasına gidilecek
+                        return RedirectToAction("Index", "Manager"); //Oluşturulan Manager Sayfasına gidilecek
                     }
                     else
                     {
@@ -100,10 +113,9 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                                 //Cooki devreye giriyor.
                                 HttpContext.Response.Cookies.Append("E-Mail", Login.Email, cookieOptions);
                                 HttpContext.Response.Cookies.Append("Password", Login.Password, cookieOptions);
-                                HttpContext.Response.Cookies.Append("Statü","Employee" ,cookieOptions);
 
                             }
-                            return RedirectToAction("EmployeeIndex"); //Oluşturulan  Sayfasına gidilecek
+                            return RedirectToAction("Index","Employee"); //Oluşturulan  Sayfasına gidilecek
                         }
                         else
                         {
