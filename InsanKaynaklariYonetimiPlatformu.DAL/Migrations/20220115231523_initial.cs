@@ -172,6 +172,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Adminler",
+                columns: new[] { "AdminId", "FullName" },
+                values: new object[] { 1, "Red Team" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_İzinler_EmployeeId",
                 table: "İzinler",

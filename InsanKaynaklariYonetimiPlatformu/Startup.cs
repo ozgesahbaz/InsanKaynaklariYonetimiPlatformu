@@ -26,9 +26,9 @@ namespace InsanKaynaklariYonetimiPlatformu
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<HRDataBaseContext>(opts => {
-                opts.UseSqlServer(Configuration.GetConnectionString("DataBaseContext"));
-            });
+            //services.AddDbContext<HRDataBaseContext>(opts => {
+            //    opts.UseSqlServer(Configuration.GetConnectionString("DataBaseContext"));
+            //});
            
             services.AddControllersWithViews();
         }
