@@ -18,11 +18,13 @@
                         <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
-                                <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link fw-medium active" aria-current="page" href="index.html">Musteri Deneyimleri</a></li>
+                                <li class="nav-item px-2" data-anchor="data-anchor"><a class="nav-link fw-medium active" asp-action="CustomerComment" asp-controller="Home">Musteri Deneyimleri</a></li>
 
                             </ul>
                             <form class="ps-lg-5">
-                                <button class="btn btn-outline-primary order-0" type="submit">Login</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLoginForm">
+                                    Giriş Yap
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -30,7 +32,7 @@
             </div>
 
         </div>
-
+        
 
     </header>
 

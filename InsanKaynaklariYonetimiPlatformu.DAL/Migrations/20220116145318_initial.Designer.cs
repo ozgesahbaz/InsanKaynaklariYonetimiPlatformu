@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220115231523_initial")]
+    [Migration("20220116145318_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,13 +36,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasKey("AdminId");
 
                     b.ToTable("Adminler");
-
-                    b.HasData(
-                        new
-                        {
-                            AdminId = 1,
-                            FullName = "Red Team"
-                        });
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Comment", b =>
