@@ -21,4 +21,8 @@
     <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.Entity\InsanKaynaklariYonetimiPlatformu.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
