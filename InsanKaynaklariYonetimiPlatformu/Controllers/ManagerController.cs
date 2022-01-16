@@ -2,9 +2,12 @@
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,33 +27,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
-        {
-            
-            return View();
-        }
-        [HttpGet]
-        //public IActionResult Login()
-        //{
-            
-        //    return View();
-        //}
-        [HttpPost]
-        public IActionResult Login(ManagerLoginVM manager)
-        {
-            //loginvm gelecek ve isvalid kontrolü yapılacak
-            //böyle bir kullanıcı var mı konrolü yapılacak
-            //kullanıcının company isapprovali true mu kontrolü yapılacak
-            //false ise kullanıcıya önce şirket mailinden doğrulama yapılmalıdır uyarısı verilecek
-            //true ise kullanıcı is active mi kontrolü yapılacak
-            //true ise kullanıcı managerindex'e yönlendirilecek
-            //false ise kullanıcıya uyarı gönderilecek
-            return View();
-        }
-
-
-        [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register(/*ManagerRegisterVM register*/)
         {
             return View();
         }
@@ -64,7 +41,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
                 try
                 {
-                    Company company = managerService.AddCompany(register.CompanyName, register.ManagerMail);
+                    Company company = managerService.AddCompany(register.CompanyName, register.ManagerMail,register.Membership,register.Address);
                     Manager manager;
                     if (company.CompanyId > 0)
                     {

@@ -1,35 +1,37 @@
 ﻿@model List<AdminPassiveCompanyVM>
 @{
     ViewData["Title"] = "Register";
-    Layout = null;
+   
 }
-<form method="post">
-    <table>
-        <tr>
-            <th>FirmaID</th>
-            <th>Firma Adı</th>
-            <th>Firma Mail Uzantısı</th>
-            <th>Yönetici Adı Soyadı</th>
-            <th>Yönetici Maili</th>
-            <th>Onayla/Reddet</th>
-
-        </tr>
-
-
-        @foreach (AdminPassiveCompanyVM companyVM in Model)
-        {
+<div class="container pt-7">
+    <form method="post">
+        <table class="">
             <tr>
-                <td>@companyVM.CompanyId</td>
-                <td>@companyVM.CompanyName</td>
-                <td>@companyVM.Mailextension</td>
-                <td>@companyVM.ManagerFullName</td>
-                <td>@companyVM.ManagerMail</td>
-                <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                        <a class="btn btn-outline-warning btn-sm" asp-action="Activate" asp-route-id="@companyVM.CompanyId">Onayla</a>
-                    </div>
-            </td>
+                <th>FirmaID</th>
+                <th>Firma Adı</th>
+                <th>Firma Mail Uzantısı</th>
+                <th>Yönetici Adı Soyadı</th>
+                <th>Yönetici Maili</th>
+                <th>Onayla/Reddet</th>
+
             </tr>
-        }
-    </table>
-</form>
+
+
+            @foreach (AdminPassiveCompanyVM companyVM in Model)
+            {
+                <tr>
+                    <td>@companyVM.CompanyId</td>
+                    <td>@companyVM.CompanyName</td>
+                    <td>@companyVM.Mailextension</td>
+                    <td>@companyVM.ManagerFullName</td>
+                    <td>@companyVM.ManagerMail</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a class="btn btn-outline-warning btn-sm" asp-action="Activate" asp-route-id="@companyVM.CompanyId">Onayla</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+</div>

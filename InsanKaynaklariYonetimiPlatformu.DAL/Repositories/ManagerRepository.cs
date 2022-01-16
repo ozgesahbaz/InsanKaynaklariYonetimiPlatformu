@@ -42,5 +42,20 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             Manager manager=dbContext.Managers.SingleOrDefault(a => a.CompanyId == id);
             return dbContext.SaveChanges() > 0;
         }
+
+        public static Manager CheckLogin(string email, string password)
+        {
+            HRDataBaseContext dbContext = new HRDataBaseContext();
+           return dbContext.Managers.SingleOrDefault(a => a.Email == email && a.Password == password);
+
+        }
+
+        public int InsertMemberShip(Membership membershipp)
+        {
+            dbContext.Memberships.Add(membershipp);
+            return dbContext.SaveChanges();
+        }
+
+       
     }
 }
