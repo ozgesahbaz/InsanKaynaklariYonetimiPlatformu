@@ -1,6 +1,47 @@
-﻿@{
+﻿@model LoginVM
+@{
     ViewData["Title"] = "Home Page";
 }
+
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Giriş Yap</h4>
+
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <label data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
+                    <input type="email" id="defaultForm-email" class="form-control validate" placeholder="isimsoyisim@firmamaili.com">
+
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-lock prefix grey-text"></i>
+                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Şifre</label>
+                    <input type="password" id="defaultForm-pass" class="form-control validate" placeholder="********">
+
+                    <a class="text-dark" asp-controller="Manager" asp-action="Register">Üye Değilseniz Kayıt Oluşturun.</a>
+                </div>
+                <div class="from-check mb-3">
+
+                    <input asp-for="IsRemember" class="from-check input" value="true" />
+                    <label asp-for="IsRemember" class="from-check label text-dark"></label>
+                </div>
+
+            </div>
+            
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Giriş</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!--/Giriş Sözleri ve İK Fotoğrafı-->
@@ -12,13 +53,13 @@
     </div>
     <!--/.bg-holder-->
 
-    <div class="container-fluid">
+    <div class="container-fluid bg-soft-light">
         <div class="row align-items-center min-vh-md-75">
             <div class="col-md-7 col-lg-6 py-6 text-sm-start text-center">
                 <h1 class="mt-6 mb-sm-4 display-4 fw-light lh-sm fs-4 fs-lg-6 fs-xxl-7">Zaman <span class="text-primary">Yönetimi</span> Profesyonellik Gerektirir. <br class="d-block d-lg-none d-xl-block" /> </h1>
                 <p class="mb-5 fs-1 lh-lg"> Personellerinizi tek ekrandan kontrol edebilmenin deneyimini yaşamak size kolaylık ve rahatlık getirecek. </p><a class="btn btn-lg btn-primary hover-top btn-glow" href="#">
                     Teklif Alın
-                    <svg class="bi bi-arrow-right-short ms-2" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
+                    <svg class="bi bi-arrow-right-short ms-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
                     </svg>
                 </a>
@@ -31,7 +72,7 @@
 </div>
 <!--/Referanslarımız-->
 <div class="bg-100 py-5">
-    <div class="container">
+    <div class="container bg-soft-light">
         <div class="row">
             <div class="col-12 mx-auto align-items-center text-center">
                 <h6 class="mb-4 text-uppercase fw-light fs-1 mb-6 text-primary"><b>Referanslarımız</b></h6>
@@ -70,7 +111,7 @@
 </div>
 <!--/Uygulamalarımız-->
 <div id="services">
-    <div class="container-fluid bg-soft-dark">
+    <div class="container-fluid bg-soft-light">
         <div class="row">
             <div class="col-lg-7 mx-auto text-center mb-4">
                 <h5 class="fw-light fs-3 fs-lg-5 lh-sm mb-3">Uygulamalarımız</h5>
@@ -155,8 +196,7 @@
 </div>
 <!--/Kullanıcı Yorumları Özet-->
 <div id="testimonial">
-
-    <div class="container-fluid bg-soft-dark pt-4">
+    <div class="container-fluid bg-soft-dark pt-10">
         <div class="row">
             <div class="col-lg-7 mx-auto text-center my-5">
                 <h5 class="fw-light fs-3 fs-lg-5 lh-sm mb-4">Değerli Müşterilerimiz</h5>
@@ -164,7 +204,7 @@
         </div>
         <div class="row flex-center h-100">
             <div class="col-xl-9">
-                <div class="carousel slide" id="carouselTestimonials" data-bs-ride="carousel">
+                <div class="carousel slide" data-bs-ride="carousel" id="carouselTestimonials">
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="10000">
                             <div class="row h-100 justify-content-center">
@@ -172,18 +212,17 @@
                                     <div class="card h-100 shadow card-span p-3">
                                         <div class="card-body">
                                             <div class="d-flex align-items-center">
-                                                <img class="img-fluid " src="~/Dashboard/public/assets/img/gallery/user-1.png" height="60" width="60" alt="Müşterilerimiz" />
+                                                <img class="img-fluid" src="~/Dashboard/public/assets/img/gallery/user-2.png" height="60" width="60" alt="Müşterilerimiz" />
                                                 <div class="flex-1 ms-4">
-                                                    <h6 class="fw-light fs-lg-1 mb-1">Yasemin Çiçek</h6>
-                                                    <p class="fw-normal mb-0 text-800">İnsan Kaynakları Müdürü</p>
+                                                    <h6 class="fw-light fs-lg-1 mb-1">Tonguç Çuhadar</h6>
+                                                    <p class="fw-normal mb-0 text-800">Firma Sahibi</p>
                                                 </div>
                                             </div>
                                             <div>
-                                                <p class="mb-0 mt-4 fw-light lh-lg">Büyük rahatlık...</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                <p class="mb-0 mt-4 fw-light lh-lg">Daha önce boşuna zaman kaybetmişiz.</p>
+                                                <button class="btn btn-primary btn-sm order-0" type="button" asp-controller="Home" asp-action="CustomerComment">Detay</button>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
@@ -198,7 +237,7 @@
                                             </div>
                                             <div>
                                                 <p class="mb-0 mt-4 fw-light lh-lg">Daha önce boşuna zaman kaybetmişiz.</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                <button class="btn btn-primary btn-sm order-0" type="button" asp-controller="Home" asp-action="index.html">Detay</button>
                                             </div>
                                         </div>
                                     </div>
@@ -236,7 +275,7 @@
                                             </div>
                                             <div>
                                                 <p class="mb-0 mt-4 fw-light lh-lg">Personellerim artık daha yakın.</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index.html">Detay</button>
                                             </div>
                                         </div>
                                     </div>
@@ -257,7 +296,7 @@
                                             </div>
                                             <div>
                                                 <p class="mb-0 mt-4 fw-light lh-lg">Personellerim artık daha yakın.</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="CustomerComment">Detay</button>
                                             </div>
                                         </div>
                                     </div>
@@ -274,7 +313,7 @@
                                             </div>
                                             <div>
                                                 <p class="mb-0 mt-4 fw-light lh-lg">Personellerim artık daha yakın.</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                <button class="btn btn-primary btn-sm order-0" type="button" asp-controller="Home" asp-action="index.html">Detay</button>
                                             </div>
                                         </div>
                                     </div>
@@ -291,11 +330,12 @@
                                                 <div class="flex-1 ms-4">
                                                     <h6 class="fw-light fs-lg-1 mb-1">Harrison Phillips</h6>
                                                     <p class="fw-normal mb-0 text-800">Manager</p>
+
                                                 </div>
                                             </div>
                                             <div>
                                                 <p class="mb-0 mt-4 fw-light lh-lg">Personellerim artık daha yakın.</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                <button class="btn btn-primary btn-sm order-0" data-bs-target="#carouselTestimonials">Detay</button>
                                             </div>
                                         </div>
                                     </div>
@@ -310,30 +350,30 @@
                                                     <p class="fw-normal mb-0 text-800">Manager</p>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <p class="mb-0 mt-4 fw-light lh-lg">Personellerim artık daha yakın.</p>
-                                                <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
-                                            </div>
+
+                                            <p class="mb-0 mt-4 fw-light lh-lg">Personellerim artık daha yakın<a class="btn btn-primary btn-sm order-0" type="button" asp-action="CustomerComment" asp-controller="Home">Detay</a></p>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5 flex-center">
-                        <div class="col-auto position-relative z-index-2">
-                            <ol class="carousel-indicators">
-                                <li class="active mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="0"></li>
-                                <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="1"></li>
-                                <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="2"></li>
-                                <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="3"></li>
-                            </ol>
-                        </div>
+                </div>
+                <div class="row mt-5 flex-center">
+                    <div class="col-auto position-relative z-index-2">
+                        <ol class="carousel-indicators">
+                            <li class="active mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="0"></li>
+                            <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="1"></li>
+                            <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="2"></li>
+                            <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="3"></li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+</div>
+
 

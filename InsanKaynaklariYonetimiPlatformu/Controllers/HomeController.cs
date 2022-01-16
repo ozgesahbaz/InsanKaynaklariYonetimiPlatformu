@@ -27,7 +27,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult CustomerComment()
         {
             return View();
         }
@@ -57,6 +57,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             }
             return View();
         }
+
       
         [HttpPost]
         public IActionResult Login(LoginVM Login)

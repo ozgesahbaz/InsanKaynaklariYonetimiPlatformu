@@ -29,7 +29,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
 
         [HttpPost]
-        private IActionResult View(LoginVM employe)
+        private IActionResult View(LoginVM employee)
         {
             //loginvm gelecek ve isvalid kontrolü yapılacak
             //böyle bir kullanıcı var mı konrolü yapılacak 
