@@ -3,8 +3,6 @@
     string FullName = ViewContext.HttpContext.Session.GetString("FullName");
     string CompanyName = ViewContext.HttpContext.Session.GetString("CompanyName");
     string Statü = ViewContext.HttpContext.Session.GetString("Statü");
-
-
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -34,11 +32,11 @@
 
                         <hr class="sidebar-divider my-0">
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">
-                                <i class="fas fa-fw fa-tachometer-alt"></i>
-                                <span>Yönetici Paneli</span>
-                            </a>
+                        <li class="nav-item active text-white text-center">
+
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Yönetim Paneli</span>
+
                         </li>
 
                         <!-- Divider -->
@@ -46,88 +44,95 @@
 
                         <!-- Heading -->
                         <div class="sidebar-heading">
-                            Interface
+                            @CompanyName
                         </div>
 
                         <!-- Nav Item - Pages Collapse Menu -->
                         <li class="nav-item">
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                               aria-expanded="true" aria-controls="collapseTwo">
-                                <i class="fas fa-fw fa-cog"></i>
-                                <span>Components</span>
+                            <a class="nav-link collapsed" asp-controller="@Statü" asp-action="Index">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                                    <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z" />
+                                </svg>
+                                <span> Anasayfa</span>
                             </a>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <h6 class="collapse-header">Custom Components:</h6>
-                                    <a class="collapse-item" href="buttons.html">Buttons</a>
-                                    <a class="collapse-item" href="cards.html">Cards</a>
+                        </li>
+                        <hr class="sidebar-divider" />
+
+                        @if (Statü == "Manager")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="#">
+                                    <i class="fas fa-users"></i>
+                                    <span>Personellerim</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                                   aria-expanded="true" aria-controls="collapsePages">
+                                    <i class="fas fa-umbrella-beach"></i>
+                                    <span>İzinler</span>
+                                </a>
+                                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                    <div class="bg-white py-2 collapse-inner rounded">
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">İzin Talepleri</a>
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">Kişisel İzinlerim</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Utilities Collapse Menu -->
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                               aria-expanded="true" aria-controls="collapseUtilities">
-                                <i class="fas fa-fw fa-wrench"></i>
-                                <span>Utilities</span>
-                            </a>
-                            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                                 data-parent="#accordionSidebar">
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <h6 class="collapse-header">Custom Utilities:</h6>
-                                    <a class="collapse-item" href="utilities-color.html">Colors</a>
-                                    <a class="collapse-item" href="utilities-border.html">Borders</a>
-                                    <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                                    <a class="collapse-item" href="utilities-other.html">Other</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetwo"
+                                   aria-expanded="true" aria-controls="collapsetwo">
+                                    <i class="fas fa-archive"></i>
+                                    <span>Zimmetler</span>
+                                </a>
+                                <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                    <div class="bg-white py-2 collapse-inner rounded">
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">Personel Zimmetleri</a>
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">Zimmetlerim</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
-
-                        <!-- Heading -->
-                        <div class="sidebar-heading">
-                            Addons
-                        </div>
-
-                        <!-- Nav Item - Pages Collapse Menu -->
-                        <li class="nav-item">
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                               aria-expanded="true" aria-controls="collapsePages">
-                                <i class="fas fa-fw fa-folder"></i>
-                                <span>Pages</span>
-                            </a>
-                            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                                <div class="bg-white py-2 collapse-inner rounded">
-                                    <h6 class="collapse-header">Login Screens:</h6>
-                                    <a class="collapse-item" href="login.html">Login</a>
-                                    <a class="collapse-item" href="register.html">Register</a>
-                                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                                    <div class="collapse-divider"></div>
-                                    <h6 class="collapse-header">Other Pages:</h6>
-                                    <a class="collapse-item" href="404.html">404 Page</a>
-                                    <a class="collapse-item" href="blank.html">Blank Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsethree"
+                                   aria-expanded="true" aria-controls="collapsethree">
+                                    <i class="fas fa-calculator"></i>
+                                    <span>Harcamalar</span>
+                                </a>
+                                <div id="collapsethree" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                    <div class="bg-white py-2 collapse-inner rounded">
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">Personel Harcamaları</a>
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">Harcamalarım</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
 
-                        <!-- Nav Item - Charts -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="charts.html">
-                                <i class="fas fa-fw fa-chart-area"></i>
-                                <span>Charts</span>
-                            </a>
-                        </li>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
+                                   aria-expanded="true" aria-controls="collapsethree">
+                                    <i class="far fa-calendar"></i>
+                                    <span>Vardiyalar</span>
+                                </a>
+                                <div id="collapsefour" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                    <div class="bg-white py-2 collapse-inner rounded">
+                                        <a class="collapse-item" asp-action="Manager" asp-controller="">Vardiyaları Yönet</a>
+                                    </div>
+                                </div>
 
-                        <!-- Nav Item - Tables -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="tables.html">
-                                <i class="fas fa-fw fa-table"></i>
-                                <span>Tables</span>
-                            </a>
-                        </li>
+                            </li>
+                            <li class="nav-item justify-content-end small text-white" >
+                                <a class="nav-link" asp-action="Manager" asp-controller="">
+                                    <span >Bizimle fikirlerini paylaş</span>
+                                    <i class="fas fa-grin-stars"></i>
+                                </a>
+                            </li>
+                        }
+
+
+
+
+
+                       
 
                         <!-- Divider -->
                         <hr class="sidebar-divider d-none d-md-block">
