@@ -103,5 +103,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
         {
             return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
         }
+
+        public Company FindCompany(int companyId)
+        {
+            return managerRepository.FindComapny(companyId);
+        }
+
+        public Manager FindManager(int managerId)
+        {
+            return managerRepository.FindManager(managerId);
+        }
     }
 }

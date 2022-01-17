@@ -60,11 +60,22 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                     Employee employee = employeeService.CheckLogin(new LoginVM() { Password = Password, Email = Email });
                     if (employee!=null)
                     {
-                     return RedirectToAction("Index", "Employee");
+                        Manager employeeinManager = managerService.FindManager(employee.ManagerId);
+                        Company company = managerService.FindCompany(employeeinManager.CompanyId);
+                        HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                        HttpContext.Session.SetString("FullName", employee.FullName);
+                        HttpContext.Session.SetInt32("ID", employee.EmployeeId);
+                        HttpContext.Session.SetString("Statü", "Employee");
+                        return RedirectToAction("Index", "Employee");
                     }
                 }
                 else
                 {
+                    Company company = managerService.FindCompany(manager.CompanyId);
+                    HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                    HttpContext.Session.SetString("FullName", manager.FullName);
+                    HttpContext.Session.SetInt32("ID", manager.ManagerId);
+                    HttpContext.Session.SetString("Statü", "Manager");
                     return RedirectToAction("Index", "Manager");
                 }
                
@@ -97,6 +108,12 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                             HttpContext.Response.Cookies.Append("Password", manager.Password, cookieOptions);
 
                         }
+                        Company company = managerService.FindCompany(manager.CompanyId);
+                        HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                        HttpContext.Session.SetString("FullName", manager.FullName);
+                        HttpContext.Session.SetInt32("ID", manager.ManagerId);
+                        HttpContext.Session.SetString("Statü", "Manager");
+
                         return RedirectToAction("Index", "Manager"); //Oluşturulan Manager Sayfasına gidilecek
                     }
                     else
@@ -115,6 +132,14 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                                 HttpContext.Response.Cookies.Append("Password", Login.Password, cookieOptions);
 
                             }
+                            Manager employeeinManager = managerService.FindManager(employee.ManagerId);
+                            Company company = managerService.FindCompany(employeeinManager.CompanyId);
+                            HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                            HttpContext.Session.SetString("FullName", employee.FullName);
+                            HttpContext.Session.SetInt32("ID", employee.EmployeeId);
+                            HttpContext.Session.SetString("Statü", "Employee");
+
+
                             return RedirectToAction("Index","Employee"); //Oluşturulan  Sayfasına gidilecek
                         }
                         else

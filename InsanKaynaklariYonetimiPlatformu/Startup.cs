@@ -29,7 +29,10 @@ namespace InsanKaynaklariYonetimiPlatformu
             //services.AddDbContext<HRDataBaseContext>(opts => {
             //    opts.UseSqlServer(Configuration.GetConnectionString("DataBaseContext"));
             //});
-           
+            services.AddSession(opts => {
+                opts.Cookie.Name = "insankaynaklariyonetimiplatformu.session";
+                opts.IdleTimeout = TimeSpan.FromMinutes(20);
+            });
             services.AddControllersWithViews();
         }
 
@@ -44,6 +47,7 @@ namespace InsanKaynaklariYonetimiPlatformu
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseRouting();

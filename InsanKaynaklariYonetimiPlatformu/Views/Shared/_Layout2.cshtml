@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+    string FullName = ViewContext.HttpContext.Session.GetString("FullName");
+    string CompanyName = ViewContext.HttpContext.Session.GetString("CompanyName");
+    string Statü = ViewContext.HttpContext.Session.GetString("Statü");
+
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,11 +25,11 @@
                 <div class="wrapper col-2">
                     <div class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                        <a class="sidebar-brand d-flex align-items-center justify-content-center">
                             <div class="sidebar-brand-icon rotate-n-15">
                                 <i class="fas fa-laugh-beam"></i>
                             </div>
-                            <div class="sidebar-brand-text mx-3">Kullanıcı Paneli</div>
+                            <div class="sidebar-brand-text mx-3">@CompanyName</div>
                         </a>
 
                         <hr class="sidebar-divider my-0">
@@ -29,7 +37,7 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="index.html">
                                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                                <span>Dashboard</span>
+                                <span>Yönetici Paneli</span>
                             </a>
                         </li>
 
@@ -135,26 +143,10 @@
                 <div class="col-10" id="content">
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
 
-                        <!-- Topbar Search -->
-                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                       aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
 
                         <!-- Topbar Navbar -->
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav offset-9">
 
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                             <li class="nav-item dropdown no-arrow d-sm-none">
@@ -311,7 +303,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">@FullName</span>
                                     <img class="img-profile rounded-circle"
                                          src="img/undraw_profile.svg">
                                 </a>
@@ -340,33 +332,35 @@
 
                         </ul>
                     </nav>
+                    @if (id != null)
+                    {
+                        <h1>@id</h1>
+                    }
+                    <div class="container">
+                        <main role="main" class="pb-3">
+                            @RenderBody()
+                        </main>
+                    </div>
                 </div>
             </div>
         </div>
-
-
     </header>
 
 
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
 
     <footer>
-        
     </footer>
 
-    <script src="~/Boostrap5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Dashboard/public/vendors/popperjs/popper.min.js"></script>
-    <script src="~/Boostrap5.1.3/js/bootstrap.min.js"></script>
-    <script src="~/Dashboard/public/vendors/is/is.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
-    <script src="~/Dashboard/public/assets/js/theme.js"></script>
-    <script src="~/Dashboard/public/assets/js/bootstrap-navbar.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+    <script src="~/Dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Dashboard/gulp/sb-admin-2.min.js"></script>
+    <script src="~/Dashboard/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Dashboard/gulp/chart-area-demo.js"></script>
+    <script src="~/Dashboard/gulp/chart-pie-demo.js"></script>
 
 
 
