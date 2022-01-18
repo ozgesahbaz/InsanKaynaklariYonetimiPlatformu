@@ -30,5 +30,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return null;
         }
+
+        public List<Employee> GetListEmployees(int id)
+        {
+            List<Employee> employees = employeeRepository.GetListEmployeesByManagerID(id);
+            if (employees!=null)
+            {
+               return employees.OrderBy(a => a.FullName).ToList(); 
+            }
+            return null;
+        }
     }
 }

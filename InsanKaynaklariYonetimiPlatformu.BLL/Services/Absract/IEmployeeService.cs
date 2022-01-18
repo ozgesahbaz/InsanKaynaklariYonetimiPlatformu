@@ -11,6 +11,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
   public  interface IEmployeeService
     {
         Employee CheckLogin(LoginVM login);
-       
+        List<Employee> GetListEmployees(int id);
     }
 }

@@ -10,6 +10,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
     public interface IEmployeeRepository
     {
         Employee CheckLogin(string email, string password);
-       
+        List<Employee> GetListEmployeesByManagerID(int id);
     }
 }

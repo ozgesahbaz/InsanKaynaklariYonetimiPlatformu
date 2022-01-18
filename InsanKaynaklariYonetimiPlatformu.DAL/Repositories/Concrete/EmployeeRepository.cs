@@ -23,5 +23,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }
+
+        public List<Employee> GetListEmployeesByManagerID(int id)
+        {
+            return dbContext.Employees.Where(a => a.ManagerId == id&&a.IsActive==true).ToList();
+        }
     }
 }

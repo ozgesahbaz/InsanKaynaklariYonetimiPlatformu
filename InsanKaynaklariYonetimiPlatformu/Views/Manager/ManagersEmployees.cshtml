@@ -1,0 +1,57 @@
+﻿@model List<EmployeeVM>
+@{
+    Layout = "_Layout2";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>İsim Soyisim</th>
+                        <th>Statü</th>
+                        <th>Mail</th>
+                        <th>Doğum Tarihi</th>
+                        <th>İşe Başlama Tarihi</th>
+                        <th>Özlük Belgeleri</th>
+                        <th>Güncelle/Sil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (EmployeeVM employee in Model)
+                    {
+                    <tr>
+                        <td>@employee.FullName</td>
+                        <td>@employee.Status</td>
+                        <td>@employee.Email</td>
+                        <td>@employee.BirtDay.Date.ToShortDateString()</td>
+                        <td>@employee.StartDate.ToShortDateString()</td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-success" href="#">
+                                <i class="fas fa-file-medical"></i>
+                            </a>
+                            <a class="btn btn-outline-warning">
+                                <i class="fas fa-file-upload"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-primary" href="#">
+                                <i class="fas fa-user-edit"></i>
+                            </a>
+                            <a class="btn btn-outline-danger" href="#">
+                                <i class="fas fa-user-minus"></i>
+                            </a>
+
+
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -61,7 +61,7 @@
                         @if (Statü == "Manager")
                         {
                             <li class="nav-item">
-                                <a class="nav-link collapsed" href="#">
+                                <a class="nav-link collapsed" asp-controller="Manager" asp-action="ManagersEmployees" asp-route-id="@id">
                                     <i class="fas fa-users"></i>
                                     <span>Personellerim</span>
                                 </a>

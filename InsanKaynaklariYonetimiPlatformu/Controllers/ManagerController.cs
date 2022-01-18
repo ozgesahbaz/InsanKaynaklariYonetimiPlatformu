@@ -17,14 +17,54 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
     public class ManagerController : Controller
     {
         IManagerService managerService;
+        IEmployeeService employeeService;
 
-        public ManagerController(IManagerService _managerService)
+        public ManagerController(IManagerService _managerService, IEmployeeService _employeeService)
         {
             managerService = _managerService;
+            employeeService = _employeeService;
         }
+     
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpGet]
+        public IActionResult ManagersEmployees(int id)
+        {
+            try
+            {
+                List<Employee> employees = employeeService.GetListEmployees(id);
+                if (employees!=null)
+                {
+                    List<EmployeeVM> employeeVMs = new List<EmployeeVM>();
+                    foreach (Employee employee in employees)
+                    {
+                        EmployeeVM employeeVM = new EmployeeVM
+                        {
+                            FullName = employee.FullName,
+                            Status = employee.Status,
+                            Email = employee.Email,
+                            BirtDay = employee.BirtDay,
+                            StartDate = employee.StartDate
+                        };
+                        employeeVMs.Add(employeeVM);
+
+                    }
+                    return View(employeeVMs);
+                }
+                else
+                {
+                    throw new Exception("Henüz onaylanmış çalışanınız bulunmamaktadır.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+           return View();
         }
 
         [HttpGet]
