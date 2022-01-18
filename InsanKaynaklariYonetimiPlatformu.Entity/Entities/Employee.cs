@@ -13,6 +13,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public Employee()
         {
             Permissions = new HashSet<Permission>();
+            Expenditures = new HashSet<Expenditure>();
         }
        
         public int EmployeeId { get; set; }
@@ -26,10 +27,10 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public DateTime StartDate { get; set; }
 
         public decimal? Salary { get; set; }
+        public  int ManagerId { get; set; }
       
        
         public virtual ICollection<Permission> Permissions { get; set; }
-     
-        public  int ManagerId { get; set; }
+        public virtual ICollection<Expenditure> Expenditures { get; set; }
     }
 }

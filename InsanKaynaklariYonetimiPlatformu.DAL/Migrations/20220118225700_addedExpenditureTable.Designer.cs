@@ -4,14 +4,16 @@ using InsanKaynaklariYonetimiPlatformu.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    partial class HRDataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220118225700_addedExpenditureTable")]
+    partial class addedExpenditureTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,13 +176,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("ExpenditureAmount")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ExpenditureName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ManagerID")
                         .HasColumnType("int");
@@ -191,7 +190,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.HasIndex("ManagerID");
 
-                    b.ToTable("Harcamalar");
+                    b.ToTable("Expenditures");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>

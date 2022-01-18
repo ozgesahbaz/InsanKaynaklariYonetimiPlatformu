@@ -34,7 +34,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Admin> Admins { get; set; }
-
+        public DbSet<Expenditure> Expenditures { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    //optionsBuilder.UseSqlServer("Server=MONSTER;Database=HRContextDb;Trusted_Connection=True;");
@@ -51,6 +51,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
             modelBuilder.ApplyConfiguration(new ManagerConfig());
             modelBuilder.ApplyConfiguration(new MembershipConfig());
             modelBuilder.ApplyConfiguration(new PermissionConfig());
+            modelBuilder.ApplyConfiguration(new ExpendituresConfig());
             
         }
     }
