@@ -1,19 +1,20 @@
-﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
+using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
+namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 {
-    public class ManagerRepository
+    public class ManagerRepository: IManagerRepository
     {
         HRDataBaseContext dbContext;
 
-        public ManagerRepository()
+        public ManagerRepository(HRDataBaseContext dataBaseContext)
         {
-            dbContext = new HRDataBaseContext();
+            dbContext = dataBaseContext;
         }
         public bool AnyMailExtension(string mailextension)
         {
@@ -44,10 +45,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             return dbContext.SaveChanges() > 0;
         }
 
-        public static Manager CheckLogin(string email, string password)
+        public  Manager CheckLogin(string email, string password, HRDataBaseContext dataBaseContext=null) // doğru yerde olduğuna emin misiniz ?
         {
-            HRDataBaseContext dbContext = new HRDataBaseContext();
-           return dbContext.Managers.SingleOrDefault(a => a.Email == email && a.Password == password);
+            //HRDataBaseContext dbContext = new HRDataBaseContext();
+            
+           return dataBaseContext.Managers.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }
 
@@ -68,5 +70,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             Manager manager = dbContext.Managers.Where(a => a.ManagerId == managerId).SingleOrDefault();
             return manager;
         }
+
     }
 }

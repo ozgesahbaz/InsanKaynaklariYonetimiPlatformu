@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services;
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
@@ -15,11 +16,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
     public class ManagerController : Controller
     {
-        ManagerService managerService;
+        IManagerService managerService;
 
-        public ManagerController()
+        public ManagerController(IManagerService _managerService)
         {
-            managerService = new ManagerService();
+            managerService = _managerService;
         }
         public IActionResult Index()
         {

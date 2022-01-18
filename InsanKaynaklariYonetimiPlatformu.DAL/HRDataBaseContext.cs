@@ -12,20 +12,20 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
 {
     public class HRDataBaseContext : DbContext
     {
-        public HRDataBaseContext()
+        //public HRDataBaseContext()
+        //{
+
+        //}
+        public HRDataBaseContext(DbContextOptions<HRDataBaseContext> options) : base(options)
         {
+#if DEBUG
 
+#endif
+            if (Database.GetPendingMigrations().Count() > 0)
+            {
+                Database.Migrate();
+            }
         }
-//        public HRDataBaseContext(DbContextOptions<HRDataBaseContext> options) : base(options)
-//        {
-//#if DEBUG
-
-//#endif
-//            if (Database.GetPendingMigrations().Count() > 0)
-//            {
-//                Database.Migrate();
-//            }
-//        }
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -35,12 +35,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Admin> Admins { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer("Server=MONSTER;Database=HRContextDb;Trusted_Connection=True;");
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HRContextDb;Trusted_Connection=True;");
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    //optionsBuilder.UseSqlServer("Server=MONSTER;Database=HRContextDb;Trusted_Connection=True;");
+        //    //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HRContextDb;Trusted_Connection=True;");
 
-        }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 

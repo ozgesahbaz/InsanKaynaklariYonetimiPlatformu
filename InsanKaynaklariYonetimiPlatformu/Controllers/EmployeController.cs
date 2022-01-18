@@ -1,4 +1,5 @@
 ﻿
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
     public class EmployeController
     {
+        IEmployeeService employeeService;
+        public EmployeController(IEmployeeService _employeeService)
+        {
+            employeeService = _employeeService;
+        }
         public IActionResult Index()
         {
             return View();

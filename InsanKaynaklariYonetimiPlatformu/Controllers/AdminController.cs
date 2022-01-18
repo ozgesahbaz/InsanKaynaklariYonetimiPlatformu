@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services;
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
     public class AdminController : Controller
     {
-        AdminService adminService;
+        IAdminService adminService;
 
-        public AdminController()
+        public AdminController(IAdminService adminserv)
         {
-            adminService = new AdminService();
+            adminService =adminserv;
         }
         public IActionResult Index()
         {

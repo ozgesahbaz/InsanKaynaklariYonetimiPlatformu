@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220116234542_addeddata")]
-    partial class addeddata
+    [Migration("20220118101419_salarytypechanged")]
+    partial class salarytypechanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -136,7 +136,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
                     b.Property<decimal?>("Salary")
                         .HasMaxLength(10)
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
 
                     b.Property<string>("Status")
                         .IsRequired()

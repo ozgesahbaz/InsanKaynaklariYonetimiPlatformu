@@ -8,15 +8,18 @@ using System.Threading.Tasks;
 using InsanKaynaklariYonetimiPlatformu.ViewModels;
 using InsanKaynaklariYonetimiPlatformu.Entity.Enums;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 
-namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
+namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
-    public class ManagerService
+    public class ManagerService: IManagerService
     {
-        ManagerRepository managerRepository;
-        public ManagerService()
+        IManagerRepository managerRepository;
+        public ManagerService(IManagerRepository _managerRepository)
         {
-            managerRepository = new ManagerRepository();
+            managerRepository = _managerRepository;
+            //managerRepository = new ManagerRepository();
         }
         public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
@@ -49,18 +52,18 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
 
 
 
-        private static string GetMailExtension(string managerMail)
-        {
-            string mailextension;
-            string[] mailPart = managerMail.Split('@');
-            string[] mailextensionPart = mailPart[1].Split('.');
-            mailextension = mailextensionPart[0];
-            return mailextension;
-        }
+        //private string GetMailExtension(string managerMail)
+        //{
+        //    string mailextension;
+        //    string[] mailPart = managerMail.Split('@');
+        //    string[] mailextensionPart = mailPart[1].Split('.');
+        //    mailextension = mailextensionPart[0];
+        //    return mailextension;
+        //}
 
         public Manager CheckLogin(LoginVM Login)
         {
-            Manager manager = ManagerRepository.CheckLogin(Login.Email, Login.Password);
+            Manager manager = managerRepository.CheckLogin(Login.Email, Login.Password);
             if (manager.IsApproved && manager.IsActive)
             {
                 return manager;
@@ -99,6 +102,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
             }
         }
 
+        private string GetMailExtension(string managerMail)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ManagerApproval(int id)
         {
             return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
@@ -112,6 +120,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
         public Manager FindManager(int managerId)
         {
             return managerRepository.FindManager(managerId);
+        }
+
+        string IManagerService.GetMailExtension(string managerMail)
+        {
+            string mailextension;
+            string[] mailPart = managerMail.Split('@');
+            string[] mailextensionPart = mailPart[1].Split('.');
+            mailextension = mailextensionPart[0];
+            return mailextension;
         }
     }
 }

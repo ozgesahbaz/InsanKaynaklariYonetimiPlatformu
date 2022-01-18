@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services;
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.Models;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
@@ -16,10 +17,13 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        IManagerService managerService;
+        IEmployeeService employeeService;
+        public HomeController(ILogger<HomeController> logger, IManagerService _managerService, IEmployeeService _employeeService)
         {
             _logger = logger;
+            managerService = _managerService;
+            employeeService = _employeeService;
         }
 
         public IActionResult Index()
@@ -49,14 +53,14 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                 //{
 
                 //}
-                ManagerService managerService = new ManagerService();
+                //ManagerService managerService = new ManagerService();
                 string Email = HttpContext.Request.Cookies["E-mail"];
                 string Password = HttpContext.Request.Cookies["Password"];
                 Manager manager = managerService.CheckLogin(new LoginVM() { Password = Password, Email=Email });
 
                 if (manager==null)
                 {
-                    EmployeeService employeeService = new EmployeeService();
+                    //EmployeeService employeeService = new EmployeeService();
                     Employee employee = employeeService.CheckLogin(new LoginVM() { Password = Password, Email = Email });
                     if (employee!=null)
                     {
@@ -91,7 +95,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    ManagerService managerService = new ManagerService();
+                    //ManagerService managerService = new ManagerService();
 
                     Manager manager = managerService.CheckLogin(Login);
                     
@@ -118,7 +122,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                     }
                     else
                     {
-                        EmployeeService employeeService = new EmployeeService();
+                        //EmployeeService employeeService = new EmployeeService();
                         Employee employee = employeeService.CheckLogin(Login);
                         if (employee != null)
                         {

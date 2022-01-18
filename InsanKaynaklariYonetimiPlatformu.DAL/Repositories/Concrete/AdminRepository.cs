@@ -1,4 +1,5 @@
-﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
+using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
+namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 {
-    public class AdminRepository
+    public class AdminRepository: IAdminRepository
     {
         HRDataBaseContext dbContext;
 
-        public AdminRepository()
+        public AdminRepository(HRDataBaseContext Db)
         {
-            dbContext = new HRDataBaseContext();
+            dbContext = Db;
         }
         public List<Company> GetListPassiveCompanies()
         {

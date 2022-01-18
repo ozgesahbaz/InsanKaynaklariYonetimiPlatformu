@@ -1,5 +1,10 @@
 
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
+using InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete;
 using InsanKaynaklariYonetimiPlatformu.DAL;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +31,18 @@ namespace InsanKaynaklariYonetimiPlatformu
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddDbContext<HRDataBaseContext>(opts => {
-            //    opts.UseSqlServer(Configuration.GetConnectionString("DataBaseContext"));
-            //});
+            services.AddDbContext<HRDataBaseContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration.GetConnectionString("DataBaseContext"));
+            });
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IManagerRepository, ManagerRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IManagerService, ManagerService>();
+
+
             services.AddSession(opts => {
                 opts.Cookie.Name = "insankaynaklariyonetimiplatformu.session";
                 opts.IdleTimeout = TimeSpan.FromMinutes(20);

@@ -1,4 +1,6 @@
-﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories;
+﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
@@ -7,14 +9,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
+namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
-    public class EmployeeService
+    public class EmployeeService: IEmployeeService
     {
-        EmployeeRepository employeeRepository;
-        public EmployeeService()
+        IEmployeeRepository employeeRepository;
+        public EmployeeService(IEmployeeRepository _employeeRepository)
         {
-            employeeRepository = new EmployeeRepository();
+            employeeRepository = _employeeRepository;
+            //employeeRepository = new EmployeeRepository();
         }
 
 

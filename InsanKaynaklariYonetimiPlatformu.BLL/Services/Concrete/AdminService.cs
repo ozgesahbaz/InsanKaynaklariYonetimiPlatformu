@@ -1,4 +1,6 @@
-﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories;
+﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories;
+using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM;
 using System;
@@ -7,14 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.BLL.Services
+namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
-    public class AdminService
+    public class AdminService: IAdminService
     {
-        AdminRepository adminRepository;
-        public AdminService()
+        IAdminRepository adminRepository;
+        public AdminService(IAdminRepository _adminRepository)
         {
-            adminRepository = new AdminRepository();
+            adminRepository = _adminRepository;
         }
         public List<Company> GetListPassiveCompanies()
         {
