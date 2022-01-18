@@ -44,9 +44,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories
             return dbContext.SaveChanges() > 0;
         }
 
-        public static Manager CheckLogin(string email, string password)
+        public Manager CheckLogin(string email, string password)
         {
-            HRDataBaseContext dbContext = new HRDataBaseContext();
            return dbContext.Managers.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }
