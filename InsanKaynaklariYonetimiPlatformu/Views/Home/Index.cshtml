@@ -11,33 +11,36 @@
                 <h4 class="modal-title w-100 font-weight-bold">Giriş Yap</h4>
 
             </div>
-            <div class="modal-body mx-3">
-                <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <label data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
-                    <input type="email" id="defaultForm-email" class="form-control validate" placeholder="isimsoyisim@firmamaili.com">
+            <form id="PostMethod">
+                <div class="modal-body mx-3">
+                    <div asp-validation-summary="All"></div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <label asp-for="Email" data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
+                        <input asp-for="Email" type="email" id="defaultForm-email" class="form-control validate" placeholder="isimsoyisim@firmamaili.com">
 
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <label asp-for="Password" data-error="wrong" data-success="right" for="defaultForm-pass">Şifre</label>
+                        <input asp-for="Password" type="password" id="defaultForm-pass" class="form-control validate" placeholder="********">
+
+                    </div>
+                    <div class="from-check mb-3">
+
+                        <input asp-for="IsRemember" class="from-check input" value="true" />
+                        <label asp-for="IsRemember" class="from-check label text-dark"></label>
+                    </div>
+                    <br />
+                    <a class="text-dark small" asp-controller="Manager" asp-action="Register">Üye Değilseniz Kayıt Oluşturun.</a>
+
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Giriş</button>
+
+                    </div>
                 </div>
-
-                <div class="md-form">
-                    <i class="fas fa-lock prefix grey-text"></i>
-                    <label data-error="wrong" data-success="right" for="defaultForm-pass">Şifre</label>
-                    <input type="password" id="defaultForm-pass" class="form-control validate" placeholder="********">
-
-                    <a class="text-dark" asp-controller="Manager" asp-action="Register">Üye Değilseniz Kayıt Oluşturun.</a>
-                </div>
-                <div class="from-check mb-3">
-
-                    <input asp-for="IsRemember" class="from-check input" value="true" />
-                    <label asp-for="IsRemember" class="from-check label text-dark"></label>
-                </div>
-
-            </div>
-            
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Giriş</button>
-
-            </div>
+            </form>
         </div>
     </div>
 </div>
