@@ -25,7 +25,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool managerApproval(int id);
 
 
-        Manager CheckLogin(string email, string password, HRDataBaseContext dataBaseContext = null); // doğru yerde olduğuna emin misiniz ?
+        Manager CheckLogin(string email, string password); // doğru yerde olduğuna emin misiniz ?
 
 
         int InsertMemberShip(Membership membershipp);

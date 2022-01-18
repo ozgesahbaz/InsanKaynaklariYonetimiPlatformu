@@ -11,20 +11,20 @@
                 <h4 class="modal-title w-100 font-weight-bold">Giriş Yap</h4>
 
             </div>
-            <form id="PostMethod">
+            <form method="post" action="/home/Login" id="PostMethod">
                 <div class="modal-body mx-3">
                     <div asp-validation-summary="All"></div>
                     <div class="form-group">
                         <i class="fas fa-envelope prefix grey-text"></i>
-                        <label asp-for="Email" data-error="wrong" data-success="right" for="defaultForm-email">Email</label>
-                        <input asp-for="Email" type="email" id="defaultForm-email" class="form-control validate" placeholder="isimsoyisim@firmamaili.com">
+                        <label asp-for="Email" data-error="wrong" data-success="right" for="defaultForm-email"></label>
+                        <input class="form-control" asp-for="Email" type="email" id="defaultForm-email" placeholder="isimsoyisim@firmamaili.com">
 
                     </div>
 
                     <div class="form-group">
                         <i class="fas fa-lock prefix grey-text"></i>
-                        <label asp-for="Password" data-error="wrong" data-success="right" for="defaultForm-pass">Şifre</label>
-                        <input asp-for="Password" type="password" id="defaultForm-pass" class="form-control validate" placeholder="********">
+                        <label  asp-for="Password" data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                        <input class="form-control" asp-for="Password" type="password" id="defaultForm-pass"te" placeholder="********">
 
                     </div>
                     <div class="from-check mb-3">
