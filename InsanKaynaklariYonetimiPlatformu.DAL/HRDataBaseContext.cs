@@ -35,12 +35,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Expenditure> Expenditures { get; set; }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    //optionsBuilder.UseSqlServer("Server=MONSTER;Database=HRContextDb;Trusted_Connection=True;");
-        //    //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=HRContextDb;Trusted_Connection=True;");
-
-        //}
+        public DbSet<Debit> Debits { get; set; }
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
@@ -52,7 +48,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
             modelBuilder.ApplyConfiguration(new MembershipConfig());
             modelBuilder.ApplyConfiguration(new PermissionConfig());
             modelBuilder.ApplyConfiguration(new ExpendituresConfig());
-            
+            modelBuilder.ApplyConfiguration(new DebitConfig());
+
+
         }
     }
 }
