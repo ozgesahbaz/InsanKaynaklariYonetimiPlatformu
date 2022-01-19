@@ -12,5 +12,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
     {
         Employee CheckLogin(LoginVM login);
         List<Employee> GetListEmployees(int id);
+        Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension);
     }
 }

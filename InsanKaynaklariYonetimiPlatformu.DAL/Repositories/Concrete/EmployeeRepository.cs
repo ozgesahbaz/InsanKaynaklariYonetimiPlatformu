@@ -17,6 +17,13 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             dbContext = dataBaseContext;
         }
+
+        public int AddEmployee(Employee newEmployee)
+        {
+            dbContext.Employees.Add(newEmployee);
+            return dbContext.SaveChanges();
+        }
+
         public Employee CheckLogin(string email, string password)
         {
             //HRDataBaseContext dbContext = new HRDataBaseContext();
@@ -26,7 +33,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public List<Employee> GetListEmployeesByManagerID(int id)
         {
-            return dbContext.Employees.Where(a => a.ManagerId == id&&a.IsActive==true).ToList();
+            return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
         }
     }
 }

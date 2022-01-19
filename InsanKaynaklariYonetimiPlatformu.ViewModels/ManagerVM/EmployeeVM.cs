@@ -13,5 +13,6 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public string Email { get; set; }
         public DateTime BirtDay { get; set; }
         public DateTime StartDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

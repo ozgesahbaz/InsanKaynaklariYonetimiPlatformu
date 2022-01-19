@@ -20,6 +20,49 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             //employeeRepository = new EmployeeRepository();
         }
 
+        public Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension)
+        {
+            //şirket uzantısı doğru mu
+            if (GetMailExtension(employeeVM.Email)==mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
+            {
+                Employee newEmployee = new Employee
+                {
+                    FullName = employeeVM.FullName,
+                    Email = employeeVM.Email,
+                    ManagerId = id,
+                    StartDate = employeeVM.StartDate,
+                    BirtDay = employeeVM.BirtDay,
+                    Password = $"123{employeeVM.FullName.ToLower()}",
+                    Status = employeeVM.Status,
+                    IsActive = false
+                };
+                if (employeeRepository.AddEmployee(newEmployee)>0)
+                {
+                    return newEmployee;
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+
+                }
+
+            }
+            else
+            {
+                throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
+            }
+            
+
+        }
+
+        public string GetMailExtension(string email)
+        {
+            string mailextension;
+            string[] mailPart = email.Split('@');
+            string[] mailextensionPart = mailPart[1].Split('.');
+            mailextension = mailextensionPart[0];
+            return mailextension;
+        }
 
         public Employee CheckLogin(LoginVM login)
         {

@@ -12,24 +12,22 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Adı Soyadı")]
         public string FullName { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
-        [Display(Name = "Statü")]
+        [Display(Name = "Departman")]
         public string Status { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Email",Prompt ="isimsoyisim@sirketuzantisi.com")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
-        [Display(Name = "Şifre")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Doğum Tarihi")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime BirtDay { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "İşe Başlama Tarihi")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
 

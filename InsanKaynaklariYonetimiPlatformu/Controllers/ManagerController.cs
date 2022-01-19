@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
@@ -32,39 +34,52 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult ManagersEmployees(int id)
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ManagersEmployees(AddEmployeeVM employeeVM, int id)
+        {
             try
             {
-                List<Employee> employees = employeeService.GetListEmployees(id);
-                if (employees!=null)
+                //mail uzantısı controlü için şirket manager id(layouttaki sessiondan geldi) ile bulundu.
+                Company company = managerService.FindCompanyByManagerID(id);
+                //çalışan eklendi. kontroller employee servicede (controller->services->repository)
+                Employee employee=employeeService.AddEmployee(employeeVM,id,company.MailExtension);
+                //oluştuysa employee dolu gelecek.
+                if (employee!=null)
                 {
-                    List<EmployeeVM> employeeVMs = new List<EmployeeVM>();
-                    foreach (Employee employee in employees)
-                    {
-                        EmployeeVM employeeVM = new EmployeeVM
-                        {
-                            FullName = employee.FullName,
-                            Status = employee.Status,
-                            Email = employee.Email,
-                            BirtDay = employee.BirtDay,
-                            StartDate = employee.StartDate
-                        };
-                        employeeVMs.Add(employeeVM);
-
-                    }
-                    return View(employeeVMs);
+                    //dolu geldiyse yani dbye kayıt olduysa mail gönderilecek.
+                    SendMail(employee);
                 }
-                else
-                {
-                    throw new Exception("Henüz onaylanmış çalışanınız bulunmamaktadır.");
-                }
-
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("exception", ex.Message);
+
+                 ModelState.AddModelError("exception", ex.Message);
 
             }
-           return View();
+            return View();
+        }
+
+        private static void SendMail(Employee employee)
+        {
+            MailMessage msg = new MailMessage();
+            msg.Subject = "Üyeliğinizi doğrulayın.";
+            msg.From = new MailAddress("kirmizitakim1@hotmail.com");
+            msg.To.Add(new MailAddress(employee.Email));
+            msg.IsBodyHtml = true;
+            msg.Body = $"<h3>Merhaba {employee.FullName}</h1>" +
+            "<h4>Üyeliğinizi tamamlamak için linke tıklayınız.</h4>" +
+            $"<a href='http://localhost:8021/Employee/CreatePasswordByEmployeeMail/{employee.EmployeeId}'>Buraya tıklayınız.</a>";
+
+            SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
+            NetworkCredential AccountInfo = new NetworkCredential("kirmizitakim1@hotmail.com", "123toci123");
+            smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
+            smtp.Credentials = AccountInfo;
+            smtp.EnableSsl = true;
+
+
+            smtp.Send(msg);
         }
 
         [HttpGet]

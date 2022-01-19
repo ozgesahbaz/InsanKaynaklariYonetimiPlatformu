@@ -11,5 +11,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
     {
         Employee CheckLogin(string email, string password);
         List<Employee> GetListEmployeesByManagerID(int id);
+        int AddEmployee(Employee newEmployee);
     }
 }

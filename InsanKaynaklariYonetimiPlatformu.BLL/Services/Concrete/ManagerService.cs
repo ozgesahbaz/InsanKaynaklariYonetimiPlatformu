@@ -102,9 +102,13 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
         }
 
-        private string GetMailExtension(string managerMail)
+        public string GetMailExtension(string managerMail)
         {
-            throw new NotImplementedException();
+            string mailextension;
+            string[] mailPart = managerMail.Split('@');
+            string[] mailextensionPart = mailPart[1].Split('.');
+            mailextension = mailextensionPart[0];
+            return mailextension;
         }
 
         public bool ManagerApproval(int id)
@@ -122,13 +126,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return managerRepository.FindManager(managerId);
         }
 
-        string IManagerService.GetMailExtension(string managerMail)
+        public Company FindCompanyByManagerID(int id)
         {
-            string mailextension;
-            string[] mailPart = managerMail.Split('@');
-            string[] mailextensionPart = mailPart[1].Split('.');
-            mailextension = mailextensionPart[0];
-            return mailextension;
+            return managerRepository.FindCompany(id);
         }
     }
 }

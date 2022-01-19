@@ -71,6 +71,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return manager;
         }
 
-     
+        public Company FindCompany(int id)
+        {
+            Company company = dbContext.Companies.Where(a => a.Manager.ManagerId == id).SingleOrDefault();
+            return company;
+        }
+
     }
 }
