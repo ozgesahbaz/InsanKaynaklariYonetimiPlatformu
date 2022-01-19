@@ -16,7 +16,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
             builder.ToTable("Adminler");
             builder.HasKey(a => a.AdminId);
             builder.Property(a => a.FullName).IsRequired().HasMaxLength(100);
-            builder.HasData(new Admin { AdminId = 1, FullName = "Red Team" });
+            builder.HasData(new Admin { AdminId = 1, FullName = "Red Team", UserName="admin",Password="admin" }); // tek admin olsun  fullname yada  username ile  yakalanıp  admin sayfasına yönelendirsin???
         }
     }
 }

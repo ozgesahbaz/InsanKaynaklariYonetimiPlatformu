@@ -12,10 +12,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
 {
     public class HRDataBaseContext : DbContext
     {
-        //public HRDataBaseContext()
-        //{
-
-        //}
+       
         public HRDataBaseContext(DbContextOptions<HRDataBaseContext> options) : base(options)
         {
 #if DEBUG
@@ -36,7 +33,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Expenditure> Expenditures { get; set; }
         public DbSet<Debit> Debits { get; set; }
-      
+        public DbSet<Shift> Shifts { get; set; }
+        public DbSet<Respite> Respites { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
@@ -49,6 +48,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
             modelBuilder.ApplyConfiguration(new PermissionConfig());
             modelBuilder.ApplyConfiguration(new ExpendituresConfig());
             modelBuilder.ApplyConfiguration(new DebitConfig());
+            modelBuilder.ApplyConfiguration(new ShiftConfig());
+            modelBuilder.ApplyConfiguration(new RespiteConfig());
 
 
         }

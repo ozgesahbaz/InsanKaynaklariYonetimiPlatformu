@@ -24,11 +24,14 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsActive { get; set; }
-        public DateTime BirtDay { get; set; }
+        public DateTime BirthDay { get; set; }
         public DateTime StartDate { get; set; }
 
         public decimal? Salary { get; set; }
         public  int ManagerId { get; set; }
+        public int? ShiftID { get; set; }
+
+        public virtual Shift Shift { get; set; }
 
         public virtual ICollection<Debit> Debits { get; set; }
         public virtual ICollection<Permission> Permissions { get; set; }

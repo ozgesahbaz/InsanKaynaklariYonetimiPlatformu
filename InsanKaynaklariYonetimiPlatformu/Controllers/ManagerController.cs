@@ -45,7 +45,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                             FullName = employee.FullName,
                             Status = employee.Status,
                             Email = employee.Email,
-                            BirtDay = employee.BirtDay,
+                            BirtDay = employee.BirthDay,
                             StartDate = employee.StartDate
                         };
                         employeeVMs.Add(employeeVM);
