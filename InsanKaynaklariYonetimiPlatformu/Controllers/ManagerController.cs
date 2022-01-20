@@ -104,9 +104,9 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                         manager = managerService.AddManager(register, company);
                         if (manager.ManagerId > 0)
                         {
-                           
-                                throw new Exception("Kayıdınız onaylandığında mail adresinize doğrulama linki gönderilecektir. Linke tıklayarak mailinizi doğrulayabilirsiniz.");
                             
+                            throw new Exception("Kayıdınız onaylandığında mail adresinize doğrulama linki gönderilecektir. Linke tıklayarak mailinizi doğrulayabilirsiniz.");
+
                         }
                     }
 
@@ -127,7 +127,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             {
                 if (managerService.ManagerApproval(id))
                 {
-                    return RedirectToAction();
+                    return RedirectToAction("Index","Home");
                 } 
                 
             }
