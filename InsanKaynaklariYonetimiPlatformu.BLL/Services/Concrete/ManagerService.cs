@@ -50,17 +50,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             throw new Exception("Bir hata oluştu.");
         }
 
-
-
-        //private string GetMailExtension(string managerMail)
-        //{
-        //    string mailextension;
-        //    string[] mailPart = managerMail.Split('@');
-        //    string[] mailextensionPart = mailPart[1].Split('.');
-        //    mailextension = mailextensionPart[0];
-        //    return mailextension;
-        //}
-
         public Manager CheckLogin(LoginVM Login)
         {
             Manager manager = managerRepository.CheckLogin(Login.Email, Login.Password);

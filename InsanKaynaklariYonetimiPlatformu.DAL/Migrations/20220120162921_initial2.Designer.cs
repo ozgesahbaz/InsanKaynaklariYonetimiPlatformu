@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220119004151_addedshifttable")]
-    partial class addedshifttable
+    [Migration("20220120162921_initial2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -351,6 +351,28 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.ToTable("İzinler");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Respite", b =>
+                {
+                    b.Property<int>("RespiteID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RespiteTimeSlot")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<int?>("ShiftId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RespiteID");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("Molalar");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Shift", b =>
                 {
                     b.Property<int>("ShiftId")
@@ -362,6 +384,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ShiftTimeSlot")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("ShiftId");
 
@@ -465,6 +492,15 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Respite", b =>
+                {
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Shift", "Shift")
+                        .WithMany("Respites")
+                        .HasForeignKey("ShiftId");
+
+                    b.Navigation("Shift");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>
                 {
                     b.Navigation("Managers");
@@ -502,6 +538,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Shift", b =>
                 {
                     b.Navigation("Employees");
+
+                    b.Navigation("Respites");
                 });
 #pragma warning restore 612, 618
         }

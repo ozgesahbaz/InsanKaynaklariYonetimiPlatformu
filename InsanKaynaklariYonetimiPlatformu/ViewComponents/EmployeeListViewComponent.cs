@@ -32,7 +32,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
                             FullName = employee.FullName,
                             Status = employee.Status,
                             Email = employee.Email,
-                            BirtDay = employee.BirtDay,
+                            BirtDay = employee.BirthDay,
                             StartDate = employee.StartDate,
                             IsActive = employee.IsActive
                         };

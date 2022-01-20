@@ -48,25 +48,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 //oluştuysa employee dolu gelecek.
                 if (employee!=null)
                 {
-                    List<EmployeeVM> employeeVMs = new List<EmployeeVM>();
-                    foreach (Employee employee in employees)
-                    {
-                        EmployeeVM employeeVM = new EmployeeVM
-                        {
-                            FullName = employee.FullName,
-                            Status = employee.Status,
-                            Email = employee.Email,
-                            BirtDay = employee.BirtDay,
-                            StartDate = employee.StartDate
-                        };
-                        employeeVMs.Add(employeeVM);
-
-                    }
-                    return View(employeeVMs);
+                    SendMail(employee);
                 }
                 else
                 {
-                    throw new Exception("Henüz onaylanmış çalışanınız bulunmamaktadır.");
+                    throw new Exception("Bir hata oluştu.");
                 }
 
             }

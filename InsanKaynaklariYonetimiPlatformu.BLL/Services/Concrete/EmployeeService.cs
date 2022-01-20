@@ -31,7 +31,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     Email = employeeVM.Email,
                     ManagerId = id,
                     StartDate = employeeVM.StartDate,
-                    BirtDay = employeeVM.BirtDay,
+                    BirthDay = employeeVM.BirtDay,
                     Password = $"123{employeeVM.FullName.ToLower()}",
                     Status = employeeVM.Status,
                     IsActive = false
