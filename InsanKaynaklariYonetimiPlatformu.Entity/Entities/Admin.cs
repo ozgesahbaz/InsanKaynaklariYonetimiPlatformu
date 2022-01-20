@@ -16,6 +16,8 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
        
         public int AdminId { get; set; }
         public string FullName { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
 
         public virtual ICollection<Manager> Managers { get; set; }
 

@@ -15,6 +15,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         {
             Employees = new HashSet<Employee>();
             Permissions = new HashSet<Permission>();
+            Expenditures = new HashSet<Expenditure>();
         }
 
         public int ManagerId { get; set; }
@@ -31,5 +32,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
        public virtual int CompanyId { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<Expenditure> Expenditures { get; set; }
     }
 }
