@@ -67,7 +67,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Employee CheckLogin(LoginVM login)
         {
             Employee employee = employeeRepository.CheckLogin(login.Email, login.Password);
-            if ( employee.IsActive)
+            if ( employee.IsActive) // calısan aktif olmadan  giriş denemesi yaptığında hata  göstermiyor   employee null dönüyor ( object referances  gösteriyor)
             {
                 return employee;
             }
