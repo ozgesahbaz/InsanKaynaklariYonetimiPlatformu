@@ -12,5 +12,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         Employee CheckLogin(string email, string password);
         List<Employee> GetListEmployeesByManagerID(int id);
         int AddEmployee(Employee newEmployee);
+        bool AnyMail(string email);
+        Employee GetEmployeeById(int id);
+        int ChangesPassword(Employee employee, string password);
+        int UpdateEmployee(Employee updateEmployee, Employee employee);
+        int DeleteEmployee(Employee employee);
     }
 }

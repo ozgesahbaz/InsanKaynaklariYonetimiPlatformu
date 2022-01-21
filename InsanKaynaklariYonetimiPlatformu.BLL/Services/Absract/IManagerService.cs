@@ -28,5 +28,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 
         Manager FindManager(int managerId);
         Company FindCompanyByManagerID(int id);
+      
     }
 }

@@ -119,5 +119,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return managerRepository.FindCompany(id);
         }
+
+        
     }
 }

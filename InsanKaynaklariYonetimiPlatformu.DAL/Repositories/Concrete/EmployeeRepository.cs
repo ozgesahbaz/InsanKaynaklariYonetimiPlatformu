@@ -24,6 +24,19 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges();
         }
 
+        public bool AnyMail(string email)
+        {
+           return dbContext.Employees.Any(a => a.Email == email);
+        
+        }
+
+        public int ChangesPassword(Employee employee, string password)
+        {
+            employee.Password = password;
+            employee.IsActive = true;
+            return dbContext.SaveChanges();
+        }
+
         public Employee CheckLogin(string email, string password)
         {
             //HRDataBaseContext dbContext = new HRDataBaseContext();
@@ -31,9 +44,30 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         }
 
+        public int DeleteEmployee(Employee employee)
+        {
+            dbContext.Employees.Remove(employee);
+            return dbContext.SaveChanges();
+        }
+
+        public Employee GetEmployeeById(int id)
+        {
+            return dbContext.Employees.Where(a => a.EmployeeId == id).SingleOrDefault();
+        }
+
         public List<Employee> GetListEmployeesByManagerID(int id)
         {
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
+        }
+
+        public int UpdateEmployee(Employee updateEmployee, Employee employee)
+        {
+            updateEmployee.FullName = employee.FullName;
+            updateEmployee.Status = employee.Status;
+            updateEmployee.BirthDay = employee.BirthDay;
+            updateEmployee.StartDate = employee.StartDate;
+            updateEmployee.Salary = employee.Salary;
+            return dbContext.SaveChanges();
         }
     }
 }

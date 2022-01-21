@@ -1,0 +1,23 @@
+﻿@model DeleteEmployeVM
+@{
+    Layout = "_Layout2";
+
+}
+<div class="card justify-content-center">
+
+    <div class="card-body">
+
+        <form method="post">
+            <div asp-validation-summary="All"></div>
+            <div class="alert-danger">
+                @Model.FullName isimli çalışanı silmek istediğinize emin misiniz?
+            </div>
+
+            <div class="form-group form-button">
+                <input type="submit"  asp-route-id="@Model.id" class="form-submit btn btn-success" value="Sil" />
+                <input type="button" class="btn btn-danger" asp-controller="Manager" asp-action="ManagersEmployes" value="Vazgeç" />
+            </div>
+        </form>
+
+    </div>
+</div>

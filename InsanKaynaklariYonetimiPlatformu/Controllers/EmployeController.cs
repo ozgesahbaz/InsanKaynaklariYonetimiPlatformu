@@ -1,5 +1,7 @@
 ﻿
 using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
+using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
-    public class EmployeController
+    public class EmployeController : Controller
     {
         IEmployeeService employeeService;
         public EmployeController(IEmployeeService _employeeService)
@@ -21,32 +23,49 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult CreatePasswordByEmployeeMail(int id)
         {
-
-            return View();
+            RegisterEmployeeVM register = new RegisterEmployeeVM()
+            {
+                ID = id
+            };
+            return View(register);
         }
-
-       
-        private IActionResult View()
-        {
-          
-            return View();
-        }
-
         [HttpPost]
-        private IActionResult View(LoginVM employee)
+        public IActionResult CreatePasswordByEmployeeMail(RegisterEmployeeVM register)
         {
-            //loginvm gelecek ve isvalid kontrolü yapılacak
-            //böyle bir kullanıcı var mı konrolü yapılacak 
-            //true ise kullanıcı is active mi kontrolü yapılacak
-            //true ise kullanıcı employeeindex'e yönlendirilecek
-            //false ise kullanıcıya uyarı gönderilecek
+            try
+            {
+                if (register.Password == register.AgainPassword)
+                {
+                    Employee employee = employeeService.GetEmployeeById(register.ID);
+                    if (employee!=null)
+                    {
+                        int AffectedRows= employeeService.ChangesPassword(employee, register.Password);
+                        if (AffectedRows<=0)
+                        {
+                            throw new Exception("Bir hata oluştu.");
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Parolalar uyuşmuyor.");
+                }
+            }
+            catch (Exception ex)
+            {
+                 ModelState.AddModelError("exception", ex.Message);
 
-            return View();
+            }
+
+            return RedirectToAction("Index","Home");
         }
 
-        
+
+
+
+
     }
 
 }

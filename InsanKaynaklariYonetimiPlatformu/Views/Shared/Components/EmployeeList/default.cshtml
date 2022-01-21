@@ -1,5 +1,5 @@
-﻿@model List<EmployeeVM>
-
+﻿@model List<Employee>
+<div asp-validation-summary="All"></div>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
@@ -16,13 +16,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (EmployeeVM employee in Model)
+            @foreach (Employee employee in Model)
             {
                 <tr>
                     <td>@employee.FullName</td>
                     <td>@employee.Status</td>
                     <td>@employee.Email</td>
-                    <td>@employee.BirtDay.Date.ToShortDateString()</td>
+                    <td>@employee.BirthDay.Date.ToShortDateString()</td>
                     <td>@employee.StartDate.ToShortDateString()</td>
                     <td class="text-center">
                         <a class="btn btn-outline-warning" href="#">
@@ -31,10 +31,10 @@
 
                     </td>
                     <td>
-                        <a class="btn btn-outline-primary" href="#">
+                        <a asp-controller="Manager" asp-action="EditPersonal" asp-route-id="@employee.EmployeeId" class="btn btn-outline-primary">
                             <i class="fas fa-user-edit"></i>
                         </a>
-                        <a class="btn btn-outline-danger" href="#">
+                        <a asp-controller="Manager" asp-action="DeleteEmployee" asp-route-id="@employee.EmployeeId" class="btn btn-outline-danger">
                             <i class="fas fa-user-minus"></i>
                         </a>
                     </td>
@@ -54,6 +54,7 @@
                         }
                     </td>
                 </tr>
+                
             }
         </tbody>
     </table>

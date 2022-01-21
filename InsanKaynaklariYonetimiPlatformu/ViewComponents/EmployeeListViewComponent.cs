@@ -24,22 +24,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
                 List<Employee> employees = employeeService.GetListEmployees(id);
                 if (employees != null)
                 {
-                    List<EmployeeVM> employeeVMs = new List<EmployeeVM>();
-                    foreach (Employee employee in employees)
-                    {
-                        EmployeeVM employeeVM = new EmployeeVM
-                        {
-                            FullName = employee.FullName,
-                            Status = employee.Status,
-                            Email = employee.Email,
-                            BirtDay = employee.BirthDay,
-                            StartDate = employee.StartDate,
-                            IsActive = employee.IsActive
-                        };
-                        employeeVMs.Add(employeeVM);
-
-                    }
-                    return View(employeeVMs);
+                    
+                    return View(employees);
                 }
                 else
                 {
