@@ -45,9 +45,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges() > 0;
         }
 
-        public  Manager CheckLogin(string email, string password) // doğru yerde olduğuna emin misiniz ?
+        public  Manager CheckLogin(string email, string password) 
         {
-            //HRDataBaseContext dbContext = new HRDataBaseContext();
+            
             
            return dbContext.Managers.SingleOrDefault(a => a.Email == email && a.Password == password);
 
