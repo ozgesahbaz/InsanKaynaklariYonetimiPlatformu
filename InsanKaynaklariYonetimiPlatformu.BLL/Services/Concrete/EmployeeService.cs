@@ -11,55 +11,39 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService: IEmployeeService
     {
         IEmployeeRepository employeeRepository;
         public EmployeeService(IEmployeeRepository _employeeRepository)
         {
             employeeRepository = _employeeRepository;
-            //employeeRepository = new EmployeeRepository();
+          
         }
 
         public Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension)
         {
             //şirket uzantısı doğru mu
-            if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
+            if (GetMailExtension(employeeVM.Email)==mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
             {
-                if (!employeeRepository.AnyMail(employeeVM.Email))
+                Employee newEmployee = new Employee
                 {
-                    int employeeAge = DateTime.Now.Year-employeeVM.BirtDay.Year ;
-                    if (employeeAge > 18)
-                    {
-                        Employee newEmployee = new Employee
-                        {
-                            FullName = employeeVM.FullName,
-                            Email = employeeVM.Email,
-                            ManagerId = id,
-                            StartDate = employeeVM.StartDate,
-                            BirthDay = employeeVM.BirtDay,
-                            Password = $"123{employeeVM.FullName.ToLower()}",
-                            Status = employeeVM.Status,
-                            IsActive = false
-                        };
-                        if (employeeRepository.AddEmployee(newEmployee) > 0)
-                        {
-                            return newEmployee;
-                        }
-                        else
-                        {
-                           throw new Exception("Bir hata oluştu.");
-
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("18 yaşını tamamlamamış çalışan kaydı yapılamaz.");
-
-                    }
+                    FullName = employeeVM.FullName,
+                    Email = employeeVM.Email,
+                    ManagerId = id,
+                    StartDate = employeeVM.StartDate,
+                    BirthDay = employeeVM.BirtDay,
+                    Password = $"123{employeeVM.FullName.ToLower()}",
+                    Status = employeeVM.Status,
+                    IsActive = false
+                };
+                if (employeeRepository.AddEmployee(newEmployee)>0)
+                {
+                    return newEmployee;
                 }
                 else
                 {
-                    throw new Exception("Bu kullanıcı zaten kayıtlı.");
+                    throw new Exception("Bir hata oluştu.");
+
                 }
 
             }
@@ -67,7 +51,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
             }
-
+            
 
         }
 
@@ -93,44 +77,31 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<Employee> GetListEmployees(int id)
         {
             List<Employee> employees = employeeRepository.GetListEmployeesByManagerID(id);
-            if (employees != null)
-            {
-                return employees.OrderBy(a => a.FullName).ToList();
+            if (employees!=null)
+            { 
+               return employees.OrderBy(a => a.FullName).ToList(); 
             }
             return null;
         }
 
         public Employee GetEmployeeById(int id)
         {
-            return employeeRepository.GetEmployeeById(id);
+            throw new NotImplementedException();
         }
 
         public int ChangesPassword(Employee employee, string password)
         {
-            return employeeRepository.ChangesPassword(employee, password);
+            throw new NotImplementedException();
         }
 
         public int UpdateEmployees(int id, Employee employee)
         {
-            Employee updateEmployee = employeeRepository.GetEmployeeById(id);
-            if (updateEmployee==null)
-            {
-                throw new Exception("Bir hata oluştu.");
-            }
-           
-            return employeeRepository.UpdateEmployee(updateEmployee,employee);
-
-                
+            throw new NotImplementedException();
         }
 
         public int DeleteEmployee(int id)
         {
-            Employee employee = employeeRepository.GetEmployeeById(id);
-            if (employee==null)
-            {
-                throw new Exception("Kullanıcı zaten silinmiş.");
-            }
-            return employeeRepository.DeleteEmployee(employee);
+            throw new NotImplementedException();
         }
     }
 }

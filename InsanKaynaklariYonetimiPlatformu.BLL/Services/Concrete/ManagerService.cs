@@ -19,7 +19,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public ManagerService(IManagerRepository _managerRepository)
         {
             managerRepository = _managerRepository;
-            //managerRepository = new ManagerRepository();
+           
         }
         public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
@@ -102,7 +102,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public bool ManagerApproval(int id)
         {
-            return managerRepository.managerApproval(id); // retunr komutu eklendi hata veriyordu
+            return managerRepository.managerApproval(id); //
         }
 
         public Company FindCompany(int companyId)
