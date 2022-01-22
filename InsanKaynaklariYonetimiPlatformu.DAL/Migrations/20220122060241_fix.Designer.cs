@@ -4,14 +4,16 @@ using InsanKaynaklariYonetimiPlatformu.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    partial class HRDataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220122060241_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,14 +126,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeID")
+                    b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsAproved")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("ManagerID")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartedDate")
                         .HasColumnType("date");
@@ -139,8 +138,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("EmployeeID");
-
-                    b.HasIndex("ManagerID");
 
                     b.ToTable("Zimmetler");
                 });
@@ -361,11 +358,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("RespiteFinishTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("RespiteStartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("RespiteTimeSlot")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.Property<int?>("ShiftId")
                         .HasColumnType("int");
@@ -384,11 +380,15 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ShiftFinishTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ShiftName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("ShiftStartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ShiftTimeSlot")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("ShiftId");
 
@@ -410,15 +410,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
                         .WithMany("Debits")
-                        .HasForeignKey("EmployeeID");
-
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
-                        .WithMany("Debits")
-                        .HasForeignKey("ManagerID");
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
-
-                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
@@ -531,8 +527,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
                     b.Navigation("Comment");
-
-                    b.Navigation("Debits");
 
                     b.Navigation("Employees");
 

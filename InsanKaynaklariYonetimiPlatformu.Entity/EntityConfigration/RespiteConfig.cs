@@ -14,7 +14,9 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
         public void Configure(EntityTypeBuilder<Respite> builder)
         {
             builder.ToTable("Molalar");
-            builder.Property(a => a.RespiteTimeSlot).IsRequired().HasMaxLength(11); // zaman aralığı girip onu string olarak alalım (örn: 15:00-15:15 arası)
+            //builder.Property(a => a.RespiteTimeSlot).IsRequired().HasMaxLength(11); // zaman aralığı girip onu string olarak alalım (örn: 15:00-15:15 arası)
+            builder.Property(a => a.RespiteFinishTime).IsRequired();
+            builder.Property(a => a.RespiteStartTime).IsRequired();
         }
     }
 }
