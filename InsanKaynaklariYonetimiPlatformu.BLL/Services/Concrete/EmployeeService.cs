@@ -87,22 +87,24 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public Employee GetEmployeeById(int id)
         {
-            throw new NotImplementedException();
+            return employeeRepository.GetEmployeeById(id);
         }
 
         public int ChangesPassword(Employee employee, string password)
         {
-            throw new NotImplementedException();
+            return employeeRepository.ChangesPassword(employee, password);
         }
 
         public int UpdateEmployees(int id, Employee employee)
         {
-            throw new NotImplementedException();
+            Employee updatedEmploye = employeeRepository.GetEmployeeById(id);
+            return employeeRepository.UpdateEmployee(updatedEmploye, employee);
         }
 
         public int DeleteEmployee(int id)
         {
-            throw new NotImplementedException();
+            Employee deletedEmployee = employeeRepository.GetEmployeeById(id);
+            return employeeRepository.DeleteEmployee(deletedEmployee);
         }
     }
 }
