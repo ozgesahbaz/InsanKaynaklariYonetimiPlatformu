@@ -36,5 +36,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
 
         Manager FindManager(int managerId);
         Company FindCompany(int id);
+        List<Debit> GetListDebit(int id);
     }
 }

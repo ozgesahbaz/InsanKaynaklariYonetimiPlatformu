@@ -142,7 +142,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int?>("EmployeeID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAproved")
+                    b.Property<bool?>("IsAproved")
                         .HasColumnType("bit");
 
                     b.Property<int?>("ManagerID")
@@ -444,7 +444,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasForeignKey("EmployeeID");
 
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+<<<<<<< HEAD
+                        .WithMany()
+=======
                         .WithMany("Debits")
+>>>>>>> 96bb733284bf71b8c4d3c3784972ccc68f8b1ffc
                         .HasForeignKey("ManagerID");
 
                     b.Navigation("Employee");

@@ -24,10 +24,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 
         bool ManagerApproval(int id);
         Company FindCompany(int companyId);
-
+        List<DebitVM> GetListDebit(int id);
 
         Manager FindManager(int managerId);
         Company FindCompanyByManagerID(int id);
-       
+     
     }
 }

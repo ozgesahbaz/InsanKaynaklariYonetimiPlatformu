@@ -4,6 +4,7 @@ using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 
@@ -112,7 +113,12 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             smtp.Send(msg);
         }
-
+        [HttpGet]
+        public IActionResult ManagersEmployeeDebit(int id)
+        {
+            
+            return View();
+        }
         [HttpGet]
         public IActionResult Register(/*ManagerRegisterVM register*/)
         {

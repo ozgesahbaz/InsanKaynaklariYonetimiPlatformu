@@ -123,6 +123,26 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return managerRepository.FindCompany(id);
         }
 
+        public List<DebitVM> GetListDebit(int id)
+        {
+           List<Debit> debits = managerRepository.GetListDebit(id);
+            List<DebitVM> debitVMs = new List<DebitVM>();
+            foreach (Debit debit in debits)
+            {
+                DebitVM debitVM = new DebitVM()
+                {
+                    ID = debit.ID,
+                    EmployeeName = debit.Employee.FullName,
+                    DebitName = debit.DebitName,
+                    StartedDate = debit.StartedDate,
+                    Details = debit.Details,
+                    IsAproved = debit.IsAproved,
+                    DescofRejec = debit.DescofRejec
 
+                };
+                               
+            }
+            return debitVMs;
+        }
     }
 }

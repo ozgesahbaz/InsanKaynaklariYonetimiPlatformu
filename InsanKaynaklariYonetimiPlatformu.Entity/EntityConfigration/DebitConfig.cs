@@ -16,7 +16,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
 
             builder.ToTable("Zimmetler");
             builder.Property(a => a.DebitName).HasMaxLength(100).IsRequired();
-            builder.Property(a => a.IsAproved).IsRequired();
             builder.Property(a => a.StartedDate).HasColumnType("date").IsRequired();
 
         }
