@@ -125,7 +125,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public List<DebitVM> GetListDebit(int id)
         {
-           List<Debit> debits = managerRepository.GetListDebit(id);
+            List<Debit> debits = managerRepository.GetListDebit(id);
             List<DebitVM> debitVMs = new List<DebitVM>();
             foreach (Debit debit in debits)
             {
@@ -140,9 +140,51 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     DescofRejec = debit.DescofRejec
 
                 };
-                               
+
             }
             return debitVMs;
+        }
+
+        public int AddPermissionEmployee(AddEmployeesPermissionVM permissionVM, int id)
+        {
+            if (permissionVM.StartDate > permissionVM.FinishDate)
+            {
+                throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
+            }
+            else
+            {
+                Permission permission = new Permission()
+                {
+                    EmployeeId = permissionVM.EmployeeID,
+                    ManagerId = id,
+                    StartDate = permissionVM.StartDate,
+                    FinishDate = permissionVM.FinishDate,
+                    isAproved = true,
+                    PermissionType = permissionVM.PermissionType
+                };
+                return managerRepository.AddEmployeePermission(permission);
+            }
+
+        }
+
+        public int PermissionAdmited(int permissionId)
+        {
+            Permission permission = managerRepository.GetPermissionById(permissionId);
+            if (permission!=null)
+            {
+                return managerRepository.PermissionAdmited(permission);
+            }
+            return 0;
+        }
+
+        public int PermissionDeleted(int permissionId)
+        {
+            Permission permission = managerRepository.GetPermissionById(permissionId);
+            if (permission != null)
+            {
+                return managerRepository.PermissionDeleted(permission);
+            }
+            return 0;
         }
     }
 }

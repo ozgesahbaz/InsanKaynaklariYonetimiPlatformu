@@ -113,5 +113,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return employeeRepository.GetPermissionList(id);
         }
+
+        public bool AnyEmployeesPermission(AddEmployeesPermissionVM permissionVM)
+        {
+           return employeeRepository.GetPermissionById(permissionVM.EmployeeID,permissionVM.StartDate,permissionVM.FinishDate);
+        }
     }
 }

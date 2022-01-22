@@ -116,7 +116,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult ManagersEmployeeDebit(int id)
         {
-            
+
             return View();
         }
         [HttpGet]
@@ -216,8 +216,71 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult EmployeesPermissionRequest(int id)
         {
+            List<Employee> employees = employeeService.GetListEmployees(id);
+            AddEmployeesPermissionVM permissionforEmployees = new AddEmployeesPermissionVM()
+            {
+                Employees = employees
+            };
+            return View(permissionforEmployees);
+        }
+        [HttpPost]
+        public IActionResult EmployeesPermissionRequest(AddEmployeesPermissionVM permissionVM, int id)
+        {
+            try
+            {
+                if (employeeService.AnyEmployeesPermission(permissionVM))
+                {
+                    throw new Exception("Çalışanın bu tarihlerde zaten onaylanmış izni bulunmaktadır.");
+                }
+                if (managerService.AddPermissionEmployee(permissionVM, id) > 0)
+                {
+                    return RedirectToAction("EmployeesPermissionRequest", "Manager");
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
             return View();
         }
+       [HttpGet]
+        public IActionResult PermissionAdmited(int permissionId)
+        {
+            try
+            {
+                if (managerService.PermissionAdmited(permissionId)<1)
+                {
+                    throw new Exception("Bir hata oluştu.Tekrar deneyin.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("EmployeesPermissionRequest", "Manager");
+        }
+        [HttpGet]
+        public IActionResult PermissionDeleted(int permissionId)
+        {
+            try
+            {
+                if (managerService.PermissionDeleted(permissionId) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.Tekrar deneyin.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("EmployeesPermissionRequest", "Manager");
 
+        }
     }
 }

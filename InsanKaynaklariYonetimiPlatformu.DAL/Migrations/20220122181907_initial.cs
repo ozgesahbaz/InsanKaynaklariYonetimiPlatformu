@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220122162128_init.cs
-    public partial class init : Migration
-=======
     public partial class initial : Migration
->>>>>>> 96bb733284bf71b8c4d3c3784972ccc68f8b1ffc:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220122103430_initial.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -250,7 +246,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PermissionType = table.Column<int>(type: "int", nullable: false),
-                    isAproved = table.Column<bool>(type: "bit", nullable: false),
+                    isAproved = table.Column<bool>(type: "bit", nullable: true),
                     EmployeeId = table.Column<int>(type: "int", nullable: true),
                     ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -305,7 +301,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Adminler",
                 columns: new[] { "AdminId", "FullName", "Password", "UserName" },
-                values: new object[] { 1, "Red Team", "admin", "admin" });
+                values: new object[] { 1, "Red Team", "admin", "admin@admin.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeShift_ShiftsShiftId",

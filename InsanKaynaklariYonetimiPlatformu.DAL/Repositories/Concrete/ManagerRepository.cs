@@ -83,5 +83,28 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             //Listelerken include ile employee de yanında getirecek.
             return dbContext.Debits.Include("Employee").Where(a => a.ManagerID == id).ToList();
         }
+
+        public int AddEmployeePermission(Permission permission)
+        {
+            dbContext.Permissions.Add(permission);
+            return dbContext.SaveChanges();
+        }
+
+        public Permission GetPermissionById(int permissionId)
+        {
+            return dbContext.Permissions.Where(a => a.PermissionId == permissionId).SingleOrDefault();
+        }
+
+        public int PermissionAdmited(Permission permission)
+        {
+            permission.isAproved = true;
+            return dbContext.SaveChanges();
+        }
+
+        public int PermissionDeleted(Permission permission)
+        {
+            permission.isAproved = false;
+            return dbContext.SaveChanges();
+        }
     }
 }

@@ -41,10 +41,10 @@
                     <td>
                         @if (permission.IsAproved == null)
                         {
-                            <a asp-controller="Manager" asp-action="" asp-route-id="@permission.ID" >
+                            <a asp-controller="Manager" asp-action="PermissionAdmited" asp-route-id="@permission.ID" >
                                 <i class="btn btn-success fas fa-check-circle"></i>
                             </a>
-                            <a asp-controller="Manager" asp-action="" asp-route-id="@permission.ID" >
+                            <a asp-controller="Manager" asp-action="PermissionDeleted" asp-route-id="@permission.ID" >
                                 <i class="btn btn-danger fas fa-times-circle"></i>
                             </a>
                         }
