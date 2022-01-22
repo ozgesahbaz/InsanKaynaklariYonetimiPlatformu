@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Personellerim</h6>
+    </div>
+
+    
+    <div class="card-body">
+        @await Component.InvokeAsync("ManagerDebitList", new { id = id })
+    </div>
+</div>
+

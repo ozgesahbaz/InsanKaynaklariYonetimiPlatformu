@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220120162921_initial2")]
-    partial class initial2
+    [Migration("20220122162128_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,11 +126,14 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeID")
+                    b.Property<int?>("EmployeeID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAproved")
+                    b.Property<bool?>("IsAproved")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("ManagerID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartedDate")
                         .HasColumnType("date");
@@ -138,6 +141,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("EmployeeID");
+
+                    b.HasIndex("ManagerID");
 
                     b.ToTable("Zimmetler");
                 });
@@ -410,11 +415,15 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
                         .WithMany("Debits")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeID");
+
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerID");
 
                     b.Navigation("Employee");
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
