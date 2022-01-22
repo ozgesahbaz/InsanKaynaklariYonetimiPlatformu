@@ -9,10 +9,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
    public class Respite
     {
         public int RespiteID { get; set; }
-        public string RespiteTimeSlot { get; set; }
-      
+       
+        public DateTime RespiteStartTime { get; set; }
+        public DateTime RespiteFinishTime { get; set; }
         public int? ShiftId { get; set; }
-
+    
         public  virtual Shift Shift { get; set; }
     }
 }

@@ -14,9 +14,10 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
         public void Configure(EntityTypeBuilder<Shift> builder)
         {
             builder.ToTable("Vardiyalar");
-            builder.Property(a => a.ShiftName).HasMaxLength(20).IsRequired();
-            builder.Property(a => a.ShiftTimeSlot).HasMaxLength(11).IsRequired(); /*zaman aralığı girip onu string olarak alalım (örn: 07:00-15:00 arası)*/
-            
+            builder.Property(a => a.ShiftStartTime).IsRequired();
+            builder.Property(a => a.ShiftFinishTime).IsRequired();
+
+
         }
     }
 }
