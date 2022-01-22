@@ -36,5 +36,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             }
 
         }
+
+        public Admin CheckLogin(string email, string password)
+        {
+            return dbContext.Admins.SingleOrDefault(a => a.UserName == email && a.Password == password);
+        }
     }
 }

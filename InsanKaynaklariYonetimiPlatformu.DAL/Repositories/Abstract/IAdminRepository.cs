@@ -13,6 +13,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
 
 
         Manager ActivateManager(int id);
-        
+        Admin CheckLogin(string email, string password);
     }
 }

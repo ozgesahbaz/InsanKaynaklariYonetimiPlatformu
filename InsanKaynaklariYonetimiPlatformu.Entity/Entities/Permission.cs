@@ -16,7 +16,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public PermissionType PermissionType { get; set; }
-        public bool isAproved { get; set; }
+        public bool? isAproved { get; set; }
 
       
         public int? EmployeeId { get; set; }

@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220122162128_init.Designer.cs
-    [Migration("20220122162128_init")]
-    partial class init
-=======
-    [Migration("20220122103430_initial")]
-    partial class initial
->>>>>>> 96bb733284bf71b8c4d3c3784972ccc68f8b1ffc:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220122103430_initial.Designer.cs
+    [Migration("20220122114520_initial2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,7 +64,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                             AdminId = 1,
                             FullName = "Red Team",
                             Password = "admin",
-                            UserName = "admin"
+                            UserName = "admin@admin.com"
                         });
                 });
 
@@ -149,7 +144,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int?>("EmployeeID")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("IsAproved")
+                    b.Property<bool>("IsAproved")
                         .HasColumnType("bit");
 
                     b.Property<int?>("ManagerID")
@@ -362,7 +357,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("isAproved")
+                    b.Property<bool?>("isAproved")
                         .HasColumnType("bit");
 
                     b.HasKey("PermissionId");
@@ -451,11 +446,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasForeignKey("EmployeeID");
 
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220122162128_init.Designer.cs
-                        .WithMany()
-=======
                         .WithMany("Debits")
->>>>>>> 96bb733284bf71b8c4d3c3784972ccc68f8b1ffc:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220122103430_initial.Designer.cs
                         .HasForeignKey("ManagerID");
 
                     b.Navigation("Employee");

@@ -18,12 +18,14 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IManagerService managerService;
+        IAdminService adminService;
         IEmployeeService employeeService;
-        public HomeController(ILogger<HomeController> logger, IManagerService _managerService, IEmployeeService _employeeService)
+        public HomeController(ILogger<HomeController> logger, IManagerService _managerService, IEmployeeService _employeeService, IAdminService _adminService)
         {
             _logger = logger;
             managerService = _managerService;
             employeeService = _employeeService;
+            adminService = _adminService;
         }
 
         public IActionResult Index()
@@ -42,7 +44,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-      
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -56,13 +58,13 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                 //ManagerService managerService = new ManagerService();
                 string Email = HttpContext.Request.Cookies["E-mail"];
                 string Password = HttpContext.Request.Cookies["Password"];
-                Manager manager = managerService.CheckLogin(new LoginVM() { Password = Password, Email=Email });
+                Manager manager = managerService.CheckLogin(new LoginVM() { Password = Password, Email = Email });
 
-                if (manager==null)
+                if (manager == null)
                 {
                     //EmployeeService employeeService = new EmployeeService();
                     Employee employee = employeeService.CheckLogin(new LoginVM() { Password = Password, Email = Email });
-                    if (employee!=null)
+                    if (employee != null)
                     {
                         Manager employeeinManager = managerService.FindManager(employee.ManagerId);
                         Company company = managerService.FindCompany(employeeinManager.CompanyId);
@@ -82,12 +84,12 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                     HttpContext.Session.SetString("Statü", "Manager");
                     return RedirectToAction("Index", "Manager");
                 }
-               
+
             }
             return View();
         }
 
-      
+
         [HttpPost]
         public IActionResult Login(LoginVM Login)
         {
@@ -98,7 +100,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                     //ManagerService managerService = new ManagerService();
 
                     Manager manager = managerService.CheckLogin(Login);
-                    
+
 
                     if (manager != null)
                     {
@@ -144,26 +146,39 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                             HttpContext.Session.SetString("Statü", "Employee");
 
 
-                            return RedirectToAction("Index","Employee"); //Oluşturulan  Sayfasına gidilecek
+                            return RedirectToAction("Index", "Employee"); //Oluşturulan  Sayfasına gidilecek
                         }
                         else
                         {
-                            throw new Exception("Böyle bir kullanıcı bulunamadı.");
+                            Admin admin = adminService.CheckLogin(Login);
+                            if (admin != null)
+                            {
+                                HttpContext.Session.SetString("FullName", admin.FullName);
+                                HttpContext.Session.SetInt32("ID", admin.AdminId);
+                                HttpContext.Session.SetString("Statü", "Admin");
+                                return RedirectToAction("Index", "Admin"); //Oluşturulan  Sayfasına gidilecek
+
+                            }
+                            else
+                            {
+                                throw new Exception("Böyle bir kullanıcı bulunamadı.");
+                            }
+
                         }
 
                     }
                 }
-                }
+            }
             catch (Exception ex)
             {
 
                 ModelState.AddModelError("exception", ex.Message);
             }
-                     
 
-            return View();
-                   
-                      
+
+            return RedirectToAction("Index","Home");
+
+
         }
 
 

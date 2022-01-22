@@ -17,5 +17,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int ChangesPassword(Employee employee, string password);
         int UpdateEmployees(int id, Employee employee);
         int DeleteEmployee(int id);
+        List<Permission> GetPermissionListEmployees(int id);
     }
 }

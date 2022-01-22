@@ -19,6 +19,21 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EmployeeShift", b =>
+                {
+                    b.Property<int>("EmployeesEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShiftsShiftId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeesEmployeeId", "ShiftsShiftId");
+
+                    b.HasIndex("ShiftsShiftId");
+
+                    b.ToTable("EmployeeShift");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", b =>
                 {
                     b.Property<int>("AdminId")
@@ -47,7 +62,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                             AdminId = 1,
                             FullName = "Red Team",
                             Password = "admin",
-                            UserName = "admin"
+                            UserName = "admin@admin.com"
                         });
                 });
 
@@ -187,7 +202,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");
 
-                    b.Property<int?>("ShiftID")
+                    b.Property<int>("ShiftID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -206,8 +221,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .IsUnique();
 
                     b.HasIndex("ManagerId");
-
-                    b.HasIndex("ShiftID");
 
                     b.ToTable("Personeller");
                 });
@@ -342,7 +355,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("isAproved")
+                    b.Property<bool?>("isAproved")
                         .HasColumnType("bit");
 
                     b.HasKey("PermissionId");
@@ -361,10 +374,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("RespiteTimeSlot")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                    b.Property<DateTime>("RespiteFinishTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RespiteStartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ShiftId")
                         .HasColumnType("int");
@@ -383,19 +397,33 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ShiftName")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ShiftTimeSlot")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                    b.Property<DateTime>("ShiftFinishTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ShiftStartTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ShiftId");
 
                     b.ToTable("Vardiyalar");
+                });
+
+            modelBuilder.Entity("EmployeeShift", b =>
+                {
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", null)
+                        .WithMany()
+                        .HasForeignKey("EmployeesEmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Shift", null)
+                        .WithMany()
+                        .HasForeignKey("ShiftsShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Comment", b =>
@@ -416,7 +444,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasForeignKey("EmployeeID");
 
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", "Manager")
+<<<<<<< HEAD
                         .WithMany()
+=======
+                        .WithMany("Debits")
+>>>>>>> 96bb733284bf71b8c4d3c3784972ccc68f8b1ffc
                         .HasForeignKey("ManagerID");
 
                     b.Navigation("Employee");
@@ -435,12 +467,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Shift", "Shift")
-                        .WithMany("Employees")
-                        .HasForeignKey("ShiftID");
-
-                    b.Navigation("Shift");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Expenditure", b =>
@@ -535,6 +561,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     b.Navigation("Comment");
 
+                    b.Navigation("Debits");
+
                     b.Navigation("Employees");
 
                     b.Navigation("Expenditures");
@@ -544,8 +572,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Shift", b =>
                 {
-                    b.Navigation("Employees");
-
                     b.Navigation("Respites");
                 });
 #pragma warning restore 612, 618

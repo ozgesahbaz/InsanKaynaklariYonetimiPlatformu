@@ -14,9 +14,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
             Respites = new HashSet<Respite>();
         }
         public int ShiftId { get; set; }
-        public string ShiftName { get; set; }
-        public string ShiftTimeSlot { get; set; }
-
+       
+        public DateTime ShiftStartTime { get; set; }
+        public DateTime ShiftFinishTime { get; set; }
+        public int EmployeeID { get; set; }
+    
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Respite> Respites { get; set; }
     }

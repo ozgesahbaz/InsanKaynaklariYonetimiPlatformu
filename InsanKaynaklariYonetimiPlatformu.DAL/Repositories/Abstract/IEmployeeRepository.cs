@@ -17,5 +17,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int ChangesPassword(Employee employee, string password);
         int UpdateEmployee(Employee updateEmployee, Employee employee);
         int DeleteEmployee(Employee employee);
+        List<Permission> GetPermissionList(int id);
     }
 }
