@@ -62,7 +62,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                             AdminId = 1,
                             FullName = "Red Team",
                             Password = "admin",
-                            UserName = "admin"
+                            UserName = "admin@admin.com"
                         });
                 });
 
@@ -355,7 +355,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("isAproved")
+                    b.Property<bool?>("isAproved")
                         .HasColumnType("bit");
 
                     b.HasKey("PermissionId");

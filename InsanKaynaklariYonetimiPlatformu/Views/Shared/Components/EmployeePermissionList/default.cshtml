@@ -1,0 +1,60 @@
+﻿@model List<PermissionVM>
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>İsim Soyisim</th>
+                <th>Statü</th>
+                <th>İzin Tipi</th>
+                <th>Başlangıç Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>Onay Durumu</th>
+                <th>Onayla/Reddet</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (PermissionVM permission in Model)
+            {
+                <tr>
+                    <td>@permission.FullName</td>
+                    <td>@permission.Statu</td>
+                    <td>@permission.PermissionType</td>
+                    <td>@permission.StartDate.ToShortDateString()</td>
+                    <td>@permission.FinishDate.ToShortDateString()</td>
+                    <td class="text-center">
+                        @if (permission.IsAproved == null)
+                        {
+                            <i class="btn btn-warning fas fa-clock"></i>
+                        }
+                        else if (permission.IsAproved == true)
+                        {
+                            <i class="btn btn-success fas fa-check-circle"></i>
+                        }
+                        else
+                        {
+                            <i class="btn btn-danger fas fa-times-circle"></i>
+
+                        }
+                    </td>
+                    <td>
+                        @if (permission.IsAproved == null)
+                        {
+                            <a asp-controller="Manager" asp-action="" asp-route-id="@permission.ID" >
+                                <i class="btn btn-success fas fa-check-circle"></i>
+                            </a>
+                            <a asp-controller="Manager" asp-action="" asp-route-id="@permission.ID" >
+                                <i class="btn btn-danger fas fa-times-circle"></i>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                    
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

@@ -13,13 +13,13 @@ using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
-    public class ManagerService: IManagerService
+    public class ManagerService : IManagerService
     {
         IManagerRepository managerRepository;
         public ManagerService(IManagerRepository _managerRepository)
         {
             managerRepository = _managerRepository;
-           
+
         }
         public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
@@ -53,9 +53,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Manager CheckLogin(LoginVM Login)
         {
             Manager manager = managerRepository.CheckLogin(Login.Email, Login.Password);
-            if (manager.IsApproved && manager.IsActive)
+            if (manager != null)
             {
-                return manager;
+                if (manager.IsApproved && manager.IsActive)
+                {
+                    return manager;
+                }
             }
             return null;
         }
@@ -120,6 +123,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return managerRepository.FindCompany(id);
         }
 
-        
+
     }
 }

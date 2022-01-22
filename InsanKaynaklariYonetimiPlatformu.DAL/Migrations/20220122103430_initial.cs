@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class initial2 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,8 +45,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     ShiftId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ShiftName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    ShiftTimeSlot = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false)
+                    ShiftStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShiftFinishTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,7 +112,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     RespiteID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RespiteTimeSlot = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
+                    RespiteStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RespiteFinishTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShiftId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -141,7 +143,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: true),
                     ManagerId = table.Column<int>(type: "int", nullable: false),
-                    ShiftID = table.Column<int>(type: "int", nullable: true),
+                    ShiftID = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -152,12 +154,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Şirketler",
                         principalColumn: "CompanyId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Personeller_Vardiyalar_ShiftID",
-                        column: x => x.ShiftID,
-                        principalTable: "Vardiyalar",
-                        principalColumn: "ShiftId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Personeller_Yöneticiler_ManagerId",
@@ -184,6 +180,30 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.ManagerId,
                         principalTable: "Yöneticiler",
                         principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeShift",
+                columns: table => new
+                {
+                    EmployeesEmployeeId = table.Column<int>(type: "int", nullable: false),
+                    ShiftsShiftId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeShift", x => new { x.EmployeesEmployeeId, x.ShiftsShiftId });
+                    table.ForeignKey(
+                        name: "FK_EmployeeShift_Personeller_EmployeesEmployeeId",
+                        column: x => x.EmployeesEmployeeId,
+                        principalTable: "Personeller",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EmployeeShift_Vardiyalar_ShiftsShiftId",
+                        column: x => x.ShiftsShiftId,
+                        principalTable: "Vardiyalar",
+                        principalColumn: "ShiftId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -258,7 +278,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     IsAproved = table.Column<bool>(type: "bit", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescofRejec = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmployeeID = table.Column<int>(type: "int", nullable: false)
+                    EmployeeID = table.Column<int>(type: "int", nullable: true),
+                    ManagerID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -268,13 +289,24 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.EmployeeID,
                         principalTable: "Personeller",
                         principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Zimmetler_Yöneticiler_ManagerID",
+                        column: x => x.ManagerID,
+                        principalTable: "Yöneticiler",
+                        principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
                 table: "Adminler",
                 columns: new[] { "AdminId", "FullName", "Password", "UserName" },
                 values: new object[] { 1, "Red Team", "admin", "admin" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeShift_ShiftsShiftId",
+                table: "EmployeeShift",
+                column: "ShiftsShiftId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Harcamalar_EmployeeID",
@@ -318,11 +350,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 column: "ManagerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Personeller_ShiftID",
-                table: "Personeller",
-                column: "ShiftID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ÜyelikTürleri_CompanyId",
                 table: "ÜyelikTürleri",
                 column: "CompanyId",
@@ -355,10 +382,18 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 name: "IX_Zimmetler_EmployeeID",
                 table: "Zimmetler",
                 column: "EmployeeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Zimmetler_ManagerID",
+                table: "Zimmetler",
+                column: "ManagerID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "EmployeeShift");
+
             migrationBuilder.DropTable(
                 name: "Harcamalar");
 
@@ -378,10 +413,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 name: "Zimmetler");
 
             migrationBuilder.DropTable(
-                name: "Personeller");
+                name: "Vardiyalar");
 
             migrationBuilder.DropTable(
-                name: "Vardiyalar");
+                name: "Personeller");
 
             migrationBuilder.DropTable(
                 name: "Yöneticiler");
