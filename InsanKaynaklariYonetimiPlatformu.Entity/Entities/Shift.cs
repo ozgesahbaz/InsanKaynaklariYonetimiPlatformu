@@ -17,7 +17,8 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
        
         public DateTime ShiftStartTime { get; set; }
         public DateTime ShiftFinishTime { get; set; }
-      
+        public int EmployeeID { get; set; }
+    
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<Respite> Respites { get; set; }
     }
