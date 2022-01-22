@@ -1,5 +1,4 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
-using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,27 +8,27 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
 {
-    public class EmployeeListViewComponent : ViewComponent
+    public class ManagerDebitListViewComponent : ViewComponent
     {
-        IEmployeeService employeeService;
+        IManagerService managerService;
 
-        public EmployeeListViewComponent( IEmployeeService _employeeService)
+        public ManagerDebitListViewComponent(IManagerService _managerService)
         {
-            employeeService = _employeeService;
+            managerService = _managerService;
         }
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             try
             {
-                List<Employee> employees = employeeService.GetListEmployees(id);
-                if (employees != null)
+                List<DebitVM> debits = managerService.GetListDebit(id);
+                if (debits != null)
                 {
-                    
-                    return View(employees);
+
+                    return View(debits);
                 }
                 else
                 {
-                    throw new Exception("Henüz çalışanınız bulunmamaktadır.");
+                    throw new Exception("Henüz zimmet bulunmamaktadır.");
                 }
 
             }

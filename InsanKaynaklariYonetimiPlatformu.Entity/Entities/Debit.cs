@@ -11,14 +11,16 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public int ID { get; set; }
         public string DebitName { get; set; }
         public DateTime StartedDate { get; set; }
-        public bool IsAproved { get; set; }
+        public bool? IsAproved { get; set; }
         public string Details { get; set; }
         public string DescofRejec { get; set; } //personel zimmeti reddettiğinde  sebebini  yöneticisine bildirmek için kullanacak
         public int? EmployeeID { get; set; }
-        public int? ManagerID { get; set; }
 
         public virtual Manager Manager { get; set; }
         public virtual Employee Employee { get; set; }
+        public int? ManagerID { get; set; }
+
+        public virtual Manager Manager { get; set; }
 
     }
 }

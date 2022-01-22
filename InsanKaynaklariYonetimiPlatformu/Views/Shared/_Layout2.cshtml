@@ -72,7 +72,7 @@
                     </a>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-action="Manager" asp-controller="">İzin Talepleri</a>
+                            <a class="collapse-item" asp-action="EmployeesPermissionRequest" asp-controller="Manager">İzin Talepleri</a>
                             <a class="collapse-item" asp-action="Manager" asp-controller="">Kişisel İzinlerim</a>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     </a>
                     <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-action="Manager" asp-controller="">Personel Zimmetleri</a>
+                            <a class="collapse-item" asp-action="ManagersEmployeeDebit" asp-controller="Manager" asp-route-id="@id">Personel Zimmetleri</a>
                             <a class="collapse-item" asp-action="Manager" asp-controller="">Zimmetlerim</a>
                         </div>
                     </div>
@@ -114,7 +114,7 @@
                     </a>
                     <div id="collapsefour" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-action="Manager" asp-controller="">Vardiyaları Yönet</a>
+                            <a class="collapse-item" asp-action="" asp-controller="Manager">Vardiyaları Yönet</a>
                         </div>
                     </div>
 

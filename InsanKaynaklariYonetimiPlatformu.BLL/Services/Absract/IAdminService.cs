@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 
 
         Manager ActivateManager(int id);
-        
+        Admin CheckLogin(LoginVM login);
     }
 }

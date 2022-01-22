@@ -11,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
-    public class EmployeeService: IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         IEmployeeRepository employeeRepository;
         public EmployeeService(IEmployeeRepository _employeeRepository)
         {
             employeeRepository = _employeeRepository;
-          
+
         }
 
         public Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension)
         {
             //şirket uzantısı doğru mu
-            if (GetMailExtension(employeeVM.Email)==mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
+            if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
             {
                 Employee newEmployee = new Employee
                 {
@@ -36,7 +36,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     Status = employeeVM.Status,
                     IsActive = false
                 };
-                if (employeeRepository.AddEmployee(newEmployee)>0)
+                if (employeeRepository.AddEmployee(newEmployee) > 0)
                 {
                     return newEmployee;
                 }
@@ -51,7 +51,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
             }
-            
+
 
         }
 
@@ -67,10 +67,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Employee CheckLogin(LoginVM login)
         {
             Employee employee = employeeRepository.CheckLogin(login.Email, login.Password);
-
-            if ( employee.IsActive)
+            if (employee != null)
             {
-                return employee;
+                if (employee.IsActive)
+                {
+                    return employee;
+                }
             }
             return null;
         }
@@ -78,9 +80,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<Employee> GetListEmployees(int id)
         {
             List<Employee> employees = employeeRepository.GetListEmployeesByManagerID(id);
-            if (employees!=null)
-            { 
-               return employees.OrderBy(a => a.FullName).ToList(); 
+            if (employees != null)
+            {
+                return employees.OrderBy(a => a.FullName).ToList();
             }
             return null;
         }
@@ -105,6 +107,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Employee deletedEmployee = employeeRepository.GetEmployeeById(id);
             return employeeRepository.DeleteEmployee(deletedEmployee);
+        }
+
+        public List<Permission> GetPermissionListEmployees(int id)
+        {
+            return employeeRepository.GetPermissionList(id);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public List<Employee> GetListEmployeesByManagerID(int id)
         {
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
+        }
+
+        public List<Permission> GetPermissionList(int id)
+        {
+            return dbContext.Permissions.Include("Employee").Where(a => a.ManagerId == id).ToList();
         }
 
         public int UpdateEmployee(Employee updateEmployee, Employee employee)

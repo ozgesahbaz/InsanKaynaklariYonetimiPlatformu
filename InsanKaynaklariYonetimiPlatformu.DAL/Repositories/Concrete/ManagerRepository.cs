@@ -1,5 +1,6 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,5 +78,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return company;
         }
 
+        public List<Debit> GetListDebit(int id)
+        {
+            //Listelerken include ile employee de yanında getirecek.
+            return dbContext.Debits.Include("Employee").Where(a => a.ManagerID == id).ToList();
+        }
     }
 }
