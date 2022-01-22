@@ -26,15 +26,15 @@
                     <td class="text-center">
                         @if (permission.IsAproved == null)
                         {
-                            <i class="btn btn-warning fas fa-clock"></i>
+                            <i class="btn btn-warning fas fa-clock disabled"></i>
                         }
                         else if (permission.IsAproved == true)
                         {
-                            <i class="btn btn-success fas fa-check-circle"></i>
+                            <i class="btn btn-success fas fa-check-circle disabled"></i>
                         }
                         else
                         {
-                            <i class="btn btn-danger fas fa-times-circle"></i>
+                            <i class="btn btn-danger fas fa-times-circle disabled"></i>
 
                         }
                     </td>
