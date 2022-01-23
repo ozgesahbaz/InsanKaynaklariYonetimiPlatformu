@@ -41,10 +41,7 @@ namespace InsanKaynaklariYonetimiPlatformu
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IManagerService, ManagerService>();
-            services.AddScoped<IRespiteRepository, RespiteRepository>();
-            services.AddScoped<IRespiteService, RespiteService>();
-            services.AddScoped<IShiftRepository, ShiftRepository>();
-            services.AddScoped<IShiftService, ShiftService>();
+            
 
 
 
