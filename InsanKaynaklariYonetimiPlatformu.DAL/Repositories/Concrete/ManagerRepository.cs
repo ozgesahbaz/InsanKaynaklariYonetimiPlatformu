@@ -1,5 +1,6 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 {
-    public class ManagerRepository: IManagerRepository
+    public class ManagerRepository:IManagerRepository
     {
         HRDataBaseContext dbContext;
-
+        List<Object> ShiftRespite;
         public ManagerRepository(HRDataBaseContext dataBaseContext)
         {
             dbContext = dataBaseContext;
+            ShiftRespite = new List<Object>();
         }
         public bool AnyMailExtension(string mailextension)
         {
@@ -105,6 +107,21 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             permission.isAproved = false;
             return dbContext.SaveChanges();
+        }
+
+        public List<Employee> GetEmployeesByManagerId(int managerID)
+        {
+            return dbContext.Employees.Where(a => a.ManagerId == managerID).ToList();
+        }
+
+        public List<Shift> GetShiftbyEmployeeId(Employee employee)
+        {
+            return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+        }
+
+        public List<Respite> GetRespitebyShiftId(int shiftId)
+        {
+            return dbContext.Respites.Where(a=>a.ShiftId == shiftId).ToList();
         }
     }
 }

@@ -170,7 +170,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int PermissionAdmited(int permissionId)
         {
             Permission permission = managerRepository.GetPermissionById(permissionId);
-            if (permission!=null)
+            if (permission != null)
             {
                 return managerRepository.PermissionAdmited(permission);
             }
@@ -185,6 +185,38 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 return managerRepository.PermissionDeleted(permission);
             }
             return 0;
+        }
+
+        public List<ShiftDetailsVm> GetShiftDetail(int managerID)
+        {
+           
+            List<ShiftDetailsVm> shiftDetailsVms = new List<ShiftDetailsVm>();
+            ShiftDetailsVm shiftDetailsVm = new ShiftDetailsVm();
+            List<Employee> employees = managerRepository.GetEmployeesByManagerId(managerID);
+
+            foreach (Employee employee in employees)
+            {
+              List<Shift>  Shifts  = managerRepository.GetShiftbyEmployeeId(employee);
+                shiftDetailsVm.EmployeeFullName = employee.FullName;
+               
+                foreach (Shift item in Shifts)
+                {
+                    shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
+                    shiftDetailsVm.ShiftStartTime = item.ShiftStartTime;
+                    List<Respite> respites = managerRepository.GetRespitebyShiftId(item.ShiftId);
+                    foreach (Respite respite in respites)
+                    {
+                        shiftDetailsVm.RespiteFinishTime = respite.RespiteFinishTime;
+                        shiftDetailsVm.RespiteStartTime = respite.RespiteStartTime;
+                    }
+                    
+                }
+                
+               shiftDetailsVms.Add(shiftDetailsVm);
+            }
+
+            return shiftDetailsVms;
+
         }
     }
 }

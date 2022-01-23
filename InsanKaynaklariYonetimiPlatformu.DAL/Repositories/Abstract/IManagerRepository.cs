@@ -41,5 +41,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         Permission GetPermissionById(int permissionId);
         int PermissionAdmited(Permission permission);
         int PermissionDeleted(Permission permission);
+        List<Employee> GetEmployeesByManagerId(int managerID);
+        List<Shift> GetShiftbyEmployeeId(Employee employee);
+        List<Respite> GetRespitebyShiftId(int shiftId);
     }
 }

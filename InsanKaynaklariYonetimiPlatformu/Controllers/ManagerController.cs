@@ -249,12 +249,12 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return View();
         }
-       [HttpGet]
+        [HttpGet]
         public IActionResult PermissionAdmited(int permissionId)
         {
             try
             {
-                if (managerService.PermissionAdmited(permissionId)<1)
+                if (managerService.PermissionAdmited(permissionId) < 1)
                 {
                     throw new Exception("Bir hata oluştu.Tekrar deneyin.");
                 }
@@ -281,6 +281,13 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("EmployeesPermissionRequest", "Manager");
 
+        }
+        [HttpGet]
+        public IActionResult GetShiftDetails(int ManagerID)
+        {
+            List<ShiftDetailsVm> ShiftDetailsVms = managerService.GetShiftDetail(ManagerID);
+
+            return View();
         }
     }
 }

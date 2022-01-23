@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.Entity\InsanKaynaklariYonetimiPlatformu.Entity.csproj" />
+    <ProjectReference Include="..\InsanKaynaklariYonetimiPlatformu.ViewModels\InsanKaynaklariYonetimiPlatformu.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
