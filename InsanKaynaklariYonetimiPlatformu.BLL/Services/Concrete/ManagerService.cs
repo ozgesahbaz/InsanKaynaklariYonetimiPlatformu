@@ -140,6 +140,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     DescofRejec = debit.DescofRejec
 
                 };
+                debitVMs.Add(debitVM);
+                
 
             }
             return debitVMs;
@@ -167,24 +169,42 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         }
 
-        public int PermissionAdmited(int permissionId)
+        public PermissionVM GetPermissionById(int id)
         {
-            Permission permission = managerRepository.GetPermissionById(permissionId);
-            if (permission != null)
+            Permission permission = managerRepository.GetPermissionById(id);
+            if (permission!=null)
             {
-                return managerRepository.PermissionAdmited(permission);
+                PermissionVM permissionVM = new PermissionVM()
+                {
+                    ID = permission.PermissionId,
+                    FullName = permission.Employee.FullName,
+                    StartDate = permission.StartDate,
+                    FinishDate = permission.FinishDate,
+                    Statu = permission.Employee.Status,
+                    IsAproved = permission.isAproved,
+                    PermissionType = permission.PermissionType
+                };
+                return permissionVM;
             }
-            return 0;
+            
+           
+                return null;
         }
 
-        public int PermissionDeleted(int permissionId)
+        public int UpdatePermission(PermissionVM permissionVM)
         {
-            Permission permission = managerRepository.GetPermissionById(permissionId);
-            if (permission != null)
-            {
-                return managerRepository.PermissionDeleted(permission);
-            }
-            return 0;
+           Permission permission= managerRepository.GetPermissionById(permissionVM.ID);
+            permission.isAproved = permissionVM.IsAproved;
+            permission.StartDate = permissionVM.StartDate;
+            permission.FinishDate = permissionVM.FinishDate;
+            permission.PermissionType = permission.PermissionType;
+            return managerRepository.UpdatePermission(permission);
+        }
+
+        public int RemovePermission(int id)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            return managerRepository.DeletedPermission(permission);
         }
 
         public List<ShiftDetailsVm> GetShiftDetail(int managerID)

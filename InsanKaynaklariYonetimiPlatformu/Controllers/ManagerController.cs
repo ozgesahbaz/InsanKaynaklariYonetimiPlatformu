@@ -249,38 +249,67 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return View();
         }
-        [HttpGet]
-        public IActionResult PermissionAdmited(int permissionId)
+        public IActionResult PermissionUpdated(int id)
         {
             try
             {
-                if (managerService.PermissionAdmited(permissionId) < 1)
+                PermissionVM permission = managerService.GetPermissionById(id);
+                if (permission != null)
                 {
-                    throw new Exception("Bir hata oluştu.Tekrar deneyin.");
+                    return View(permission);
                 }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("exception", ex.Message);
-            }
-            return RedirectToAction("EmployeesPermissionRequest", "Manager");
-        }
-        [HttpGet]
-        public IActionResult PermissionDeleted(int permissionId)
-        {
-            try
-            {
-                if (managerService.PermissionDeleted(permissionId) < 1)
+                else
                 {
-                    throw new Exception("Bir hata oluştu.Tekrar deneyin.");
+                    throw new Exception("Bir hata oluştu.");
                 }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("exception", ex.Message);
-            }
-            return RedirectToAction("EmployeesPermissionRequest", "Manager");
 
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult PermissionUpdated(PermissionVM permissionVM)
+        {
+            try
+            {
+                if (managerService.UpdatePermission(permissionVM) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+
+            }
+            return RedirectToAction("EmployeesPermissionRequest");
+        }
+        public IActionResult DeletedPermission(int id)
+        {
+            try
+            {
+                if (managerService.RemovePermission(id)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            return RedirectToAction("EmployeesPermissionRequest");
         }
         [HttpGet]
         public IActionResult GetShiftDetails(int ManagerID)

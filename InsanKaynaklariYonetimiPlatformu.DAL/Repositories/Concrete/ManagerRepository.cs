@@ -94,18 +94,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public Permission GetPermissionById(int permissionId)
         {
-            return dbContext.Permissions.Where(a => a.PermissionId == permissionId).SingleOrDefault();
+            return dbContext.Permissions.Include("Employee").Where(a => a.PermissionId == permissionId).SingleOrDefault();
         }
 
-        public int PermissionAdmited(Permission permission)
+        public int UpdatePermission(Permission permission)
         {
-            permission.isAproved = true;
             return dbContext.SaveChanges();
         }
 
-        public int PermissionDeleted(Permission permission)
+        public int DeletedPermission(Permission permission)
         {
-            permission.isAproved = false;
+            dbContext.Permissions.Remove(permission);
             return dbContext.SaveChanges();
         }
 
