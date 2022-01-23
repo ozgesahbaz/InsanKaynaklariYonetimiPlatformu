@@ -1,4 +1,4 @@
-﻿
+﻿@model AddDebitVM
 @{
     Layout = "_Layout2";
     int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
@@ -9,8 +9,57 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Personellerim</h6>
     </div>
+    <div class="card-body align-self-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddEmploye">
+            Personel Ekle
+        </button>
 
-    
+        <!-- Modal -->
+        <div class="modal fade" id="AddDebit" tabindex="-1" aria-labelledby="AddDebitModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Zimmet Ekle</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/Manager/ManagersEmployeeDebit" id="PostMethod">
+                            <div class="modal-body mx-3">
+                                <div asp-validation-summary="All"></div>
+                                <div class="form-group">
+                                    <label asp-for="EmployeeName"></label>
+                                    <input class="form-control" asp-for="EmployeeName">
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="DebitName"></label>
+                                    <input class="form-control" asp-for="DebitName">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="StartedDate"></label>
+                                    <input class="form-control" asp-for="StartedDate">
+                                </div>
+                              
+
+                                <br />
+
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button asp-route-id="@id" type="submit" class="btn btn-primary">Kaydet</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="card-body">
         @await Component.InvokeAsync("ManagerDebitList", new { id = id })
     </div>

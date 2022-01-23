@@ -10,6 +10,9 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
     public class AddDebitVM
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
+        [Display(Name = "Personel Adı")]
+        public string EmployeeName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Zimmet Adı")]
         public string DebitName { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
