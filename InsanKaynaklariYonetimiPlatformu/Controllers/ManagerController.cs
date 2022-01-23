@@ -249,38 +249,69 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return View();
         }
-       [HttpPost]
-        public IActionResult PermissionAdmited(int permissionId)
+        public IActionResult PermissionUpdated(int id)
         {
             try
             {
-                if (managerService.PermissionAdmited(permissionId)<1)
+                PermissionVM permission = managerService.GetPermissionById(id);
+                if (permission != null)
                 {
-                    throw new Exception("Bir hata oluştu.Tekrar deneyin.");
+                    return View(permission);
                 }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
             }
             catch (Exception ex)
             {
+
                 ModelState.AddModelError("exception", ex.Message);
+
             }
-            return RedirectToAction("EmployeesPermissionRequest", "Manager");
+
+            return View();
         }
         [HttpPost]
-        public IActionResult PermissionDeleted(int permissionId)
+        public IActionResult PermissionUpdated(PermissionVM permissionVM)
         {
             try
             {
-                if (managerService.PermissionDeleted(permissionId) < 1)
+                if (managerService.UpdatePermission(permissionVM) < 1)
                 {
-                    throw new Exception("Bir hata oluştu.Tekrar deneyin.");
+                    throw new Exception("Bir hata oluştu.");
+
                 }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("exception", ex.Message);
-            }
-            return RedirectToAction("EmployeesPermissionRequest", "Manager");
 
+
+            }
+            return RedirectToAction("EmployeesPermissionRequest");
         }
+        public IActionResult DeletedPermission(int id)
+        {
+            try
+            {
+                if (managerService.RemovePermission(id)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            return RedirectToAction("EmployeesPermissionRequest");
+        }
+
+
     }
 }
