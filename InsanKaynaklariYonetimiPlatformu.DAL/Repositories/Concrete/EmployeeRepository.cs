@@ -61,6 +61,19 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
         }
 
+        public bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate)
+        {
+           Permission permission= dbContext.Permissions.Where(a => a.EmployeeId == employeeID && a.StartDate >= startDate && a.FinishDate > finishDate&&a.isAproved==true).SingleOrDefault();
+            if (permission!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public List<Permission> GetPermissionList(int id)
         {
             return dbContext.Permissions.Include("Employee").Where(a => a.ManagerId == id).ToList();

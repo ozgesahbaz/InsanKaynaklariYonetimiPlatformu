@@ -37,5 +37,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         Manager FindManager(int managerId);
         Company FindCompany(int id);
         List<Debit> GetListDebit(int id);
+        int AddEmployeePermission(Permission permission);
+        Permission GetPermissionById(int permissionId);
+        int UpdatePermission(Permission permission);
+        int DeletedPermission(Permission permission);
+        List<Employee> GetEmployeesByManagerId(int managerID);
+        List<Shift> GetShiftbyEmployeeId(Employee employee);
+        List<Respite> GetRespitebyShiftId(int shiftId);
     }
 }

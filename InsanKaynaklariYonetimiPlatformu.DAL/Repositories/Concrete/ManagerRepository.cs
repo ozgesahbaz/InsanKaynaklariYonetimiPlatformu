@@ -1,5 +1,6 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,14 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 {
-    public class ManagerRepository: IManagerRepository
+    public class ManagerRepository:IManagerRepository
     {
         HRDataBaseContext dbContext;
-
+        List<Object> ShiftRespite;
         public ManagerRepository(HRDataBaseContext dataBaseContext)
         {
             dbContext = dataBaseContext;
+            ShiftRespite = new List<Object>();
         }
         public bool AnyMailExtension(string mailextension)
         {
@@ -82,6 +84,43 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             //Listelerken include ile employee de yanında getirecek.
             return dbContext.Debits.Include("Employee").Where(a => a.ManagerID == id).ToList();
+        }
+
+        public int AddEmployeePermission(Permission permission)
+        {
+            dbContext.Permissions.Add(permission);
+            return dbContext.SaveChanges();
+        }
+
+        public Permission GetPermissionById(int permissionId)
+        {
+            return dbContext.Permissions.Include("Employee").Where(a => a.PermissionId == permissionId).SingleOrDefault();
+        }
+
+        public int UpdatePermission(Permission permission)
+        {
+            return dbContext.SaveChanges();
+        }
+
+        public int DeletedPermission(Permission permission)
+        {
+            dbContext.Permissions.Remove(permission);
+            return dbContext.SaveChanges();
+        }
+
+        public List<Employee> GetEmployeesByManagerId(int managerID)
+        {
+            return dbContext.Employees.Where(a => a.ManagerId == managerID).ToList();
+        }
+
+        public List<Shift> GetShiftbyEmployeeId(Employee employee)
+        {
+            return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+        }
+
+        public List<Respite> GetRespitebyShiftId(int shiftId)
+        {
+            return dbContext.Respites.Where(a=>a.ShiftId == shiftId).ToList();
         }
     }
 }

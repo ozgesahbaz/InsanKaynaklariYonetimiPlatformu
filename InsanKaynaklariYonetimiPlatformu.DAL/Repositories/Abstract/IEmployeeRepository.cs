@@ -18,5 +18,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int UpdateEmployee(Employee updateEmployee, Employee employee);
         int DeleteEmployee(Employee employee);
         List<Permission> GetPermissionList(int id);
+        bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate);
     }
 }

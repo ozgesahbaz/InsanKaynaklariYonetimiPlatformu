@@ -10,8 +10,7 @@
                 <th>Başlangıç Tarihi</th>
                 <th>Bitiş Tarihi</th>
                 <th>Onay Durumu</th>
-                <th>Onayla/Reddet</th>
-
+                <th>Güncelle</th>
             </tr>
         </thead>
         <tbody>
@@ -38,20 +37,15 @@
 
                         }
                     </td>
-                    <td>
-                        @if (permission.IsAproved == null)
-                        {
-                            <a asp-controller="Manager" asp-action="" asp-route-id="@permission.ID" >
-                                <i class="btn btn-success fas fa-check-circle"></i>
+                    <td class="text-center">
+                       
+                            <a asp-controller="Manager" asp-action="PermissionUpdated" asp-route-id="@permission.ID" >
+                                <i class="btn btn-success fas fa-edit"></i>
                             </a>
-                            <a asp-controller="Manager" asp-action="" asp-route-id="@permission.ID" >
-                                <i class="btn btn-danger fas fa-times-circle"></i>
-                            </a>
-                        }
+                           
+                        
                     </td>
-                    <td>
-                    
-                    </td>
+                 
                 </tr>
 
             }

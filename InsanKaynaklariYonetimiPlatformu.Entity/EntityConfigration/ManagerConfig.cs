@@ -25,6 +25,9 @@ public void Configure(EntityTypeBuilder<Manager> builder)
             builder.Property(a => a.IsApproved).IsRequired();           
             builder.Property(a => a.CompanyId).IsRequired();
 
+        //builder.HasData(new Manager { ManagerId=1,FullName = "Test",Email="test@gmail.com",Password="1234",IsActive=true,IsApproved=true,CompanyId=1 }); //test manager olsun
+
         }
+     
     }
 }
