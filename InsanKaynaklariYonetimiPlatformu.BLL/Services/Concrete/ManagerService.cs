@@ -140,6 +140,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     DescofRejec = debit.DescofRejec
 
                 };
+                debitVMs.Add(debitVM);
+                
 
             }
             return debitVMs;

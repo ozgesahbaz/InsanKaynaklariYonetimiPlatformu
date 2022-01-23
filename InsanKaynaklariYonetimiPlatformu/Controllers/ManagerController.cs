@@ -249,7 +249,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return View();
         }
-       [HttpGet]
+       [HttpPost]
         public IActionResult PermissionAdmited(int permissionId)
         {
             try
@@ -265,7 +265,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("EmployeesPermissionRequest", "Manager");
         }
-        [HttpGet]
+        [HttpPost]
         public IActionResult PermissionDeleted(int permissionId)
         {
             try
