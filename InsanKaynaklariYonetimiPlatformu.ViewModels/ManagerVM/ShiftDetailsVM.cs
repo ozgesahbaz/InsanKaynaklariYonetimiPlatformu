@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 {
-   public class ShiftRespiteVM
+   public class ShiftDetailsVM
     {
-        public ShiftRespiteVM()
+        public ShiftDetailsVM()
         {
-            List<ShiftRespiteVM> Respites = new List<ShiftRespiteVM>();
+            List<ShiftDetailsVM> Respites = new List<ShiftDetailsVM>();
         }
         public DateTime ShiftStartTime { get; set; }
         public DateTime ShiftFinishTime { get; set; }
@@ -19,6 +19,6 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public DateTime RespiteStartTime { get; set; }
         public DateTime RespiteFinishTime { get; set; }
 
-        public List<ShiftRespiteVM> ShiftRespiteVMs { get; set; }
+        public List<ShiftDetailsVM> ShiftRespiteVMs { get; set; }
     }
 }
