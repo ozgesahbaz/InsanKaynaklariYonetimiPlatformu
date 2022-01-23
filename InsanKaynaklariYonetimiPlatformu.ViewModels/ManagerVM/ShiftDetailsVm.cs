@@ -8,6 +8,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 {
     public class ShiftDetailsVm
     {
+        public int EmployeeID { get; set; }
         public string EmployeeFullName { get; set; }
         public DateTime ShiftStartTime { get; set; }
         public DateTime ShiftFinishTime { get; set; }

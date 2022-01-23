@@ -218,6 +218,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
               List<Shift>  Shifts  = managerRepository.GetShiftbyEmployeeId(employee);
                 shiftDetailsVm.EmployeeFullName = employee.FullName;
+                shiftDetailsVm.EmployeeID = employee.EmployeeId;
                
                 foreach (Shift item in Shifts)
                 {
