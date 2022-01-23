@@ -20,7 +20,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public virtual Employee Employee { get; set; }
         public int? ManagerID { get; set; }
 
-        public virtual Manager Manager { get; set; }
+        
 
     }
 }
