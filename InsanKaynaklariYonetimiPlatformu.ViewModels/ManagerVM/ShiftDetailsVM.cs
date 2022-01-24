@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 {
-        public class ShiftDetailsVm
+        public class ShiftDetailsVM
         {
             public int EmployeeID { get; set; }
             public string EmployeeFullName { get; set; }

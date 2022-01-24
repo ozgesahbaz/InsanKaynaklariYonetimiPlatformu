@@ -314,12 +314,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult GetShiftDetails(int ManagerID)
         {
-            List<ShiftDetailsVm> ShiftDetailsVms = managerService.GetShiftDetail(ManagerID);
-
-            return View(ShiftDetailsVms);
+            return View();
         }
         [HttpPost]
-         public IActionResult AddShiftDetails( ShiftDetailsVm shiftDetailsVm ,int ManagerID)
+         public IActionResult AddShiftDetails( ShiftDetailsVM shiftDetailsVm ,int ManagerID)
         {
             managerService.AddShiftDetails(shiftDetailsVm ,ManagerID);
 

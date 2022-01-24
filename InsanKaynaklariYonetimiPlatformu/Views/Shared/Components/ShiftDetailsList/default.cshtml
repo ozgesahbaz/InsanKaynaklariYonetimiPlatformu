@@ -20,7 +20,7 @@
             <tr>
                 @foreach (ShiftDetailsVM item in Model)
                 {
-                    <td>@item.Employee.FullName </td>
+                    <td>@item.EmployeeFullName </td>
                     <td>@item.ShiftStartTime.ToShortDateString()</td>
                     <td>@item.ShiftStartTime.ToShortTimeString()</td>
                     <td>@item.RespiteStartTime.ToShortTimeString()</td>

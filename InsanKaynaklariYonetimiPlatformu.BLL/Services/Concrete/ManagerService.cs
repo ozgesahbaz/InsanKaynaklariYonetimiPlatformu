@@ -207,11 +207,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return managerRepository.DeletedPermission(permission);
         }
 
-        public List<ShiftDetailsVm> GetShiftDetail(int managerID)
+        public List<ShiftDetailsVM> GetShiftDetail(int managerID)
         {
            
-            List<ShiftDetailsVm> shiftDetailsVms = new List<ShiftDetailsVm>();
-            ShiftDetailsVm shiftDetailsVm = new ShiftDetailsVm();
+            List<ShiftDetailsVM> shiftDetailsVms = new List<ShiftDetailsVM>();
+            ShiftDetailsVM shiftDetailsVm = new ShiftDetailsVM();
             List<Employee> employees = managerRepository.GetEmployeesByManagerId(managerID);
 
             foreach (Employee employee in employees)
@@ -240,7 +240,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         }
 
-        public void AddShiftDetails(ShiftDetailsVm shiftDetailsVm, int managerID)
+        public void AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int managerID)
         {
             Shift shift = new Shift();
             Respite respite = new Respite();   
