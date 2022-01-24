@@ -23,28 +23,29 @@
                     <td>@debitVM.EmployeeName</td>
                     <td>@debitVM.DebitName</td>
                     <td>@debitVM.StartedDate</td>
-                    <td class="text-center>
+                    <td class="text-center">
                         @if (debitVM.IsAproved == null)
                         {
-                            <i class="fas fa-clock"></i>
+                            <i class="btn btn-outline-info far fa-clock"></i>
 
                         }
                         else if (debitVM.IsAproved == true)
                         {
-                            <i class="fas fa-check-circle"></i>
+                            <i class="btn btn-outline-info far fa-check-circle"></i>
                         }
                         else
                         {
-                            <i class="fas fa-times-circle"></i>
+                            <i class="btn btn-outline-info far fa-times-circle"></i>
                         }
                     </td>
                     <td>@debitVM.Details</td>
                     <td>@debitVM.DescofRejec</td>
-                    <td class="text-center">
-                        <a class="btn btn-outline-danger" href="#">
-                            <i class="fas fa-trash"></i>
+                    <td>
+                        <a asp-controller="Manager" asp-action="DeletedDebit" asp-route-id="@debitVM.ID">
+                            <i class="btn btn-outline-danger far fa-trash-alt" ></i>
+                                @*<i class="fas fa-trash"></i>*@
+                            
                         </a>
-
                     </td>
                 </tr>
 

@@ -1,4 +1,4 @@
-﻿@model AddDebitVM
+﻿@model AddEmployeesDebitVM
 @{
     Layout = "_Layout2";
     int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
@@ -7,11 +7,11 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Personellerim</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Zimmetlerim</h6>
     </div>
     <div class="card-body align-self-end">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddEmploye">
-            Personel Ekle
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddDebit">
+            Zimmet Ekle
         </button>
 
         <!-- Modal -->
@@ -26,20 +26,35 @@
                         <form method="post" action="/Manager/ManagersEmployeeDebit" id="PostMethod">
                             <div class="modal-body mx-3">
                                 <div asp-validation-summary="All"></div>
-                                <div class="form-group">
-                                    <label asp-for="EmployeeName"></label>
-                                    <input class="form-control" asp-for="EmployeeName">
+                                <div class="input-group mb-3">
+                                    <label asp-for="EmployeeID" class="input-group-text" for="inputGroupSelect01">Çalışan Seçiniz</label>
+                                    <select asp-for="EmployeeID" class="form-select" id="inputGroupSelect01">
+                                        <option selected>Seçiniz</option>
+                                        @foreach (Employee employee in Model.Employees)
+                                        {
+                                            <option value="@employee.EmployeeId">@employee.FullName</option>
+                                        }
+                                    </select>
                                 </div>
 
+                                @*<div class="form-group">
+                                    <label asp-for="EmployeeName">Personel Adı Soyadı</label>
+                                    <input class="form-control" asp-for="EmployeeName">
+                                </div>*@
+
                                 <div class="form-group">
-                                    <label asp-for="DebitName"></label>
+                                    <label asp-for="DebitName">Zimmet Adı</label>
                                     <input class="form-control" asp-for="DebitName">
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="StartedDate"></label>
+                                    <label asp-for="StartedDate">Veriliş Tarihi</label>
                                     <input class="form-control" asp-for="StartedDate">
                                 </div>
-                              
+                                <div class="form-group">
+                                    <label asp-for="Details">Zimmet Detayı</label>
+                                    <input class="form-control" asp-for="Details">
+                                </div>
+
 
                                 <br />
 

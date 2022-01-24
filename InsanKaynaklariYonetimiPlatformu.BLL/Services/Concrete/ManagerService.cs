@@ -149,12 +149,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddPermissionEmployee(AddEmployeesPermissionVM permissionVM, int id)
         {
+            //izin eklemeden önce girilen tarih değerleri kontrol edilir.
             if (permissionVM.StartDate > permissionVM.FinishDate)
             {
                 throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
             }
             else
             {
+                //Hata yok ise girilen inputlar db tarafına gönderilir.
                 Permission permission = new Permission()
                 {
                     EmployeeId = permissionVM.EmployeeID,
@@ -205,6 +207,29 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Permission permission = managerRepository.GetPermissionById(id);
             return managerRepository.DeletedPermission(permission);
+        }
+
+        public int RemoveDebit(int id)
+        {
+            Debit debit = managerRepository.GetDebitById(id);
+            return managerRepository.DeletedDebit(debit);
+        }
+
+        public int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM)
+        { //AddEmployeesDebitVm referans alarak Debite çeviriyoruz. Db debit atabiliriz. Bu sebeple AddEmployee debite çevrilmeli
+            Debit debit = new Debit()
+            {
+                ManagerID = id,
+                EmployeeID= debitVM.EmployeeID,
+                DebitName = debitVM.DebitName,
+                StartedDate = debitVM.StartedDate,
+                Details = debitVM.Details             
+
+
+            };
+            //Sayfanın gitmesi gereken yer
+
+            return managerRepository.AddEmployeeDebit(debit);
         }
     }
 }

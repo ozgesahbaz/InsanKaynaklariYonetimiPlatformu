@@ -117,7 +117,37 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         public IActionResult ManagersEmployeeDebit(int id)
         {
 
+            List<Employee> employees = employeeService.GetListEmployees(id);
+            AddEmployeesDebitVM debitforEmployees = new AddEmployeesDebitVM()
+            {
+                Employees = employees
+            };
+            return View(debitforEmployees);
+        }
+
+        [HttpPost]
+        public IActionResult ManagersEmployeeDebit(int id, AddEmployeesDebitVM debitVM) 
+        {
+            try
+            {
+                if (managerService.AddEmployeesDebit(id, debitVM)>0)
+                {
+                    return RedirectToAction("ManagersEmployeeDebit", "Manager");
+                }
+                else
+                {
+                    throw new Exception("Bir Hata Oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("Exception", ex.Message);
+            }
+            //Ekleme yapamazsa sayfaya geri döndür hatayı gösteriyor.
             return View();
+           
+        
         }
         [HttpGet]
         public IActionResult Register(/*ManagerRegisterVM register*/)
@@ -136,6 +166,9 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(deleteEmploye);
         }
+
+        
+        
         [HttpPost]
         public IActionResult DeleteEmployee(DeleteEmployeVM deleteEmploye)
         {
@@ -312,6 +345,23 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("EmployeesPermissionRequest");
         }
 
+        public IActionResult DeletedDebit(int id)
+        {
+            try
+            {
+                if (managerService.RemoveDebit(id)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
 
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ManagersEmployeeDebit");
+        }
+
+        
     }
 }

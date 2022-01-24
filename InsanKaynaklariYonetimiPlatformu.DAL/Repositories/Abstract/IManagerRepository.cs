@@ -41,5 +41,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         Permission GetPermissionById(int permissionId);
         int UpdatePermission(Permission permission);
         int DeletedPermission(Permission permission);
+        Debit GetDebitById(int Id);
+        int DeletedDebit(Debit debit);
+        int AddEmployeeDebit(Debit debit);
     }
 }

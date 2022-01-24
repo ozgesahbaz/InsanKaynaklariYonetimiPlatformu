@@ -86,6 +86,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public int AddEmployeePermission(Permission permission)
         {
+            //Db için kayıt işlemi gerçekleştirilir
             dbContext.Permissions.Add(permission);
             return dbContext.SaveChanges();
         }
@@ -103,6 +104,23 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public int DeletedPermission(Permission permission)
         {
             dbContext.Permissions.Remove(permission);
+            return dbContext.SaveChanges();
+        }
+
+        public Debit GetDebitById(int Id)
+        {
+            return dbContext.Debits.Where(a => a.ID == Id).SingleOrDefault();
+        }
+
+        public int DeletedDebit(Debit debit)
+        {
+            dbContext.Debits.Remove(debit);
+            return dbContext.SaveChanges();
+        }
+
+        public int AddEmployeeDebit(Debit debit)
+        {
+            dbContext.Debits.Add(debit);
             return dbContext.SaveChanges();
         }
     }
