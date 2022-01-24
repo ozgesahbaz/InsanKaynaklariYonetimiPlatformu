@@ -48,5 +48,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int AddPermissionManager(Permission permission);
         int UpdatePermissionManager(Permission permission);
         void addShiftDetails(Respite respite, Shift shift, int managerID);
+        Debit GetDebitById(int Id);
+        int DeletedDebit(Debit debit);
+        int AddEmployeeDebit(Debit debit);
     }
 }

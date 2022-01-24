@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.Entity.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 {
-   public class DebitVM
+    public class AddEmployeesDebitVM
     {
-   
-        public int ID { get; set; }
+
+        public int ManagerID { get; set; }
+        public int? EmployeeID { get; set; }
         public string EmployeeName { get; set; }
         public string DebitName { get; set; }
-        public DateTime StartedDate { get; set; }
-        public bool? IsAproved { get; set; }
         public string Details { get; set; }
-        public string DescofRejec { get; set; }
+        public List<Employee> Employees { get; set; }
+        [Display(Name = "Başlama Tarihi")]
+        public DateTime StartedDate { get; set; }
         
 
-
-
+        //public Employee Employee { get; set; }
+        //public Manager Manager { get; set; }
     }
 }
