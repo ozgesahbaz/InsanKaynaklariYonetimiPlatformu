@@ -122,5 +122,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             return dbContext.Respites.Where(a=>a.ShiftId == shiftId).ToList();
         }
+
+        public List<Permission> GetPermissionByManagerId(int id)
+        {
+            return dbContext.Permissions.Where(a => a.EmployeeId == null && a.ManagerId == id).ToList();
+        }
+
+        public int AddPermissionManager(Permission permission)
+        {
+            dbContext.Permissions.Add(permission);
+            return dbContext.SaveChanges();
+        }
     }
 }

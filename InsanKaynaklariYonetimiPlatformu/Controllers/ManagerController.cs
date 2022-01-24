@@ -323,5 +323,28 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
+        [HttpGet]
+        public IActionResult ManagersPermission(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ManagersPermission(int id, ManagersPermissionVM permissionVM)
+        {
+            try
+            {
+                if (managerService.AddManagersPermission(id,permissionVM)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
     }
 }

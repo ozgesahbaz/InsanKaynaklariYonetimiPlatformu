@@ -1,0 +1,83 @@
+﻿@model ManagersPermissionVM
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">İzinlerim</h6>
+    </div>
+    <div class="card-body align-self-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddPermissionManager">
+            İzin Ekle
+        </button>
+        <div asp-validation-summary="All"></div>
+
+
+         
+        <div class="modal fade" id="AddPermissionManager" tabindex="-1" aria-labelledby="AddPermissionModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">İzin Ekle</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/Manager/EmployeesPermissionRequest" id="PostMethod">
+                            <div class="modal-body mx-3">
+                                <div asp-validation-summary="All"></div>
+                                <div class="form-group">
+                                    <label asp-for="StartDate"></label>
+                                    <input class="form-control" asp-for="StartDate">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="FinishDate"></label>
+                                    <input class="form-control" asp-for="FinishDate">
+                                </div>
+                                <div>
+                                    <label class="form-group">İzin Türü</label>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label asp-for="PermissionType">Yıllık İzin</label>
+                                                <input type="radio" asp-for="PermissionType" value="1" />
+                                            </div>
+                                            <div class="form-group ">
+                                                <label asp-for="PermissionType">Doğum İzni</label>
+                                                <input type="radio" asp-for="PermissionType" value="2" />
+                                            </div>
+                                            <div class="form-group ">
+                                                <label asp-for="PermissionType">Babalık İzni</label>
+                                                <input type="radio" asp-for="PermissionType" value="3" />
+                                            </div>
+                                            <div class="form-group ">
+                                                <label asp-for="PermissionType">Ücretsiz İzin</label>
+                                                <input type="radio" asp-for="PermissionType" value="4" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <br />
+
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button asp-route-id="@id" type="submit" class="btn btn-primary">Kaydet</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        @await Component.InvokeAsync("ManagersPermissionList", new { id = id })
+    </div>
+</div>

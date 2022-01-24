@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 {
-   public interface IManagerService
+    public interface IManagerService
     {
         Company AddCompany(string companyName, string managerMail, MembershipType membership, string address);
 
@@ -24,6 +24,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 
         bool ManagerApproval(int id);
         Company FindCompany(int companyId);
+        List<ManagersPermissionVM> GetPermissionListManagers(int id);
         List<DebitVM> GetListDebit(int id);
 
         Manager FindManager(int managerId);
@@ -34,5 +35,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int RemovePermission(int id);
         List<ShiftDetailsVM> GetShiftDetail(int managerID);
         void AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int managerID);
+        int AddManagersPermission(int id, ManagersPermissionVM permissionVM);
     }
 }
