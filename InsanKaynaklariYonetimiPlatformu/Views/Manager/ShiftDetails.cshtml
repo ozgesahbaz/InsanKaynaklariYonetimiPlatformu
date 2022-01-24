@@ -1,0 +1,160 @@
+﻿
+@model ShiftDetailsVM
+
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+
+<div class="modal fade" id="AddPermissionEmployee" tabindex="-1" aria-labelledby="AddPermissionModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vardiya ve Mola Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="/Manager/ShiftDetails" id="PostMethod">
+                    <div class="modal-body mx-3">
+                        <div asp-validation-summary="All"></div>
+                        <div class="input-group mb-3">
+                            <label asp-for="EmployeID" class="input-group-text" for="inputGroupSelect01">Çalışan Seçiniz</label>
+                            <select asp-for="EmployeID" class="form-select" id="inputGroupSelect01">
+                                <option selected>Seçiniz</option>
+                                @foreach (ShiftDetailsVM item in Model)
+                                {
+                                    <option value="@item.EmployedId">@item.Employee.FullName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- <div>
+        <label class="form-group">İzin Türü</label>
+        <div class="form-group">
+            <div class="form-group">
+                <div class="form-group">
+                    <label asp-for="PermissionType">Yıllık İzin</label>
+                    <input type="radio" asp-for="PermissionType" value="1" />
+                </div>
+                <div class="form-group ">
+                    <label asp-for="PermissionType">Doğum İzni</label>
+                    <input type="radio" asp-for="PermissionType" value="2" />
+                </div>
+                <div class="form-group ">
+                    <label asp-for="PermissionType">Babalık İzni</label>
+                    <input type="radio" asp-for="PermissionType" value="3" />
+                </div>
+                <div class="form-group ">
+                    <label asp-for="PermissionType">Ücretsiz İzin</label>
+                    <input type="radio" asp-for="PermissionType" value="4" />
+                </div>
+            </div>
+        </div>
+    </div>-->
+                        <div class="form-group">
+                            <label asp-for="ShiftStartTime"></label>
+                            <input class="form-control" asp-for="ShiftStartTime">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ShiftStartTime"></label>
+                            <input class="form-control" asp-for="ShiftStartTime">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RespiteStartTime"></label>
+                            <input class="form-control" asp-for="RespiteStartTime">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="RespiteFinishTime"></label>
+                            <input class="form-control" asp-for="RespiteFinishTime">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ShiftinishTime"></label>
+                            <input class="form-control" asp-for="ShiftinishTime">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ShiftinishTime"></label>
+                            <input class="form-control" asp-for="ShiftinishTime">
+                        </div>
+
+
+                        <br />
+
+
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button asp-route-id="@id" type="submit" class="btn btn-primary">Kaydet</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Vardiyalar ve Molalar</h6>
+    </div>
+
+    <div class="card-body align-self-end">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddShiftAndRespite">
+            Vardiya Ekle
+        </button>-->
+<!-- Yöneticinin Vardiya ve Mola Ekleme Modal'ı' -->
+<!--<div class="modal fade" id="AddShiftAndRespite" tabindex="-1" aria-labelledby="AddShiftAndRespite" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Vardiya Ekle</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/Manager/ShiftAndRespite" id="PostMethod">
+                            <div class="modal-body mx-3">
+                                <div asp-validation-summary="All"></div>
+                                <div class="form-group">
+                                    <label asp-for="ShiftStartTime"></label>
+                                    <input class="form-control"  asp-for="ShiftStartTime">
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="ShiftFinishTime"></label>
+                                    <input class="form-control" asp-for="ShiftFinishTime">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="RespiteStartTime"></label>
+                                    <input class="form-control" asp-for="ShiftStartTime">
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="RespiteFinishTime"></label>
+                                    <input class="form-control"asp-for="RespiteFinishTime">
+                                </div>
+
+
+
+                                <br />
+
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button asp-route-id="" type="submit" class="btn btn-primary">Kaydet</button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+       @await Component.InvokeAsync("ShiftAndRespiteList", new { id = id })
+    </div>
+</div>-->

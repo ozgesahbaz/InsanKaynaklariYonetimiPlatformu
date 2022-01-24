@@ -16,8 +16,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
             builder.ToTable("Vardiyalar");
             builder.Property(a => a.ShiftStartTime).IsRequired();
             builder.Property(a => a.ShiftFinishTime).IsRequired();
-
-
         }
     }
 }

@@ -206,5 +206,47 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Permission permission = managerRepository.GetPermissionById(id);
             return managerRepository.DeletedPermission(permission);
         }
+
+        public List<ShiftDetailsVm> GetShiftDetail(int managerID)
+        {
+           
+            List<ShiftDetailsVm> shiftDetailsVms = new List<ShiftDetailsVm>();
+            ShiftDetailsVm shiftDetailsVm = new ShiftDetailsVm();
+            List<Employee> employees = managerRepository.GetEmployeesByManagerId(managerID);
+
+            foreach (Employee employee in employees)
+            {
+              List<Shift>  Shifts  = managerRepository.GetShiftbyEmployeeId(employee);
+                shiftDetailsVm.EmployeeFullName = employee.FullName;
+                shiftDetailsVm.EmployeeID = employee.EmployeeId;
+               
+                foreach (Shift item in Shifts)
+                {
+                    shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
+                    shiftDetailsVm.ShiftStartTime = item.ShiftStartTime;
+                    List<Respite> respites = managerRepository.GetRespitebyShiftId(item.ShiftId);
+                    foreach (Respite respite in respites)
+                    {
+                        shiftDetailsVm.RespiteFinishTime = respite.RespiteFinishTime;
+                        shiftDetailsVm.RespiteStartTime = respite.RespiteStartTime;
+                    }
+                    
+                }
+                
+               shiftDetailsVms.Add(shiftDetailsVm);
+            }
+
+            return shiftDetailsVms;
+
+        }
+
+        public void AddShiftDetails(ShiftDetailsVm shiftDetailsVm, int managerID)
+        {
+            Shift shift = new Shift();
+            Respite respite = new Respite();   
+            int employeeId = shiftDetailsVm.EmployeeID;
+            // devam ediliyor
+
+        }
     }
 }

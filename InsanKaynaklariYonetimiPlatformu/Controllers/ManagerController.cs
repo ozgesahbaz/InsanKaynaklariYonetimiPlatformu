@@ -311,7 +311,19 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return RedirectToAction("EmployeesPermissionRequest");
         }
+        [HttpGet]
+        public IActionResult GetShiftDetails(int ManagerID)
+        {
+            List<ShiftDetailsVm> ShiftDetailsVms = managerService.GetShiftDetail(ManagerID);
 
+            return View(ShiftDetailsVms);
+        }
+        [HttpPost]
+         public IActionResult AddShiftDetails( ShiftDetailsVm shiftDetailsVm ,int ManagerID)
+        {
+            managerService.AddShiftDetails(shiftDetailsVm ,ManagerID);
 
+            return View();
+        }
     }
 }
