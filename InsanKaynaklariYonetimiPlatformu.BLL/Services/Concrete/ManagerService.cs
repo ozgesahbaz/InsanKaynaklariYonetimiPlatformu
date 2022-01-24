@@ -125,7 +125,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public List<DebitVM> GetListDebit(int id)
         {
-           List<Debit> debits = managerRepository.GetListDebit(id);
+            List<Debit> debits = managerRepository.GetListDebit(id);
             List<DebitVM> debitVMs = new List<DebitVM>();
             foreach (Debit debit in debits)
             {
@@ -140,9 +140,71 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     DescofRejec = debit.DescofRejec
 
                 };
-                               
+                debitVMs.Add(debitVM);
+                
+
             }
             return debitVMs;
+        }
+
+        public int AddPermissionEmployee(AddEmployeesPermissionVM permissionVM, int id)
+        {
+            if (permissionVM.StartDate > permissionVM.FinishDate)
+            {
+                throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
+            }
+            else
+            {
+                Permission permission = new Permission()
+                {
+                    EmployeeId = permissionVM.EmployeeID,
+                    ManagerId = id,
+                    StartDate = permissionVM.StartDate,
+                    FinishDate = permissionVM.FinishDate,
+                    isAproved = true,
+                    PermissionType = permissionVM.PermissionType
+                };
+                return managerRepository.AddEmployeePermission(permission);
+            }
+
+        }
+
+        public PermissionVM GetPermissionById(int id)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            if (permission!=null)
+            {
+                PermissionVM permissionVM = new PermissionVM()
+                {
+                    ID = permission.PermissionId,
+                    FullName = permission.Employee.FullName,
+                    StartDate = permission.StartDate,
+                    FinishDate = permission.FinishDate,
+                    Statu = permission.Employee.Status,
+                    IsAproved = permission.isAproved,
+                    PermissionType = permission.PermissionType
+                };
+                return permissionVM;
+            }
+            
+           
+                return null;
+        }
+
+        public int UpdatePermission(PermissionVM permissionVM)
+        {
+           Permission permission= managerRepository.GetPermissionById(permissionVM.ID);
+            permission.isAproved = permissionVM.IsAproved;
+            permission.StartDate = permissionVM.StartDate;
+            permission.FinishDate = permissionVM.FinishDate;
+            permission.PermissionType = permission.PermissionType;
+            return managerRepository.UpdatePermission(permission);
+        }
+
+        public int RemovePermission(int id)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            return managerRepository.DeletedPermission(permission);
         }
     }
 }

@@ -18,5 +18,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int UpdateEmployees(int id, Employee employee);
         int DeleteEmployee(int id);
         List<Permission> GetPermissionListEmployees(int id);
+        bool AnyEmployeesPermission(AddEmployeesPermissionVM permissionVM);
     }
 }

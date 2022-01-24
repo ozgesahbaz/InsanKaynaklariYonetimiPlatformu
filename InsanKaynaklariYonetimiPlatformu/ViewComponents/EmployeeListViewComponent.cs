@@ -29,7 +29,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
                 }
                 else
                 {
-                    throw new Exception("Henüz onaylanmış çalışanınız bulunmamaktadır.");
+                    throw new Exception("Henüz çalışanınız bulunmamaktadır.");
                 }
 
             }

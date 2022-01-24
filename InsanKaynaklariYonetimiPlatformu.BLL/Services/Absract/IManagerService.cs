@@ -28,6 +28,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 
         Manager FindManager(int managerId);
         Company FindCompanyByManagerID(int id);
-     
+        int AddPermissionEmployee(AddEmployeesPermissionVM permissionVM, int id);
+        PermissionVM GetPermissionById(int id);
+        int UpdatePermission(PermissionVM permissionVM);
+        int RemovePermission(int id);
     }
 }
