@@ -239,5 +239,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return shiftDetailsVms;
 
         }
+
+        public void AddShiftDetails(ShiftDetailsVm shiftDetailsVm, int managerID)
+        {
+            Shift shift = new Shift();
+            Respite respite = new Respite();   
+            int employeeId = shiftDetailsVm.EmployeeID;
+            // devam ediliyor
+
+        }
     }
 }
