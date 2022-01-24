@@ -1,0 +1,35 @@
+﻿@model List<ShiftDetailsVM>
+
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>İsim Soyisim</th>
+                <th>Vardiya Başlama Tarihi</th>
+                <th>Vardiya Başlama Saati</th>
+                <th>Mola Başlama Saati </th>
+                <th>Mola Bitiş Saati</th>
+                <th>Vardiya Bitiş Saati</th>
+                <th>Vardiya Bitiş Tarihi</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (ShiftDetailsVM item in Model)
+                {
+                    <td>@item.Employee.FullName </td>
+                    <td>@item.ShiftStartTime.ToShortDateString()</td>
+                    <td>@item.ShiftStartTime.ToShortTimeString()</td>
+                    <td>@item.RespiteStartTime.ToShortTimeString()</td>
+                    <td>@item.RespiteFinishTime.ToShortTimeString()</td>
+                    <td>@item.ShiftFinishTime.ToShortTimeString()</td>
+                    <td>@item.ShiftFinishTime.ToShortDateString()</td>
+                }
+
+            </tr>
+        </tbody>
+    </table>
+</div>
