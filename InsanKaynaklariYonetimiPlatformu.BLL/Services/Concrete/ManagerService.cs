@@ -216,7 +216,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
             foreach (Employee employee in employees)
             {
-                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId(employee);
+                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId();
                 shiftDetailsVm.EmployeeFullName = employee.FullName;
                 shiftDetailsVm.EmployeeID = employee.EmployeeId;
 

@@ -113,9 +113,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == managerID).ToList();
         }
 
-        public List<Shift> GetShiftbyEmployeeId(Employee employee)
+        public List<Shift> GetShiftbyEmployeeId()
         {
-            return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            return dbContext.Shifts.Include(a=>a.Employees).ToList();
+            //return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+           
         }
 
         public List<Respite> GetRespitebyShiftId(int shiftId)

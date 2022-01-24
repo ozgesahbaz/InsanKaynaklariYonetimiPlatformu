@@ -42,7 +42,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int UpdatePermission(Permission permission);
         int DeletedPermission(Permission permission);
         List<Employee> GetEmployeesByManagerId(int managerID);
-        List<Shift> GetShiftbyEmployeeId(Employee employee);
+        List<Shift> GetShiftbyEmployeeId( );
         List<Respite> GetRespitebyShiftId(int shiftId);
         List<Permission> GetPermissionByManagerId(int id);
         int AddPermissionManager(Permission permission);

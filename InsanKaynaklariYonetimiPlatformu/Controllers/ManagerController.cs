@@ -373,6 +373,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ManagersPermissionVM permissionVM = managerService.UpdatePermissionManager(id);
                 if (permissionVM!= null)
                 {
+                   
                     return View(permissionVM);
                 }
                 else
