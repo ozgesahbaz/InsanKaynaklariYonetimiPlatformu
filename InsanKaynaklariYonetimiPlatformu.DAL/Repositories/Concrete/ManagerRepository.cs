@@ -122,5 +122,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             return dbContext.Respites.Where(a=>a.ShiftId == shiftId).ToList();
         }
+
+        public void addShiftDetails(Respite respite, Shift shift, int managerID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

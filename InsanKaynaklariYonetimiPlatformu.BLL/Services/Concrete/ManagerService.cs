@@ -244,8 +244,13 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Shift shift = new Shift();
             Respite respite = new Respite();   
-            int employeeId = shiftDetailsVm.EmployeeID;
-            // devam ediliyor
+            shift.EmployeeID = shiftDetailsVm.EmployeeID;
+            shift.ShiftFinishTime=shiftDetailsVm.ShiftFinishTime;
+            shift.ShiftStartTime = shiftDetailsVm.ShiftStartTime;
+            respite.RespiteFinishTime=shiftDetailsVm.RespiteFinishTime;
+            respite.RespiteStartTime=shiftDetailsVm.RespiteStartTime;
+            managerRepository.addShiftDetails(respite, shift,managerID);
+           
 
         }
     }

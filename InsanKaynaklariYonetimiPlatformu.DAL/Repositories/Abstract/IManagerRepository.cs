@@ -44,5 +44,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         List<Employee> GetEmployeesByManagerId(int managerID);
         List<Shift> GetShiftbyEmployeeId(Employee employee);
         List<Respite> GetRespitebyShiftId(int shiftId);
+        void addShiftDetails(Respite respite, Shift shift, int managerID);
     }
 }
