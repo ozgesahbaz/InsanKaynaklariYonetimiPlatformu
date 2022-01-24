@@ -287,5 +287,29 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             };
             return managerRepository.AddPermissionManager(permission);
         }
+
+        public ManagersPermissionVM UpdatePermissionManager(int id)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            ManagersPermissionVM permissionVM = new ManagersPermissionVM()
+            {
+                ID = permission.PermissionId,
+                StartDate = permission.StartDate,
+                FinishDate = permission.FinishDate,
+                PermissionType = permission.PermissionType
+            };
+
+            return permissionVM;
+        }
+
+        public int UpdatePermissionManager(int id, ManagersPermissionVM permissionVM)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            permission.PermissionType = permissionVM.PermissionType;
+            permission.StartDate = permissionVM.StartDate;
+            permission.FinishDate = permissionVM.FinishDate;
+
+            return managerRepository.UpdatePermissionManager(permission);
+        }
     }
 }

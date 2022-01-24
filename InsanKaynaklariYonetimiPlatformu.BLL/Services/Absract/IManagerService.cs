@@ -36,5 +36,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         List<ShiftDetailsVM> GetShiftDetail(int managerID);
         void AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int managerID);
         int AddManagersPermission(int id, ManagersPermissionVM permissionVM);
+        ManagersPermissionVM UpdatePermissionManager(int id);
+        int UpdatePermissionManager(int id, ManagersPermissionVM permissionVM);
     }
 }

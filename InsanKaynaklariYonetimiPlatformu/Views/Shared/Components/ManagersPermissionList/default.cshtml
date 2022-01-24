@@ -35,12 +35,9 @@
                     <td>@permission.StartDate.ToShortDateString()</td>
                     <td>@permission.FinishDate.ToShortDateString()</td>
                     <td class="text-center">
-
-                        <a asp-controller="Manager" asp-action="ManagersPermissionUpdated" asp-route-id="@permission.ID">
+                        <a asp-controller="Manager" asp-action="ManagerPermissionUpdated" asp-route-id="@permission.ID">
                             <i class="btn btn-success fas fa-edit"></i>
                         </a>
-
-
                     </td>
 
                 </tr>

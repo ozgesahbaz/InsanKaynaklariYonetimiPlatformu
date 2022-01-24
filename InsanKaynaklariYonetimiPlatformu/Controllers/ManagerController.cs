@@ -296,7 +296,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.RemovePermission(id)<1)
+                if (managerService.RemovePermission(id) < 1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
@@ -311,15 +311,34 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return RedirectToAction("EmployeesPermissionRequest");
         }
+        public IActionResult DeletedPermissionManager(int id)
+        {
+            try
+            {
+                if (managerService.RemovePermission(id) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            return RedirectToAction("ManagersPermission");
+        }
         [HttpGet]
         public IActionResult ShiftDetails(int id)
         {
             return View();
         }
         [HttpPost]
-         public IActionResult AddShiftDetails( ShiftDetailsVM shiftDetailsVm ,int ManagerID)
+        public IActionResult AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int ManagerID)
         {
-            managerService.AddShiftDetails(shiftDetailsVm ,ManagerID);
+            managerService.AddShiftDetails(shiftDetailsVm, ManagerID);
 
             return View();
         }
@@ -333,7 +352,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.AddManagersPermission(id,permissionVM)<1)
+                if (managerService.AddManagersPermission(id, permissionVM) < 1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
@@ -344,6 +363,53 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ModelState.AddModelError("exception", ex.Message);
 
             }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ManagerPermissionUpdated(int id)
+        {
+            try
+            {
+                ManagersPermissionVM permissionVM = managerService.UpdatePermissionManager(id);
+                if (permissionVM!= null)
+                {
+                    return View(permissionVM);
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştur");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ManagerPermissionUpdated(int id, ManagersPermissionVM permissionVM)
+        {
+            try
+            {
+                if (managerService.UpdatePermissionManager(id,permissionVM)>0)
+                {
+                    return RedirectToAction("ManagersPermission");
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
             return View();
         }
     }

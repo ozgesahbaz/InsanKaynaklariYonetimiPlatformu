@@ -133,5 +133,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Permissions.Add(permission);
             return dbContext.SaveChanges();
         }
+
+        public int UpdatePermissionManager(Permission permission)
+        {
+            return dbContext.SaveChanges();
+        }
     }
 }
