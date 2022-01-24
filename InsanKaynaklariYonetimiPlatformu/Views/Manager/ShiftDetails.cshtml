@@ -32,9 +32,9 @@
                                     <label asp-for="EmployeeID" class="input-group-text" for="inputGroupSelect01">Çalışan Seçiniz</label>
                                     <select asp-for="EmployeeID" class="form-select" id="inputGroupSelect01">
                                         <option selected>Seçiniz</option>
-                                        @foreach (Employee employee in Model.Employees)
+                                        foreach (Employee employee in Model.Employees)
                                         {
-                                            <option value="@employee.EmployeeId">@employee.FullName</option>
+                                            <option value="employee.EmployeeId">employee.FullName</option>
                                         }
                                     </select>
                                 </div>

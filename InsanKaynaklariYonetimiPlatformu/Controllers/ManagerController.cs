@@ -312,7 +312,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("EmployeesPermissionRequest");
         }
         [HttpGet]
-        public IActionResult GetShiftDetails(int ManagerID)
+        public IActionResult ShiftDetails(int id)
         {
             return View();
         }
