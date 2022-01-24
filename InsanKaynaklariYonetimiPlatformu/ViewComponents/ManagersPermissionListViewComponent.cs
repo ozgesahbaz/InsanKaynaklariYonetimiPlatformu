@@ -1,17 +1,19 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
+using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
 {
-    public class ShiftDetailsListViewComponent : ViewComponent
+    public class ManagersPermissionListViewComponent : ViewComponent
     {
         IManagerService managerService;
 
-        public ShiftDetailsListViewComponent(IManagerService _managerService)
+        public ManagersPermissionListViewComponent(IManagerService _managerService)
         {
             managerService = _managerService;
         }
@@ -19,13 +21,17 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
         {
             try
             {
-                List<ShiftDetailsVM> ShiftDetailsVms = managerService.GetShiftDetail(id);
-                if (ShiftDetailsVms==null)
-                {
-                    throw new Exception("Listelenecek mola ve vardiya bulunmamaktadır.");
-                }
+                List<ManagersPermissionVM> permissions = managerService.GetPermissionListManagers(id);
 
-                return View(ShiftDetailsVms);
+                if (permissions != null)
+                {
+                    
+                    return View(permissions);
+                }
+                else
+                {
+                    throw new Exception("Daha önce eklenen izin yok.");
+                }
 
             }
             catch (Exception ex)
@@ -35,7 +41,5 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
             }
             return View();
         }
-
     }
-
 }

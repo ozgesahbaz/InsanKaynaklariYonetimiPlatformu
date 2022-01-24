@@ -1,0 +1,48 @@
+﻿@model List<ManagersPermissionVM>
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+
+                <th>İzin Tipi</th>
+                <th>Başlangıç Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ManagersPermissionVM permission in Model)
+            {
+                <tr>
+                    @if (permission.PermissionType == PermissionType.YıllıkIzın)
+                    {
+                        <td>Yıllık İzin</td>
+                    }
+                    else if (permission.PermissionType == PermissionType.DoğumIznı)
+                    {
+                        <td>Doğum İzni</td>
+                    }
+                    else if (permission.PermissionType == PermissionType.BabalıkIznı)
+                    {
+                        <td>Babalık İzni</td>
+                    }
+                    else if (permission.PermissionType == PermissionType.UcretsızIzın)
+                    {
+                        <td>Ücretsiz İzin</td>
+                    }
+
+                    <td>@permission.StartDate.ToShortDateString()</td>
+                    <td>@permission.FinishDate.ToShortDateString()</td>
+                    <td class="text-center">
+                        <a asp-controller="Manager" asp-action="ManagerPermissionUpdated" asp-route-id="@permission.ID">
+                            <i class="btn btn-success fas fa-edit"></i>
+                        </a>
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

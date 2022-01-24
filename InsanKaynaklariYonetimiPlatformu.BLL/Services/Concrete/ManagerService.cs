@@ -141,7 +141,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
                 };
                 debitVMs.Add(debitVM);
-                
+
 
             }
             return debitVMs;
@@ -172,7 +172,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public PermissionVM GetPermissionById(int id)
         {
             Permission permission = managerRepository.GetPermissionById(id);
-            if (permission!=null)
+            if (permission != null)
             {
                 PermissionVM permissionVM = new PermissionVM()
                 {
@@ -186,14 +186,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 };
                 return permissionVM;
             }
-            
-           
-                return null;
+
+
+            return null;
         }
 
         public int UpdatePermission(PermissionVM permissionVM)
         {
-           Permission permission= managerRepository.GetPermissionById(permissionVM.ID);
+            Permission permission = managerRepository.GetPermissionById(permissionVM.ID);
             permission.isAproved = permissionVM.IsAproved;
             permission.StartDate = permissionVM.StartDate;
             permission.FinishDate = permissionVM.FinishDate;
@@ -207,19 +207,19 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return managerRepository.DeletedPermission(permission);
         }
 
-        public List<ShiftDetailsVm> GetShiftDetail(int managerID)
+        public List<ShiftDetailsVM> GetShiftDetail(int managerID)
         {
-           
-            List<ShiftDetailsVm> shiftDetailsVms = new List<ShiftDetailsVm>();
-            ShiftDetailsVm shiftDetailsVm = new ShiftDetailsVm();
+
+            List<ShiftDetailsVM> shiftDetailsVms = new List<ShiftDetailsVM>();
+            ShiftDetailsVM shiftDetailsVm = new ShiftDetailsVM();
             List<Employee> employees = managerRepository.GetEmployeesByManagerId(managerID);
 
             foreach (Employee employee in employees)
             {
-              List<Shift>  Shifts  = managerRepository.GetShiftbyEmployeeId(employee);
+                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId(employee);
                 shiftDetailsVm.EmployeeFullName = employee.FullName;
                 shiftDetailsVm.EmployeeID = employee.EmployeeId;
-               
+
                 foreach (Shift item in Shifts)
                 {
                     shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
@@ -230,17 +230,17 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         shiftDetailsVm.RespiteFinishTime = respite.RespiteFinishTime;
                         shiftDetailsVm.RespiteStartTime = respite.RespiteStartTime;
                     }
-                    
+
                 }
-                
-               shiftDetailsVms.Add(shiftDetailsVm);
+
+                shiftDetailsVms.Add(shiftDetailsVm);
             }
 
             return shiftDetailsVms;
 
         }
 
-        public void AddShiftDetails(ShiftDetailsVm shiftDetailsVm, int managerID)
+        public void AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int managerID)
         {
             Shift shift = new Shift();
             Respite respite = new Respite();   
@@ -252,6 +252,69 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             managerRepository.addShiftDetails(respite, shift,managerID);
            
 
+        }
+
+        public List<ManagersPermissionVM> GetPermissionListManagers(int id)
+        {
+            List<Permission> permissions = managerRepository.GetPermissionByManagerId(id);
+            if (permissions != null)
+            {
+                List<ManagersPermissionVM> permissionVMs = new List<ManagersPermissionVM>();
+                foreach (Permission permission in permissions)
+                {
+                    ManagersPermissionVM permissionVM = new ManagersPermissionVM()
+                    {
+                        StartDate = permission.StartDate,
+                        FinishDate = permission.FinishDate,
+                        PermissionType = permission.PermissionType,
+                        IsAproved = true,
+                        ID = permission.PermissionId
+                    };
+                    permissionVMs.Add(permissionVM);
+                }
+                return permissionVMs;
+            }
+
+
+            return null;
+        }
+
+        public int AddManagersPermission(int id, ManagersPermissionVM permissionVM)
+        {
+            Permission permission = new Permission()
+            {
+                StartDate = permissionVM.StartDate,
+                PermissionType = permissionVM.PermissionType,
+                FinishDate = permissionVM.FinishDate,
+                ManagerId = id,
+                EmployeeId = null,
+                isAproved = true,
+            };
+            return managerRepository.AddPermissionManager(permission);
+        }
+
+        public ManagersPermissionVM UpdatePermissionManager(int id)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            ManagersPermissionVM permissionVM = new ManagersPermissionVM()
+            {
+                ID = permission.PermissionId,
+                StartDate = permission.StartDate,
+                FinishDate = permission.FinishDate,
+                PermissionType = permission.PermissionType
+            };
+
+            return permissionVM;
+        }
+
+        public int UpdatePermissionManager(int id, ManagersPermissionVM permissionVM)
+        {
+            Permission permission = managerRepository.GetPermissionById(id);
+            permission.PermissionType = permissionVM.PermissionType;
+            permission.StartDate = permissionVM.StartDate;
+            permission.FinishDate = permissionVM.FinishDate;
+
+            return managerRepository.UpdatePermissionManager(permission);
         }
     }
 }
