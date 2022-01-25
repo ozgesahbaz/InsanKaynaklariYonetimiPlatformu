@@ -152,11 +152,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult ManagersEmployeeDebit(int id, AddEmployeesDebitVM debitVM) 
+        public IActionResult ManagersEmployeeDebit(int id, AddEmployeesDebitVM debitVM)
         {
             try
             {
-                if (managerService.AddEmployeesDebit(id, debitVM)>0)
+                if (managerService.AddEmployeesDebit(id, debitVM) > 0)
                 {
                     return RedirectToAction("ManagersEmployeeDebit", "Manager");
                 }
@@ -172,8 +172,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             //Ekleme yapamazsa sayfaya geri döndür hatayı gösteriyor.
             return View();
-           
-        
+
+
         }
         [HttpGet]
         public IActionResult Register(/*ManagerRegisterVM register*/)
@@ -193,8 +193,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(deleteEmploye);
         }
 
-        
-        
+
+
         [HttpPost]
         public IActionResult DeleteEmployee(DeleteEmployeVM deleteEmploye)
         {
@@ -447,9 +447,9 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             try
             {
                 ManagersPermissionVM permissionVM = managerService.UpdatePermissionManager(id);
-                if (permissionVM!= null)
+                if (permissionVM != null)
                 {
-                   
+
                     return View(permissionVM);
                 }
                 else
@@ -471,7 +471,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.UpdatePermissionManager(id,permissionVM)>0)
+                if (managerService.UpdatePermissionManager(id, permissionVM) > 0)
                 {
                     return RedirectToAction("ManagersPermission");
                 }
@@ -479,7 +479,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -494,7 +494,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.RemoveDebit(id)<1)
+                if (managerService.RemoveDebit(id) < 1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
@@ -507,7 +507,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("ManagersEmployeeDebit");
         }
-
-        
     }
+
+
 }
+

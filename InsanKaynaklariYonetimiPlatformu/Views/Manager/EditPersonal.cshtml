@@ -3,34 +3,34 @@
     Layout = "_Layout2";
 
 }
-<div class="card justify-content-center">
+<div class="container">
     
     <div class="card-body">
         <form method="POST">
             <div asp-validation-summary="All"></div>
-            <div class="form-group">
-                <label asp-for="FullName"><i class="fas fa-id-card"></i></label>
-                <input asp-for="FullName" />
+            <div class="form-group row">
+                <label asp-for="FullName" class="col-2 text-primary"><i class="fas fa-id-card"></i> İsim Soyisim</label>
+                <input asp-for="FullName" class="col-5" />
             </div>
-            <div class="form-group">
-                <label asp-for="Status"><i class="fas fa-briefcase"></i></label>
-                <input asp-for="Status" />
+            <div class="form-group row">
+                <label asp-for="Status" class="col-2 text-primary"><i class="fas fa-briefcase"></i>Ünvan</label>
+                <input asp-for="Status" class="col-5" />
             </div>
-            <div class="form-group">
-                <label asp-for="BirthDay"><i class="fas fa-birthday-cake"></i></label>
-                <input asp-for="BirthDay" />
+            <div class="form-group row">
+                <label asp-for="BirthDay" class="col-2 text-primary"><i class="fas fa-birthday-cake"></i>Doğum Tarihi</label>
+                <input asp-for="BirthDay" class="col-5"/>
             </div>
-            <div class="form-group">
-                <label asp-for="StartDate"><i class="fas fa-calendar"></i></label>
-                <input asp-for="StartDate" />
+            <div class="form-group row">
+                <label asp-for="StartDate" class="col-2 text-primary"><i class="fas fa-calendar"></i>İşe Başlama Tarihi</label>
+                <input asp-for="StartDate" class="col-5" />
             </div>
-            <div class="form-group">
-                <label asp-for="Salary"><i class="fas fa-money-bill-wave"></i></label>
-                <input asp-for="Salary" />
+            <div class="form-group row">
+                <label asp-for="Salary" class="col-2 text-primary"><i class="fas fa-money-bill-wave"></i>Ücret</label>
+                <input asp-for="Salary" value="TL" class="col-5" />
             </div>
 
-            <div class="form-group form-button">
-                <input type="submit" asp-route-id="@Model.EmployeeId" class="form-submit" value="Kaydet" />
+            <div class="form-group form-button text-center">
+                <input type="submit" asp-route-id="@Model.EmployeeId" class="btn btn-primary" value="Kaydet" />
             </div>
 
         </form>

@@ -25,6 +25,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges();
         }
 
+        public int AddPermission(Permission permission)
+        {
+            dbContext.Permissions.Add(permission);
+            return dbContext.SaveChanges();
+        }
+
         public bool AnyMail(string email)
         {
            return dbContext.Employees.Any(a => a.Email == email);
@@ -47,6 +53,38 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public int DeleteEmployee(Employee employee)
         {
+            List<Debit> debits = dbContext.Debits.Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            if (debits!=null)
+            {
+                foreach (Debit item in debits)
+                {
+                    dbContext.Debits.Remove(item);
+                }
+            }
+            List<Permission> permissions = dbContext.Permissions.Where(a => a.EmployeeId == employee.EmployeeId).ToList();
+            if (permissions != null)
+            {
+                foreach (Permission item in permissions)
+                {
+                    dbContext.Permissions.Remove(item);
+                }
+            }
+            List<Shift> shifts = dbContext.Shifts.Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            if (shifts != null)
+            {
+                foreach (Shift item in shifts)
+                {
+                    dbContext.Shifts.Remove(item);
+                }
+            }
+            List<Expenditure> expenditures = dbContext.Expenditures.Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            if (expenditures != null)
+            {
+                foreach (Expenditure item in expenditures)
+                {
+                    dbContext.Expenditures.Remove(item);
+                }
+            }
             dbContext.Employees.Remove(employee);
             return dbContext.SaveChanges();
         }
@@ -76,7 +114,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public List<Permission> GetPermissionList(int id)
         {
-            return dbContext.Permissions.Include("Employee").Where(a => a.ManagerId == id).ToList();
+            return dbContext.Permissions.Include("Employee").Where(a => a.ManagerId == id&&a.EmployeeId!=null).ToList();
+        }
+
+        public List<Permission> GetPermissionListEmployeeByID(int id)
+        {
+            return dbContext.Permissions.Where(a => a.EmployeeId == id).ToList();
         }
 
         public int UpdateEmployee(Employee updateEmployee, Employee employee)
