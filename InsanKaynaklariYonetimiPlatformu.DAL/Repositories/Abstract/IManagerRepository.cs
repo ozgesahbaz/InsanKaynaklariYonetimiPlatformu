@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,9 +48,13 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         List<Permission> GetPermissionByManagerId(int id);
         int AddPermissionManager(Permission permission);
         int UpdatePermissionManager(Permission permission);
-        void addShiftDetails(Respite respite, Shift shift, int managerID);
+        
         Debit GetDebitById(int Id);
         int DeletedDebit(Debit debit);
         int AddEmployeeDebit(Debit debit);
+        bool addShiftDetails(Shift shift);
+        int GetShiftOrderyBydescending();
+      
+        bool addRespitebyShiftID(Respite respite);
     }
 }
