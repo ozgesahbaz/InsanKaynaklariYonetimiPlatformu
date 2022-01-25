@@ -465,6 +465,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("ManagersEmployeeDebit");
         }
+
+       
     }
 
 
