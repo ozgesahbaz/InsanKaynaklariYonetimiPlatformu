@@ -219,12 +219,16 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             foreach (Employee employee in employees)
             {
                 List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId();
+
                 shiftDetailsVm.EmployeeFullName = employee.FullName;
                 shiftDetailsVm.EmployeeID = employee.EmployeeId;
 
                 foreach (Shift item in Shifts)
-                {
-                    shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
+                { 
+                //    Employee employee= item.Employees.Where(x => x.EmployeeId==item.EmployeeID).FirstOrDefault();
+                //shiftDetailsVm.EmployeeFullName = employee.FullName;
+                shiftDetailsVm.EmployeeID = employee.EmployeeId;
+                shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
                     shiftDetailsVm.ShiftStartTime = item.ShiftStartTime;
                     List<Respite> respites = managerRepository.GetRespitebyShiftId(item.ShiftId);
                     foreach (Respite respite in respites)
@@ -242,17 +246,31 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         }
 
-        public void AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int managerID)
+        public bool AddShiftDetails(ShiftDetailsVM shiftDetailsVm)
         {
             Shift shift = new Shift();
-            Respite respite = new Respite();   
+            Respite respite = new Respite();
+        
             shift.EmployeeID = shiftDetailsVm.EmployeeID;
             shift.ShiftFinishTime=shiftDetailsVm.ShiftFinishTime;
             shift.ShiftStartTime = shiftDetailsVm.ShiftStartTime;
+            if (managerRepository.addShiftDetails(shift))
+            {
+                int LastofAddedShiiftID = managerRepository.GetShiftOrderyBydescending();
+            respite.ShiftId = LastofAddedShiiftID;
             respite.RespiteFinishTime=shiftDetailsVm.RespiteFinishTime;
             respite.RespiteStartTime=shiftDetailsVm.RespiteStartTime;
-            managerRepository.addShiftDetails(respite, shift,managerID);
-           
+             return managerRepository.addRespitebyShiftID(respite);
+
+            }
+
+            else
+            {
+                throw new Exception(" ekleme yapılamadı.");
+
+            }
+
+
 
         }
 
@@ -341,5 +359,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
             return managerRepository.AddEmployeeDebit(debit);
         }
+
+      
     }
 }

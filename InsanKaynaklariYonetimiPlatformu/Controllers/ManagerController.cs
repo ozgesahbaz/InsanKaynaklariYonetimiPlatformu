@@ -371,7 +371,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpPost]
         public IActionResult AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int ManagerID)
         {
-            managerService.AddShiftDetails(shiftDetailsVm, ManagerID);
+            managerService.AddShiftDetails(shiftDetailsVm);
 
             return View();
         }
@@ -446,6 +446,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 762af4087b55fd73304619b49d52578e235854ef
         public IActionResult DeletedDebit(int id)
         {
             try
@@ -456,6 +460,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 }
             }
             catch (Exception ex)
+
             {
 
                 ModelState.AddModelError("exception", ex.Message);
