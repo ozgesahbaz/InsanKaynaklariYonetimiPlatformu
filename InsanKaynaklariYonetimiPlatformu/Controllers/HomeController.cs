@@ -71,7 +71,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                         HttpContext.Session.SetString("CompanyName", company.CompanyName);
                         HttpContext.Session.SetString("FullName", employee.FullName);
                         HttpContext.Session.SetInt32("ID", employee.EmployeeId);
-                        HttpContext.Session.SetString("Statü", "Employee");
+                        HttpContext.Session.SetString("Statu", "Employee");
                         return RedirectToAction("Index", "Employee");
                     }
                 }
@@ -81,7 +81,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                     HttpContext.Session.SetString("CompanyName", company.CompanyName);
                     HttpContext.Session.SetString("FullName", manager.FullName);
                     HttpContext.Session.SetInt32("ID", manager.ManagerId);
-                    HttpContext.Session.SetString("Statü", "Manager");
+                    HttpContext.Session.SetString("Statu", "Manager");
                     return RedirectToAction("Index", "Manager");
                 }
 
@@ -118,7 +118,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                         HttpContext.Session.SetString("CompanyName", company.CompanyName);
                         HttpContext.Session.SetString("FullName", manager.FullName);
                         HttpContext.Session.SetInt32("ID", manager.ManagerId);
-                        HttpContext.Session.SetString("Statü", "Manager");
+                        HttpContext.Session.SetString("Statu", "Manager");
 
                         return RedirectToAction("Index", "Manager"); //Oluşturulan Manager Sayfasına gidilecek
                     }
@@ -143,7 +143,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                             HttpContext.Session.SetString("CompanyName", company.CompanyName);
                             HttpContext.Session.SetString("FullName", employee.FullName);
                             HttpContext.Session.SetInt32("ID", employee.EmployeeId);
-                            HttpContext.Session.SetString("Statü", "Employee");
+                            HttpContext.Session.SetString("Statu", "Employee");
 
 
                             return RedirectToAction("Index", "Employee"); //Oluşturulan  Sayfasına gidilecek
@@ -155,7 +155,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                             {
                                 HttpContext.Session.SetString("FullName", admin.FullName);
                                 HttpContext.Session.SetInt32("ID", admin.AdminId);
-                                HttpContext.Session.SetString("Statü", "Admin");
+                                HttpContext.Session.SetString("Statu", "Admin");
                                 return RedirectToAction("Index", "Admin"); //Oluşturulan  Sayfasına gidilecek
 
                             }
