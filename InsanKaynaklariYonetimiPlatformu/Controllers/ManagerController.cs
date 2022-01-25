@@ -446,10 +446,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
-<<<<<<< HEAD
-=======
-   
->>>>>>> 762af4087b55fd73304619b49d52578e235854ef
+
+
         public IActionResult DeletedDebit(int id)
         {
             try
