@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220123175004_init3")]
-    partial class init3
+    [Migration("20220125105447_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -346,7 +346,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FinishDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int?>("ManagerId")
                         .HasColumnType("int");
@@ -355,7 +355,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<bool?>("isAproved")
                         .HasColumnType("bit");

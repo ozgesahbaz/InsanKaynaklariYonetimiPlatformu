@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class init3 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -243,8 +243,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     PermissionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FinishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "date", nullable: false),
+                    FinishDate = table.Column<DateTime>(type: "date", nullable: false),
                     PermissionType = table.Column<int>(type: "int", nullable: false),
                     isAproved = table.Column<bool>(type: "bit", nullable: true),
                     EmployeeId = table.Column<int>(type: "int", nullable: true),

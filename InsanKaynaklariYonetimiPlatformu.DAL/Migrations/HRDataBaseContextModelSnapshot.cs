@@ -344,7 +344,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FinishDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int?>("ManagerId")
                         .HasColumnType("int");
@@ -353,7 +353,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<bool?>("isAproved")
                         .HasColumnType("bit");
