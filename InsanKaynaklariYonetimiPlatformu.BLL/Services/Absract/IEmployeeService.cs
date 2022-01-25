@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 {
-  public  interface IEmployeeService
+    public interface IEmployeeService
     {
         Employee CheckLogin(LoginVM login);
         List<Employee> GetListEmployees(int id);
@@ -18,6 +19,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int UpdateEmployees(int id, Employee employee);
         int DeleteEmployee(int id);
         List<Permission> GetPermissionListEmployees(int id);
+        List<EmployeePermissionVM> GetPermissionListEmployeeByID(int id);
         bool AnyEmployeesPermission(AddEmployeesPermissionVM permissionVM);
+        int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM);
     }
 }

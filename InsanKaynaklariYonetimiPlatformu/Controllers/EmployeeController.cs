@@ -1,4 +1,4 @@
-﻿
+﻿   
 using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
@@ -20,6 +20,28 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
         public IActionResult Index()
         {
+            return View();
+        }
+        public IActionResult MyPermissions(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult MyPermissions(int id, EmployeePermissionVM permissionVM)
+        {
+            try
+            {
+                if (employeeService.AddPermissionEmployee(id,permissionVM)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                 ModelState.AddModelError("exception", ex.Message);
+
+            }
             return View();
         }
         [HttpGet]
