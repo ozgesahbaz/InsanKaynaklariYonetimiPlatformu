@@ -445,7 +445,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
-    }
+    
         public IActionResult DeletedDebit(int id)
         {
             try
