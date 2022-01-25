@@ -40,7 +40,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public Employee CheckLogin(string email, string password)
         {
-            //HRDataBaseContext dbContext = new HRDataBaseContext();
+            
             return dbContext.Employees.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }

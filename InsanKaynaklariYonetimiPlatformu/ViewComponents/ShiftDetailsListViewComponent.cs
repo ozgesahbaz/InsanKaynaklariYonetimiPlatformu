@@ -21,7 +21,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
             {
                 List<ShiftDetailsVM> ShiftDetailsVms = managerService.GetShiftDetail(id);
                 if (ShiftDetailsVms==null)
-                {
+                {  
+
                     throw new Exception("Listelenecek mola ve vardiya bulunmamaktadır.");
                 }
 

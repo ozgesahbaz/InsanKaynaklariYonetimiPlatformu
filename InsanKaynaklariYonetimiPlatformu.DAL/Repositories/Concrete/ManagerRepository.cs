@@ -114,9 +114,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == managerID).ToList();
         }
 
-        public List<Shift> GetShiftbyEmployeeId(Employee employee)
+        public List<Shift> GetShiftbyEmployeeId()
         {
-            return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            return dbContext.Shifts.Include(a=>a.Employees).ToList();
+          
+           
         }
 
         public List<Respite> GetRespitebyShiftId(int shiftId)
@@ -124,10 +126,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Respites.Where(a=>a.ShiftId == shiftId).ToList();
         }
 
-        public void addShiftDetails(Respite respite, Shift shift, int managerID)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public List<Permission> GetPermissionByManagerId(int id)
         {
@@ -160,6 +159,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             dbContext.Debits.Add(debit);
             return dbContext.SaveChanges();
+        }
+   
+
+        public bool addShiftDetails(Shift shift)
+        {
+            dbContext.Shifts.Add(shift);
+           
+           return dbContext.SaveChanges()>0 ? true: false;
+        }
+
+        public int GetShiftOrderyBydescending()
+        {
+          Shift shift= dbContext.Shifts.OrderByDescending(a => a.ShiftId).First();
+            return shift.ShiftId;
+        }
+
+        public bool addRespitebyShiftID(Respite respite)
+        { dbContext.Respites.Add(respite);
+            return dbContext.SaveChanges() > 0 ? true: false;
         }
     }
 }

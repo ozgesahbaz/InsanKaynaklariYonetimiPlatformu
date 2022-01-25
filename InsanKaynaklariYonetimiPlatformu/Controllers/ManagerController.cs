@@ -95,7 +95,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             MailMessage msg = new MailMessage();
             msg.Subject = "Üyeliğinizi doğrulayın.";
-            msg.From = new MailAddress("insankaynaklariyonetimiprojesi@outlook.com");
+            msg.From = new MailAddress("redteamproje@outlook.com");
             msg.To.Add(new MailAddress(employee.Email));
             msg.IsBodyHtml = true;
             msg.Body = "<div style='background-color:#422222;margin:0;padding:30px 0;width:100%'>"
@@ -105,7 +105,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
 
             SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
-            NetworkCredential AccountInfo = new NetworkCredential("insankaynaklariyonetimiprojesi@outlook.com", "123toci123");
+            NetworkCredential AccountInfo = new NetworkCredential("redteamproje@outlook.com", "123toci123");
             smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
             smtp.Credentials = AccountInfo;
             smtp.EnableSsl = true;
@@ -371,7 +371,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpPost]
         public IActionResult AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int ManagerID)
         {
-            managerService.AddShiftDetails(shiftDetailsVm, ManagerID);
+            managerService.AddShiftDetails(shiftDetailsVm);
 
             return View();
         }
@@ -406,6 +406,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ManagersPermissionVM permissionVM = managerService.UpdatePermissionManager(id);
                 if (permissionVM!= null)
                 {
+                   
                     return View(permissionVM);
                 }
                 else
@@ -456,6 +457,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 }
             }
             catch (Exception ex)
+
             {
 
                 ModelState.AddModelError("exception", ex.Message);

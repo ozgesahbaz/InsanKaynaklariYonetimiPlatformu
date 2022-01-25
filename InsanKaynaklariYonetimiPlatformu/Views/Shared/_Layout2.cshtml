@@ -2,7 +2,7 @@
     int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
     string FullName = ViewContext.HttpContext.Session.GetString("FullName");
     string CompanyName = ViewContext.HttpContext.Session.GetString("CompanyName");
-    string Statü = ViewContext.HttpContext.Session.GetString("Statü");
+    string Statu = ViewContext.HttpContext.Session.GetString("Statu");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +27,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
             <!-- Firma Logo -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="http://localhost:8021/Manager/index">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="Index" asp-controller="@Statu">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -35,7 +35,7 @@
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider my-0" />
 
             <!-- Ana Sayfa Kısayolu -->
             <li class="nav-item">
@@ -46,7 +46,7 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider" />
 
 
 
@@ -56,7 +56,7 @@
             </div>
 
             <!--Personel Yönetimi -->
-            @if (Statü == "Manager")
+            @if (Statu == "Manager")
             {
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Manager" asp-action="ManagersEmployees" asp-route-id="@id">
@@ -73,7 +73,7 @@
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" asp-route-id="@id" asp-action="EmployeesPermissionRequest" asp-controller="Manager">İzin Talepleri</a>
-                            <a class="collapse-item" asp-route-id="@id"  asp-action="ManagersPermission" asp-controller="Manager">Kişisel İzinlerim</a>
+                            <a class="collapse-item" asp-route-id="@id" asp-action="ManagersPermission" asp-controller="Manager">Kişisel İzinlerim</a>
                         </div>
                     </div>
                 </li>
@@ -114,7 +114,7 @@
                     </a>
                     <div id="collapsefour" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-controller="Manager" asp-action="ShiftDetails" asp-route-id="@id" >Vardiyaları Yönet</a>
+                            <a class="collapse-item" asp-controller="Manager" asp-action="ShiftDetails" asp-route-id="@id">Vardiyaları Yönet</a>
                         </div>
                     </div>
 
@@ -128,9 +128,66 @@
                     </a>
                 </li>
             }
+            @if (Statu == "Employee")
+            {
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-umbrella-beach"></i>
+                        <span>İzinler</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" asp-route-id="@id" asp-action="" asp-controller="Employee">İzinlerim</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetwo"
+                       aria-expanded="true" aria-controls="collapsetwo">
+                        <i class="fas fa-archive"></i>
+                        <span>Zimmetler</span>
+                    </a>
+                    <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" asp-action="" asp-controller="Employee" asp-route-id="@id">Zimmetlerim</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsethree"
+                       aria-expanded="true" aria-controls="collapsethree">
+                        <i class="fas fa-calculator"></i>
+                        <span>Harcamalar</span>
+                    </a>
+                    <div id="collapsethree" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" asp-action="Employee" asp-controller="">Harcamalarım</a>
+                        </div>
+                    </div>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
+                       aria-expanded="true" aria-controls="collapsethree">
+                        <i class="far fa-calendar"></i>
+                        <span>Vardiyalar</span>
+                    </a>
+                    <div id="collapsefour" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" asp-controller="Employee" asp-action="" asp-route-id="@id">Vardiya ve Molalarım</a>
+                        </div>
+                    </div>
+
+
+
+                </li>
+
+            }
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <hr class="sidebar-divider d-none d-md-block" />
 
             <!-- Menüyü Yana Açan Toggle -->
             <div class="text-center d-none d-md-inline">
