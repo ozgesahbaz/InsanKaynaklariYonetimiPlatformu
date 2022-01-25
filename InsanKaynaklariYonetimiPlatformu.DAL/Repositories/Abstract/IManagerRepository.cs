@@ -42,10 +42,14 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int UpdatePermission(Permission permission);
         int DeletedPermission(Permission permission);
         List<Employee> GetEmployeesByManagerId(int managerID);
-        List<Shift> GetShiftbyEmployeeId(Employee employee);
+        List<Shift> GetShiftbyEmployeeId( );
         List<Respite> GetRespitebyShiftId(int shiftId);
         List<Permission> GetPermissionByManagerId(int id);
         int AddPermissionManager(Permission permission);
         int UpdatePermissionManager(Permission permission);
+        void addShiftDetails(Respite respite, Shift shift, int managerID);
+        Debit GetDebitById(int Id);
+        int DeletedDebit(Debit debit);
+        int AddEmployeeDebit(Debit debit);
     }
 }

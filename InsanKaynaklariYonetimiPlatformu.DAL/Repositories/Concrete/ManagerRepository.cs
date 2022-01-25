@@ -88,6 +88,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public int AddEmployeePermission(Permission permission)
         {
+            //Db için kayıt işlemi gerçekleştirilir
             dbContext.Permissions.Add(permission);
             return dbContext.SaveChanges();
         }
@@ -113,14 +114,21 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == managerID).ToList();
         }
 
-        public List<Shift> GetShiftbyEmployeeId(Employee employee)
+        public List<Shift> GetShiftbyEmployeeId()
         {
-            return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            return dbContext.Shifts.Include(a=>a.Employees).ToList();
+            //return dbContext.Shifts.Include("Employee").Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+           
         }
 
         public List<Respite> GetRespitebyShiftId(int shiftId)
         {
             return dbContext.Respites.Where(a=>a.ShiftId == shiftId).ToList();
+        }
+
+        public void addShiftDetails(Respite respite, Shift shift, int managerID)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Permission> GetPermissionByManagerId(int id)
@@ -136,6 +144,23 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public int UpdatePermissionManager(Permission permission)
         {
+            return dbContext.SaveChanges();
+        }
+
+        public Debit GetDebitById(int Id)
+        {
+            return dbContext.Debits.Where(a => a.ID == Id).SingleOrDefault();
+        }
+
+        public int DeletedDebit(Debit debit)
+        {
+            dbContext.Debits.Remove(debit);
+            return dbContext.SaveChanges();
+        }
+
+        public int AddEmployeeDebit(Debit debit)
+        {
+            dbContext.Debits.Add(debit);
             return dbContext.SaveChanges();
         }
     }

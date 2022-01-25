@@ -149,12 +149,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddPermissionEmployee(AddEmployeesPermissionVM permissionVM, int id)
         {
+            //izin eklemeden önce girilen tarih değerleri kontrol edilir.
             if (permissionVM.StartDate > permissionVM.FinishDate)
             {
                 throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
             }
             else
             {
+                //Hata yok ise girilen inputlar db tarafına gönderilir.
                 Permission permission = new Permission()
                 {
                     EmployeeId = permissionVM.EmployeeID,
@@ -216,7 +218,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
             foreach (Employee employee in employees)
             {
-                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId(employee);
+                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId();
                 shiftDetailsVm.EmployeeFullName = employee.FullName;
                 shiftDetailsVm.EmployeeID = employee.EmployeeId;
 
@@ -243,9 +245,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public void AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int managerID)
         {
             Shift shift = new Shift();
-            Respite respite = new Respite();
-            int employeeId = shiftDetailsVm.EmployeeID;
-            // devam ediliyor
+            Respite respite = new Respite();   
+            shift.EmployeeID = shiftDetailsVm.EmployeeID;
+            shift.ShiftFinishTime=shiftDetailsVm.ShiftFinishTime;
+            shift.ShiftStartTime = shiftDetailsVm.ShiftStartTime;
+            respite.RespiteFinishTime=shiftDetailsVm.RespiteFinishTime;
+            respite.RespiteStartTime=shiftDetailsVm.RespiteStartTime;
+            managerRepository.addShiftDetails(respite, shift,managerID);
+           
 
         }
 
@@ -310,6 +317,29 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             permission.FinishDate = permissionVM.FinishDate;
 
             return managerRepository.UpdatePermissionManager(permission);
+        }
+
+        public int RemoveDebit(int id)
+        {
+            Debit debit = managerRepository.GetDebitById(id);
+            return managerRepository.DeletedDebit(debit);
+        }
+
+        public int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM)
+        { //AddEmployeesDebitVm referans alarak Debite çeviriyoruz. Db debit atabiliriz. Bu sebeple AddEmployee debite çevrilmeli
+            Debit debit = new Debit()
+            {
+                ManagerID = id,
+                EmployeeID= debitVM.EmployeeID,
+                DebitName = debitVM.DebitName,
+                StartedDate = debitVM.StartedDate,
+                Details = debitVM.Details             
+
+
+            };
+            //Sayfanın gitmesi gereken yer
+
+            return managerRepository.AddEmployeeDebit(debit);
         }
     }
 }

@@ -53,6 +53,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
 
 
         }
+
+        internal Debit Where(object p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
