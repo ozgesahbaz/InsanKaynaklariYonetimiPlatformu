@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 {
-    public class EmployeController : Controller
+    public class EmployeeController : Controller
     {
         IEmployeeService employeeService;
-        public EmployeController(IEmployeeService _employeeService)
+        public EmployeeController(IEmployeeService _employeeService)
         {
             employeeService = _employeeService;
         }
