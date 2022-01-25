@@ -114,6 +114,32 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             smtp.Send(msg);
         }
         [HttpGet]
+        public IActionResult ManagersPersonelDebit(int id) 
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public IActionResult ManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM) 
+        {
+            try
+            {
+                if (managerService.AddManagersPersonelDebit(id, managersDebitVM) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+
+
+        }
+        [HttpGet]
         public IActionResult ManagersEmployeeDebit(int id)
         {
 
@@ -363,6 +389,23 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return RedirectToAction("ManagersPermission");
         }
+        public IActionResult DeletedManagersDebit(int id)
+        {
+            try
+            {
+                if (managerService.RemoveDebit(id)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ManagersDebit");
+        }
         [HttpGet]
         public IActionResult ShiftDetails(int id)
         {
@@ -446,6 +489,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
+    
         public IActionResult DeletedDebit(int id)
         {
             try
