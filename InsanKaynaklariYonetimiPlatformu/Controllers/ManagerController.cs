@@ -366,14 +366,21 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult ShiftDetails(int id)
         {
-            return View();
+       
+            List<Employee> employees = employeeService.GetListEmployees(id);
+            ShiftDetailsVM shiftDetailsVM = new ShiftDetailsVM()
+            {
+                Employees = employees,
+            };
+
+            return View(shiftDetailsVM);
         }
         [HttpPost]
-        public IActionResult AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int ManagerID)
+        public IActionResult ShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
         {
-            managerService.AddShiftDetails(shiftDetailsVm);
-
-            return View();
+            managerService.AddShiftDetails(shiftDetailsVM, id);
+            shiftDetailsVM.Employees = employeeService.GetListEmployees(id);
+            return View(shiftDetailsVM);
         }
         [HttpGet]
         public IActionResult ManagersPermission(int id)

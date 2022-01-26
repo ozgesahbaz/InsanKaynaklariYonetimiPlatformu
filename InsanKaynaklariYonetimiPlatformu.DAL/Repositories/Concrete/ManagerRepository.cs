@@ -114,9 +114,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == managerID).ToList();
         }
 
-        public List<Shift> GetShiftbyEmployeeId()
+        public List<Shift> GetShiftbyEmployeeId(int employeeId)
         {
-            return dbContext.Shifts.Include(a=>a.Employees).ToList();
+            return dbContext.Shifts.Where(a=>a.EmployeeID==employeeId).ToList();
           
            
         }
@@ -165,6 +165,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public bool addShiftDetails(Shift shift)
         {
             dbContext.Shifts.Add(shift);
+
            
            return dbContext.SaveChanges()>0 ? true: false;
         }
@@ -177,7 +178,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public bool addRespitebyShiftID(Respite respite)
         { dbContext.Respites.Add(respite);
+
             return dbContext.SaveChanges() > 0 ? true: false;
         }
+
+        
     }
 }
