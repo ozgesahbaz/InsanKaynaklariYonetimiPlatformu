@@ -19,5 +19,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int DeleteEmployee(Employee employee);
         List<Permission> GetPermissionList(int id);
         bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate);
+        List<Permission> GetPermissionListEmployeeByID(int id);
+        int AddPermission(Permission permission);
+        bool AnyFilePath(string filepath);
+        int AddDocument(Document document);
+        List<Document> GetDocumentByID(int id);
     }
 }

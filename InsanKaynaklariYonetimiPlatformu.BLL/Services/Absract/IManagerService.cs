@@ -24,6 +24,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
 
         bool ManagerApproval(int id);
         Company FindCompany(int companyId);
+        List<ManagersDebitVM> GetListManagersDebit(int id);
         List<ManagersPermissionVM> GetPermissionListManagers(int id);
         List<DebitVM> GetListDebit(int id);
 
@@ -42,6 +43,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int UpdatePermissionManager(int id, ManagersPermissionVM permissionVM);
         int RemoveDebit(int id);
         int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM);
+      
+        int AddManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM);
+        int RemoveDocument(int id);
         bool AddShiftDetails(ShiftDetailsVM ShiftDetailsVM, int ManagerID);
     }
 }

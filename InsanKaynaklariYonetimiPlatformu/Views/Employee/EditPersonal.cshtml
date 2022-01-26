@@ -1,10 +1,10 @@
 ﻿@model Employee
 @{ 
     Layout = "_Layout2";
-
 }
+
 <div class="container">
-    
+
     <div class="card-body">
         <form method="POST">
             <div asp-validation-summary="All"></div>
@@ -12,13 +12,10 @@
                 <label asp-for="FullName" class="col-2 text-primary"><i class="fas fa-id-card"></i> İsim Soyisim</label>
                 <input asp-for="FullName" class="col-5" />
             </div>
-            <div class="form-group row">
-                <label asp-for="Status" class="col-2 text-primary"><i class="fas fa-briefcase"></i>Ünvan</label>
-                <input asp-for="Status" class="col-5" />
-            </div>
+
             <div class="form-group row">
                 <label asp-for="BirthDay" class="col-2 text-primary"><i class="fas fa-birthday-cake"></i>Doğum Tarihi</label>
-                <input asp-for="BirthDay" class="col-5"/>
+                <input asp-for="BirthDay" class="col-5" />
             </div>
             <div class="form-group row">
                 <label asp-for="StartDate" class="col-2 text-primary"><i class="fas fa-calendar"></i>İşe Başlama Tarihi</label>
@@ -28,6 +25,9 @@
                 <label asp-for="Salary" class="col-2 text-primary"><i class="fas fa-money-bill-wave"></i>Ücret</label>
                 <input asp-for="Salary" value="TL" class="col-5" />
             </div>
+            
+
+
 
             <div class="form-group form-button text-center">
                 <input type="submit" asp-route-id="@Model.EmployeeId" class="btn btn-primary" value="Kaydet" />

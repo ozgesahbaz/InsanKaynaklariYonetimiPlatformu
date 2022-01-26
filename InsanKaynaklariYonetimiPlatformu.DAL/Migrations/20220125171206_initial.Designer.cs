@@ -4,14 +4,16 @@ using InsanKaynaklariYonetimiPlatformu.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    partial class HRDataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220125171206_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,34 +160,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasIndex("ManagerID");
 
                     b.ToTable("Zimmetler");
-                });
-
-            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Document", b =>
-                {
-                    b.Property<int>("DocumentID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DocumentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocumentPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("EmployeeID")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.HasKey("DocumentID");
-
-                    b.HasIndex("DocumentPath")
-                        .IsUnique();
-
-                    b.HasIndex("EmployeeID");
-
-                    b.ToTable("Dokumanlar");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
@@ -480,17 +454,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Document", b =>
-                {
-                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
-                        .WithMany("Documents")
-                        .HasForeignKey("EmployeeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", null)
@@ -586,8 +549,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
                 {
                     b.Navigation("Debits");
-
-                    b.Navigation("Documents");
 
                     b.Navigation("Expenditures");
 

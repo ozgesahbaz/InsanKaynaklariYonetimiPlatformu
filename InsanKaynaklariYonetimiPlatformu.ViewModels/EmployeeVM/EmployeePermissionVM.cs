@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
+namespace InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM
 {
-    public class ManagersPermissionVM
+    public class EmployeePermissionVM
     {
-        public int ID { get; set; }
+        public int PermissionID { get; set; }
         [DataType(DataType.Date)]
 
         public DateTime StartDate { get; set; }
@@ -18,6 +18,6 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 
         public DateTime FinishDate { get; set; }
         public PermissionType PermissionType { get; set; }
-        public bool IsAproved { get; set; }
+        public bool? isAproved { get; set; }
     }
 }

@@ -370,5 +370,46 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
           return managerRepository.GetRespitebyShiftId(shiftId);
         }
+
+        public List<ManagersDebitVM> GetListManagersDebit(int id)
+        {
+            //Db tarafından Debit verilerini almak için istek gönderiyoruz.
+            List<Debit> debits = managerRepository.GetListManagersDebit(id);
+            //Fakat biz bu bilgileri belirlediğimiz kısıtlarla listelemek istediğimiz için debit ManagerDebitVM şekline dönüştürüp listeliyoruz.
+            List<ManagersDebitVM> debitVMs = new List<ManagersDebitVM>();
+            foreach (Debit debit in debits)              
+                {
+                ManagersDebitVM managersDebitVM = new ManagersDebitVM()
+                {
+                    ID = debit.ID,
+                    DebitName = debit.DebitName,
+                    StartedDate=debit.StartedDate,
+                    Details=debit.Details
+                };
+                debitVMs.Add(managersDebitVM);
+
+                }
+            return debitVMs;
+
+        }
+
+        public int AddManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM)
+        {
+            Debit debit = new Debit()
+            {
+                DebitName = managersDebitVM.DebitName,
+                StartedDate = managersDebitVM.StartedDate,
+                Details = managersDebitVM.Details,
+                IsAproved = true,
+                ManagerID = id,
+
+            };
+            return managerRepository.AddDebitManager(debit);
+        }
+
+        public int RemoveDocument(int id)
+        {
+            return managerRepository.DeletedDocument(id);
+        }
     }
 }

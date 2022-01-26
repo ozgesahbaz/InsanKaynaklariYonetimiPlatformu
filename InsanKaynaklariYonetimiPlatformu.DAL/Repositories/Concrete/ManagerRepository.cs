@@ -83,7 +83,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public List<Debit> GetListDebit(int id)
         {
             //Listelerken include ile employee de yanında getirecek.
-            return dbContext.Debits.Include("Employee").Where(a => a.ManagerID == id).ToList();
+            return dbContext.Debits.Include("Employee").Where(a => a.ManagerID == id && a.EmployeeID != null).ToList();
         }
 
         public int AddEmployeePermission(Permission permission)
@@ -182,6 +182,26 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges() > 0 ? true: false;
         }
 
-        
+        public List<Debit> GetListManagersDebit(int id)
+        {
+            return dbContext.Debits.Where(a => a.EmployeeID == null && a.ManagerID == id).ToList();
+        }
+
+        public int AddDebitManager(Debit debit)
+        {
+            dbContext.Debits.Add(debit);
+            return dbContext.SaveChanges();
+        }
+
+        public int DeletedDocument(int id)
+        {
+            Document document = dbContext.Documents.Where(a => a.DocumentID == id).SingleOrDefault();
+            if (document==null)
+            {
+                return 1;
+            }
+            dbContext.Documents.Remove(document);
+            return dbContext.SaveChanges();
+        }
     }
 }

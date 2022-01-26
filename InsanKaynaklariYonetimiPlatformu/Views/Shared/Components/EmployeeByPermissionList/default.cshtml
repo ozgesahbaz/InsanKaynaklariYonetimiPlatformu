@@ -1,0 +1,58 @@
+﻿@model List<EmployeePermissionVM>
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+
+                <th>İzin Tipi</th>
+                <th>Başlangıç Tarihi</th>
+                <th>Bitiş Tarihi</th>
+                <th>Onay Durumu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EmployeePermissionVM permission in Model)
+            {
+            <tr>
+                @if (permission.PermissionType == PermissionType.YıllıkIzın)
+                {
+                    <td>Yıllık İzin</td>
+                }
+                else if (permission.PermissionType == PermissionType.DoğumIznı)
+                {
+                    <td>Doğum İzni</td>
+                }
+                else if (permission.PermissionType == PermissionType.BabalıkIznı)
+                {
+                    <td>Babalık İzni</td>
+                }
+                else if (permission.PermissionType == PermissionType.UcretsızIzın)
+                {
+                    <td>Ücretsiz İzin</td>
+                }
+
+                <td>@permission.StartDate.ToShortDateString()</td>
+                <td>@permission.FinishDate.ToShortDateString()</td>
+                <td class="text-center">
+                    @if (permission.isAproved == null)
+                    {
+                        <i class="btn btn-warning fas fa-clock disabled"></i>
+                    }
+                    else if (permission.isAproved == true)
+                    {
+                        <i class="btn btn-success fas fa-check-circle disabled"></i>
+                    }
+                    else
+                    {
+                        <i class="btn btn-danger fas fa-times-circle disabled"></i>
+
+                    }
+                </td>
+
+            </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

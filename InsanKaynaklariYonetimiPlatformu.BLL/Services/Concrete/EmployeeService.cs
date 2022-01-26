@@ -2,6 +2,7 @@
 using InsanKaynaklariYonetimiPlatformu.DAL.Repositories;
 using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
@@ -116,7 +117,94 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public bool AnyEmployeesPermission(AddEmployeesPermissionVM permissionVM)
         {
-           return employeeRepository.GetPermissionById(permissionVM.EmployeeID,permissionVM.StartDate,permissionVM.FinishDate);
+            return employeeRepository.GetPermissionById(permissionVM.EmployeeID, permissionVM.StartDate, permissionVM.FinishDate);
+        }
+
+        public List<EmployeePermissionVM> GetPermissionListEmployeeByID(int id)
+        {
+            List<Permission> permissions = employeeRepository.GetPermissionListEmployeeByID(id);
+            List<EmployeePermissionVM> employeePermissionVMs = new List<EmployeePermissionVM>();
+            if (permissions != null)
+            {
+                foreach (Permission item in permissions)
+                {
+                    EmployeePermissionVM permissionVM = new EmployeePermissionVM()
+                    {
+                        PermissionID = item.PermissionId,
+                        PermissionType = item.PermissionType,
+                        StartDate = item.StartDate,
+                        FinishDate = item.FinishDate,
+                        isAproved = item.isAproved
+                    };
+                    employeePermissionVMs.Add(permissionVM);
+                
+                }
+            }
+
+            return employeePermissionVMs;
+        }
+
+        public int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM)
+        {
+            Employee employee = employeeRepository.GetEmployeeById(id);
+            if (employee!=null)
+            {
+                Permission permission = new Permission()
+                {
+                    EmployeeId = id,
+                    StartDate = permissionVM.StartDate,
+                    FinishDate = permissionVM.FinishDate,
+                    isAproved = null,
+                    PermissionType = permissionVM.PermissionType,
+                    ManagerId = employee.ManagerId
+                };
+
+                return employeeRepository.AddPermission(permission);
+
+            }
+            return 0;
+
+
+        }
+
+        public bool AnyFilePath(string filepath)
+        {
+            return employeeRepository.AnyFilePath(filepath);
+        }
+
+        public int AddDocumentByEmployeID(int id, string filepath, string fileName)
+        {
+            Document document = new Document()
+            {
+                EmployeeID = id,
+                DocumentPath = filepath,
+                DocumentName=fileName
+            };
+            return employeeRepository.AddDocument(document);
+        }
+
+        public List<DocumentVM> GetDocument(int id)
+        {
+            List<Document> documents = employeeRepository.GetDocumentByID(id);
+            if (documents!=null)
+            {
+                List<DocumentVM> documentVMs = new List<DocumentVM>();
+                foreach (Document document in documents)
+                {
+                    DocumentVM documentVM = new DocumentVM()
+                    {
+                        EmployeeID = (int)document.EmployeeID,
+                        FilePath = document.DocumentPath,
+                        DocumentID=document.DocumentID,
+                        fileName=document.DocumentName
+                        
+                    };
+                    documentVMs.Add(documentVM);
+                }
+
+                return documentVMs;
+            }
+            return null;
         }
     }
 }
