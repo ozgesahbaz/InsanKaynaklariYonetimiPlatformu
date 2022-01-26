@@ -190,5 +190,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Debits.Add(debit);
             return dbContext.SaveChanges();
         }
+
+        public int DeletedDocument(int id)
+        {
+            Document document = dbContext.Documents.Where(a => a.DocumentID == id).SingleOrDefault();
+            if (document==null)
+            {
+                return 1;
+            }
+            dbContext.Documents.Remove(document);
+            return dbContext.SaveChanges();
+        }
     }
 }

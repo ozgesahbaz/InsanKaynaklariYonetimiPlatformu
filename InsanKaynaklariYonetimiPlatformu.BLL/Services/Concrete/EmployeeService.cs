@@ -166,5 +166,45 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
 
         }
+
+        public bool AnyFilePath(string filepath)
+        {
+            return employeeRepository.AnyFilePath(filepath);
+        }
+
+        public int AddDocumentByEmployeID(int id, string filepath, string fileName)
+        {
+            Document document = new Document()
+            {
+                EmployeeID = id,
+                DocumentPath = filepath,
+                DocumentName=fileName
+            };
+            return employeeRepository.AddDocument(document);
+        }
+
+        public List<DocumentVM> GetDocument(int id)
+        {
+            List<Document> documents = employeeRepository.GetDocumentByID(id);
+            if (documents!=null)
+            {
+                List<DocumentVM> documentVMs = new List<DocumentVM>();
+                foreach (Document document in documents)
+                {
+                    DocumentVM documentVM = new DocumentVM()
+                    {
+                        EmployeeID = (int)document.EmployeeID,
+                        FilePath = document.DocumentPath,
+                        DocumentID=document.DocumentID,
+                        fileName=document.DocumentName
+                        
+                    };
+                    documentVMs.Add(documentVM);
+                }
+
+                return documentVMs;
+            }
+            return null;
+        }
     }
 }

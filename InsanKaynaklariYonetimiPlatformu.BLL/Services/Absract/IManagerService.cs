@@ -43,5 +43,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM);
         bool AddShiftDetails(ShiftDetailsVM shiftDetailsVm);
         int AddManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM);
+        int RemoveDocument(int id);
     }
 }

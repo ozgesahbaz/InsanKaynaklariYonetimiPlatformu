@@ -1,0 +1,20 @@
+﻿@model List<DocumentVM>
+
+@foreach (DocumentVM document in Model)
+{
+    <div class="col-12">
+        <div class="row">
+            <div class="col-9">
+                <a class="btn btn-warning disabled"> <i class="fas fa-file-pdf"></i> </a>
+                <a href="~/@document.FilePath">@document.fileName</a>
+            </div>
+            <div class="col-3 align-content-end">
+                <a asp-controller="Manager" asp-action="DeletedDocument" asp-route-id="@document.DocumentID">
+                    <i class="btn btn-danger far fa-trash-alt"></i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+}

@@ -25,7 +25,7 @@
                     <td>@employee.BirthDay.Date.ToShortDateString()</td>
                     <td>@employee.StartDate.ToShortDateString()</td>
                     <td class="text-center">
-                        <a class="btn btn-outline-warning" href="#">
+                        <a class="btn btn-outline-warning" asp-controller="Manager" asp-action="EmployeesDocuments" asp-route-id="@employee.EmployeeId">
                             <i class="far fa-folder"></i>
                         </a>
 

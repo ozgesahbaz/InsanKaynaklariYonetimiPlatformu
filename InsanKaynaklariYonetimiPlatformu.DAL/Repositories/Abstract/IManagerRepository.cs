@@ -58,5 +58,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool addRespitebyShiftID(Respite respite);
         List<Debit> GetListManagersDebit(int id);
         int AddDebitManager(Debit debit);
+        int DeletedDocument(int id);
     }
 }

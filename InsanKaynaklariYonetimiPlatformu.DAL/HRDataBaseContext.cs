@@ -35,6 +35,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         public DbSet<Debit> Debits { get; set; }
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<Respite> Respites { get; set; }
+        public DbSet<Document> Documents { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,14 +52,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
             modelBuilder.ApplyConfiguration(new DebitConfig());
             modelBuilder.ApplyConfiguration(new ShiftConfig());
             modelBuilder.ApplyConfiguration(new RespiteConfig());
+            modelBuilder.ApplyConfiguration(new DocumentConfig());
+
 
 
         }
 
-        internal Debit Where(object p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

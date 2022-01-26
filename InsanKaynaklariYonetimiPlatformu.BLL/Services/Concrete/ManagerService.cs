@@ -395,5 +395,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             };
             return managerRepository.AddDebitManager(debit);
         }
+
+        public int RemoveDocument(int id)
+        {
+            return managerRepository.DeletedDocument(id);
+        }
     }
 }
