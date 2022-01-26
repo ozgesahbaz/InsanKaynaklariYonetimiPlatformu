@@ -512,7 +512,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("ManagersEmployeeDebit");
         }
-<<<<<<< HEAD
+
         public IActionResult DeletedDocument(int id)
         {
             try
@@ -580,10 +580,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(documentVMd);
         }
-=======
 
-       
->>>>>>> 89c2566440810fc7606c490cdfb1b4aab793a1ee
     }
 
 

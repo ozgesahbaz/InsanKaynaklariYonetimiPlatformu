@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220125174659_init2")]
-    partial class init2
+    [Migration("20220126172524_addshiftmethods")]
+    partial class addshiftmethods
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,17 +169,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DocumentPath")
+                    b.Property<string>("DocumentName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DocumentPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("EmployeeID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("DocumentID");
 
+                    b.HasIndex("DocumentPath")
+                        .IsUnique();
+
                     b.HasIndex("EmployeeID");
 
-                    b.ToTable("Document");
+                    b.ToTable("Dokumanlar");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
@@ -478,7 +486,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
                         .WithMany("Documents")
-                        .HasForeignKey("EmployeeID");
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });
