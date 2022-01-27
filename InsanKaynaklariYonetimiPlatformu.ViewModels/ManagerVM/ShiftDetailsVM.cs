@@ -13,7 +13,8 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         {
             Employees=new List<Employee>();
         }
-
+        public int RespiteID { get; set; }
+        public int ShiftID { get; set; }
         public int ManagerID { get; set; }
         public int EmployeeID { get; set; }
         public List<Employee> Employees { get; set; }

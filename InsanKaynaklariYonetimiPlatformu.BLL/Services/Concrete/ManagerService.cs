@@ -370,7 +370,26 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
           return managerRepository.GetRespitebyShiftId(shiftId);
         }
+        public bool DeleteShiftDetails(int shiftId)
+        {
+            return managerRepository.DeleteShiftDetails(shiftId) ? true : false;
+        }
 
+        public bool EditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
+        {
+
+            Shift shift = managerRepository.GetShiftbyRespiteid(id);
+
+            shift.ShiftFinishTime = shiftDetailsVM.ShiftFinishTime;
+            shift.ShiftStartTime = shiftDetailsVM.ShiftStartTime;
+            Respite respite = managerRepository.GetRespitebyRespiteID(id);
+             respite.RespiteFinishTime = shiftDetailsVM.RespiteFinishTime;
+            respite.RespiteStartTime=shiftDetailsVM.RespiteStartTime;
+            return  managerRepository.UpdateShiftDetails(shift, respite) ? true : false;
+         
+
+
+        }
         public List<ManagersDebitVM> GetListManagersDebit(int id)
         {
             //Db tarafından Debit verilerini almak için istek gönderiyoruz.
@@ -410,6 +429,22 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int RemoveDocument(int id)
         {
             return managerRepository.DeletedDocument(id);
+        }
+
+        public ShiftDetailsVM GetShiftDetailbyRespiteID(ShiftDetailsVM shiftDetailsVM, int id)
+        {
+            shiftDetailsVM.RespiteID = id;
+            Respite respite = managerRepository.GetRespitebyRespiteID(id);
+            shiftDetailsVM.RespiteStartTime = respite.RespiteStartTime;
+            shiftDetailsVM.RespiteFinishTime = respite.RespiteFinishTime;
+            Shift shift = managerRepository.GetShiftbyRespiteid(id);
+            shiftDetailsVM.ShiftFinishTime=shift.ShiftFinishTime;
+            shiftDetailsVM.ShiftStartTime = shift.ShiftStartTime;
+            shiftDetailsVM.ShiftID = shift.ShiftId; 
+            
+ 
+
+            return shiftDetailsVM;
         }
     }
 }
