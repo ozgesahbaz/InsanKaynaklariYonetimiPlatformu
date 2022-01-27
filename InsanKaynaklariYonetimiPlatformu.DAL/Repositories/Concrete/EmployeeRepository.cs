@@ -19,6 +19,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext = dataBaseContext;
         }
 
+        public int AddDocument(Document document)
+        {
+            dbContext.Documents.Add(document);
+            return dbContext.SaveChanges();
+        }
+
         public int AddEmployee(Employee newEmployee)
         {
             dbContext.Employees.Add(newEmployee);
@@ -29,6 +35,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             dbContext.Permissions.Add(permission);
             return dbContext.SaveChanges();
+        }
+
+        public bool AnyFilePath(string filepath)
+        {
+            return dbContext.Documents.Any(a => a.DocumentPath == filepath);
         }
 
         public bool AnyMail(string email)
@@ -87,6 +98,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             }
             dbContext.Employees.Remove(employee);
             return dbContext.SaveChanges();
+        }
+
+        public List<Document> GetDocumentByID(int id)
+        {
+            return dbContext.Documents.Where(a => a.EmployeeID == id).ToList();
         }
 
         public Employee GetEmployeeById(int id)

@@ -32,7 +32,8 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public  int ManagerId { get; set; }
         public int ShiftID { get; set; }
 
-       
+        public virtual ICollection<Document> Documents { get; set; }
+
         public virtual ICollection<Shift> Shifts { get; set; }
         public virtual ICollection<Debit> Debits { get; set; }
         public virtual ICollection<Permission> Permissions { get; set; }

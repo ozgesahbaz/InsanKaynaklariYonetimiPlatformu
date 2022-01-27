@@ -5,6 +5,7 @@ using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
 
@@ -88,9 +89,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
         }
 
-
-
-
         public void SendMail(Employee employee)
         {
             MailMessage msg = new MailMessage();
@@ -114,13 +112,13 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             smtp.Send(msg);
         }
         [HttpGet]
-        public IActionResult ManagersPersonelDebit(int id) 
+        public IActionResult ManagersPersonelDebit(int id)
         {
             return View();
 
         }
         [HttpPost]
-        public IActionResult ManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM) 
+        public IActionResult ManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM)
         {
             try
             {
@@ -393,7 +391,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.RemoveDebit(id)<1)
+                if (managerService.RemoveDebit(id) < 1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
@@ -409,14 +407,21 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult ShiftDetails(int id)
         {
-            return View();
+       
+            List<Employee> employees = employeeService.GetListEmployees(id);
+            ShiftDetailsVM shiftDetailsVM = new ShiftDetailsVM()
+            {
+                Employees = employees,
+            };
+
+            return View(shiftDetailsVM);
         }
         [HttpPost]
-        public IActionResult AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int ManagerID)
+        public IActionResult ShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
         {
-            managerService.AddShiftDetails(shiftDetailsVm);
-
-            return View();
+            managerService.AddShiftDetails(shiftDetailsVM, id);
+            shiftDetailsVM.Employees = employeeService.GetListEmployees(id);
+            return View(shiftDetailsVM);
         }
         [HttpGet]
         public IActionResult ManagersPermission(int id)
@@ -489,7 +494,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
-    
+
         public IActionResult DeletedDebit(int id)
         {
             try
@@ -508,7 +513,74 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("ManagersEmployeeDebit");
         }
 
-       
+        public IActionResult DeletedDocument(int id)
+        {
+            try
+            {
+                if (managerService.RemoveDocument(id) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("EmployeesDocuments");
+        }
+        [HttpGet]
+        public IActionResult EmployeesDocuments(int id)
+        {
+            AddDocumentVM documentVM = new AddDocumentVM()
+            {
+                EmployeeID = id
+            };
+            return View(documentVM);
+        }
+        [HttpPost]
+        public IActionResult EmployeesDocuments(int id, AddDocumentVM documentVM)
+        {
+            try
+            {
+                string ext = documentVM.File.ContentType.Split('/')[1];
+                if (ext == "pdf") 
+                {
+                    string filename = $"file_employee{id}_{documentVM.FileName}.{ext}";
+                    string filepath = Path.Combine(Environment.CurrentDirectory, "wwwroot\\uploads\\file", filename);
+                    string documentPath = $"uploads\\file\\{filename}";
+                    if (employeeService.AnyFilePath(documentPath))
+                    {
+                        throw new Exception("Lütfen farklı bir dosya ismi giriniz.");
+                    }
+                    if (employeeService.AddDocumentByEmployeID(id, documentPath,documentVM.FileName) <1)//
+                    {
+                        throw new Exception("Bir hata oluştu.");
+                    }
+                    FileStream fs = new FileStream(filepath, FileMode.OpenOrCreate);
+                    documentVM.File.CopyTo(fs);
+                    fs.Close();
+                }
+                else
+                {
+                    throw new Exception("Lütfen .pdf tipinde dosya yüklemesi yapınız.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            AddDocumentVM documentVMd = new AddDocumentVM()
+            {
+                EmployeeID = id
+            };
+
+            return View(documentVMd);
+        }
+
     }
 
 

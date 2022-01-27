@@ -160,6 +160,34 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.ToTable("Zimmetler");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Document", b =>
+                {
+                    b.Property<int>("DocumentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DocumentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("EmployeeID")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("DocumentID");
+
+                    b.HasIndex("DocumentPath")
+                        .IsUnique();
+
+                    b.HasIndex("EmployeeID");
+
+                    b.ToTable("Dokumanlar");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
@@ -452,6 +480,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Document", b =>
+                {
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
+                        .WithMany("Documents")
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Company", null)
@@ -547,6 +586,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
                 {
                     b.Navigation("Debits");
+
+                    b.Navigation("Documents");
 
                     b.Navigation("Expenditures");
 

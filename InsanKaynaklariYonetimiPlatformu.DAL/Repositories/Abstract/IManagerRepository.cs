@@ -43,7 +43,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int UpdatePermission(Permission permission);
         int DeletedPermission(Permission permission);
         List<Employee> GetEmployeesByManagerId(int managerID);
-        List<Shift> GetShiftbyEmployeeId( );
+        
         List<Respite> GetRespitebyShiftId(int shiftId);
         List<Permission> GetPermissionByManagerId(int id);
         int AddPermissionManager(Permission permission);
@@ -58,5 +58,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool addRespitebyShiftID(Respite respite);
         List<Debit> GetListManagersDebit(int id);
         int AddDebitManager(Debit debit);
+        int DeletedDocument(int id);
+        List<Shift> GetShiftbyEmployeeId(int employeeID);
     }
 }

@@ -214,21 +214,19 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
             List<ShiftDetailsVM> shiftDetailsVms = new List<ShiftDetailsVM>();
             ShiftDetailsVM shiftDetailsVm = new ShiftDetailsVM();
-            List<Employee> employees = managerRepository.GetEmployeesByManagerId(managerID);
+           shiftDetailsVm.Employees = managerRepository.GetEmployeesByManagerId(managerID);
 
-            foreach (Employee employee in employees)
+            foreach (Employee employee in shiftDetailsVm.Employees)
             {
-                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId();
 
+                shiftDetailsVm.EmployeeID = employee.EmployeeId;
                 shiftDetailsVm.EmployeeFullName = employee.FullName;
-                shiftDetailsVm.EmployeeID = employee.EmployeeId;
 
+                List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId(employee.EmployeeId);
                 foreach (Shift item in Shifts)
-                { 
-                //    Employee employee= item.Employees.Where(x => x.EmployeeId==item.EmployeeID).FirstOrDefault();
-                //shiftDetailsVm.EmployeeFullName = employee.FullName;
-                shiftDetailsVm.EmployeeID = employee.EmployeeId;
-                shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
+                {
+
+                    shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
                     shiftDetailsVm.ShiftStartTime = item.ShiftStartTime;
                     List<Respite> respites = managerRepository.GetRespitebyShiftId(item.ShiftId);
                     foreach (Respite respite in respites)
@@ -246,21 +244,24 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         }
 
-        public bool AddShiftDetails(ShiftDetailsVM shiftDetailsVm)
+        public bool AddShiftDetails(ShiftDetailsVM ShiftDetailsVM, int managerID)
         {
             Shift shift = new Shift();
             Respite respite = new Respite();
-        
-            shift.EmployeeID = shiftDetailsVm.EmployeeID;
-            shift.ShiftFinishTime=shiftDetailsVm.ShiftFinishTime;
-            shift.ShiftStartTime = shiftDetailsVm.ShiftStartTime;
+
+            shift.EmployeeID = ShiftDetailsVM.EmployeeID;
+            shift.ShiftFinishTime = ShiftDetailsVM.ShiftFinishTime;
+            shift.ShiftStartTime = ShiftDetailsVM.ShiftStartTime;
+
             if (managerRepository.addShiftDetails(shift))
             {
                 int LastofAddedShiiftID = managerRepository.GetShiftOrderyBydescending();
-            respite.ShiftId = LastofAddedShiiftID;
-            respite.RespiteFinishTime=shiftDetailsVm.RespiteFinishTime;
-            respite.RespiteStartTime=shiftDetailsVm.RespiteStartTime;
-             return managerRepository.addRespitebyShiftID(respite);
+                respite.ShiftId = LastofAddedShiiftID;
+                respite.RespiteFinishTime = ShiftDetailsVM.RespiteFinishTime;
+                respite.RespiteStartTime = ShiftDetailsVM.RespiteStartTime;
+
+              bool isadded= managerRepository.addRespitebyShiftID(respite)? true: false;
+                return isadded;
 
             }
 
@@ -274,6 +275,22 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         }
 
+        public int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM)
+        { //AddEmployeesDebitVm referans alarak Debite çeviriyoruz. Db debit atabiliriz. Bu sebeple AddEmployee debite çevrilmeli
+            Debit debit = new Debit()
+            {
+                ManagerID = id,
+                EmployeeID = debitVM.EmployeeID,
+                DebitName = debitVM.DebitName,
+                StartedDate = debitVM.StartedDate,
+                Details = debitVM.Details
+
+
+            };
+            //Sayfanın gitmesi gereken yer
+
+            return managerRepository.AddEmployeeDebit(debit);
+        }
         public List<ManagersPermissionVM> GetPermissionListManagers(int id)
         {
             List<Permission> permissions = managerRepository.GetPermissionByManagerId(id);
@@ -343,21 +360,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return managerRepository.DeletedDebit(debit);
         }
 
-        public int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM)
-        { //AddEmployeesDebitVm referans alarak Debite çeviriyoruz. Db debit atabiliriz. Bu sebeple AddEmployee debite çevrilmeli
-            Debit debit = new Debit()
-            {
-                ManagerID = id,
-                EmployeeID= debitVM.EmployeeID,
-                DebitName = debitVM.DebitName,
-                StartedDate = debitVM.StartedDate,
-                Details = debitVM.Details             
 
+        public List<Shift> GetShiftDetailbyEmployeeId(int employeeId)
+        {
+            return managerRepository.GetShiftbyEmployeeId(employeeId);
+        }
 
-            };
-            //Sayfanın gitmesi gereken yer
-
-            return managerRepository.AddEmployeeDebit(debit);
+        public List<Respite> GetRespitebyShiftId(int shiftId)
+        {
+          return managerRepository.GetRespitebyShiftId(shiftId);
         }
 
         public List<ManagersDebitVM> GetListManagersDebit(int id)
@@ -394,6 +405,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
             };
             return managerRepository.AddDebitManager(debit);
+        }
+
+        public int RemoveDocument(int id)
+        {
+            return managerRepository.DeletedDocument(id);
         }
     }
 }

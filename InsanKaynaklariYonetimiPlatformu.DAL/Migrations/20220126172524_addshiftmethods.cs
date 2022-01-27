@@ -3,15 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220125111804_init3.cs
-    public partial class init3 : Migration
-=======
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220125125625_initial.cs
-    public partial class initial : Migration
-=======
-    public partial class init : Migration
->>>>>>> c0726c69a5f8936143b013358fb2ce3a0a4669b8:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220125124049_init.cs
->>>>>>> 777d1d5aee7f724f1ad6b96028cb1683dfbc7e50:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220125125625_initial.cs
+    public partial class addshiftmethods : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -192,6 +184,27 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dokumanlar",
+                columns: table => new
+                {
+                    DocumentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DocumentPath = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DocumentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dokumanlar", x => x.DocumentID);
+                    table.ForeignKey(
+                        name: "FK_Dokumanlar_Personeller_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Personeller",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmployeeShift",
                 columns: table => new
                 {
@@ -312,6 +325,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 values: new object[] { 1, "Red Team", "admin", "admin@admin.com" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Dokumanlar_DocumentPath",
+                table: "Dokumanlar",
+                column: "DocumentPath",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dokumanlar_EmployeeID",
+                table: "Dokumanlar",
+                column: "EmployeeID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeShift_ShiftsShiftId",
                 table: "EmployeeShift",
                 column: "ShiftsShiftId");
@@ -399,6 +423,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Dokumanlar");
+
             migrationBuilder.DropTable(
                 name: "EmployeeShift");
 
