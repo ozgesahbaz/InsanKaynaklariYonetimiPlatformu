@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220127110009_initial.Designer.cs
-    [Migration("20220127110009_initial")]
+    [Migration("20220129110358_initial")]
     partial class initial
-=======
-    [Migration("20220126172524_addshiftmethods")]
-    partial class addshiftmethods
->>>>>>> a3b6ca62d4e8e1f315736b2c76e598603e52ee63:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220126172524_addshiftmethods.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

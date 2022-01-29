@@ -206,7 +206,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges();
         }
 
-<<<<<<< HEAD
+
         public int ChangePassword(Manager manager)
         {
             return dbContext.SaveChanges();
@@ -222,7 +222,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges();
 
         }
-=======
+
         public bool DeleteShiftDetails(int shiftId)
         {
             List<Shift> shifts = dbContext.Shifts.Include(a => a.Respites).Where(a => a.ShiftId == shiftId).ToList();
@@ -260,9 +260,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return shift;
 
         }
-
-        
->>>>>>> a3b6ca62d4e8e1f315736b2c76e598603e52ee63
     }
 }
 

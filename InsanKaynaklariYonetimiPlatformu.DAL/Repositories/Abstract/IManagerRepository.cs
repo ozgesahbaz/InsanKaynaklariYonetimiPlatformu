@@ -59,18 +59,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         List<Debit> GetListManagersDebit(int id);
         int AddDebitManager(Debit debit);
         int DeletedDocument(int id);
-<<<<<<< HEAD
         int ChangePassword(Manager manager);
         int ChangeAccount(Manager manager);
         int ChangeSettings(Company company);
-=======
+
         List<Shift> GetShiftbyEmployeeId(int employeeID);
         bool DeleteShiftDetails(int shiftId);
         Shift GetShiftDetailsByShiftId(int shiftId);
         Respite GetRespitebyRespiteID(int respiteID);
         bool UpdateShiftDetails(Shift shift, Respite respite);
         Shift GetShiftbyRespiteid(int id);
-       
->>>>>>> a3b6ca62d4e8e1f315736b2c76e598603e52ee63
+
     }
 }
