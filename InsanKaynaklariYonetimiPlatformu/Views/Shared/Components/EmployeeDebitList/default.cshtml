@@ -1,0 +1,57 @@
+﻿@model List<EmployeeDebitVM>
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Zimmet Adı</th>
+                <th>Zimmet Detayı</th>
+                <th>Veriliş Tarihi</th>
+                <th>Red Sebebi</th>
+                <th></th>
+                <th>Onay Durumu</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EmployeeDebitVM debit in Model)
+            {
+            <tr>
+                <td>@debit.DebitName</td>
+                <td>@debit.Details</td>
+                <td>@debit.StartedDate.ToShortDateString()</td>
+                <td>@debit.DescofRejec</td>
+                <td>@debit.IsAproved</td>
+
+
+                @*<td class="text-center">
+                    @if (debit.IsAproved == false)
+            {
+                <i class="btn btn-danger far fa-times-circle"></i>
+            }
+            else
+            {
+                <i class="btn btn-success fas fa-edit"></i>
+            }
+
+
+                </td>*@
+                <td class="text-center">
+
+                    <a asp-controller="Employee" asp-action="EmployeesDebit" asp-route-id="@debit.ID">
+                <i class="btn btn-success fas fa-edit"></i>
+            </a>
+                    <a asp-controller="Employee" asp-action="RejectedDebit" asp-route-id="@debit.ID">
+                        <i class="btn btn-danger far fa-times-circle"></i>
+                    </a>
+
+                </td>
+
+            </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

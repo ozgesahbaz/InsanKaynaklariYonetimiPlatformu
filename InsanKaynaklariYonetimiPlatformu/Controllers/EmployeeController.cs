@@ -22,6 +22,37 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult EmployeesDebit (int id) 
+        {
+            return View();
+        
+        }
+        [HttpPost]
+        public IActionResult EmployeesDebit(int id, EmployeeDebitVM employeeDebitVM)
+        {
+            try
+            {
+                List<EmployeeDebitVM> debitVMs = employeeService.GetEmployeeDebitList(id);
+                if (debitVMs != null)
+                {
+                    return View(debitVMs);
+                }
+                else
+                {
+                    throw new Exception("Henüz zimmetiniz bulunmamaktadır.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return View();
+
+
+        }
         public IActionResult MyPermissions(int id)
         {
             return View();
@@ -84,8 +115,69 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("Index","Home");
         }
 
+        [HttpGet]
+        public IActionResult ExpenditureList(int id) 
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult ExpenditureList (int id, ExpenditureVM expenditureVM) 
+        {
+            try
+            {
+                if (employeeService.AddExpenditure(id, expenditureVM)<1)
+                {
+                    throw new Exception("Bir hata oluştu");
 
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exeption", ex.Message);
+            }
+            return View();
+        
+        }
+
+        public IActionResult DeletedExpenditure (int id) 
+        {
+            try
+            {
+                if (employeeService.RemoveExpenditure(id) < 1) 
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ExpenditureList");
+        
+        }
+        
+        public IActionResult RejectedDebit (int id) 
+        {
+            try
+            {
+                if (employeeService.RemoveRejectedDebit(id)<1)
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("RejectedDebit");
+        
+        
+        }
 
 
     }

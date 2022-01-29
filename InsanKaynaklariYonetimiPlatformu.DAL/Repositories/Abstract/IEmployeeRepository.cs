@@ -21,5 +21,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate);
         List<Permission> GetPermissionListEmployeeByID(int id);
         int AddPermission(Permission permission);
+        List<Debit> GetEmployeeDebitList(int id);       
+        List<Expenditure> GetListExpenditure(int id);
+        int AddExpenditure(Expenditure expenditure);
+        Expenditure GetExpenditureById(int id);
+        int DeletExpenditure(Expenditure expenditure);
+        Debit GetRejectedDebitById(int id);
+        int DeleteRejectedDebit(Debit debit);
     }
 }

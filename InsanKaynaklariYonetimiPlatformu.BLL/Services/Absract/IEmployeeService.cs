@@ -18,9 +18,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int ChangesPassword(Employee employee, string password);
         int UpdateEmployees(int id, Employee employee);
         int DeleteEmployee(int id);
+        List<ExpenditureVM> GetListExpenditure(int id);
+        List<EmployeeDebitVM> GetEmployeeDebitList(int id);
         List<Permission> GetPermissionListEmployees(int id);
         List<EmployeePermissionVM> GetPermissionListEmployeeByID(int id);
         bool AnyEmployeesPermission(AddEmployeesPermissionVM permissionVM);
-        int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM);
+        int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM);              
+        int AddExpenditure(int id, ExpenditureVM expenditureVM);
+        int RemoveExpenditure(int id);
+        int RemoveRejectedDebit(int id);
     }
 }

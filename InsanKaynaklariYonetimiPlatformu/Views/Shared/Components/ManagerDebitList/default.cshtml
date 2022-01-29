@@ -22,7 +22,7 @@
                 <tr>
                     <td>@debitVM.EmployeeName</td>
                     <td>@debitVM.DebitName</td>
-                    <td>@debitVM.StartedDate</td>
+                    <td>@debitVM.StartedDate.ToShortDateString()</td>
                     <td class="text-center">
                         @if (debitVM.IsAproved == null)
                         {
