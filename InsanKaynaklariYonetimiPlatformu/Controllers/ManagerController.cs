@@ -193,7 +193,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
 
 
-
         [HttpPost]
         public IActionResult DeleteEmployee(DeleteEmployeVM deleteEmploye)
         {
@@ -406,17 +405,126 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("ManagersDebit");
         }
         [HttpGet]
-        public IActionResult ShiftDetails(int id)
+        [ActionName("ShiftDetails")]
+        public IActionResult Get(int id)
         {
-            return View();
+
+            List<Employee> employees = employeeService.GetListEmployees(id);
+
+            ShiftDetailsVM shiftDetailsVM = new ShiftDetailsVM()
+            {
+                Employees = employees,
+                ManagerID = id,
+            };
+
+            return View(shiftDetailsVM);
         }
         [HttpPost]
-        public IActionResult AddShiftDetails(ShiftDetailsVM shiftDetailsVm, int ManagerID)
+        [ActionName("ShiftDetails")]
+        public IActionResult Post(ShiftDetailsVM shiftDetailsVM, int id)
         {
-            managerService.AddShiftDetails(shiftDetailsVm);
+            managerService.AddShiftDetails(shiftDetailsVM, id);
+            shiftDetailsVM.Employees = employeeService.GetListEmployees(id);
+            shiftDetailsVM.ManagerID = id;
 
-            return View();
+            return View(shiftDetailsVM);
         }
+
+        [HttpGet]
+        public IActionResult DeleteShiftDetails(int id)
+        {
+            try
+            {
+                if (managerService.DeleteShiftDetails(id))
+
+                {
+                    return RedirectToAction("ShiftDetails");// yazılısında hata olabilir kontrol et
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ShiftDetails");
+
+
+
+
+        }
+        [HttpGet]
+        public IActionResult GetEditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
+        {
+          
+            shiftDetailsVM = managerService.GetShiftDetailbyRespiteID(shiftDetailsVM, id);
+
+            
+
+            return View(shiftDetailsVM);
+
+        }
+
+        [HttpPost]
+
+        public IActionResult PostEditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
+        {
+            if (!managerService.EditShiftDetails(shiftDetailsVM, id))
+            {
+                throw new Exception("Bir hata oluştu.");
+            }
+            else
+            {
+
+                return RedirectToAction("ShiftDetails");
+            }
+
+        }
+
+
+        //[HttpDelete]
+        //[ActionName("ShiftDetails")]
+        //public IActionResult Delete(int shiftid)
+        //{
+        //    try
+        //    {
+        //        if (managerService.DeleteShiftDetails(shiftid))
+
+        //        {
+        //            return RedirectToAction("GetShiftDetails");// yazılısında hata olabilir kontrol et
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Bir hata oluştu.");
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        ModelState.AddModelError("exception", ex.Message);
+        //    }
+        //    return RedirectToAction("Get");
+
+
+
+
+        //}
+        //[HttpPut]
+        //[ActionName("ShiftDetails")]
+        //  public IActionResult Edit(ShiftDetailsVM shiftDetailsVM, int shiftid)
+        //{
+        //    managerService.EditShiftDetails(shiftDetailsVM, shiftid);
+        //    shiftDetailsVM.Employees = employeeService.GetListEmployees(shiftid);
+        //    return View(shiftDetailsVM);
+
+
+        //    return View();
+        //}
         [HttpGet]
         public IActionResult ManagersPermission(int id)
         {

@@ -207,5 +207,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return null;
         }
+
+        
     }
 }
