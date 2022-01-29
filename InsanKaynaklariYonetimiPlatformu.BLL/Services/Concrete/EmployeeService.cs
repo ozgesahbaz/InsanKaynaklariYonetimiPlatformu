@@ -35,6 +35,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     BirthDay = employeeVM.BirtDay,
                     Password = $"123{employeeVM.FullName.ToLower()}",
                     Status = employeeVM.Status,
+                    Photo = "uploads\\image\\userphoto\\_usernophoto.png",
                     IsActive = false
                 };
                 if (employeeRepository.AddEmployee(newEmployee) > 0)

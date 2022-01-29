@@ -50,5 +50,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         bool DeleteShiftDetails(int shiftId);
         bool EditShiftDetails(ShiftDetailsVM shiftDetailsVM, int emloyeeID);
         ShiftDetailsVM GetShiftDetailbyRespiteID(ShiftDetailsVM shiftDetailsVM, int id);
+        int ChangePassword(int id, PasswordVM passwordVM);
+        int ChangeAccount(int id, AccountSettingsVM settingsVM, string documentPath);
+        int ChangeCompanySettings(int id, CompanySettingsVM settingsVM, string documentPath);
     }
 }

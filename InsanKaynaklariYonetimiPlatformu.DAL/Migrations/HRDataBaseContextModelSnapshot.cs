@@ -100,8 +100,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<byte[]>("CompanyLogo")
-                        .HasColumnType("image");
+                    b.Property<string>("CompanyLogo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -227,8 +227,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("image");
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PremiumRate")
                         .HasMaxLength(5)
@@ -334,8 +334,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("image");
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ManagerId");
 

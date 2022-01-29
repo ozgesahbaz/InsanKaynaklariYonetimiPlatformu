@@ -30,7 +30,6 @@
     <Folder Include="wwwroot\Dashboard\src\pug\mixins\layouts\" />
     <Folder Include="wwwroot\Dashboard\src\pug\pages\" />
     <Folder Include="wwwroot\uploads\file\" />
-    <Folder Include="wwwroot\uploads\image\" />
   </ItemGroup>
 
   <ItemGroup>
