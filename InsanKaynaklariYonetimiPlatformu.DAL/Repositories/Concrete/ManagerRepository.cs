@@ -201,5 +201,21 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Documents.Remove(document);
             return dbContext.SaveChanges();
         }
+
+        public int ChangePassword(Manager manager)
+        {
+            return dbContext.SaveChanges();
+        }
+
+        public int ChangeAccount(Manager manager)
+        {
+            return dbContext.SaveChanges();
+        }
+
+        public int ChangeSettings(Company company)
+        {
+            return dbContext.SaveChanges();
+
+        }
     }
 }

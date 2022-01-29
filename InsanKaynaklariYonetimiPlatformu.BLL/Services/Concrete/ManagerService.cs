@@ -33,6 +33,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 CompanyName = companyName,
                 MailExtension = mailextension,
                 RegisterDate = DateTime.Now,
+                CompanyLogo = "uploads\\image\\company\\_companynologo.png",
                 Address = address
             };
             if (managerRepository.InsertCompany(company) > 0)
@@ -82,7 +83,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 Password = register.ManagerPassword,
                 Email = register.ManagerMail,
                 IsActive = false,
-                IsApproved = false
+                IsApproved = false,
+                Photo = "uploads\\image\\userphoto\\_usernophoto.png"
             };
             if (managerRepository.InsertManager(manager) > 0)
             {
@@ -224,11 +226,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 shiftDetailsVm.EmployeeID = employee.EmployeeId;
 
                 foreach (Shift item in Shifts)
-                { 
-                //    Employee employee= item.Employees.Where(x => x.EmployeeId==item.EmployeeID).FirstOrDefault();
-                //shiftDetailsVm.EmployeeFullName = employee.FullName;
-                shiftDetailsVm.EmployeeID = employee.EmployeeId;
-                shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
+                {
+                    //    Employee employee= item.Employees.Where(x => x.EmployeeId==item.EmployeeID).FirstOrDefault();
+                    //shiftDetailsVm.EmployeeFullName = employee.FullName;
+                    shiftDetailsVm.EmployeeID = employee.EmployeeId;
+                    shiftDetailsVm.ShiftFinishTime = item.ShiftFinishTime;
                     shiftDetailsVm.ShiftStartTime = item.ShiftStartTime;
                     List<Respite> respites = managerRepository.GetRespitebyShiftId(item.ShiftId);
                     foreach (Respite respite in respites)
@@ -250,17 +252,17 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Shift shift = new Shift();
             Respite respite = new Respite();
-        
+
             shift.EmployeeID = shiftDetailsVm.EmployeeID;
-            shift.ShiftFinishTime=shiftDetailsVm.ShiftFinishTime;
+            shift.ShiftFinishTime = shiftDetailsVm.ShiftFinishTime;
             shift.ShiftStartTime = shiftDetailsVm.ShiftStartTime;
             if (managerRepository.addShiftDetails(shift))
             {
                 int LastofAddedShiiftID = managerRepository.GetShiftOrderyBydescending();
-            respite.ShiftId = LastofAddedShiiftID;
-            respite.RespiteFinishTime=shiftDetailsVm.RespiteFinishTime;
-            respite.RespiteStartTime=shiftDetailsVm.RespiteStartTime;
-             return managerRepository.addRespitebyShiftID(respite);
+                respite.ShiftId = LastofAddedShiiftID;
+                respite.RespiteFinishTime = shiftDetailsVm.RespiteFinishTime;
+                respite.RespiteStartTime = shiftDetailsVm.RespiteStartTime;
+                return managerRepository.addRespitebyShiftID(respite);
 
             }
 
@@ -348,10 +350,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Debit debit = new Debit()
             {
                 ManagerID = id,
-                EmployeeID= debitVM.EmployeeID,
+                EmployeeID = debitVM.EmployeeID,
                 DebitName = debitVM.DebitName,
                 StartedDate = debitVM.StartedDate,
-                Details = debitVM.Details             
+                Details = debitVM.Details
 
 
             };
@@ -366,18 +368,18 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             List<Debit> debits = managerRepository.GetListManagersDebit(id);
             //Fakat biz bu bilgileri belirlediğimiz kısıtlarla listelemek istediğimiz için debit ManagerDebitVM şekline dönüştürüp listeliyoruz.
             List<ManagersDebitVM> debitVMs = new List<ManagersDebitVM>();
-            foreach (Debit debit in debits)              
-                {
+            foreach (Debit debit in debits)
+            {
                 ManagersDebitVM managersDebitVM = new ManagersDebitVM()
                 {
                     ID = debit.ID,
                     DebitName = debit.DebitName,
-                    StartedDate=debit.StartedDate,
-                    Details=debit.Details
+                    StartedDate = debit.StartedDate,
+                    Details = debit.Details
                 };
                 debitVMs.Add(managersDebitVM);
 
-                }
+            }
             return debitVMs;
 
         }
@@ -399,6 +401,75 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int RemoveDocument(int id)
         {
             return managerRepository.DeletedDocument(id);
+        }
+
+        public int ChangePassword(int id, PasswordVM passwordVM)
+        {
+            Manager manager = managerRepository.FindManager(id);
+            if (manager!=null)
+            {
+                if (manager.Password==passwordVM.OldPassword)
+                {
+                    if (passwordVM.NewPassword==passwordVM.AgainNewPassword)
+                    {
+                        manager.Password = passwordVM.NewPassword;
+                        return managerRepository.ChangePassword(manager);
+                       
+                    }
+                    else
+                    {
+                        throw new Exception("Şifreleriniz uyuşmuyor");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Güncel şifrenizi doğru girmediniz.Tekrar deneyin.");
+                }
+
+            }
+            else
+            {
+                throw new Exception("Bir hata oluştu.");
+            }
+        }
+
+        public int ChangeAccount(int id, AccountSettingsVM settingsVM, string documentPath)
+        {
+            Manager manager = FindManager(id);
+            if (manager!=null)
+            {
+                manager.FullName = settingsVM.FullName;
+                if (documentPath!=null)
+                {
+                    manager.Photo = documentPath;
+                }
+
+                return managerRepository.ChangeAccount(manager);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int ChangeCompanySettings(int id, CompanySettingsVM settingsVM, string documentPath)
+        {
+            Company company = FindCompanyByManagerID(id);
+            if (company != null)
+            {
+                company.CompanyName = settingsVM.CompanyName;
+                company.Address = settingsVM.Adress;
+                if (documentPath != null)
+                {
+                    company.CompanyLogo = documentPath;
+                }
+
+                return managerRepository.ChangeSettings(company);
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

@@ -44,5 +44,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         bool AddShiftDetails(ShiftDetailsVM shiftDetailsVm);
         int AddManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM);
         int RemoveDocument(int id);
+        int ChangePassword(int id, PasswordVM passwordVM);
+        int ChangeAccount(int id, AccountSettingsVM settingsVM, string documentPath);
+        int ChangeCompanySettings(int id, CompanySettingsVM settingsVM, string documentPath);
     }
 }

@@ -18,7 +18,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
             builder.Property(a => a.CompanyName).IsRequired().HasMaxLength(250);
             builder.Property(a => a.Address).IsRequired().HasMaxLength(250);
             builder.Property(a => a.MailExtension).IsRequired().HasMaxLength(100);
-            builder.Property(a => a.CompanyLogo).HasColumnType("image");
 
         }
     }

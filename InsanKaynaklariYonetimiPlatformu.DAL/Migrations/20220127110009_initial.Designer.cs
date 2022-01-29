@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220125174659_init2")]
-    partial class init2
+    [Migration("20220127110009_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,8 +102,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<byte[]>("CompanyLogo")
-                        .HasColumnType("image");
+                    b.Property<string>("CompanyLogo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
@@ -169,17 +169,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DocumentPath")
+                    b.Property<string>("DocumentName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DocumentPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("EmployeeID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("DocumentID");
 
+                    b.HasIndex("DocumentPath")
+                        .IsUnique();
+
                     b.HasIndex("EmployeeID");
 
-                    b.ToTable("Document");
+                    b.ToTable("Dokumanlar");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", b =>
@@ -216,8 +224,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("image");
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Salary")
                         .HasMaxLength(10)
@@ -318,8 +326,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("image");
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ManagerId");
 
@@ -478,7 +486,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Employee", "Employee")
                         .WithMany("Documents")
-                        .HasForeignKey("EmployeeID");
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });

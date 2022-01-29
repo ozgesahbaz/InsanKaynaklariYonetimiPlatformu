@@ -31,7 +31,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     CompanyName = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     MailExtension = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CompanyLogo = table.Column<byte[]>(type: "image", nullable: true),
+                    CompanyLogo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -81,7 +81,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     ManagerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Photo = table.Column<byte[]>(type: "image", nullable: true),
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
@@ -134,7 +134,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Photo = table.Column<byte[]>(type: "image", nullable: true),
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -180,6 +180,27 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         column: x => x.ManagerId,
                         principalTable: "Yöneticiler",
                         principalColumn: "ManagerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dokumanlar",
+                columns: table => new
+                {
+                    DocumentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DocumentPath = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DocumentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dokumanlar", x => x.DocumentID);
+                    table.ForeignKey(
+                        name: "FK_Dokumanlar_Personeller_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Personeller",
+                        principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -304,6 +325,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 values: new object[] { 1, "Red Team", "admin", "admin@admin.com" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Dokumanlar_DocumentPath",
+                table: "Dokumanlar",
+                column: "DocumentPath",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dokumanlar_EmployeeID",
+                table: "Dokumanlar",
+                column: "EmployeeID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeShift_ShiftsShiftId",
                 table: "EmployeeShift",
                 column: "ShiftsShiftId");
@@ -391,6 +423,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Dokumanlar");
+
             migrationBuilder.DropTable(
                 name: "EmployeeShift");
 
