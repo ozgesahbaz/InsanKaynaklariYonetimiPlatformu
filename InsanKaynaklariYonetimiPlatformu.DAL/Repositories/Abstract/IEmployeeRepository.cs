@@ -24,5 +24,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool AnyFilePath(string filepath);
         int AddDocument(Document document);
         List<Document> GetDocumentByID(int id);
+        decimal GetSalarybyEmployeeId(int id);
+        decimal GetPremiumrateByEmployeeId(int id);
+        decimal GetNetSalaryByEmployeeId(int id);
     }
 }

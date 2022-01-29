@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class addshiftmethods : Migration
+    public partial class addedNetsalary : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -141,7 +141,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     BirthDay = table.Column<DateTime>(type: "date", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: true),
+                    Salary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: false),
+                    PremiumRate = table.Column<decimal>(type: "decimal(3,2)", maxLength: 5, precision: 3, scale: 2, nullable: false),
+                    NetSalary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: false),
                     ManagerId = table.Column<int>(type: "int", nullable: false),
                     ShiftID = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: true)

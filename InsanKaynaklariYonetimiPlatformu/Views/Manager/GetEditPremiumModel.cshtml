@@ -1,0 +1,56 @@
+﻿@model EditPremiumVm
+<div asp-validation-summary="All"></div>
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetEditPremiumModel</title>
+</head>
+<body>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Salary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PremiumRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NetSalary)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.PremiumRate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.NetSalary)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>

@@ -23,9 +23,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.EntityConfigration
             builder.Property(a => a.IsActive).IsRequired();
             builder.Property(a => a.ManagerId).IsRequired();
             builder.Property(a => a.Salary).HasMaxLength(10).HasPrecision(8,2);
+            builder.Property(a => a.PremiumRate).HasMaxLength(5).HasPrecision(3, 2);
             builder.Property(a => a.Photo).HasColumnType("image");
             builder.Property(a => a.BirthDay).HasColumnType("date");
             builder.Property(a => a.StartDate).HasColumnType("date");
+            builder.Property(a => a.NetSalary).HasMaxLength(10).HasPrecision(8, 2);
 
         }
     }

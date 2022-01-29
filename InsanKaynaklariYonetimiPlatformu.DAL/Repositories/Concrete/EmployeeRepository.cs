@@ -115,6 +115,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
         }
 
+        public decimal GetNetSalaryByEmployeeId(int id)
+        {
+            return (decimal)dbContext.Employees.Find(id).NetSalary;
+        }
+
         public bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate)
         {
            Permission permission= dbContext.Permissions.Where(a => a.EmployeeId == employeeID && a.StartDate >= startDate && a.FinishDate > finishDate&&a.isAproved==true).SingleOrDefault();
@@ -136,6 +141,18 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public List<Permission> GetPermissionListEmployeeByID(int id)
         {
             return dbContext.Permissions.Where(a => a.EmployeeId == id).ToList();
+        }
+
+        public decimal GetPremiumrateByEmployeeId(int id)
+        {
+            return (decimal)dbContext.Employees.Find(id).PremiumRate;
+        }
+
+        public decimal GetSalarybyEmployeeId(int id)
+        {
+            
+            return (decimal)dbContext.Employees.Find(id).Salary;
+           
         }
 
         public int UpdateEmployee(Employee updateEmployee, Employee employee)

@@ -483,8 +483,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
 
         }
-
-
         //[HttpDelete]
         //[ActionName("ShiftDetails")]
         //public IActionResult Delete(int shiftid)
@@ -681,7 +679,19 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(documentVMd);
         }
+        [HttpGet]
+        public IActionResult GetEditPremiumModel(int id)
+        { EditPremiumVm editPremiumVm = new EditPremiumVm()
+        {
+            EmployeeID = id,
+            Employees = employeeService.GetListEmployees(id),
+            Salary = employeeService.GetSalarybyEmployeeId(id),
+            PremiumRate = employeeService.GetPremiumRateByEmployeeId(id),
+            NetSalary = employeeService.GetNetSalaryByEmployeeId(id),
 
+        };
+            return View(editPremiumVm);
+        }
 
 
     }

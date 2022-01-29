@@ -207,6 +207,19 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return null;
         }
 
-        
+        public decimal GetSalarybyEmployeeId(int id)
+        {
+            return employeeRepository.GetSalarybyEmployeeId(id);
+        }
+
+        public decimal GetPremiumRateByEmployeeId(int id)
+        {
+            return employeeRepository.GetPremiumrateByEmployeeId(id);
+        }
+
+        public decimal GetNetSalaryByEmployeeId(int id)
+        {
+            return employeeRepository.GetNetSalaryByEmployeeId(id);
+        }
     }
 }

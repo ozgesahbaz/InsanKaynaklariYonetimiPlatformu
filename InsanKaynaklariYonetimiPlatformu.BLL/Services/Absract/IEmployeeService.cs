@@ -25,6 +25,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM);
         bool AnyFilePath(string filepath);
         int AddDocumentByEmployeID(int id, string filePath, string fileName);
-       
+        decimal GetSalarybyEmployeeId(int id);
+        decimal GetPremiumRateByEmployeeId(int id);
+        decimal GetNetSalaryByEmployeeId(int id);
     }
 }

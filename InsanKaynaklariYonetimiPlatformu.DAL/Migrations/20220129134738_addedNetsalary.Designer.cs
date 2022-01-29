@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220126172524_addshiftmethods")]
-    partial class addshiftmethods
+    [Migration("20220129134738_addedNetsalary")]
+    partial class addedNetsalary
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,6 +219,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("NetSalary")
+                        .HasMaxLength(10)
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -227,7 +232,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<byte[]>("Photo")
                         .HasColumnType("image");
 
-                    b.Property<decimal?>("Salary")
+                    b.Property<decimal>("PremiumRate")
+                        .HasMaxLength(5)
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("Salary")
                         .HasMaxLength(10)
                         .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");
