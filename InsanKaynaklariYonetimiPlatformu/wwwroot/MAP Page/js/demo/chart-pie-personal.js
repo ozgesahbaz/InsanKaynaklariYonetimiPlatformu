@@ -1,22 +1,20 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+ï»¿// Set new default font family and font color to mimic Bootstrap's default styling
+
 Chart.defaults.global.defaultFontColor = '#858796';
 
-// Pie Chart for My Permission
-var ctx = document.getElementById("myPieChart");
+// Pie Chart For Personal Count
+var ctx = document.getElementById("myPieChartPersonal");
 var myPieChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ["Permission", "Total", "Social"],
+        labels: ["Personel", "Ä°nsan KaynaklarÄ±", "Muhasebe","Planlama"],
         datasets: [{
-            label: "Ýzin Günleri",
-            data: [50, 30, 20],
-            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+            data: [20, 2, 5,5],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','red'],
             hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
             hoverBorderColor: "rgba(234, 236, 244, 1)",
         }],
-        title:"Ýzinlerim"
-  },
+    },
     options: {
         maintainAspectRatio: false,
         tooltips: {
