@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220129134738_addedNetsalary.Designer.cs
-    [Migration("20220129134738_addedNetsalary")]
-    partial class addedNetsalary
-=======
-    [Migration("20220129110358_initial")]
-    partial class initial
->>>>>>> 89e3b9c9939332ac2195c697bdf8253ab3f32eda:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220129110358_initial.Designer.cs
+    [Migration("20220129144613_change29.01.202217.45caner")]
+    partial class change290120221745caner
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -234,8 +229,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("image");
 
                     b.Property<decimal>("PremiumRate")
                         .HasMaxLength(5)

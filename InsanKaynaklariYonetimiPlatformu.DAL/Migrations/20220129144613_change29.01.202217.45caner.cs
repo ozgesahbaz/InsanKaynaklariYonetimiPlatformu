@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220129134738_addedNetsalary.cs
-    public partial class addedNetsalary : Migration
-=======
-    public partial class initial : Migration
->>>>>>> 89e3b9c9939332ac2195c697bdf8253ab3f32eda:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220129110358_initial.cs
+    public partial class change290120221745caner : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -138,7 +134,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Photo = table.Column<byte[]>(type: "image", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),

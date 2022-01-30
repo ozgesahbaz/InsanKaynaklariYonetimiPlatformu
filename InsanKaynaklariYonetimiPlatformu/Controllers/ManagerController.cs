@@ -681,6 +681,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(documentVMd);
         }
         [HttpGet]
+       
         public IActionResult GetEditPremiumModel(int id)
         { EditPremiumVm editPremiumVm = new EditPremiumVm()
         {
@@ -692,6 +693,17 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         };
             return View(editPremiumVm);
         }
+        [HttpPost]
+       
+        public IActionResult PostEditPremiumModel(int id)
+        {
+
+
+            return RedirectToAction("ManagersEmployees");
+        }
+
+
+
         public IActionResult ChangePassword(int id)
         {
             return View();

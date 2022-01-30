@@ -45,7 +45,7 @@
                     @Html.DisplayFor(modelItem => Model.NetSalary)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    <button asp-route-id="@Model.EmployeeID" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel"  class="btn btn-primary">Kaydet</button>
 
                 </td>
             </tr>
