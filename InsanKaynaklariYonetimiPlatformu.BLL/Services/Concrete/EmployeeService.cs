@@ -340,7 +340,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return employeeRepository.GetNetSalaryByEmployeeId(id);
         }
-    }
+    
         public List<DocumentsVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);

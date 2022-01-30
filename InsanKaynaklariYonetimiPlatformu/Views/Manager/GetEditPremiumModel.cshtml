@@ -31,6 +31,7 @@
                                 <br />
 
 
+
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button asp-route-id="@id" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel" class="btn btn-primary">Kaydet</button>
 
@@ -40,5 +41,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form  method="get">  
+                        <button <button asp-route-id="@id"  asp-controller="Manager" asp-action="ManagersEmployees" class="btn btn-primary"  >Close</button>
+
+                        </form>
                     </div>
