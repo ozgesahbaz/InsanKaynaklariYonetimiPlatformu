@@ -1,0 +1,39 @@
+﻿@model CompanySettingsVM
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+<div class="row">
+    <div class="card offset-3 col-6">
+        <div class="card-header text-center">Şirket Hesap Ayarları</div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All"></div>
+                <div class="text-center">
+                    <img class="img-profile rounded-circle" height="60" src="~/@Model.LogoPath" />
+                </div>
+                <hr />
+                <div class="form-group">
+                    <i class="fas fa-camera prefix grey-text"></i>
+                    <label asp-for="CompanyLogo">Fotoğraf seçiniz.(jpg,png)</label>
+                    <input type="file" class="form-control" asp-for="CompanyLogo" />
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-id-card prefix grey-text"></i>
+                    <label asp-for="CompanyName">İsim Soyisim</label>
+                    <input class="form-control" asp-for="CompanyName" readonly="readonly"/>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-mail-bulk prefix grey-text"></i>
+                    <label asp-for="Adress"></label>
+                    <input class="form-control" asp-for="Adress" />
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" asp-route-id="@id" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

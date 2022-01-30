@@ -35,6 +35,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     BirthDay = employeeVM.BirtDay,
                     Password = $"123{employeeVM.FullName.ToLower()}",
                     Status = employeeVM.Status,
+                    Photo = "uploads\\image\\userphoto\\_usernophoto.png",
                     IsActive = false
                 };
                 if (employeeRepository.AddEmployee(newEmployee) > 0)
@@ -251,5 +252,47 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Debit debit = employeeRepository.GetRejectedDebitById(id);
             return employeeRepository.DeleteRejectedDebit(debit);
         }
+
+        public bool AnyFilePath(string filepath)
+        {
+            return employeeRepository.AnyFilePath(filepath);
+        }
+
+        public int AddDocumentByEmployeID(int id, string filepath, string fileName)
+        {
+            Document document = new Document()
+            {
+                EmployeeID = id,
+                DocumentPath = filepath,
+                DocumentName=fileName
+            };
+            return employeeRepository.AddDocument(document);
+        }
+
+        public List<DocumentVM> GetDocument(int id)
+        {
+            List<Document> documents = employeeRepository.GetDocumentByID(id);
+            if (documents!=null)
+            {
+                List<DocumentVM> documentVMs = new List<DocumentVM>();
+                foreach (Document document in documents)
+                {
+                    DocumentVM documentVM = new DocumentVM()
+                    {
+                        EmployeeID = (int)document.EmployeeID,
+                        FilePath = document.DocumentPath,
+                        DocumentID=document.DocumentID,
+                        fileName=document.DocumentName
+                        
+                    };
+                    documentVMs.Add(documentVM);
+                }
+
+                return documentVMs;
+            }
+            return null;
+        }
+
+        
     }
 }

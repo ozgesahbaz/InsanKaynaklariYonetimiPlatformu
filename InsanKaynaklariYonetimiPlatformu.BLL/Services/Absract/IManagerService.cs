@@ -31,8 +31,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         Manager FindManager(int managerId);
         Company FindCompanyByManagerID(int id);
         int AddPermissionEmployee(AddEmployeesPermissionVM permissionVM, int id);
+        List<Shift> GetShiftDetailbyEmployeeId(int employeeId);
         PermissionVM GetPermissionById(int id);
         int UpdatePermission(PermissionVM permissionVM);
+        List<Respite> GetRespitebyShiftId(int shiftId);
         int RemovePermission(int id);
         List<ShiftDetailsVM> GetShiftDetail(int managerID);
        
@@ -41,7 +43,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int UpdatePermissionManager(int id, ManagersPermissionVM permissionVM);
         int RemoveDebit(int id);
         int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM);
-        bool AddShiftDetails(ShiftDetailsVM shiftDetailsVm);
+      
         int AddManagersPersonelDebit(int id, ManagersDebitVM managersDebitVM);
+        int RemoveDocument(int id);
+        bool AddShiftDetails(ShiftDetailsVM ShiftDetailsVM, int ManagerID);
+        bool DeleteShiftDetails(int shiftId);
+        bool EditShiftDetails(ShiftDetailsVM shiftDetailsVM, int emloyeeID);
+        ShiftDetailsVM GetShiftDetailbyRespiteID(ShiftDetailsVM shiftDetailsVM, int id);
+        int ChangePassword(int id, PasswordVM passwordVM);
+        int ChangeAccount(int id, AccountSettingsVM settingsVM, string documentPath);
+        int ChangeCompanySettings(int id, CompanySettingsVM settingsVM, string documentPath);
     }
 }
