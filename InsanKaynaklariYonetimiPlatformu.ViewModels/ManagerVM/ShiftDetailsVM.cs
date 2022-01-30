@@ -25,5 +25,8 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public DateTime RespiteFinishTime { get; set; }
 
 
+   
+
+
     }
 }

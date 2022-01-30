@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class change290120221745caner : Migration
+    public partial class _3001221403 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

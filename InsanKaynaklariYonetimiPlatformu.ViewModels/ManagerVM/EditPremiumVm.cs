@@ -17,8 +17,15 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public List<Employee> Employees { get; set; }
         public decimal Salary { get; set; }
         public decimal PremiumRate { get; set; }
-        public decimal NetSalary { get; set; }
+        private decimal _netSalary;
 
+        public decimal NetSalary
+        {
+            get { return _netSalary; }
+            set { _netSalary = Salary*(1+PremiumRate); }
+        }
+
+      
 
     }
 }

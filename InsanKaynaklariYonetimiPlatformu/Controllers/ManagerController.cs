@@ -420,7 +420,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(shiftDetailsVM);
         }
         [HttpPost]
-        [ActionName("ShiftDetails")]
+        [ActionName("ShiftDetails")] 
         public IActionResult Post(ShiftDetailsVM shiftDetailsVM, int id)
         {
             managerService.AddShiftDetails(shiftDetailsVM, id);
@@ -438,7 +438,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 if (managerService.DeleteShiftDetails(id))
 
                 {
-                    return RedirectToAction("ShiftDetails");// yazılısında hata olabilir kontrol et
+                    return RedirectToAction("ShiftDetails");
                 }
                 else
                 {
@@ -484,45 +484,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
 
         }
-        //[HttpDelete]
-        //[ActionName("ShiftDetails")]
-        //public IActionResult Delete(int shiftid)
-        //{
-        //    try
-        //    {
-        //        if (managerService.DeleteShiftDetails(shiftid))
-
-        //        {
-        //            return RedirectToAction("GetShiftDetails");// yazılısında hata olabilir kontrol et
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("Bir hata oluştu.");
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ModelState.AddModelError("exception", ex.Message);
-        //    }
-        //    return RedirectToAction("Get");
-
-
-
-
-        //}
-        //[HttpPut]
-        //[ActionName("ShiftDetails")]
-        //  public IActionResult Edit(ShiftDetailsVM shiftDetailsVM, int shiftid)
-        //{
-        //    managerService.EditShiftDetails(shiftDetailsVM, shiftid);
-        //    shiftDetailsVM.Employees = employeeService.GetListEmployees(shiftid);
-        //    return View(shiftDetailsVM);
-
-
-        //    return View();
-        //}
+       
         [HttpGet]
         public IActionResult ManagersPermission(int id)
         {
