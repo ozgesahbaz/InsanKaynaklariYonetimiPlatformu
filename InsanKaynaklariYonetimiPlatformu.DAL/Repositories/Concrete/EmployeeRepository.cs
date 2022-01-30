@@ -37,6 +37,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges();
         }
 
+        public int AddExpenditureDocument(ExpenditureDocument document)
+        {
+            dbContext.ExpenditureDocuments.Add(document);
+            return dbContext.SaveChanges();
+        }
+
         public int AddPermission(Permission permission)
         {
             dbContext.Permissions.Add(permission);
@@ -54,6 +60,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         
         }
 
+        public int ChangeAccount(Employee employee)
+        {
+            return dbContext.SaveChanges();
+        }
+              
+
+        public int ChangeRejectedDebit(Debit debit)
+        {
+            return dbContext.SaveChanges();
+        }
+
         public int ChangesPassword(Employee employee, string password)
         {
             employee.Password = password;
@@ -67,7 +84,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }
-               
+
+        public int DeletedDocument(int id)
+        {
+            Expenditure expenditure = dbContext.Expenditures.Where(a => a.ID == id).SingleOrDefault();
+            if (expenditure == null)
+            {
+                return 1;
+            }
+            dbContext.Expenditures.Remove(expenditure);
+            return dbContext.SaveChanges();
+        }
 
         public int DeleteEmployee(Employee employee)
         {
@@ -106,12 +133,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Employees.Remove(employee);
             return dbContext.SaveChanges();
         }
-
-        public int DeleteRejectedDebit(Debit debit)
-        {
-            dbContext.Debits.Remove(debit);
-            return dbContext.SaveChanges();
-        }
+           
 
         public int DeletExpenditure(Expenditure expenditure)
         {
@@ -139,6 +161,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Expenditures.Where(a => a.ID == id).SingleOrDefault();
         }
 
+        public List<ExpenditureDocument> GetExpenditureDocumentById(int id)
+        {
+            return dbContext.ExpenditureDocuments.Where(a => a.ExpenditureId == id).ToList();
+        }
+
         public List<Employee> GetListEmployeesByManagerID(int id)
         {
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
@@ -146,7 +173,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public List<Expenditure> GetListExpenditure(int id)
         {
-            return dbContext.Expenditures.Where(a => /*a.ID == id &&*/ a.EmployeeID == id).ToList();
+            return dbContext.Expenditures.Where(a =>/* a.ID == id &&*/ a.EmployeeID == id).ToList();
         }
 
         public bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate)

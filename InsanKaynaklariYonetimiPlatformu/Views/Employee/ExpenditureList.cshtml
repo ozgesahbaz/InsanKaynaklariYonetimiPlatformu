@@ -24,7 +24,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="/Employee/ExpenditureList" id="PostMethod">
+                        <form method="post" action="/Employee/ExpenditureList" id="PostMethod"  enctype="multipart/form-data">
                             <div class="modal-body mx-3">
                                 <div asp-validation-summary="All"></div>
                                 <div class="form-group">
@@ -39,6 +39,7 @@
                                     <label asp-for="Details"></label>
                                     <input class="form-control" asp-for="Details">
                                 </div>
+                                
 
                                 <br />
 

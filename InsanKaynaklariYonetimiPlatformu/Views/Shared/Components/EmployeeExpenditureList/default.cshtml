@@ -8,6 +8,7 @@
                 <th>Harcama Adı</th>
                 <th>Harcama Tutarı</th>
                 <th>Harcama Detayı</th>
+                <th>Harcama Dosyası</th>
                 <th>Onay Durumu</th>
                 <th>Sil</th>
 
@@ -18,34 +19,42 @@
         <tbody>
             @foreach (ExpenditureVM expenditureVM in Model)
             {
-            <tr>
-                <td>@expenditureVM.ExpenditureName</td>
-                <td>@expenditureVM.ExpenditureAmount</td>
-                <td>@expenditureVM.Details</td>
-                <td class="text-center">
-                    @if (expenditureVM.isAproved == null)
-                    {
-                        <i class="btn btn-outline-info far fa-clock"></i>
+                <tr>
+                    <td>@expenditureVM.ExpenditureName</td>
+                    <td>@expenditureVM.ExpenditureAmount</td>
+                    <td>@expenditureVM.Details</td>
+                    <td>
+                        <a asp-controller="Employee" asp-action="ExpenditureDocuments" asp-route-id="@expenditureVM.ID">
+                            <i class="btn btn-outline-info far fa-folder-open"></i>
 
-                    }
-                    else if (expenditureVM.isAproved == true)
-                    {
-                        <i class="btn btn-outline-info far fa-check-circle"></i>
-                    }
-                    else
-                    {
-                        <i class="btn btn-outline-info far fa-times-circle"></i>
-                    }
-                 <td class="text-center">
-                    <a asp-controller="Employee" asp-action="DeletedExpenditure" asp-route-id="@expenditureVM.ID">
-                        <i class="btn btn-outline-danger far fa-trash-alt"></i>
-                        @*<i class="fas fa-trash"></i>*@
 
-                  
-                    </a>
-                 </td>
-                </td>
-            </tr>
+
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        @if (expenditureVM.isAproved == null)
+                        {
+                            <i class="btn btn-outline-info far fa-clock"></i>
+
+                        }
+                        else if (expenditureVM.isAproved == true)
+                        {
+                            <i class="btn btn-outline-info far fa-check-circle"></i>
+                        }
+                        else
+                        {
+                            <i class="btn btn-outline-info far fa-times-circle"></i>
+                        }
+                    <td class="text-center">
+                        <a asp-controller="Employee" asp-action="DeletedExpenditure" asp-route-id="@expenditureVM.ID">
+                            <i class="btn btn-outline-danger far fa-trash-alt"></i>
+                            @*<i class="fas fa-trash"></i>*@
+
+
+                        </a>
+                    </td>
+
+                </tr>
 
             }
         </tbody>

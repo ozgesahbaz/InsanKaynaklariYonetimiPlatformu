@@ -200,10 +200,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
       
         public List<ExpenditureVM> GetListExpenditure(int id)
         {
+            
             List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
-            List<ExpenditureVM> expenditureVMs = new List<ExpenditureVM>();
+            
             if (expenditures != null)
             {
+                List<ExpenditureVM> expenditureVMs = new List<ExpenditureVM>();
                 foreach (Expenditure expenditure in expenditures)
                 {
                     ExpenditureVM expenditureVM = new ExpenditureVM()
@@ -218,9 +220,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     expenditureVMs.Add(expenditureVM);
 
                 }
-
+                return expenditureVMs;
             }
-            return expenditureVMs;
+            return null;
         }
 
         public int AddExpenditure(int id, ExpenditureVM expenditureVM)
@@ -245,12 +247,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Expenditure expenditure = employeeRepository.GetExpenditureById(id);
             return employeeRepository.DeletExpenditure(expenditure);
-        }
-
-        public int RemoveRejectedDebit(int id)
-        {
-            Debit debit = employeeRepository.GetRejectedDebitById(id);
-            return employeeRepository.DeleteRejectedDebit(debit);
         }
 
         public bool AnyFilePath(string filepath)
@@ -293,6 +289,79 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return null;
         }
 
-        
+        public Debit GetDebitById(int id)
+        {
+            return employeeRepository.GetRejectedDebitById(id);
+        }                     
+
+        public int ChangeRejectedDebit(int id, EmployeeDebitVM employeeDebitVM)
+        {
+            Debit debit = GetDebitById(id);
+            debit.DescofRejec = employeeDebitVM.DescofRejec;
+            return employeeRepository.ChangeRejectedDebit(debit);
+        }
+
+        public int ChangeAccount(int id, AccountSettingVM accountSettingVM, string documentPath)
+        {
+            Employee employee = GetEmployeeById(id);
+            if (employee != null)
+            {
+                employee.FullName = accountSettingVM.FullName;
+                if (documentPath != null)
+                {
+                    employee.Photo = documentPath;
+                }
+
+                return employeeRepository.ChangeAccount(employee);
+            }
+            else
+            {
+                return 0;
+            }
+        }       
+
+
+        public int RemoveDocument(int id)
+        {
+            return employeeRepository.DeletedDocument(id);
+        }
+
+        public List<DocumentsVM> GetExpenditureDocument(int id)
+        {
+            List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);
+            if (expenditureDocument!=null)
+            {
+                List<DocumentsVM> documentsVMs = new List<DocumentsVM>();
+                foreach (ExpenditureDocument expenditure in expenditureDocument)
+                {
+                    DocumentsVM documentsVM = new DocumentsVM()
+                    {
+                        DocumentID = expenditure.DocumentID,
+                        ExpenditureId = (int)expenditure.ExpenditureId,
+                        FilePath = expenditure.DocumentPath,
+                        fileName = expenditure.DocumentName
+                   
+
+                    };
+                    documentsVMs.Add(documentsVM);
+                }
+
+                return documentsVMs;
+                
+            }
+            return null;
+        }
+
+        public int AddDocumentByExpenditureID(int id, string documentPath, string fileName)
+        {
+            ExpenditureDocument document = new ExpenditureDocument()
+            {
+                ExpenditureId = id,
+                DocumentPath = documentPath,
+                DocumentName = fileName
+            };
+            return employeeRepository.AddExpenditureDocument(document);
+        }
     }
+    
 }

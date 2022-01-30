@@ -8,39 +8,37 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
 {
-    public class EmployeeExpenditureListViewComponent:ViewComponent
+    public class ListDocumentByExpenditure : ViewComponent
     {
         IEmployeeService employeeService;
-
-        public EmployeeExpenditureListViewComponent (IEmployeeService _employeeService) 
+        public ListDocumentByExpenditure(IEmployeeService _employeeService)
         {
             employeeService = _employeeService;
-                
+
         }
-        public async Task<IViewComponentResult> InvokeAsync(int id) 
+        public async Task<IViewComponentResult> InvokeAsync(int id)
         {
             try
             {
-                List<ExpenditureVM> expenditureVMs = employeeService.GetListExpenditure(id);
-                if (expenditureVMs!= null)
+                List<DocumentsVM> documentsVMs = employeeService.GetExpenditureDocument(id);
+
+                if (documentsVMs != null)
                 {
-                    return View(expenditureVMs);
+
+                    return View(documentsVMs);
                 }
                 else
                 {
-                    throw new Exception("Henüz harcama kaydınız bulunmamaktadır");
-                     
+                    throw new Exception("Daha önce eklenen dosya bulunamadı.");
                 }
 
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("exception", ex.Message);
-                
+
             }
             return View();
-        
-        
         }
     }
 }

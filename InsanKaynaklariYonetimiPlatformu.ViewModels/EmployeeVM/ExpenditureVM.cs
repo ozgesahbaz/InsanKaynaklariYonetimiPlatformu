@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM
         [DataType(DataType.Text)]
         public string Details { get; set; }
         public bool isAproved { get; set; }
+     
     }
 
 }

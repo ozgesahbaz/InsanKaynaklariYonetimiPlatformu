@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         Expenditure GetExpenditureById(int id);
         int DeletExpenditure(Expenditure expenditure);
         Debit GetRejectedDebitById(int id);
-        int DeleteRejectedDebit(Debit debit);
+        int ChangeRejectedDebit(Debit debit);
+        int ChangeAccount(Employee employee);
+       
+       
+        int DeletedDocument(int id);
+        List<ExpenditureDocument> GetExpenditureDocumentById(int id);
+        int AddExpenditureDocument(ExpenditureDocument document);
     }
 }
