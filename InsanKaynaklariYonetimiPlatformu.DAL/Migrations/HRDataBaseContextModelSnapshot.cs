@@ -300,6 +300,34 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.ToTable("Harcamalar");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.ExpenditureDocument", b =>
+                {
+                    b.Property<int>("DocumentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DocumentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("ExpenditureId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("DocumentID");
+
+                    b.HasIndex("DocumentPath")
+                        .IsUnique();
+
+                    b.HasIndex("ExpenditureId");
+
+                    b.ToTable("Harcama Dökümanları");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
                     b.Property<int>("ManagerId")
@@ -529,6 +557,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.ExpenditureDocument", b =>
+                {
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Expenditure", "Expenditure")
+                        .WithMany("ExpenditureDocuments")
+                        .HasForeignKey("ExpenditureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Expenditure");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", "Admin")
@@ -602,6 +641,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Expenditures");
 
                     b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Expenditure", b =>
+                {
+                    b.Navigation("ExpenditureDocuments");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>

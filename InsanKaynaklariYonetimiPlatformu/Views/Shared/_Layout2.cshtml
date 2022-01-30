@@ -156,7 +156,7 @@
                     </a>
                     <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-action="" asp-controller="Employee" asp-route-id="@id">Zimmetlerim</a>
+                            <a class="collapse-item" asp-action="EmployeesDebit" asp-controller="Employee" asp-route-id="@id">Zimmetlerim</a>
                         </div>
                     </div>
                 </li>
@@ -168,7 +168,7 @@
                     </a>
                     <div id="collapsethree" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-action="Employee" asp-controller="">Harcamalarım</a>
+                            <a class="collapse-item" asp-action="ExpenditureList" asp-controller="Employee" asp-route-id="@id">Harcamalarım</a>
                         </div>
                     </div>
 
@@ -369,9 +369,9 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 @if (Statu == "Employee")
                                 {
-                                    <a class="dropdown-item" asp-action="EditPersonal" asp-controller="Employee">
+                                    <a class="dropdown-item" asp-route-id="@id" asp-action="AccountSetting" asp-controller="Employee">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Ayarlar
+                                        Hesap Ayarlarım
                                     </a>
                                 }
                                 @if (Statu == "Manager")
