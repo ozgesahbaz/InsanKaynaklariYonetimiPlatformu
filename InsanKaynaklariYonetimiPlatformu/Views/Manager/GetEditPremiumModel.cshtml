@@ -6,51 +6,39 @@
 }
 
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GetEditPremiumModel</title>
-</head>
-<body>
+     
+                    <div class="modal-body">
+                        <form method="post" action="/Manager/PostEditPremiumModel" id="PostMethod">
+                           
+                            <div class="modal-body mx-3">
+                                <div asp-validation-summary="All"></div>
+                         
 
-    <table class="table">
-        <thead>
-            <tr>
+                                <div class="form-group">
+                                    <label asp-for="Salary"></label>
+                                    <input class="form-control" asp-for="Salary">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PremiumRate"></label>
+                                    <input class="form-control" asp-for="PremiumRate">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="NetSalary"></label>
+                                    <input class="form-control" asp-for="NetSalary">
+                                </div>
+                               
+                                <br />
 
-                <th>
-                    @Html.DisplayNameFor(model => model.Salary)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PremiumRate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NetSalary)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
 
-            <tr>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button asp-route-id="@id" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel" class="btn btn-primary">Kaydet</button>
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Salary)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.PremiumRate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.NetSalary)
-                </td>
-                <td>
-                    <button asp-route-id="@Model.EmployeeID" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel"  class="btn btn-primary">Kaydet</button>
+                                </div>
 
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-</body>
-</html>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
