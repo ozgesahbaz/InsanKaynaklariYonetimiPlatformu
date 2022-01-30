@@ -28,7 +28,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public DateTime BirthDay { get; set; }
         public DateTime StartDate { get; set; }
 
-        public decimal? Salary { get; set; }
+        public decimal Salary { get; set; } = 0;
+        public decimal PremiumRate { get; set; } = 0;
+        public decimal NetSalary { get; set; } = 0;
+      
+
         public  int ManagerId { get; set; }
         public int ShiftID { get; set; }
 

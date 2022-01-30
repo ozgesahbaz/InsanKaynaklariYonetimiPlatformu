@@ -326,6 +326,21 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return employeeRepository.DeletedDocument(id);
         }
 
+        public decimal GetSalarybyEmployeeId(int id)
+        {
+            return employeeRepository.GetSalarybyEmployeeId(id);
+        }
+
+        public decimal GetPremiumRateByEmployeeId(int id)
+        {
+            return employeeRepository.GetPremiumrateByEmployeeId(id);
+        }
+
+        public decimal GetNetSalaryByEmployeeId(int id)
+        {
+            return employeeRepository.GetNetSalaryByEmployeeId(id);
+        }
+    }
         public List<DocumentsVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);

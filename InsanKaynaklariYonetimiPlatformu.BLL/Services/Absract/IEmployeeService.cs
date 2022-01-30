@@ -40,5 +40,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
       
         int RemoveDocument(int id);
         int AddDocumentByExpenditureID(int id, string documentPath, string fileName);
+        decimal GetSalarybyEmployeeId(int id);
+        decimal GetPremiumRateByEmployeeId(int id);
+        decimal GetNetSalaryByEmployeeId(int id);
     }
 }

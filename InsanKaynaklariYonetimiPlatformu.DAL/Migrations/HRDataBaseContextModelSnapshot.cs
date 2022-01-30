@@ -217,15 +217,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("NetSalary")
+                        .HasMaxLength(10)
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("image");
 
-                    b.Property<decimal?>("Salary")
+                    b.Property<decimal>("PremiumRate")
+                        .HasMaxLength(5)
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("Salary")
                         .HasMaxLength(10)
                         .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");

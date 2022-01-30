@@ -171,6 +171,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
         }
 
+        public decimal GetNetSalaryByEmployeeId(int id)
+        {
+            return (decimal)dbContext.Employees.Find(id).NetSalary;
+        }
+
         public List<Expenditure> GetListExpenditure(int id)
         {
             return dbContext.Expenditures.Where(a =>/* a.ID == id &&*/ a.EmployeeID == id).ToList();
@@ -199,6 +204,18 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Permissions.Where(a => a.EmployeeId == id).ToList();
         }
 
+        public decimal GetPremiumrateByEmployeeId(int id)
+        {
+            return (decimal)dbContext.Employees.Find(id).PremiumRate;
+        }
+
+        public decimal GetSalarybyEmployeeId(int id)
+        {
+            
+            return (decimal)dbContext.Employees.Find(id).Salary;
+           
+        }
+
         public Debit GetRejectedDebitById(int id)
         {
             return dbContext.Debits.Where(a => a.ID == id).SingleOrDefault();
@@ -211,7 +228,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             updateEmployee.BirthDay = employee.BirthDay;
             updateEmployee.StartDate = employee.StartDate;
             updateEmployee.Salary = employee.Salary;
-            return dbContext.SaveChanges();
+            return dbContext.SaveChanges(); // hata olabilir mi ?
+        }
+
+        public bool UpdateEmployee4Salary(Employee employee)
+        {
+          Employee employeeatDb=  dbContext.Employees.Find(employee.EmployeeId);
+            employeeatDb = employee;
+            dbContext.Employees.Update(employeeatDb);
+            return dbContext.SaveChanges() > 0 ? true : false;
+            
         }
     }
 }
