@@ -27,5 +27,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         decimal GetSalarybyEmployeeId(int id);
         decimal GetPremiumrateByEmployeeId(int id);
         decimal GetNetSalaryByEmployeeId(int id);
+        bool UpdateEmployee4Salary(Employee employee);
     }
 }

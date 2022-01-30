@@ -16,9 +16,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
     public class ManagerService : IManagerService
     {
         IManagerRepository managerRepository;
-        public ManagerService(IManagerRepository _managerRepository)
+        IEmployeeRepository employeeRepository;
+        public ManagerService(IManagerRepository _managerRepository,IEmployeeRepository _employeeRepository)
         {
             managerRepository = _managerRepository;
+            employeeRepository = _employeeRepository;
 
         }
 
@@ -544,6 +546,22 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
 
             return shiftDetailsVM;
+        }
+
+        public bool UpdatePremium(EditPremiumVm editPremiumVm, int id)
+        {
+            Employee employee= employeeRepository.GetEmployeeById(id);
+             employee.Salary = editPremiumVm.Salary;
+            employee.PremiumRate=editPremiumVm.PremiumRate;
+            employee.NetSalary = editPremiumVm.NetSalary;
+            if (employeeRepository.UpdateEmployee4Salary(employee))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

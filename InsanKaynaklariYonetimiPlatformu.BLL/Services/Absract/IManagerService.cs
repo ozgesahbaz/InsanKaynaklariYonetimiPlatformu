@@ -53,5 +53,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int ChangePassword(int id, PasswordVM passwordVM);
         int ChangeAccount(int id, AccountSettingsVM settingsVM, string documentPath);
         int ChangeCompanySettings(int id, CompanySettingsVM settingsVM, string documentPath);
+        bool UpdatePremium(EditPremiumVm editPremiumVm, int id);
     }
 }

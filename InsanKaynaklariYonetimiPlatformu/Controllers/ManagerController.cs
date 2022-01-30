@@ -695,11 +695,15 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
         [HttpPost]
        
-        public IActionResult PostEditPremiumModel(int id)
+        public IActionResult PostEditPremiumModel(EditPremiumVm  editPremiumVm,int id)
         {
-
-
+            if (managerService.UpdatePremium(editPremiumVm, id))
+            {
             return RedirectToAction("ManagersEmployees");
+
+            }
+            throw new Exception("Güncelleme başarısız oldu");
+
         }
 
 
