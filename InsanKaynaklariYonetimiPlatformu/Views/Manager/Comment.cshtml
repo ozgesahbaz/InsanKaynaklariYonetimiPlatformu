@@ -1,0 +1,91 @@
+﻿@model CommentVM
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        @if (Model.Comment == null)
+        {
+            <div class="col-3 offset-9">
+                <button class="text-end btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddEmploye">
+
+                    <i class="fas fa-plus">Yorum Ekle</i>
+
+                </button>
+                <div class="modal fade" id="AddEmploye" tabindex="-1" aria-labelledby="AddEmployeModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Yorum Ekle</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="/Manager/ManagersEmployees" id="PostMethod">
+                                    <div class="modal-body mx-3">
+                                        <div asp-validation-summary="All"></div>
+
+                                        <div class="form-group">
+                                            <label asp-for="ManagerFullName"></label>
+                                            <input class="form-control" asp-for="ManagerFullName" readonly="readonly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="CompanyName"></label>
+                                            <input class="form-control" asp-for="CompanyName" readonly="readonly">
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Comment"></label>
+                                            <textarea class="form-control" rows="10" asp-for="Comment"></textarea>
+                                        </div>
+
+                                        <br />
+
+
+                                        <div class="modal-footer d-flex justify-content-end">
+                                            <button asp-route-id="@id" type="submit" class="btn btn-primary">Kaydet</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <br />
+            </div>
+
+        }
+        @if (Model.Comment != null)
+        {
+            <div class="card col-12">
+                <div class="card-header row">
+                    <img class="img-profile rounded-circle col-1" height="60" src="~/@Model.ManagerPhoto" />
+                    <div class="col-10 row">
+                        <div class="col-12">
+                            <div>
+                                @Model.ManagerFullName
+                            </div>
+                        </div>
+                        <div class="text-gray-500 col-12">@Model.CompanyName</div>
+                    </div>
+                    <div class="col-1 text-end">*
+                        <a class="btn btn-danger" asp-route-id="@Model.CommentID"+ asp-action="DeletedComment" asp-controller="Manager">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    @Model.Comment
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

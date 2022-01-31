@@ -69,6 +69,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         Respite GetRespitebyRespiteID(int respiteID);
         bool UpdateShiftDetails(Shift shift, Respite respite);
         Shift GetShiftbyRespiteid(int id);
-
+        Manager GetCommentByManagerId(int id);
+        bool AddComment(Comment comment);
+        Comment FindComment(int id);
+        int RemoveComment(Comment comment);
     }
 }

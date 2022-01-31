@@ -460,10 +460,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult GetEditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
         {
-          
+
             shiftDetailsVM = managerService.GetShiftDetailbyRespiteID(shiftDetailsVM, id);
 
-            
+
 
             return View(shiftDetailsVM);
 
@@ -841,7 +841,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                     {
                         string filename = $"img_company{company.CompanyId}_{ext[0]}{rnd.Next(0, 10000)}.{ext[1]}";
                         string filepath = Path.Combine(Environment.CurrentDirectory, "wwwroot\\uploads\\image\\company", filename);
-                        documentPath = $"uploads\\\\image\\company\\{filename}";
+                        documentPath = $"uploads\\image\\company\\{filename}";
                         FileStream fs = new FileStream(filepath, FileMode.OpenOrCreate);
                         settingsVM.CompanyLogo.CopyTo(fs);
                         fs.Close();
@@ -877,6 +877,88 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 HttpContext.Session.SetString("CompanyName", company.CompanyName);
                 HttpContext.Session.SetString("CompanyLogo", company.CompanyLogo);
                 return View(settingsVM1);
+            }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Comment(int id)
+        {
+             id = HttpContext.Session.GetInt32("ID").Value;
+            try
+            {
+                Manager manager = managerService.GetCommentByManagerId(id);
+                Company company = managerService.FindCompanyByManagerID(id);
+                if (manager != null && company != null)
+                {
+                    CommentVM commentVM = new CommentVM();
+                    if (manager.Comment != null)
+                    {
+                        commentVM.Comment = manager.Comment.Description;
+                        commentVM.CommentID = manager.Comment.CommentId;
+                    }
+                    else
+                    {
+                        commentVM.Comment = null;
+                        commentVM.CommentID = 0;
+                    }
+                    commentVM.ManagerFullName = manager.FullName;
+                    commentVM.CompanyName = company.CompanyName;
+                    commentVM.ManagerID = manager.ManagerId;
+                    commentVM.ManagerPhoto = manager.Photo;
+
+
+                    return View(commentVM);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Comment(int id, CommentVM commentVM)
+        {
+            try
+            {
+                if (managerService.AddComment(commentVM ,id))
+                {
+                    return RedirectToAction("Comment");
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
+        public IActionResult DeletedComment(int id)
+        {
+            try
+            {
+                if (managerService.RemoveComment(id)>0)
+                {
+                    return RedirectToAction("Comment");
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
             }
             return View();
         }

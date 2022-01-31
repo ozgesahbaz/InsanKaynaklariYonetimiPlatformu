@@ -35,5 +35,10 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public virtual ICollection<Permission> Permissions { get; set; }
         public virtual ICollection<Expenditure> Expenditures { get; set; }
         public virtual ICollection<Debit> Debits { get; set; }
+
+        public static bool AddComment(Comment comment)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
