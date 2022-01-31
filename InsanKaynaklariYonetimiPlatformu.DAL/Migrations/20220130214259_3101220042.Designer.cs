@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220129110358_initial")]
-    partial class initial
+    [Migration("20220130214259_3101220042")]
+    partial class _3101220042
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -219,15 +219,25 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("NetSalary")
+                        .HasMaxLength(10)
+                        .HasPrecision(8, 2)
+                        .HasColumnType("decimal(8,2)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("image");
 
-                    b.Property<decimal?>("Salary")
+                    b.Property<decimal>("PremiumRate")
+                        .HasMaxLength(5)
+                        .HasPrecision(3, 2)
+                        .HasColumnType("decimal(3,2)");
+
+                    b.Property<decimal>("Salary")
                         .HasMaxLength(10)
                         .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");
@@ -290,6 +300,34 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.HasIndex("ManagerID");
 
                     b.ToTable("Harcamalar");
+                });
+
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.ExpenditureDocument", b =>
+                {
+                    b.Property<int>("DocumentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DocumentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DocumentPath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("ExpenditureId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("DocumentID");
+
+                    b.HasIndex("DocumentPath")
+                        .IsUnique();
+
+                    b.HasIndex("ExpenditureId");
+
+                    b.ToTable("Harcama Dökümanları");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
@@ -521,6 +559,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Manager");
                 });
 
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.ExpenditureDocument", b =>
+                {
+                    b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Expenditure", "Expenditure")
+                        .WithMany("ExpenditureDocuments")
+                        .HasForeignKey("ExpenditureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Expenditure");
+                });
+
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>
                 {
                     b.HasOne("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Admin", "Admin")
@@ -594,6 +643,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Navigation("Expenditures");
 
                     b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Expenditure", b =>
+                {
+                    b.Navigation("ExpenditureDocuments");
                 });
 
             modelBuilder.Entity("InsanKaynaklariYonetimiPlatformu.Entity.Entities.Manager", b =>

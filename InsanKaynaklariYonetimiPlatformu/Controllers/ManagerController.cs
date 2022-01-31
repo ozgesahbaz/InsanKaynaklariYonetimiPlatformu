@@ -420,7 +420,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(shiftDetailsVM);
         }
         [HttpPost]
-        [ActionName("ShiftDetails")]
+        [ActionName("ShiftDetails")] 
         public IActionResult Post(ShiftDetailsVM shiftDetailsVM, int id)
         {
             managerService.AddShiftDetails(shiftDetailsVM, id);
@@ -438,7 +438,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 if (managerService.DeleteShiftDetails(id))
 
                 {
-                    return RedirectToAction("ShiftDetails");// yazılısında hata olabilir kontrol et
+                    return RedirectToAction("ShiftDetails");
                 }
                 else
                 {
@@ -484,47 +484,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
 
         }
-
-
-        //[HttpDelete]
-        //[ActionName("ShiftDetails")]
-        //public IActionResult Delete(int shiftid)
-        //{
-        //    try
-        //    {
-        //        if (managerService.DeleteShiftDetails(shiftid))
-
-        //        {
-        //            return RedirectToAction("GetShiftDetails");// yazılısında hata olabilir kontrol et
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("Bir hata oluştu.");
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ModelState.AddModelError("exception", ex.Message);
-        //    }
-        //    return RedirectToAction("Get");
-
-
-
-
-        //}
-        //[HttpPut]
-        //[ActionName("ShiftDetails")]
-        //  public IActionResult Edit(ShiftDetailsVM shiftDetailsVM, int shiftid)
-        //{
-        //    managerService.EditShiftDetails(shiftDetailsVM, shiftid);
-        //    shiftDetailsVM.Employees = employeeService.GetListEmployees(shiftid);
-        //    return View(shiftDetailsVM);
-
-
-        //    return View();
-        //}
+       
         [HttpGet]
         public IActionResult ManagersPermission(int id)
         {
@@ -682,6 +642,33 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(documentVMd);
         }
+        [HttpGet]
+       
+        public IActionResult GetEditPremiumModel(int id)
+        { EditPremiumVm editPremiumVm = new EditPremiumVm()
+        {
+            EmployeeID = id,
+            Employees = employeeService.GetListEmployees(id),
+            Salary = employeeService.GetSalarybyEmployeeId(id),
+            PremiumRate = employeeService.GetPremiumRateByEmployeeId(id),
+            NetSalary = employeeService.GetNetSalaryByEmployeeId(id),
+        };
+            return View(editPremiumVm);
+        }
+        [HttpPost]
+       
+        public IActionResult PostEditPremiumModel(EditPremiumVm  editPremiumVm,int id)
+        {
+            if (managerService.UpdatePremium(editPremiumVm, id))
+            {
+            return RedirectToAction("ManagersEmployees");
+
+            }
+            throw new Exception("Güncelleme başarısız oldu");
+
+        }
+
+
 
         public IActionResult ChangePassword(int id)
         {

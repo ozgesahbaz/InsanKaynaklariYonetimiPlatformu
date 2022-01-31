@@ -31,6 +31,18 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.SaveChanges();
         }
 
+        public int AddExpenditure(Expenditure expenditure)
+        {
+            dbContext.Expenditures.Add(expenditure);
+            return dbContext.SaveChanges();
+        }
+
+        public int AddExpenditureDocument(ExpenditureDocument document)
+        {
+            dbContext.ExpenditureDocuments.Add(document);
+            return dbContext.SaveChanges();
+        }
+
         public int AddPermission(Permission permission)
         {
             dbContext.Permissions.Add(permission);
@@ -48,6 +60,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         
         }
 
+        public int ChangeAccount(Employee employee)
+        {
+            return dbContext.SaveChanges();
+        }
+              
+
+        public int ChangeRejectedDebit(Debit debit)
+        {
+            return dbContext.SaveChanges();
+        }
+
         public int ChangesPassword(Employee employee, string password)
         {
             employee.Password = password;
@@ -60,6 +83,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             
             return dbContext.Employees.SingleOrDefault(a => a.Email == email && a.Password == password);
 
+        }
+
+        public int DeletedDocument(int id)
+        {
+            Expenditure expenditure = dbContext.Expenditures.Where(a => a.ID == id).SingleOrDefault();
+            if (expenditure == null)
+            {
+                return 1;
+            }
+            dbContext.Expenditures.Remove(expenditure);
+            return dbContext.SaveChanges();
         }
 
         public int DeleteEmployee(Employee employee)
@@ -99,6 +133,13 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Employees.Remove(employee);
             return dbContext.SaveChanges();
         }
+           
+
+        public int DeletExpenditure(Expenditure expenditure)
+        {
+            dbContext.Expenditures.Remove(expenditure);
+            return dbContext.SaveChanges();
+        }
 
         public List<Document> GetDocumentByID(int id)
         {
@@ -110,9 +151,34 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Where(a => a.EmployeeId == id).SingleOrDefault();
         }
 
+        public List<Debit> GetEmployeeDebitList(int id)
+        {
+            return dbContext.Debits.Where(a => a.EmployeeID == id).ToList();
+        }
+
+        public Expenditure GetExpenditureById(int id)
+        {
+            return dbContext.Expenditures.Where(a => a.ID == id).SingleOrDefault();
+        }
+
+        public List<ExpenditureDocument> GetExpenditureDocumentById(int id)
+        {
+            return dbContext.ExpenditureDocuments.Where(a => a.ExpenditureId == id).ToList();
+        }
+
         public List<Employee> GetListEmployeesByManagerID(int id)
         {
             return dbContext.Employees.Where(a => a.ManagerId == id).ToList();
+        }
+
+        public decimal GetNetSalaryByEmployeeId(int id)
+        {
+            return (decimal)dbContext.Employees.Find(id).NetSalary;
+        }
+
+        public List<Expenditure> GetListExpenditure(int id)
+        {
+            return dbContext.Expenditures.Where(a =>/* a.ID == id &&*/ a.EmployeeID == id).ToList();
         }
 
         public bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate)
@@ -138,6 +204,23 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Permissions.Where(a => a.EmployeeId == id).ToList();
         }
 
+        public decimal GetPremiumrateByEmployeeId(int id)
+        {
+            return (decimal)dbContext.Employees.Find(id).PremiumRate;
+        }
+
+        public decimal GetSalarybyEmployeeId(int id)
+        {
+            
+            return (decimal)dbContext.Employees.Find(id).Salary;
+           
+        }
+
+        public Debit GetRejectedDebitById(int id)
+        {
+            return dbContext.Debits.Where(a => a.ID == id).SingleOrDefault();
+        }
+
         public int UpdateEmployee(Employee updateEmployee, Employee employee)
         {
             updateEmployee.FullName = employee.FullName;
@@ -145,7 +228,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             updateEmployee.BirthDay = employee.BirthDay;
             updateEmployee.StartDate = employee.StartDate;
             updateEmployee.Salary = employee.Salary;
-            return dbContext.SaveChanges();
+            return dbContext.SaveChanges(); // hata olabilir mi ?
+        }
+
+        public bool UpdateEmployee4Salary(Employee employee)
+        {
+          Employee employeeatDb=  dbContext.Employees.Find(employee.EmployeeId);
+            employeeatDb = employee;
+            dbContext.Employees.Update(employeeatDb);
+            return dbContext.SaveChanges() > 0 ? true : false;
+            
         }
     }
 }

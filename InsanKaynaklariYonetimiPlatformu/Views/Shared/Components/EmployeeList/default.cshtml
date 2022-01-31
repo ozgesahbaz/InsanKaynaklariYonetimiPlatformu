@@ -4,7 +4,7 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
-                <th>İsim Soyisim</th>
+                <th> İsim Soyisim </th>
                 <th>Statü</th>
                 <th>Mail</th>
                 <th>Doğum Tarihi</th>
@@ -19,7 +19,13 @@
             @foreach (Employee employee in Model)
             {
                 <tr>
-                    <td>@employee.FullName</td>
+                    <td>
+                        <a asp-controller="Manager" asp-action="GetEditPremiumModel" asp-route-id="@employee.EmployeeId" style="text-decoration:none; color:inherit;">
+
+                            @employee.FullName
+                        </a>
+                    </td>
+                   
                     <td>@employee.Status</td>
                     <td>@employee.Email</td>
                     <td>@employee.BirthDay.Date.ToShortDateString()</td>
@@ -50,11 +56,9 @@
                             <a class="btn btn-danger">
                                 <i class="fas fa-ban"></i>
                             </a>
-
                         }
                     </td>
                 </tr>
-                
             }
         </tbody>
     </table>

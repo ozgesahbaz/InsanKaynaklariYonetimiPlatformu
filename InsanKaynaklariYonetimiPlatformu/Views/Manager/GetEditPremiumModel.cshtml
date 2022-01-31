@@ -1,0 +1,48 @@
+﻿@model EditPremiumVm
+<div asp-validation-summary="All"></div>
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+}
+
+
+
+     
+                    <div class="modal-body">
+                        <form method="post" action="/Manager/PostEditPremiumModel" id="PostMethod">
+                           
+                            <div class="modal-body mx-3">
+                                <div asp-validation-summary="All"></div>
+                         
+
+                                <div class="form-group">
+                                    <label asp-for="Salary"></label>
+                                    <input class="form-control" asp-for="Salary">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="PremiumRate"></label>
+                                    <input class="form-control" asp-for="PremiumRate">
+                                </div>
+                                <div class="form-group ">
+                                    <label asp-for="NetSalary"></label>
+                                    <input class="form-control" readonly asp-for="NetSalary">
+                                </div>
+                               
+                                <br />
+
+
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button asp-route-id="@id" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel" class="btn btn-primary">Kaydet</button>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <form  method="get">  
+                        <button <button asp-route-id="@id"  asp-controller="Manager" asp-action="ManagersEmployees" class="btn btn-primary"  >Close</button>
+
+                        </form>
+                    </div>

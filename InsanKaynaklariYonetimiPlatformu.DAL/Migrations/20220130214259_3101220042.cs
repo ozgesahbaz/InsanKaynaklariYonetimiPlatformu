@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class initial : Migration
+    public partial class _3101220042 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -134,14 +134,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Photo = table.Column<byte[]>(type: "image", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     BirthDay = table.Column<DateTime>(type: "date", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: true),
+                    Salary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: false),
+                    PremiumRate = table.Column<decimal>(type: "decimal(3,2)", maxLength: 5, precision: 3, scale: 2, nullable: false),
+                    NetSalary = table.Column<decimal>(type: "decimal(8,2)", maxLength: 10, precision: 8, scale: 2, nullable: false),
                     ManagerId = table.Column<int>(type: "int", nullable: false),
                     ShiftID = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: true)
@@ -319,6 +321,27 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Harcama Dökümanları",
+                columns: table => new
+                {
+                    DocumentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DocumentPath = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    DocumentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpenditureId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Harcama Dökümanları", x => x.DocumentID);
+                    table.ForeignKey(
+                        name: "FK_Harcama Dökümanları_Harcamalar_ExpenditureId",
+                        column: x => x.ExpenditureId,
+                        principalTable: "Harcamalar",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Adminler",
                 columns: new[] { "AdminId", "FullName", "Password", "UserName" },
@@ -339,6 +362,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 name: "IX_EmployeeShift_ShiftsShiftId",
                 table: "EmployeeShift",
                 column: "ShiftsShiftId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Harcama Dökümanları_DocumentPath",
+                table: "Harcama Dökümanları",
+                column: "DocumentPath",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Harcama Dökümanları_ExpenditureId",
+                table: "Harcama Dökümanları",
+                column: "ExpenditureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Harcamalar_EmployeeID",
@@ -430,7 +464,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                 name: "EmployeeShift");
 
             migrationBuilder.DropTable(
-                name: "Harcamalar");
+                name: "Harcama Dökümanları");
 
             migrationBuilder.DropTable(
                 name: "İzinler");
@@ -446,6 +480,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Zimmetler");
+
+            migrationBuilder.DropTable(
+                name: "Harcamalar");
 
             migrationBuilder.DropTable(
                 name: "Vardiyalar");
