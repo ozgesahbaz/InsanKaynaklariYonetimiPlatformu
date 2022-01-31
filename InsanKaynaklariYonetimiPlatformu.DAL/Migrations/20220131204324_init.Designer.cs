@@ -10,18 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220127193802_init.Designer.cs
-    [Migration("20220127193802_init")]
+    [Migration("20220131204324_init")]
     partial class init
-=======
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220130124649_init.Designer.cs
-    [Migration("20220130124649_init")]
-    partial class init
-=======
-    [Migration("20220129144613_change29.01.202217.45caner")]
-    partial class change290120221745caner
->>>>>>> 47655e0db0b135ff369875e4283f9f2969475f2c:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220129144613_change29.01.202217.45caner.Designer.cs
->>>>>>> 69b5cae92249273f0df99bf968a5574e3018da1a:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220129144613_change29.01.202217.45caner.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
