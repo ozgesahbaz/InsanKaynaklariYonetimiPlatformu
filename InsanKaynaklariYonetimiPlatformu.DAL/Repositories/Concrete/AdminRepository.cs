@@ -41,5 +41,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             return dbContext.Admins.SingleOrDefault(a => a.UserName == email && a.Password == password);
         }
+
+        public List<Comment> GetComments()
+        {
+            return dbContext.Comments.Include("Manager").OrderByDescending(a=>a.CommentId).Take(10).ToList();
+        }
     }
 }

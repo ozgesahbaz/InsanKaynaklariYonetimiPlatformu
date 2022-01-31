@@ -39,5 +39,27 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return null;
         }
+
+        public List<CommentVM> GetComments()
+        {
+            List<Comment> comments = adminRepository.GetComments();
+            List<CommentVM> commentVMs = new List<CommentVM>();
+            if (comments != null)
+            {
+                foreach (Comment comment in comments)
+                {
+                    CommentVM commentVM = new CommentVM()
+                    {
+                        Comment = comment.Description,
+                        CommentID = comment.CommentId,
+                        ManagerFullName = comment.Manager.FullName,
+                        ManagerPhoto = comment.Manager.Photo
+                    };
+                    commentVMs.Add(commentVM);
+
+                }
+            }
+            return commentVMs;
+        }
     }
 }

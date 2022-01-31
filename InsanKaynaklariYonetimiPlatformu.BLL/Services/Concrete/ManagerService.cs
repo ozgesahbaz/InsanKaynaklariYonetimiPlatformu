@@ -546,7 +546,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return shiftDetailsVM;
         }
 
-<<<<<<< HEAD
+
         public Manager GetCommentByManagerId(int id)
         {
             Manager manager = managerRepository.GetCommentByManagerId(id);
@@ -573,13 +573,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int RemoveComment(int id)
         {
             Comment comment = managerRepository.FindComment(id);
-            if (comment!=null)
+            if (comment != null)
             {
                 return managerRepository.RemoveComment(comment);
-               
+
             }
             return 1;
-=======
+        }
+
         public bool UpdatePremium(EditPremiumVm editPremiumVm, int id)
         {
             Employee employee= employeeRepository.GetEmployeeById(id);
@@ -594,7 +595,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 return false;
             }
->>>>>>> a60ac4bfff9b6a80a71ca9ef0f5bc746a2f4c0ce
+
         }
     }
 }

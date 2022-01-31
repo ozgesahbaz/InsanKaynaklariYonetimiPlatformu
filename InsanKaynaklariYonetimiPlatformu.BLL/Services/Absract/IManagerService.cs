@@ -53,12 +53,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int ChangePassword(int id, PasswordVM passwordVM);
         int ChangeAccount(int id, AccountSettingsVM settingsVM, string documentPath);
         int ChangeCompanySettings(int id, CompanySettingsVM settingsVM, string documentPath);
-<<<<<<< HEAD
+
         Manager GetCommentByManagerId(int id);
         bool AddComment(CommentVM commentVM, int id);
         int RemoveComment(int id);
-=======
+
         bool UpdatePremium(EditPremiumVm editPremiumVm, int id);
->>>>>>> a60ac4bfff9b6a80a71ca9ef0f5bc746a2f4c0ce
+
     }
 }

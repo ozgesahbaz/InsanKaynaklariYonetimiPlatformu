@@ -1,0 +1,101 @@
+﻿@model List<CommentVM>
+@{
+    int i = 1;
+    int x = 1;
+}}
+<div id="testimonial">
+    <div class="container-fluid bg-soft-dark pt-5">
+        <div class="row">
+            <div class="col-lg-7 mx-auto text-center my-2">
+                <h5 class="fw-light fs-3 fs-lg-5 lh-sm mb-2">Değerli Müşterilerimiz</h5>
+            </div>
+        </div>
+        <div class="row flex-center">
+            <div class="col-xl-9">
+                <div class="carousel slide" data-bs-ride="carousel" id="carouselTestimonials">
+                    <div class="carousel-inner">
+                        @foreach (CommentVM item in Model)
+                        {
+                            if (i == 1)
+                            {
+                                <div class="carousel-item active" data-bs-interval="10000">
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 mb-2">
+                                            <div class="card shadow card-span p-3">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="img-fluid" src="~/@item.ManagerPhoto" height="60" width="60" />
+                                                        <div class="flex-1 ms-2">
+                                                            <h6 class="fw-light fs-lg-1 mb-1">@item.ManagerFullName</h6>
+                                                            <p class="fw-normal mb-0 text-800">Şirket Yöneticisi</p>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 mt-2 fw-light lh-lg">@item.Comment ...</p>
+                                                        <button class="btn btn-primary btn-sm order-0" type="button" asp-controller="Home" asp-action="CustomerComment">Detay</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @(i++);
+                            }
+                            else
+                            {
+
+                                <div class="carousel-item" data-bs-interval="5000">
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 mb-2">
+                                            <div class="card shadow card-span p-3">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center">
+                                                        <img class="img-fluid" src="~/@item.ManagerPhoto" height="60" width="60" alt="Müşterilerimiz" />
+                                                        <div class="flex-1 ms-2">
+                                                            <h6 class="fw-light fs-lg-1 mb-1">@item.ManagerFullName</h6>
+                                                            <p class="fw-normal mb-0 text-800">Şirket Yöneticisi</p>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 mt-2 fw-light lh-lg">@item.Comment ... </p>
+                                                        <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+                <div class="row mt-2 flex-center">
+                    <div class="col-auto position-relative z-index-2">
+                        <ol class="carousel-indicators">
+
+                            @foreach (CommentVM item in Model)
+                            {
+                                if (x == 1)
+                                {
+                                    <li class="active mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="@(x-1)"></li>
+                                    @(x++);
+                                }
+                                else
+                                {
+                                    <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="@(x-1)"></li>
+                                    @(x++);
+
+                                }
+
+                            }
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
