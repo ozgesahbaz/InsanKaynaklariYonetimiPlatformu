@@ -35,6 +35,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     BirthDay = employeeVM.BirtDay,
                     Password = $"123{employeeVM.FullName.ToLower()}",
                     Status = employeeVM.Status,
+                    Photo = "uploads\\image\\userphoto\\_usernophoto.png",
                     IsActive = false
                 };
                 if (employeeRepository.AddEmployee(newEmployee) > 0)
@@ -112,16 +113,19 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public List<Permission> GetPermissionListEmployees(int id)
         {
+            //Manager Personellerin izinlerini listelerken
             return employeeRepository.GetPermissionList(id);
         }
 
         public bool AnyEmployeesPermission(AddEmployeesPermissionVM permissionVM)
         {
+            //Repository kısmında save changes yaparken sıfırdan büyük çıkarsa izin ekliyor.
             return employeeRepository.GetPermissionById(permissionVM.EmployeeID, permissionVM.StartDate, permissionVM.FinishDate);
         }
 
         public List<EmployeePermissionVM> GetPermissionListEmployeeByID(int id)
         {
+            //Personel izinleri listelerken 
             List<Permission> permissions = employeeRepository.GetPermissionListEmployeeByID(id);
             List<EmployeePermissionVM> employeePermissionVMs = new List<EmployeePermissionVM>();
             if (permissions != null)
@@ -137,7 +141,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         isAproved = item.isAproved
                     };
                     employeePermissionVMs.Add(permissionVM);
-                
+
                 }
             }
 
@@ -147,7 +151,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM)
         {
             Employee employee = employeeRepository.GetEmployeeById(id);
-            if (employee!=null)
+            if (employee != null)
             {
                 Permission permission = new Permission()
                 {
@@ -165,6 +169,84 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return 0;
 
 
+        }
+
+        public List<EmployeeDebitVM> GetEmployeeDebitList(int id)
+        {
+            List<Debit> debits = employeeRepository.GetEmployeeDebitList(id);
+            List<EmployeeDebitVM> debitVMs = new List<EmployeeDebitVM>();
+            if (debits != null)
+            {
+                foreach (Debit debit in debits)
+                {
+                    EmployeeDebitVM employeeDebitVM = new EmployeeDebitVM()
+                    {
+                        ID = debit.ID,
+                        DebitName = debit.DebitName,
+                        Details = debit.Details,
+                        StartedDate = debit.StartedDate,
+                        DescofRejec = debit.DescofRejec,
+                        IsAproved = debit.IsAproved
+
+                    };
+                    debitVMs.Add(employeeDebitVM);
+
+
+                }
+
+            }
+            return debitVMs;
+        }
+      
+        public List<ExpenditureVM> GetListExpenditure(int id)
+        {
+            
+            List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
+            
+            if (expenditures != null)
+            {
+                List<ExpenditureVM> expenditureVMs = new List<ExpenditureVM>();
+                foreach (Expenditure expenditure in expenditures)
+                {
+                    ExpenditureVM expenditureVM = new ExpenditureVM()
+                    {
+                        ID = expenditure.ID,
+                        ExpenditureName = expenditure.ExpenditureName,
+                        ExpenditureAmount = expenditure.ExpenditureAmount,
+                        Details = expenditure.Details,
+                        isAproved = expenditure.isAproved
+
+                    };
+                    expenditureVMs.Add(expenditureVM);
+
+                }
+                return expenditureVMs;
+            }
+            return null;
+        }
+
+        public int AddExpenditure(int id, ExpenditureVM expenditureVM)
+        {
+
+            Expenditure expenditure = new Expenditure()
+            {
+                //ID = expenditureVM.ID,
+                ExpenditureName = expenditureVM.ExpenditureName,
+                ExpenditureAmount = expenditureVM.ExpenditureAmount,
+                Details = expenditureVM.Details,
+                isAproved = expenditureVM.isAproved,
+                EmployeeID = id,
+
+
+            };
+            return employeeRepository.AddExpenditure(expenditure);
+
+        }
+
+        public int RemoveExpenditure(int id)
+        {
+            Expenditure expenditure = employeeRepository.GetExpenditureById(id);
+            return employeeRepository.DeletExpenditure(expenditure);
         }
 
         public bool AnyFilePath(string filepath)
@@ -206,5 +288,95 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return null;
         }
+
+        public Debit GetDebitById(int id)
+        {
+            return employeeRepository.GetRejectedDebitById(id);
+        }                     
+
+        public int ChangeRejectedDebit(int id, EmployeeDebitVM employeeDebitVM)
+        {
+            Debit debit = GetDebitById(id);
+            debit.DescofRejec = employeeDebitVM.DescofRejec;
+            return employeeRepository.ChangeRejectedDebit(debit);
+        }
+
+        public int ChangeAccount(int id, AccountSettingVM accountSettingVM, string documentPath)
+        {
+            Employee employee = GetEmployeeById(id);
+            if (employee != null)
+            {
+                employee.FullName = accountSettingVM.FullName;
+                if (documentPath != null)
+                {
+                    employee.Photo = documentPath;
+                }
+
+                return employeeRepository.ChangeAccount(employee);
+            }
+            else
+            {
+                return 0;
+            }
+        }       
+
+
+        public int RemoveDocument(int id)
+        {
+            return employeeRepository.DeletedDocument(id);
+        }
+
+        public decimal GetSalarybyEmployeeId(int id)
+        {
+            return employeeRepository.GetSalarybyEmployeeId(id);
+        }
+
+        public decimal GetPremiumRateByEmployeeId(int id)
+        {
+            return employeeRepository.GetPremiumrateByEmployeeId(id);
+        }
+
+        public decimal GetNetSalaryByEmployeeId(int id)
+        {
+            return employeeRepository.GetNetSalaryByEmployeeId(id);
+        }
     }
+        public List<DocumentsVM> GetExpenditureDocument(int id)
+        {
+            List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);
+            if (expenditureDocument!=null)
+            {
+                List<DocumentsVM> documentsVMs = new List<DocumentsVM>();
+                foreach (ExpenditureDocument expenditure in expenditureDocument)
+                {
+                    DocumentsVM documentsVM = new DocumentsVM()
+                    {
+                        DocumentID = expenditure.DocumentID,
+                        ExpenditureId = (int)expenditure.ExpenditureId,
+                        FilePath = expenditure.DocumentPath,
+                        fileName = expenditure.DocumentName
+                   
+
+                    };
+                    documentsVMs.Add(documentsVM);
+                }
+
+                return documentsVMs;
+                
+            }
+            return null;
+        }
+
+        public int AddDocumentByExpenditureID(int id, string documentPath, string fileName)
+        {
+            ExpenditureDocument document = new ExpenditureDocument()
+            {
+                ExpenditureId = id,
+                DocumentPath = documentPath,
+                DocumentName = fileName
+            };
+            return employeeRepository.AddExpenditureDocument(document);
+        }
+    }
+    
 }

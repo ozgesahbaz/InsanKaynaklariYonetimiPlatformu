@@ -1,0 +1,65 @@
+﻿@model InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM.ShiftDetailsVM
+
+@{
+    Layout = "_Layout2"; ;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Vardiya Detay Güncelleme</title>
+</head>
+<body>
+
+    <h4>Vardiya Detay Güncelleme</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="GetEditShiftDetails" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+          @*      <div class="input-group mb-3">
+                    <label asp-for="EmployeeID" class="input-group-text" for="inputGroupSelect01">Çalışan Seçiniz</label>
+                    <select asp-for="EmployeeID" class="form-select" id="inputGroupSelect01">
+                        <option selected>Seçiniz</option>
+                        @foreach (Employee employee in Model.Employees)
+                        {
+                            <option value="@employee.EmployeeId">@employee.FullName</option>
+                        }
+                    </select>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="ShiftStartTime" class="control-label"></label>
+                    <input asp-for="ShiftStartTime" class="form-control" />
+                    <span asp-validation-for="ShiftStartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShiftFinishTime" class="control-label"></label>
+                    <input asp-for="ShiftFinishTime" class="form-control" />
+                    <span asp-validation-for="ShiftFinishTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RespiteStartTime" class="control-label"></label>
+                    <input asp-for="RespiteStartTime" class="form-control" />
+                    <span asp-validation-for="RespiteStartTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RespiteFinishTime" class="control-label"></label>
+                    <input asp-for="RespiteFinishTime" class="form-control" />
+                    <span asp-validation-for="RespiteFinishTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" asp-controller="Manager" asp-action="PostEditShiftDetails" asp-route-id=@Model.RespiteID value="Güncelle"  class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="ShiftDetails">Vardiya sayfasına dön</a>
+    </div>
+
+</body>
+</html>

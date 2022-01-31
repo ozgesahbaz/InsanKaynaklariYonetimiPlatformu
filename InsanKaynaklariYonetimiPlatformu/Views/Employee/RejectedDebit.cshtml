@@ -1,0 +1,32 @@
+﻿@model EmployeeDebitVM
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+
+}
+
+<div class="card">
+    <div class="justify-content-center">
+        <div class="card-title" >Reddetme Nedeni</div>
+        <form method="post">
+            <div asp-validation-summary="All"></div>
+           
+           
+            <div class="form-group">
+                <label asp-for="DescofRejec"></label>
+                <textarea rows="5" class="form-control" asp-for="DescofRejec" ></textarea>
+            </div>
+
+           
+            <br />
+
+
+            <div class="justify-content-end">
+                <button asp-route-id="@Model.ID" type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+
+        </form>
+        
+        <a type="submit" asp-route-id="@id" asp-action="EmployeesDebit" asp-controller="Employee" class="btn btn-warning">Listeye Dön</a>
+    </div>
+</div>

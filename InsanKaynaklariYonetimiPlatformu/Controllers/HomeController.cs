@@ -116,7 +116,9 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                         }
                         Company company = managerService.FindCompany(manager.CompanyId);
                         HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                        HttpContext.Session.SetString("CompanyLogo", company.CompanyLogo);
                         HttpContext.Session.SetString("FullName", manager.FullName);
+                        HttpContext.Session.SetString("Photo", manager.Photo);
                         HttpContext.Session.SetInt32("ID", manager.ManagerId);
                         HttpContext.Session.SetString("Statu", "Manager");
 
@@ -141,7 +143,11 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
                             Manager employeeinManager = managerService.FindManager(employee.ManagerId);
                             Company company = managerService.FindCompany(employeeinManager.CompanyId);
                             HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                            HttpContext.Session.SetString("CompanyLogo", company.CompanyLogo);
+
                             HttpContext.Session.SetString("FullName", employee.FullName);
+                            HttpContext.Session.SetString("Photo", employee.Photo);
+
                             HttpContext.Session.SetInt32("ID", employee.EmployeeId);
                             HttpContext.Session.SetString("Statu", "Employee");
 
@@ -176,7 +182,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             }
 
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
 
 
         }
@@ -186,6 +192,13 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

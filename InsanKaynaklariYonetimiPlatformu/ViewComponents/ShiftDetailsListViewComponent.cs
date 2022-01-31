@@ -22,39 +22,43 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
         {
             try
             {
-               
-                    List<Employee> employees = employeeService.GetListEmployees(id);
-                    List<ShiftDetailsVM> shiftDetailsVMs = new List<ShiftDetailsVM>();
-                    foreach (Employee item in employees)
+
+                List<Employee> employees = employeeService.GetListEmployees(id);
+                List<ShiftDetailsVM> shiftDetailsVMs = new List<ShiftDetailsVM>();
+                foreach (Employee item in employees)
+                {
+                    List<Shift> shifts = managerService.GetShiftDetailbyEmployeeId(item.EmployeeId);
+
+                    foreach (Shift shift in shifts)
                     {
-                        List<Shift> shifts = managerService.GetShiftDetailbyEmployeeId(item.EmployeeId);
-                        foreach (Shift shift in shifts)
+
+                        List<Respite> respites = managerService.GetRespitebyShiftId(shift.ShiftId);
+                        foreach (Respite respite in respites)
                         {
-
-                            List<Respite> respites = managerService.GetRespitebyShiftId(shift.ShiftId);
-                            foreach (Respite respite in respites)
+                            ShiftDetailsVM shiftDetailsVM = new ShiftDetailsVM()
                             {
-                                ShiftDetailsVM shiftDetailsVM = new ShiftDetailsVM()
-                                {
-                                    EmployeeID = item.EmployeeId,
-                                    EmployeeFullName = item.FullName,
-                                    ShiftFinishTime = shift.ShiftFinishTime,
-                                    ShiftStartTime = shift.ShiftStartTime,
-                                    RespiteFinishTime = respite.RespiteFinishTime,
-                                    RespiteStartTime = respite.RespiteStartTime,
-                                 
-                                };
-                                shiftDetailsVMs.Add(shiftDetailsVM);
+                                Employees = employees,
+                                RespiteID = respite.RespiteID,
+                                ShiftID = shift.ShiftId,
+                                EmployeeID = item.EmployeeId,
+                                EmployeeFullName = item.FullName,
+                                ShiftFinishTime = shift.ShiftFinishTime,
+                                ShiftStartTime = shift.ShiftStartTime,
+                                RespiteFinishTime = respite.RespiteFinishTime,
+                                RespiteStartTime = respite.RespiteStartTime,
 
-                            }
+                            };
+                            shiftDetailsVMs.Add(shiftDetailsVM);
+
                         }
-
                     }
 
+                }
 
 
-                    return View(shiftDetailsVMs);
-               
+
+                return View(shiftDetailsVMs);
+
 
             }
             catch (Exception ex)

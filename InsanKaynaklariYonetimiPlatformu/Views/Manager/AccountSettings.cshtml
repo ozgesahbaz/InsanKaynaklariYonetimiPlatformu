@@ -1,0 +1,41 @@
+﻿@model AccountSettingsVM
+@{
+    Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
+
+
+}
+<div class="row">
+    <div class="card offset-3 col-6">
+        <div class="card-header text-center">Hesap Ayarlarım</div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All"></div>
+                <div class="text-center">
+                    <img class="img-profile rounded-circle" height="60" src="~/@Model.PhotoPath" />
+                </div>
+                <hr />
+                <div class="form-group">
+                    <i class="fas fa-camera prefix grey-text"></i>
+                    <label asp-for="Photo">Fotoğraf seçiniz.(jpg,png)</label>
+                    <input type="file" class="form-control" asp-for="Photo" />
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-id-card prefix grey-text"></i>
+                    <label asp-for="FullName">İsim Soyisim</label>
+                    <input class="form-control" asp-for="FullName" />
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-mail-bulk prefix grey-text"></i>
+                    <label asp-for="Email"></label>
+                    <input class="form-control" asp-for="Email" readonly="readonly" />
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" asp-route-id="@id" class="btn btn-primary">Kaydet</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

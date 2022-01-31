@@ -2,6 +2,7 @@
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -190,7 +191,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(deleteEmploye);
         }
-
 
 
         [HttpPost]
@@ -405,24 +405,124 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("ManagersDebit");
         }
         [HttpGet]
-        public IActionResult ShiftDetails(int id)
+        [ActionName("ShiftDetails")]
+        public IActionResult Get(int id)
         {
-       
+
             List<Employee> employees = employeeService.GetListEmployees(id);
+
             ShiftDetailsVM shiftDetailsVM = new ShiftDetailsVM()
             {
                 Employees = employees,
+                ManagerID = id,
             };
 
             return View(shiftDetailsVM);
         }
         [HttpPost]
-        public IActionResult ShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
+        [ActionName("ShiftDetails")]
+        public IActionResult Post(ShiftDetailsVM shiftDetailsVM, int id)
         {
             managerService.AddShiftDetails(shiftDetailsVM, id);
             shiftDetailsVM.Employees = employeeService.GetListEmployees(id);
+            shiftDetailsVM.ManagerID = id;
+
             return View(shiftDetailsVM);
         }
+
+        [HttpGet]
+        public IActionResult DeleteShiftDetails(int id)
+        {
+            try
+            {
+                if (managerService.DeleteShiftDetails(id))
+
+                {
+                    return RedirectToAction("ShiftDetails");// yazılısında hata olabilir kontrol et
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ShiftDetails");
+
+
+
+
+        }
+        [HttpGet]
+        public IActionResult GetEditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
+        {
+          
+            shiftDetailsVM = managerService.GetShiftDetailbyRespiteID(shiftDetailsVM, id);
+
+            
+
+            return View(shiftDetailsVM);
+
+        }
+
+        [HttpPost]
+
+        public IActionResult PostEditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
+        {
+            if (!managerService.EditShiftDetails(shiftDetailsVM, id))
+            {
+                throw new Exception("Bir hata oluştu.");
+            }
+            else
+            {
+
+                return RedirectToAction("ShiftDetails");
+            }
+
+        }
+        //[HttpDelete]
+        //[ActionName("ShiftDetails")]
+        //public IActionResult Delete(int shiftid)
+        //{
+        //    try
+        //    {
+        //        if (managerService.DeleteShiftDetails(shiftid))
+
+        //        {
+        //            return RedirectToAction("GetShiftDetails");// yazılısında hata olabilir kontrol et
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Bir hata oluştu.");
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        ModelState.AddModelError("exception", ex.Message);
+        //    }
+        //    return RedirectToAction("Get");
+
+
+
+
+        //}
+        //[HttpPut]
+        //[ActionName("ShiftDetails")]
+        //  public IActionResult Edit(ShiftDetailsVM shiftDetailsVM, int shiftid)
+        //{
+        //    managerService.EditShiftDetails(shiftDetailsVM, shiftid);
+        //    shiftDetailsVM.Employees = employeeService.GetListEmployees(shiftid);
+        //    return View(shiftDetailsVM);
+
+
+        //    return View();
+        //}
         [HttpGet]
         public IActionResult ManagersPermission(int id)
         {
@@ -545,7 +645,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             try
             {
                 string ext = documentVM.File.ContentType.Split('/')[1];
-                if (ext == "pdf") 
+                if (ext == "pdf")
                 {
                     string filename = $"file_employee{id}_{documentVM.FileName}.{ext}";
                     string filepath = Path.Combine(Environment.CurrentDirectory, "wwwroot\\uploads\\file", filename);
@@ -554,7 +654,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                     {
                         throw new Exception("Lütfen farklı bir dosya ismi giriniz.");
                     }
-                    if (employeeService.AddDocumentByEmployeID(id, documentPath,documentVM.FileName) <1)//
+                    if (employeeService.AddDocumentByEmployeID(id, documentPath, documentVM.FileName) < 1)//
                     {
                         throw new Exception("Bir hata oluştu.");
                     }
@@ -580,9 +680,231 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(documentVMd);
         }
+        [HttpGet]
+       
+        public IActionResult GetEditPremiumModel(int id)
+        { EditPremiumVm editPremiumVm = new EditPremiumVm()
+        {
+            EmployeeID = id,
+            Employees = employeeService.GetListEmployees(id),
+            Salary = employeeService.GetSalarybyEmployeeId(id),
+            PremiumRate = employeeService.GetPremiumRateByEmployeeId(id),
+            NetSalary = employeeService.GetNetSalaryByEmployeeId(id),
+        };
+            return View(editPremiumVm);
+        }
+        [HttpPost]
+       
+        public IActionResult PostEditPremiumModel(EditPremiumVm  editPremiumVm,int id)
+        {
+            if (managerService.UpdatePremium(editPremiumVm, id))
+            {
+            return RedirectToAction("ManagersEmployees");
 
+            }
+            throw new Exception("Güncelleme başarısız oldu");
+
+        }
+
+
+
+        public IActionResult ChangePassword(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangePassword(int id, PasswordVM passwordVM)
+        {
+            try
+            {
+                if (managerService.ChangePassword(id, passwordVM) < 1)
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+                else
+                {
+                    throw new Exception("Şifreniz başarılı bir şekilde değiştirildi.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
+        public IActionResult AccountSettings(int id)
+        {
+            try
+            {
+                Manager manager = managerService.FindManager(id);
+                if (manager != null)
+                {
+                    AccountSettingsVM settingsVM = new AccountSettingsVM()
+                    {
+                        PhotoPath = manager.Photo,
+                        FullName = manager.FullName,
+                        Email = manager.Email
+                    };
+                    return View(settingsVM);
+
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AccountSettings(int id, AccountSettingsVM settingsVM)
+        {
+            try
+            {
+                Random rnd = new Random();
+                string documentPath = null;
+
+                if (settingsVM.Photo != null)
+                {
+                    string[] ext = settingsVM.Photo.ContentType.Split('/');
+                    if (ext[1] == "jpeg" || ext[1] == "png")
+                    {
+                        string filename = $"img_manager{id}_{ext[0]}{rnd.Next(0, 10000)}.{ext[1]}";
+                        string filepath = Path.Combine(Environment.CurrentDirectory, "wwwroot\\uploads\\image\\userphoto", filename);
+                        documentPath = $"uploads\\\\image\\userphoto\\{filename}";
+                        FileStream fs = new FileStream(filepath, FileMode.OpenOrCreate);
+                        settingsVM.Photo.CopyTo(fs);
+                        fs.Close();
+                    }
+                    else
+                    {
+                        throw new Exception("Lütfen jpeg veya png türünde bir fotoğraf yükleyiniz.");
+                    }
+                }
+                if (managerService.ChangeAccount(id, settingsVM, documentPath) > 0)
+                {
+                    throw new Exception("İşleminiz başarılı bir şekilde gerçekleşti");
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            Manager manager = managerService.FindManager(id);
+            if (manager != null)
+            {
+                AccountSettingsVM settingsVMl = new AccountSettingsVM()
+                {
+                    PhotoPath = manager.Photo,
+                    FullName = manager.FullName,
+                    Email = manager.Email
+                };
+                HttpContext.Session.SetString("FullName", manager.FullName);
+                HttpContext.Session.SetString("Photo", manager.Photo);
+                return View(settingsVMl);
+            }
+            return View();
+        }
+        public IActionResult CompanySettings(int id)
+        {
+            try
+            {
+                Company company = managerService.FindCompanyByManagerID(id);
+                if (company != null)
+                {
+                    CompanySettingsVM settingsVM = new CompanySettingsVM()
+                    {
+                        LogoPath = company.CompanyLogo,
+                        Adress = company.Address,
+                        CompanyName = company.CompanyName,
+                    };
+                    return View(settingsVM);
+
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CompanySettings(int id, CompanySettingsVM settingsVM)
+        {
+            Company company = managerService.FindCompanyByManagerID(id);
+            try
+            {
+                Random rnd = new Random();
+                string documentPath = null;
+
+                if (settingsVM.CompanyLogo != null)
+                {
+                    string[] ext = settingsVM.CompanyLogo.ContentType.Split('/');
+                    if (ext[1] == "jpeg" || ext[1] == "png")
+                    {
+                        string filename = $"img_company{company.CompanyId}_{ext[0]}{rnd.Next(0, 10000)}.{ext[1]}";
+                        string filepath = Path.Combine(Environment.CurrentDirectory, "wwwroot\\uploads\\image\\company", filename);
+                        documentPath = $"uploads\\\\image\\company\\{filename}";
+                        FileStream fs = new FileStream(filepath, FileMode.OpenOrCreate);
+                        settingsVM.CompanyLogo.CopyTo(fs);
+                        fs.Close();
+                    }
+                    else
+                    {
+                        throw new Exception("Lütfen jpeg veya png türünde bir fotoğraf yükleyiniz.");
+                    }
+                }
+                if (managerService.ChangeCompanySettings(id, settingsVM, documentPath) > 0)
+                {
+                    throw new Exception("İşleminiz başarılı bir şekilde gerçekleşti");
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            if (company != null)
+            {
+                CompanySettingsVM settingsVM1 = new CompanySettingsVM()
+                {
+                    LogoPath = company.CompanyLogo,
+                    Adress = company.Address,
+                    CompanyName = company.CompanyName,
+                };
+                HttpContext.Session.SetString("CompanyName", company.CompanyName);
+                HttpContext.Session.SetString("CompanyLogo", company.CompanyLogo);
+                return View(settingsVM1);
+            }
+            return View();
+        }
     }
-
-
 }
 

@@ -1,4 +1,5 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,5 +25,22 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool AnyFilePath(string filepath);
         int AddDocument(Document document);
         List<Document> GetDocumentByID(int id);
+        decimal GetSalarybyEmployeeId(int id);
+        decimal GetPremiumrateByEmployeeId(int id);
+        decimal GetNetSalaryByEmployeeId(int id);
+        bool UpdateEmployee4Salary(Employee employee);
+        List<Debit> GetEmployeeDebitList(int id);       
+        List<Expenditure> GetListExpenditure(int id);
+        int AddExpenditure(Expenditure expenditure);
+        Expenditure GetExpenditureById(int id);
+        int DeletExpenditure(Expenditure expenditure);
+        Debit GetRejectedDebitById(int id);
+        int ChangeRejectedDebit(Debit debit);
+        int ChangeAccount(Employee employee);
+       
+       
+        int DeletedDocument(int id);
+        List<ExpenditureDocument> GetExpenditureDocumentById(int id);
+        int AddExpenditureDocument(ExpenditureDocument document);
     }
 }

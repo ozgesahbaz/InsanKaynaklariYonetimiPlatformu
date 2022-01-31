@@ -12,15 +12,16 @@
                 <th>Mola Bitiş Saati</th>
                 <th>Vardiya Bitiş Saati</th>
                 <th>Vardiya Bitiş Tarihi</th>
+                <th>Güncelle/Sil</th>
 
 
             </tr>
         </thead>
         <tbody>
 
-                @foreach (ShiftDetailsVM item in Model)
-                {
-            <tr>
+            @foreach (ShiftDetailsVM item in Model)
+            {
+                <tr>
 
                     <td>@item.EmployeeFullName </td>
                     <td>@item.ShiftStartTime.ToShortDateString()</td>
@@ -30,9 +31,20 @@
                     <td>@item.ShiftFinishTime.ToShortTimeString()</td>
                     <td>@item.ShiftFinishTime.ToShortDateString()</td>
 
+                    <td>
+                        <form asp-action="GetEditShiftDetails" asp-controller="Manager" asp-route-id="@item.RespiteID" method="get">
+                            <input type="submit" value=" Güncelle" class="btn btn-outline-primary" /> <i class="bi bi-trash"></i>
+                        </form>
+                       
+                        <form asp-action="DeleteShiftDetails" asp-controller="Manager" asp-route-id="@item.ShiftID" method="get">
+                            <input type="submit" value="Sil" class="btn btn-danger" /> <i class="bi bi-trash"></i>
+                        </form>
+                    </td>
 
-            </tr>
-                }
+                </tr>
+            }
+
+
         </tbody>
     </table>
 </div>
