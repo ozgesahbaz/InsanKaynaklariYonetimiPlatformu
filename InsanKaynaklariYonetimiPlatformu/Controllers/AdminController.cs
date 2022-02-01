@@ -38,7 +38,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                     CompanyName = company.CompanyName,
                     Mailextension = company.MailExtension,
                     ManagerFullName = company.Manager.FullName,
-                    ManagerMail = company.Manager.Email
+                    ManagerMail = company.Manager.Email,
+                    membershipType = company.Membership.MembershipType
                 };
 
                 passiveCompanyVM.Add(companyVM);
@@ -82,7 +83,66 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("passivecompany");
 
         }
+        public IActionResult ActiveCompany()
+        {
+            try
+            {
+                List<ActiveCompanyVM> companyVMs = adminService.GetActiveCompanyList();
 
-        
+                if (companyVMs!=null)
+                {
+                    return View(companyVMs);
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+        }
+        public IActionResult DeleteCompany(int id)
+        {
+            try
+            {
+                if (adminService.DeleteCompany(id)<0)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return RedirectToAction("passivecompany");
+        }
+        public IActionResult DeActivate(int id)
+        {
+            try
+            {
+                ActiveCompanyVM companyVM = new ActiveCompanyVM()
+                {
+                    CompanyId = id
+                };
+                if (adminService.DeactivateCompanies(companyVM)<1)
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ActiveCompany");
+        }
+
+
+
     }
 }
