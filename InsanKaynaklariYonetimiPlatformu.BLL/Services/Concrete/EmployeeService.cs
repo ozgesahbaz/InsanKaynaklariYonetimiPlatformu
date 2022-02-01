@@ -340,11 +340,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return employeeRepository.GetNetSalaryByEmployeeId(id);
         }
-    }
         public List<DocumentsVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);
-            if (expenditureDocument!=null)
+            if (expenditureDocument != null)
             {
                 List<DocumentsVM> documentsVMs = new List<DocumentsVM>();
                 foreach (ExpenditureDocument expenditure in expenditureDocument)
@@ -355,14 +354,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         ExpenditureId = (int)expenditure.ExpenditureId,
                         FilePath = expenditure.DocumentPath,
                         fileName = expenditure.DocumentName
-                   
+
 
                     };
                     documentsVMs.Add(documentsVM);
                 }
 
                 return documentsVMs;
-                
+
             }
             return null;
         }
@@ -378,5 +377,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return employeeRepository.AddExpenditureDocument(document);
         }
     }
-    
+        
 }
+    
+
