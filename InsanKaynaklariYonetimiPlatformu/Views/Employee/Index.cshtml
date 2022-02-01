@@ -2,3 +2,220 @@
     Layout = "_Layout2";
 
 }
+<link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+<link rel="stylesheet" href="~/Calender/css/style.css">
+<div class="row me-5">
+    <div class="col-5">
+        <meta charset="UTF-8">
+        <div id="app">
+            <div data-reactroot="">
+                <div id="calendar">
+
+                    <div id="header">
+
+                        <p>
+                            <!-- react-text: 22 -->Salı<!-- /react-text -->
+                            <!-- react-text: 23 --> <!-- /react-text --><!-- react-text: 24 -->2022<!-- /react-text -->
+                        </p>
+                        <div>
+                            <i class="fa fa-calendar-o" aria-hidden="true">
+                                <span>@DateTime.Now.Day</span>
+                            </i>
+                        </div>
+
+                    </div>
+                    <div id="add_entry">
+                        <div class="enter_entry">
+                            <input type="text" placeholder="Enter title" id="entry_name">
+                            <span id="save_entry">SAVE</span>
+                        </div>
+                        <div class="entry_details">
+                            <div>
+                                <div class="entry_info first">
+                                    <i class="fa fa-image" aria-hidden="true"></i>
+                                    <input type="file" name="entry-img" id="entry-img">
+                                    <label for="entry-img" id="for_img">
+                                        <span id="file_name">Choose an image</span>
+                                    </label>
+                                    <span id="remove_img">Remove</span>
+                                </div>
+                                <div class="entry_info2 first second duration">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <input type="checkbox" class="toggle" name="all-day" id="all-day" value="on"><p>All-day</p>
+                                    <div id="not-all-day">
+                                        <p id="select_hour">Select hour</p>
+                                        <p id="hour"><input type="number" id="enter_hour" min="0" max="24"><!-- react-text: 49 --> h<!-- /react-text --></p>
+                                    </div>
+                                </div>
+                                <div class="entry_info2">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    <input type="text" placeholder="Add location" id="entry_location">
+                                </div>
+                                <div class="entry_info2">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    <textarea id="entry_note" cols="35" rows="2" placeholder="Add note"></textarea>
+                                </div>
+                                <div class="entry_info colors">
+                                    <i class="fa fa-circle" aria-hidden="true" id="blue" style="color: rgb(41, 128, 185);"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="arrows">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </div>
+                    <div id="dates">
+                        <div>
+                            <p class="weekname">Sal</p>
+                            <ul>
+                                <li class="today">1</li>
+                                <li>8</li>
+                                <li>15</li>
+                                <li>22</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="weekname">Çrş</p>
+                            <ul>
+                                <li>2</li>
+                                <li>9</li>
+                                <li>16</li>
+                                <li>23</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="weekname">Prş</p>
+                            <ul>
+                                <li>3</li>
+                                <li>10</li>
+                                <li>17</li>
+                                <li>24</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="weekname">Cum</p>
+                            <ul>
+                                <li>4</li>
+                                <li>11</li>
+                                <li>18</li>
+                                <li>25</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="weekname">Cts</p>
+                            <ul>
+                                <li>5</li>
+                                <li>12</li>
+                                <li>19</li>
+                                <li>26</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="weekname">Paz</p>
+                            <ul>
+                                <li>6</li>
+                                <li>13</li>
+                                <li>20</li>
+                                <li>27</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="weekname">Pts</p>
+                            <ul>
+                                <li>7</li>
+                                <li>14</li>
+                                <li>21</li>
+                                <li>28</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="ignoreOverflow">
+                        <button class="float">
+                            <div class="btn">+</div>
+                            <div class="ink-visual-container">
+                                <div class="ink-visual-static"></div> 
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4">
+
+    </div>
+
+    <div class="col-3">
+        <div class="card-header">
+            <h4 class="font-weight-bold text-primary text-center">
+                <img src="~/Dashboard/public/assets/img/icons/vacation.png" style="width:32px; height:32px;" />
+                Resmi Tatiller
+            </h4>
+        </div>
+        <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" width="110%" style="overflow-y:scroll">
+            <thead>
+                <tr role="row" class="border-bottom-warning">
+                    <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Tatil Adı</th>
+                    <th class="border-bottom-warning" style="width: 67px; height: 10px;">Tarih</th>
+                    <th class="border-bottom-warning " style="width: 67px; height: 10px">Gün Sayısı</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-bottom-warning">
+                    <td>Yılbaşı</td>
+                    <td>01.01.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Ul. Egemen. ve Çocuk Bayramı</td>
+                    <td>23.04.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Emek ve Day. Günü</td>
+                    <td>01.01.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+
+                <tr class="border-bottom-warning">
+                    <td>Ramazan Bayramı</td>
+                    <td>2-4.05.2022</td>
+                    <td>3 Gün</td>
+
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Genç ve Spor Bayramı</td>
+                    <td>19.05.2022</td>
+                    <td>1 Gün</td>
+
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Kurban Bayramı</td>
+                    <td>9-12.07.2022</td>
+                    <td>4 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Zafer Bayramı</td>
+                    <td>30.08.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Cumhuriyet Bayramı</td>
+                    <td>29.09.2022</td>
+                    <td>1 Gün</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script src="https://use.fontawesome.com/484df5253e.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/484df5253e.css" media="all">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://npmcdn.com/react@15.3.0/dist/react.min.js"></script>
+<script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.min.js"></script>
