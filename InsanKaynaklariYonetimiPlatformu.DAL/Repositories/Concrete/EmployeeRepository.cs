@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 {
 
-    public class EmployeeRepository: IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         HRDataBaseContext dbContext;
 
@@ -56,15 +56,15 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public bool AnyMail(string email)
         {
-           return dbContext.Employees.Any(a => a.Email == email);
-        
+            return dbContext.Employees.Any(a => a.Email == email);
+
         }
 
         public int ChangeAccount(Employee employee)
         {
             return dbContext.SaveChanges();
         }
-              
+
 
         public int ChangeRejectedDebit(Debit debit)
         {
@@ -80,7 +80,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public Employee CheckLogin(string email, string password)
         {
-            
+
             return dbContext.Employees.SingleOrDefault(a => a.Email == email && a.Password == password);
 
         }
@@ -99,7 +99,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public int DeleteEmployee(Employee employee)
         {
             List<Debit> debits = dbContext.Debits.Where(a => a.EmployeeID == employee.EmployeeId).ToList();
-            if (debits!=null)
+            if (debits != null)
             {
                 foreach (Debit item in debits)
                 {
@@ -119,6 +119,16 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             {
                 foreach (Shift item in shifts)
                 {
+                    List<Respite> respites = dbContext.Respites.Where(a => a.ShiftId == item.ShiftId).ToList();
+                    if (respites != null)
+                    {
+                        foreach (Respite respite in respites)
+                        {
+                            dbContext.Respites.Remove(respite);
+
+                        }
+                    }
+
                     dbContext.Shifts.Remove(item);
                 }
             }
@@ -127,13 +137,31 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             {
                 foreach (Expenditure item in expenditures)
                 {
+                    List<ExpenditureDocument> expenditureDocuments = dbContext.ExpenditureDocuments.Where(a => a.ExpenditureId == item.ID).ToList();
+                    if (expenditureDocuments != null)
+                    {
+                        foreach (ExpenditureDocument expenditureDocument in expenditureDocuments)
+                        {
+                            dbContext.ExpenditureDocuments.Remove(expenditureDocument);
+
+                        }
+                    }
+
                     dbContext.Expenditures.Remove(item);
+                }
+            }
+            List<Document> documents = dbContext.Documents.Where(a => a.EmployeeID == employee.EmployeeId).ToList();
+            if (documents!=null)
+            {
+                foreach (Document item in documents)
+                {
+                    dbContext.Documents.Remove(item);
                 }
             }
             dbContext.Employees.Remove(employee);
             return dbContext.SaveChanges();
         }
-           
+
 
         public int DeletExpenditure(Expenditure expenditure)
         {
@@ -183,8 +211,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public bool GetPermissionById(int? employeeID, DateTime startDate, DateTime finishDate)
         {
-           Permission permission= dbContext.Permissions.Where(a => a.EmployeeId == employeeID && a.StartDate >= startDate && a.FinishDate > finishDate&&a.isAproved==true).SingleOrDefault();
-            if (permission!=null)
+            Permission permission = dbContext.Permissions.Where(a => a.EmployeeId == employeeID && a.StartDate >= startDate && a.FinishDate > finishDate && a.isAproved == true).SingleOrDefault();
+            if (permission != null)
             {
                 return true;
             }
@@ -196,7 +224,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public List<Permission> GetPermissionList(int id)
         {
-            return dbContext.Permissions.Include("Employee").Where(a => a.ManagerId == id&&a.EmployeeId!=null).ToList();
+            return dbContext.Permissions.Include("Employee").Where(a => a.ManagerId == id && a.EmployeeId != null).ToList();
         }
 
         public List<Permission> GetPermissionListEmployeeByID(int id)
@@ -211,9 +239,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public decimal GetSalarybyEmployeeId(int id)
         {
-            
+
             return (decimal)dbContext.Employees.Find(id).Salary;
-           
+
         }
 
         public Debit GetRejectedDebitById(int id)
@@ -233,11 +261,11 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public bool UpdateEmployee4Salary(Employee employee)
         {
-          Employee employeeatDb=  dbContext.Employees.Find(employee.EmployeeId);
+            Employee employeeatDb = dbContext.Employees.Find(employee.EmployeeId);
             employeeatDb = employee;
             dbContext.Employees.Update(employeeatDb);
             return dbContext.SaveChanges() > 0 ? true : false;
-            
+
         }
     }
 }
