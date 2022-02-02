@@ -21,16 +21,10 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public decimal Salary { get; set; }
         [Display(Name = "Prim Oranı")]
         public decimal PremiumRate { get; set; }
-        private decimal _netSalary;
-
-        [Display(Name = "Toplam Maaş")]
-        public decimal NetSalary
-        {
-            get { return _netSalary; }
-            set { _netSalary = Salary*(1+PremiumRate); }
-        }
-
       
+        [Display(Name = "Toplam Maaş")]
+        public decimal NetSalary { get; set; }
+
 
     }
 }

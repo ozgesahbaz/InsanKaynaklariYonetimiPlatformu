@@ -195,5 +195,10 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.ExpenditureDocuments.Remove(document);
             return dbContext.SaveChanges();
         }
+
+        public Manager GetManagerByCompanyId(int id)
+        {
+          return dbContext.Managers.Where(a => a.CompanyId == id).SingleOrDefault();
+        }
     }
 }

@@ -142,6 +142,25 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("ActiveCompany");
         }
 
+        public IActionResult EmployeesOfCompany(int id)
+        {
+            try
+            {
+                ManagerOfCompanyVM managerOfCompany = adminService.GetManagerandCompany(id);
+                if (managerOfCompany!=null)
+                {
+                    return View(managerOfCompany);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ActiveCompany");
+
+        }
+
 
 
     }

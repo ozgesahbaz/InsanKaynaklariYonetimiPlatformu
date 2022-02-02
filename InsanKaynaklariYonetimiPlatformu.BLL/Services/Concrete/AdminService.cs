@@ -314,5 +314,59 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
 
         }
+
+        public ManagerOfCompanyVM GetManagerandCompany(int id)
+        {
+            Company company = adminRepository.GetCompanyById(id);
+            Manager manager = adminRepository.GetManagerByCompanyId(id);
+            if (manager!=null)
+            {
+                ManagerOfCompanyVM managerOfCompany = new ManagerOfCompanyVM()
+                {
+                    CompanyID = company.CompanyId,
+                    CompanyName = company.CompanyName,
+                    CompanyPhoto = company.CompanyLogo,
+                    Email = manager.Email,
+                    ManagerID = manager.ManagerId,
+                    ManagerName = manager.FullName,
+                    Photo = manager.Photo,
+                    IsApproved = manager.IsApproved
+                };
+
+                return managerOfCompany;
+            }
+
+            return null;
+
+        }
+
+        public List<EmployeeOfCompanyVM> GetEmployeesByManagerId(int id)
+        {
+            List<Employee> employees = adminRepository.GetEmployeeByManagerID(id);
+            List<EmployeeOfCompanyVM> employeesVM =new List<EmployeeOfCompanyVM>();
+
+
+            if (employees!=null)
+            {
+                foreach (Employee employee in employees)
+                {
+                    EmployeeOfCompanyVM employeeVM = new EmployeeOfCompanyVM()
+                    {
+                        IsApproved = employee.IsActive,
+                        StartDate = employee.StartDate,
+                        Statu = employee.Status,
+                        BirthDay = employee.BirthDay,
+                        Email = employee.Email,
+                        FullName = employee.FullName,
+                        Photo = employee.Photo
+                    };
+                    employeesVM.Add(employeeVM);
+
+                }
+                return employeesVM;
+            }
+
+            return null;
+        }
     }
 }

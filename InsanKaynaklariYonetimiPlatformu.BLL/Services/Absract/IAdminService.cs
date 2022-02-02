@@ -20,5 +20,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         List<ActiveCompanyVM> GetActiveCompanyList();
         int DeactivateCompanies(ActiveCompanyVM companyVM);
         int DeleteCompany(int id);
+        ManagerOfCompanyVM GetManagerandCompany(int id);
+        List<EmployeeOfCompanyVM> GetEmployeesByManagerId(int id);
     }
 }
