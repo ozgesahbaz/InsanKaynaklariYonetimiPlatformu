@@ -1,0 +1,31 @@
+﻿@model List<EmployeeOfCompanyVM>
+
+@foreach (EmployeeOfCompanyVM employee in Model)
+{
+<tr>
+
+    <td class="text-center"><img class="img-profile rounded-circle" height="40" src="~/@employee.Photo" /></td>
+    <td>@employee.FullName</td>
+    <td>@employee.Statu</td>
+    <td>@employee.Email</td>
+    <td>@employee.StartDate.ToShortDateString()</td>
+    <td>@employee.BirthDay.ToShortDateString()</td>
+    <td class="text-center">
+        @if (employee.IsApproved == null)
+        {
+            <i class="btn btn-warning fas fa-clock disabled"></i>
+        }
+        else if (employee.IsApproved == true)
+        {
+            <i class="btn btn-success fas fa-check-circle disabled"></i>
+        }
+        else
+        {
+            <i class="btn btn-danger fas fa-times-circle disabled"></i>
+
+        }
+    </td>
+
+</tr>
+
+}

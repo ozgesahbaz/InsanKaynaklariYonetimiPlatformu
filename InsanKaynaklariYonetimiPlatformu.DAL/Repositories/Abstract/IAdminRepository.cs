@@ -41,5 +41,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
       
         int ExpenditureRemove(Expenditure expenditure);
         int expenditureDocumentsRemove(ExpenditureDocument document);
+        Manager GetManagerByCompanyId(int id);
     }
 }
