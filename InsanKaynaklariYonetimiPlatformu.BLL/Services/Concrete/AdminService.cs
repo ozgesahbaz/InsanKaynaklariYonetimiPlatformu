@@ -117,14 +117,18 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int DeactivateCompanies(ActiveCompanyVM companyVM)
         {
-           
+
             Manager manager = adminRepository.GetManagerByID(companyVM.CompanyId);
             List<Employee> employees = adminRepository.GetEmployeeByManagerID(manager.ManagerId);
             manager.IsActive = false;
             manager.IsApproved = false;
-            foreach (Employee employee in employees)
+            if (employees != null)
             {
-                employee.IsActive = false;
+                foreach (Employee employee in employees)
+                {
+                    employee.IsActive = false;
+                }
+
             }
             SendMail(manager);
             return adminRepository.Save();
@@ -134,13 +138,13 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             MailMessage msg = new MailMessage();
             msg.Subject = "Üyeliğiniz sonlanmıştırç.";
-            msg.From = new MailAddress("redteamproje@outlook.com");
+            msg.From = new MailAddress("redteamproject@outlook.com");
             msg.To.Add(new MailAddress(manager.Email));
             msg.IsBodyHtml = true;
             msg.Body = $"<h1 style='font-size:28px;font-weight:300;line-height:150%;margin:0;text-align:center;color:black;background-color:inherit'>Merhabalar</h1>Sayın { manager.FullName} üyeliğiniz sonlanmıştır.Sitemizin ayrıcalıklarından yararlanmaya devam etmek için lütfen bizimle bu mail adresi üzerinden iletişime geçiniz.";
 
             SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
-            NetworkCredential AccountInfo = new NetworkCredential("redteamproje@outlook.com", "123toci123");
+            NetworkCredential AccountInfo = new NetworkCredential("redteamproject@outlook.com", "123toci123");
             smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
             smtp.Credentials = AccountInfo;
             smtp.EnableSsl = true;
@@ -161,7 +165,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
                     //managerid eşit olan debitleri bul(employeelarının ve managerin kendi debitlerini bir listede toplaması için managerıd ile çağırıldı)
                     List<Debit> debits = adminRepository.GetDebitByManagerID(manager.ManagerId);
-                    if (debits.Count!= 0)
+                    if (debits.Count != 0)
                     {//debit varsa debitleri sil.
                         foreach (Debit debit in debits)
                         {
@@ -174,7 +178,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     }
                     //managerid eşit olan harcama bul
                     List<Expenditure> expenditures = adminRepository.GetExpenditureByManagerID(manager.ManagerId);
-                    if (expenditures.Count!=0)
+                    if (expenditures.Count != 0)
                     {
                         foreach (Expenditure expenditure in expenditures)
                         {
@@ -319,7 +323,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Company company = adminRepository.GetCompanyById(id);
             Manager manager = adminRepository.GetManagerByCompanyId(id);
-            if (manager!=null)
+            if (manager != null)
             {
                 ManagerOfCompanyVM managerOfCompany = new ManagerOfCompanyVM()
                 {
@@ -343,10 +347,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<EmployeeOfCompanyVM> GetEmployeesByManagerId(int id)
         {
             List<Employee> employees = adminRepository.GetEmployeeByManagerID(id);
-            List<EmployeeOfCompanyVM> employeesVM =new List<EmployeeOfCompanyVM>();
+            List<EmployeeOfCompanyVM> employeesVM = new List<EmployeeOfCompanyVM>();
 
 
-            if (employees!=null)
+            if (employees != null)
             {
                 foreach (Employee employee in employees)
                 {

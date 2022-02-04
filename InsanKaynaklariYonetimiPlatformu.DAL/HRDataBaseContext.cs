@@ -17,11 +17,17 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         {
 #if DEBUG
 
-#endif
-            if (Database.GetPendingMigrations().Count() > 0)
+
+
+#else
+ if (Database.GetPendingMigrations().Count() > 0)
             {
                 Database.Migrate();
             }
+
+
+#endif
+
         }
 
         public DbSet<Comment> Comments { get; set; }
