@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Shared\Components\NewFolder\" />
     <Folder Include="wwwroot\Card\css\" />
     <Folder Include="wwwroot\Dashboard\public\plugins\" />
     <Folder Include="wwwroot\Dashboard\public\vendors\%40popper\" />

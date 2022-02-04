@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-<<<<<<< HEAD:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220131204324_init.cs
     public partial class init : Migration
-=======
-    public partial class initial : Migration
->>>>>>> f1c91758b666bb329ae03ba535ba77f965242743:InsanKaynaklariYonetimiPlatformu.DAL/Migrations/20220131193411_initial.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
