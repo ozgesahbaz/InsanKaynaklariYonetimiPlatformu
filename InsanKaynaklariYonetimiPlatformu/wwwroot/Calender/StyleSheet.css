@@ -333,8 +333,8 @@ body > p {
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
-    background-color: ' + this.calendar.colors[1] + ';
-    color: ' + this.calendar.colors[3] + ';
+    background-color:' + this.calendar.colors[1] + ';
+    color:' + this.calendar.colors[3] + ';
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
