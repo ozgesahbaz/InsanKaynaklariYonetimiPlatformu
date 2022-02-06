@@ -48,7 +48,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         Password = $"123{employeeVM.FullName.ToLower()}".Trim(),
                         Status = employeeVM.Status,
                         Photo = "uploads\\image\\userphoto\\_usernophoto.png",
-                        IsActive = false
+                        IsActive = false,
+                       NetSalary=employeeVM.Salary
                     };
 
                     if (employeeRepository.AddEmployee(newEmployee) > 0)

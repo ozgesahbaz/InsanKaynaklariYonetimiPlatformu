@@ -10,23 +10,23 @@
             <div asp-validation-summary="All"></div>
             <div class="form-group row">
                 <label asp-for="FullName" class="col-2 text-primary"><i class="fas fa-id-card"></i> İsim Soyisim</label>
-                <input asp-for="FullName" class="col-5" />
+                <input type="text" asp-for="FullName" class="col-5" onkeypress="return isHarfKey(event)" />
             </div>
             <div class="form-group row">
                 <label asp-for="Status" class="col-2 text-primary"><i class="fas fa-briefcase"></i>Ünvan</label>
-                <input asp-for="Status" class="col-5" />
+                <input type="text" asp-for="Status" class="col-5" onkeypress="return isHarfKey(event)" />
             </div>
             <div class="form-group row">
                 <label asp-for="BirthDay" class="col-2 text-primary"><i class="fas fa-birthday-cake"></i>Doğum Tarihi</label>
-                <input asp-for="BirthDay" class="col-5"/>
+                <input type="date" asp-for="BirthDay" class="col-5"/>
             </div>
             <div class="form-group row">
                 <label asp-for="StartDate" class="col-2 text-primary"><i class="fas fa-calendar"></i>İşe Başlama Tarihi</label>
-                <input asp-for="StartDate" class="col-5" />
+                <input type="date" asp-for="StartDate" class="col-5" />
             </div>
             <div class="form-group row">
                 <label asp-for="Salary" class="col-2 text-primary"><i class="fas fa-money-bill-wave"></i>Ücret</label>
-                <input  type="number" asp-for="Salary" class="col-5" />
+                <input  type="number" asp-for="Salary" class="col-5"  onkeypress="return isNumberKey(event)"/>
             </div>
 
             <div class="form-group form-button text-center">
@@ -36,3 +36,22 @@
         </form>
     </div>
 </div>
+
+
+            <script type="text/javascript">
+                   function isHarfKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if ((charCode <= 93 && charCode >= 65) || ( charCode<=122 && charCode>=97) || charCode ==8 || charCode==350 || charCode==351 || charCode==304 || charCode==286|| charCode==287|| charCode==231|| charCode==199|| charCode==305|| charCode==214|| charCode==246|| charCode==220|| charCode==252 || charCode==32)
+               return true;
+               return  false;
+               }
+               function isNumberKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if (charCode > 31 && (charCode < 44 || charCode > 57 || charCode==45 || charCode==46 || charCode==47))
+               return false;
+               return true;
+               }
+            </script>
+            
