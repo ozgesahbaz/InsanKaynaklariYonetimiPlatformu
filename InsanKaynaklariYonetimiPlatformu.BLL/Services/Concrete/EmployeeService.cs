@@ -40,12 +40,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 {
                     Employee newEmployee = new Employee
                     {
-                        FullName = employeeVM.FullName,
-                        Email = employeeVM.Email,
+                        FullName = employeeVM.FullName.Trim(),
+                        Email = employeeVM.Email.Trim(),
                         ManagerId = id,
                         StartDate = employeeVM.StartDate,
                         BirthDay = employeeVM.BirtDay,
-                        Password = $"123{employeeVM.FullName.ToLower()}",
+                        Password = $"123{employeeVM.FullName.ToLower()}".Trim(),
                         Status = employeeVM.Status,
                         Photo = "uploads\\image\\userphoto\\_usernophoto.png",
                         IsActive = false
@@ -200,8 +200,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     EmployeeDebitVM employeeDebitVM = new EmployeeDebitVM()
                     {
                         ID = debit.ID,
-                        DebitName = debit.DebitName,
-                        Details = debit.Details,
+                        DebitName = debit.DebitName.Trim(),
+                        Details = debit.Details.Trim(),
                         StartedDate = debit.StartedDate,
                         DescofRejec = debit.DescofRejec,
                         IsAproved = debit.IsAproved
@@ -229,9 +229,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     ExpenditureVM expenditureVM = new ExpenditureVM()
                     {
                         ID = expenditure.ID,
-                        ExpenditureName = expenditure.ExpenditureName,
+                        ExpenditureName = expenditure.ExpenditureName.Trim(),
                         ExpenditureAmount = expenditure.ExpenditureAmount,
-                        Details = expenditure.Details,
+                        Details = expenditure.Details.Trim(),
                         isAproved = expenditure.isAproved
 
                     };
@@ -250,9 +250,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Expenditure expenditure = new Expenditure()
             {
                 //ID = expenditureVM.ID,
-                ExpenditureName = expenditureVM.ExpenditureName,
+                ExpenditureName = expenditureVM.ExpenditureName.Trim(),
                 ExpenditureAmount = expenditureVM.ExpenditureAmount,
-                Details = expenditureVM.Details,
+                Details = expenditureVM.Details.Trim(),
                 isAproved = expenditureVM.isAproved,
                 EmployeeID = id,
                 ManagerID = employee.ManagerId
@@ -298,7 +298,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         EmployeeID = (int)document.EmployeeID,
                         FilePath = document.DocumentPath,
                         DocumentID = document.DocumentID,
-                        fileName = document.DocumentName
+                        fileName = document.DocumentName.Trim()
 
                     };
                     documentVMs.Add(documentVM);
@@ -374,7 +374,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         DocumentID = expenditure.DocumentID,
                         ExpenditureId = (int)expenditure.ExpenditureId,
                         FilePath = expenditure.DocumentPath,
-                        fileName = expenditure.DocumentName
+                        fileName = expenditure.DocumentName.Trim()
 
 
                     };
@@ -393,7 +393,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 ExpenditureId = id,
                 DocumentPath = documentPath,
-                DocumentName = fileName
+                DocumentName = fileName.Trim()
             };
             return employeeRepository.AddExpenditureDocument(document);
         }
