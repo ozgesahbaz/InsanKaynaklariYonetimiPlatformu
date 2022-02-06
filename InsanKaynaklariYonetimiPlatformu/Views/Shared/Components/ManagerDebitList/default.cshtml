@@ -26,25 +26,25 @@
                     <td class="text-center">
                         @if (debitVM.IsAproved == null)
                         {
-                            <i class="btn btn-outline-info far fa-clock"></i>
+                            <i class="btn btn-warning fas fa-clock disabled"></i>
 
                         }
                         else if (debitVM.IsAproved == true)
                         {
-                            <i class="btn btn-outline-info far fa-check-circle"></i>
+                            <i class="btn btn-success fas fa-check-circle disabled"></i>
                         }
                         else
                         {
-                            <i class="btn btn-outline-info far fa-times-circle"></i>
+                            <i class="btn btn-danger fas fa-times-circle disabled"></i>
                         }
                     </td>
                     <td>@debitVM.Details</td>
                     <td>@debitVM.DescofRejec</td>
                     <td>
                         <a asp-controller="Manager" asp-action="DeletedDebit" asp-route-id="@debitVM.ID">
-                            <i class="btn btn-outline-danger far fa-trash-alt" ></i>
-                                @*<i class="fas fa-trash"></i>*@
-                            
+                            <i class="btn btn-outline-danger far fa-trash-alt"></i>
+                            @*<i class="fas fa-trash"></i>*@
+
                         </a>
                     </td>
                 </tr>

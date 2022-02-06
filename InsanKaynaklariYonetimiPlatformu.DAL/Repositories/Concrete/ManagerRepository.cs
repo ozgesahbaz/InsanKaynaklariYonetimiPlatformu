@@ -127,8 +127,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Respites.Where(a => a.ShiftId == shiftId).ToList();
         }
 
-
-
         public List<Permission> GetPermissionByManagerId(int id)
         {
             return dbContext.Permissions.Where(a => a.EmployeeId == null && a.ManagerId == id).ToList();
@@ -205,7 +203,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Documents.Remove(document);
             return dbContext.SaveChanges();
         }
-
 
         public int ChangePassword(Manager manager)
         {
@@ -287,6 +284,81 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             dbContext.Comments.Remove(comment);
             return dbContext.SaveChanges();
+        }
+
+        public List<Expenditure> GetManagerExpenditureList(int id)
+        {
+            return dbContext.Expenditures.Where(a => a.ManagerID == id).ToList();
+        }
+
+        public Manager GetManagerById(int id)
+        {
+            return dbContext.Managers.Where(a => a.ManagerId == id).SingleOrDefault();
+        }
+
+        public int AddManagerExpenditure(Expenditure expenditure)
+        {
+            dbContext.Expenditures.Add(expenditure);
+            return dbContext.SaveChanges();
+        }
+
+        public Expenditure GetExpenditureById(int id)
+        {
+            return dbContext.Expenditures.Where(a => a.ID == id).SingleOrDefault();
+        }
+
+        public int DeletedExpenditure(Expenditure expenditure)
+        {
+            dbContext.Expenditures.Remove(expenditure);
+            return dbContext.SaveChanges();
+        }
+
+        public List<ExpenditureDocument> GetExpenditureDocumentById(int id)
+        {
+            return dbContext.ExpenditureDocuments.Where(a => a.ExpenditureId == id).ToList();
+        }
+
+        public int AddExpenditureDocument(ExpenditureDocument document)
+        {
+            dbContext.ExpenditureDocuments.Add(document);
+            return dbContext.SaveChanges();
+        }
+
+        public bool AnyFilePath(string filepath)
+        {
+            return dbContext.Documents.Any(a => a.DocumentPath == filepath);
+        }
+
+        public Manager GetManagerByMail(string email)
+        {
+            return dbContext.Managers.Where(a => a.Email == email).SingleOrDefault();
+        }
+
+        public int AddPassword(Manager manager)
+        {
+            return dbContext.SaveChanges();
+        }
+
+        public Expenditure GetEmployeeExpenditureById(int id)
+        {
+            return dbContext.Expenditures.Include("Employee").Where(a => a.ID == id).SingleOrDefault();
+        }
+
+        public int UpdatedExpenditure(Expenditure expenditure)
+        {
+            
+            return dbContext.SaveChanges();
+        }
+
+        public int DeletedEmployeeExpenditure(Expenditure expenditure)
+        {
+            dbContext.Expenditures.Remove(expenditure);
+            return dbContext.SaveChanges();
+        }
+
+        public List<Expenditure> GetEmployeeExpenditureList(int id)
+        {
+            return dbContext.Expenditures.Include("Employee").Where(a => a.ManagerID == id).ToList();
         }
     }
 }

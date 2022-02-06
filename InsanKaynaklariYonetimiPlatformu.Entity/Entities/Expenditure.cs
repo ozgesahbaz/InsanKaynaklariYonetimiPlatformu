@@ -20,7 +20,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
    
         public int? EmployeeID { get; set; }
         public int? ManagerID { get; set; }
-        public bool isAproved { get; set; }
+        public bool? isAproved { get; set; }
 
         public virtual ICollection<ExpenditureDocument> ExpenditureDocuments { get; set; }
         public virtual Employee Employee { get; set; }

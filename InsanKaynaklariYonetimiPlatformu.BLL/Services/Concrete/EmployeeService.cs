@@ -7,6 +7,8 @@ using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,40 +25,62 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension)
         {
-            //şirket uzantısı doğru mu
-            if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
+            List<Employee> employees = employeeRepository.GetListEmployeesByManagerID(id);
+            int consistEmployee = 0;
+            foreach (Employee item in employees)
             {
+<<<<<<< HEAD
                 ContainsSymbolorNumber(employeeVM.FullName);
                 ContainsSymbolorNumber(employeeVM.Status);
 
 
 
                 Employee newEmployee = new Employee
+=======
+              bool  consist =item.Email==employeeVM.Email ? false : true;
+                if (!consist)
+>>>>>>> aca93f99537c7e670396ef411a2c63a42d27cf0f
                 {
-                    FullName = employeeVM.FullName,
-                    Email = employeeVM.Email,
-                    ManagerId = id,
-                    StartDate = employeeVM.StartDate,
-                    BirthDay = employeeVM.BirtDay,
-                    Password = $"123{employeeVM.FullName.ToLower()}",
-                    Status = employeeVM.Status,
-                    Photo = "uploads\\image\\userphoto\\_usernophoto.png",
-                    IsActive = false
-                };
-                if (employeeRepository.AddEmployee(newEmployee) > 0)
+                    consistEmployee++;
+                }
+            }
+            if (consistEmployee==0)
+            {
+            //şirket uzantısı doğru mu
+                if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
                 {
-                    return newEmployee;
+                    Employee newEmployee = new Employee
+                    {
+                        FullName = employeeVM.FullName.Trim(),
+                        Email = employeeVM.Email.Trim(),
+                        ManagerId = id,
+                        StartDate = employeeVM.StartDate,
+                        BirthDay = employeeVM.BirtDay,
+                        Password = $"123{employeeVM.FullName.ToLower()}".Trim(),
+                        Status = employeeVM.Status,
+                        Photo = "uploads\\image\\userphoto\\_usernophoto.png",
+                        IsActive = false
+                    };
+
+                    if (employeeRepository.AddEmployee(newEmployee) > 0)
+                    {
+                        return newEmployee;
+                    }
+                    else
+                    {
+                        throw new Exception("Bir hata oluştu.");
+
+                    }
+
                 }
                 else
                 {
-                    throw new Exception("Bir hata oluştu.");
-
-                }
-
+                    throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
+                } 
             }
             else
             {
-                throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
+                throw   new Exception("Daha önce bu kullanıcı eklenmiş");
             }
 
 
@@ -201,8 +225,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     EmployeeDebitVM employeeDebitVM = new EmployeeDebitVM()
                     {
                         ID = debit.ID,
-                        DebitName = debit.DebitName,
-                        Details = debit.Details,
+                        DebitName = debit.DebitName.Trim(),
+                        Details = debit.Details.Trim(),
                         StartedDate = debit.StartedDate,
                         DescofRejec = debit.DescofRejec,
                         IsAproved = debit.IsAproved
@@ -216,12 +240,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return debitVMs;
         }
-      
+
         public List<ExpenditureVM> GetListExpenditure(int id)
         {
             
             List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
-            
+
             if (expenditures != null)
             {
                 List<ExpenditureVM> expenditureVMs = new List<ExpenditureVM>();
@@ -230,9 +254,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     ExpenditureVM expenditureVM = new ExpenditureVM()
                     {
                         ID = expenditure.ID,
-                        ExpenditureName = expenditure.ExpenditureName,
+                        ExpenditureName = expenditure.ExpenditureName.Trim(),
                         ExpenditureAmount = expenditure.ExpenditureAmount,
-                        Details = expenditure.Details,
+                        Details = expenditure.Details.Trim(),
                         isAproved = expenditure.isAproved
 
                     };
@@ -251,12 +275,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Expenditure expenditure = new Expenditure()
             {
                 //ID = expenditureVM.ID,
-                ExpenditureName = expenditureVM.ExpenditureName,
+                ExpenditureName = expenditureVM.ExpenditureName.Trim(),
                 ExpenditureAmount = expenditureVM.ExpenditureAmount,
-                Details = expenditureVM.Details,
+                Details = expenditureVM.Details.Trim(),
                 isAproved = expenditureVM.isAproved,
                 EmployeeID = id,
-                ManagerID=employee.ManagerId
+                ManagerID = employee.ManagerId
 
 
             };
@@ -281,7 +305,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 EmployeeID = id,
                 DocumentPath = filepath,
-                DocumentName=fileName
+                DocumentName = fileName
             };
             return employeeRepository.AddDocument(document);
         }
@@ -289,7 +313,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<DocumentVM> GetDocument(int id)
         {
             List<Document> documents = employeeRepository.GetDocumentByID(id);
-            if (documents!=null)
+            if (documents != null)
             {
                 List<DocumentVM> documentVMs = new List<DocumentVM>();
                 foreach (Document document in documents)
@@ -298,9 +322,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     {
                         EmployeeID = (int)document.EmployeeID,
                         FilePath = document.DocumentPath,
-                        DocumentID=document.DocumentID,
-                        fileName=document.DocumentName
-                        
+                        DocumentID = document.DocumentID,
+                        fileName = document.DocumentName.Trim()
+
                     };
                     documentVMs.Add(documentVM);
                 }
@@ -313,12 +337,13 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Debit GetDebitById(int id)
         {
             return employeeRepository.GetRejectedDebitById(id);
-        }                     
+        }
 
         public int ChangeRejectedDebit(int id, EmployeeDebitVM employeeDebitVM)
         {
             Debit debit = GetDebitById(id);
             debit.DescofRejec = employeeDebitVM.DescofRejec;
+            debit.IsAproved = false;
             return employeeRepository.ChangeRejectedDebit(debit);
         }
 
@@ -339,8 +364,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 return 0;
             }
-        }       
-
+        }
 
         public int RemoveDocument(int id)
         {
@@ -361,11 +385,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return employeeRepository.GetNetSalaryByEmployeeId(id);
         }
-    
+
         public List<DocumentsVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);
-            if (expenditureDocument!=null)
+            if (expenditureDocument != null)
             {
                 List<DocumentsVM> documentsVMs = new List<DocumentsVM>();
                 foreach (ExpenditureDocument expenditure in expenditureDocument)
@@ -383,7 +407,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 }
 
                 return documentsVMs;
-                
+
             }
             return null;
         }
@@ -394,10 +418,90 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 ExpenditureId = id,
                 DocumentPath = documentPath,
-                DocumentName = fileName
+                DocumentName = fileName.Trim()
             };
             return employeeRepository.AddExpenditureDocument(document);
+        }
+
+        public int ChangePassword(int id, EmployeePasswordVM employeePasswordVM)
+        {
+            Employee employee = employeeRepository.FindEmployee(id);
+            if (employee!=null)
+            {
+                if (employee.Password == employeePasswordVM.OldPassword)
+                {
+                    if (employeePasswordVM.NewPassword==employeePasswordVM.AgainNewPassword)
+                    {
+                        employee.Password = employeePasswordVM.NewPassword;
+                        return employeeRepository.ChangesPassword(employee);
+                    }
+                    else
+                    {
+                        throw new Exception("Girdiğiniz şifreler uyuşmamaktadır.");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Girilen şifre yanlıştır.Lütfen tekrar deneyiniz");
+                }
+            }
+            else
+            {
+                throw new Exception("Bir hata oluştu");
+            }
+        }
+
+        public Employee GetEmployeeByMail(string email)
+        {
+            Employee employee = employeeRepository.GetEmployeeByMail(email);
+            if (employee!=null)
+            {
+                Guid rastgele = Guid.NewGuid();
+                employee.Password = rastgele.ToString().Substring(0, 8);
+                if (employeeRepository.AddPassword(employee)>0)
+                {
+                    Employee employee1 = employeeRepository.GetEmployeeByMail(email);
+                    MailMessage msg = new MailMessage();
+                    msg.Subject = "Şifre Sıfırlama talebi.";
+                    msg.From = new MailAddress("redteamproject@outlook.com");
+                    msg.To.Add(new MailAddress(employee.Email));
+                    msg.IsBodyHtml = true;
+                    msg.Body = $"<h1 style='font-size:28px;font-weight:300;line-height:150%;margin:0;text-align:center;color:black;background-color:inherit'>Merhabalar</h1>Sayın { employee.FullName} Şifreniz değiştirilmiştir.<br/> Şifreniz {employee1.Password}";
+
+                    SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
+                    NetworkCredential AccountInfo = new NetworkCredential("redteamproject@outlook.com", "123toci123");
+                    smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
+                    smtp.Credentials = AccountInfo;
+                    smtp.EnableSsl = true;
+                    smtp.Send(msg);
+
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            return null;
+        }       
+
+        public List<Expenditure> GetExpenditureListForManager(int id)
+        {
+            return employeeRepository.GetExpenditureListForManager(id);
+        }
+
+        public int GetAcceptDebitBy(int id)
+        {
+            Debit debit = employeeRepository.GetRejectedDebitById(id);
+            if (debit!=null)
+            {
+                debit.IsAproved = true;
+                return employeeRepository.AcceptDebit(debit);
+            }
+            return  0;
         }
     }
     
 }
+    
+

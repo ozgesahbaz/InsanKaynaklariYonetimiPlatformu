@@ -1,0 +1,60 @@
+﻿@model List<EmployeesExpenditureVM>
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Harcama Adı</th>
+                <th>Harcama Tutarı</th>
+                <th>Detaylar</th>
+                <th>Harcama Belgeleri</th>
+                <th>Onay Durumu</th>
+                <th>Onay Durumunu Değiştir</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EmployeesExpenditureVM expenditureVM in Model)
+            {
+                <tr>
+                    <td>@expenditureVM.ExpenditureName</td>
+                    <td>@expenditureVM.ExpenditureAmount</td>
+                    <td>@expenditureVM.Details</td>
+                    <td>
+                        <a asp-controller="Employee" asp-action="ExpenditureDocuments" asp-route-id="@expenditureVM.ID">
+                            <i class="btn btn-outline-info far fa-folder-open"></i>
+
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        @if (expenditureVM.isAproved == null)
+                        {
+                            <i class="btn btn-warning fas fa-clock disabled"></i>
+                        }
+                        else if (expenditureVM.isAproved == true)
+                        {
+                            <i class="btn btn-success fas fa-check-circle disabled"></i>
+                        }
+                        else
+                        {
+                            <i class="btn btn-danger fas fa-times-circle disabled"></i>
+
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (expenditureVM.isAproved == null)
+                        {
+                            <a asp-controller="Manager" asp-action="ExpenditureUpdated" asp-route-id="@expenditureVM.ID">
+                                <i class="btn btn-success fas fa-edit"></i>
+                            </a>
+
+                        }
+
+                    </td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

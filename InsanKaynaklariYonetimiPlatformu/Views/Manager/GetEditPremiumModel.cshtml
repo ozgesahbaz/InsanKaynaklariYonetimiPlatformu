@@ -17,27 +17,36 @@
 
             <div class="form-group">
                 <label asp-for="Salary"></label>
-                <input id="Salary" class="form-control" asp-for="Salary" onkeyup="calculate()">
+                <input   id="Salary" class="form-control" asp-for="Salary" onkeyup="calculate()"onkeypress="return isNumberKey(event)">
 
             </div>
             <div class="form-group">
                 <label asp-for="PremiumRate"></label>
-                <input id="PremiumRate" class="form-control" asp-for="PremiumRate" onkeyup="calculate()">
+                <input   id="PremiumRate" class="form-control" asp-for="PremiumRate" onkeyup="calculate()" onkeypress="return isNumberKey(event)">
             </div>
             <div class="form-group ">
                 <label asp-for="NetSalary"></label>
-                <input id="NetSalary" class="form-control" readonly asp-for="NetSalary">
+                <input   id="NetSalary" class="form-control" readonly asp-for="NetSalary">
             </div>
 
             <br />
             @section Scripts{
 
             <script type="text/javascript">
+                   function isNumberKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if (charCode > 31 && (charCode < 44 || charCode > 57 || charCode==45 || charCode==46 || charCode==47))
+               return false;
+               return true;
+               }
+
                  function  calculate()
                  {
                   var Salary= parseFloat(document.getElementById("Salary").value.replace(',', '.'));
-
+                
                   var PremiumRate=  parseFloat(document.getElementById("PremiumRate").value.replace(',', '.'));
+               
 
                 document.getElementById("NetSalary").value =(Salary*(1+PremiumRate)).toFixed(2).replace('.',',');
                  }
@@ -46,7 +55,7 @@
             }
 
             <div class="modal-footer d-flex justify-content-center">
-                <button asp-route-id="@id" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel" class="btn btn-primary" >Kaydet</button>
+                <button asp-route-id="@Model.EmployeeID" type="submit" asp-controller="Manager" asp-action="PostEditPremiumModel" class="btn btn-primary" >Kaydet</button>
 
             </div>
 
