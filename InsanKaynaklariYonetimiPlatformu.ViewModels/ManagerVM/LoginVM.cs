@@ -19,6 +19,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public string Password { get; set; }
         [Display(Name = "Beni Hatırla")]
         public bool IsRemember { get; set; }
+        public bool ForgetPassword { get; set; }
 
     }
 }

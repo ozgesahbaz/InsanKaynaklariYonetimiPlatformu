@@ -14,15 +14,18 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public int ManagerID { get; set; }
         public int? EmployeeID { get; set; }
         public List<Employee> Employees { get; set; }
-        [Display(Name ="Başlama Tarihi")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
+
+        [Display(Name = "Başlama Tarihi")]
         [DataType(DataType.Date)]
 
         public DateTime StartDate { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Bitiş Tarihi")]
         [DataType(DataType.Date)]
 
-
         public DateTime FinishDate { get; set; }
+       
         public PermissionType PermissionType { get; set; }
     }
 }

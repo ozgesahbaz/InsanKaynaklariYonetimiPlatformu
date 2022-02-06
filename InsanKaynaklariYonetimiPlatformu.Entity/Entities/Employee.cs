@@ -16,6 +16,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
             Expenditures = new HashSet<Expenditure>();
             Debits = new HashSet<Debit>();
             Shifts = new HashSet<Shift>();
+           
         }
        
         public int EmployeeId { get; set; }
@@ -42,5 +43,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public virtual ICollection<Debit> Debits { get; set; }
         public virtual ICollection<Permission> Permissions { get; set; }
         public virtual ICollection<Expenditure> Expenditures { get; set; }
+       
     }
 }

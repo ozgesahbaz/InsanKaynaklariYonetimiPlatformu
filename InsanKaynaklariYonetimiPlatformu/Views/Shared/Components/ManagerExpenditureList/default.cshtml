@@ -1,0 +1,44 @@
+﻿@model List<ManagerExpenditureVM>
+
+<div asp-validation-summary="All"></div>
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+
+                <th>Harcama Adı</th>
+                <th>Harcama Tutarı</th>
+                <th>Detay</th>
+                <th>Harcama Dosyası</th>
+                
+                <th>Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ManagerExpenditureVM managerExpenditureVM in Model)
+            {
+            <tr>
+                <td>@managerExpenditureVM.ExpenditureName</td>
+                <td>@managerExpenditureVM.ExpenditureAmount</td>
+                <td>@managerExpenditureVM.Details</td>
+                <td>
+                    <a asp-controller="Manager" asp-action="ManagerExpenditureDocument" asp-route-id="@managerExpenditureVM.ID">
+                        <i class="btn btn-outline-info far fa-folder-open"></i>
+
+                    </a>
+                </td>
+
+                <td>
+                    <a asp-controller="Manager" asp-action="DeletedExpenditure" asp-route-id="@managerExpenditureVM.ID">
+                        <i class="btn btn-outline-danger far fa-trash-alt"></i>
+                        @*<i class="fas fa-trash"></i>*@
+
+                    </a>
+                </td>
+            </tr>
+
+            }
+
+        </tbody>
+    </table>
+</div>

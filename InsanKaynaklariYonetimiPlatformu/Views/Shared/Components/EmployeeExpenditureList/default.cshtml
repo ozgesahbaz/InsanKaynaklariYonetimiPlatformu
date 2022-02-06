@@ -9,6 +9,7 @@
                 <th>Harcama Tutarı</th>
                 <th>Harcama Detayı</th>
                 <th>Harcama Dosyası</th>
+
                 <th>Onay Durumu</th>
                 <th>Sil</th>
 
@@ -17,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (ExpenditureVM expenditureVM in Model)
+            @foreach (ExpenditureVM expenditureVM in Model)//
             {
                 <tr>
                     <td>@expenditureVM.ExpenditureName</td>
@@ -26,8 +27,6 @@
                     <td>
                         <a asp-controller="Employee" asp-action="ExpenditureDocuments" asp-route-id="@expenditureVM.ID">
                             <i class="btn btn-outline-info far fa-folder-open"></i>
-
-
 
                         </a>
                     </td>
@@ -41,17 +40,15 @@
                         {
                             <i class="btn btn-outline-info far fa-check-circle"></i>
                         }
-                        else
+                        else if (expenditureVM.isAproved == false)
                         {
                             <i class="btn btn-outline-info far fa-times-circle"></i>
                         }
                     <td class="text-center">
                         <a asp-controller="Employee" asp-action="DeletedExpenditure" asp-route-id="@expenditureVM.ID">
-                            <i class="btn btn-outline-danger far fa-trash-alt"></i>
-                            @*<i class="fas fa-trash"></i>*@
-
-
+                            <i class="btn btn-danger far fa-trash-alt"></i>
                         </a>
+
                     </td>
 
                 </tr>

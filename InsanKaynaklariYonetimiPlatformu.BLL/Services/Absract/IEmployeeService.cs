@@ -18,6 +18,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int ChangesPassword(Employee employee, string password);
         int UpdateEmployees(int id, Employee employee);
         List<DocumentsVM> GetExpenditureDocument(int id);
+        List<Expenditure> GetExpenditureListForManager(int id);
+        //List<ExpenditureVM> GetListEmployeeExpenditure(int id);
         int DeleteEmployee(int id);
       
         List<DocumentVM> GetDocument(int id);
@@ -43,5 +45,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         decimal GetSalarybyEmployeeId(int id);
         decimal GetPremiumRateByEmployeeId(int id);
         decimal GetNetSalaryByEmployeeId(int id);
+        int ChangePassword(int id, EmployeePasswordVM employeePasswordVM);
+        Employee GetEmployeeByMail(string email);
+        int GetAcceptDebitBy(int id);
     }
 }

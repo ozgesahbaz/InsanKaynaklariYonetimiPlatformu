@@ -22,7 +22,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             managerService = _managerService;
             employeeService = _employeeService;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -49,6 +48,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 {
                     return RedirectToAction("ManagersEmployees", "Manager");
                 }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
             }
             catch (Exception ex)
             {
@@ -59,13 +62,15 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(employee);
         }
-
-
         [HttpPost]
         public IActionResult ManagersEmployees(AddEmployeeVM employeeVM, int id)
         {
             try
             {
+                if (DateTime.Now.Year-employeeVM.BirtDay.Year<18)
+                {
+                    throw new Exception("18 yaşından küçük çalışan ekleyemezsiniz.");
+                }
                 //mail uzantısı controlü için şirket manager id(layouttaki sessiondan geldi) ile bulundu.
                 Company company = managerService.FindCompanyByManagerID(id);
                 //çalışan eklendi. kontroller employee servicede (controller->services->repository)
@@ -89,7 +94,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return View();
         }
-
         public void SendMail(Employee employee)
         {
             MailMessage msg = new MailMessage();
@@ -141,7 +145,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult ManagersEmployeeDebit(int id)
         {
-
             List<Employee> employees = employeeService.GetListEmployees(id);
             AddEmployeesDebitVM debitforEmployees = new AddEmployeesDebitVM()
             {
@@ -149,7 +152,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             };
             return View(debitforEmployees);
         }
-
         [HttpPost]
         public IActionResult ManagersEmployeeDebit(int id, AddEmployeesDebitVM debitVM)
         {
@@ -191,8 +193,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(deleteEmploye);
         }
-
-
         [HttpPost]
         public IActionResult DeleteEmployee(DeleteEmployeVM deleteEmploye)
         {
@@ -217,7 +217,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return View();
         }
-
         [HttpPost]
         public IActionResult Register(ManagerRegisterVM register)
         {
@@ -429,7 +428,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(shiftDetailsVM);
         }
-
         [HttpGet]
         public IActionResult DeleteShiftDetails(int id)
         {
@@ -468,9 +466,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(shiftDetailsVM);
 
         }
-
         [HttpPost]
-
         public IActionResult PostEditShiftDetails(ShiftDetailsVM shiftDetailsVM, int id)
         {
             if (!managerService.EditShiftDetails(shiftDetailsVM, id))
@@ -483,8 +479,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 return RedirectToAction("ShiftDetails");
             }
 
-        }
-       
+        }       
         [HttpGet]
         public IActionResult ManagersPermission(int id)
         {
@@ -532,7 +527,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
-
         [HttpPost]
         public IActionResult ManagerPermissionUpdated(int id, ManagersPermissionVM permissionVM)
         {
@@ -556,7 +550,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View();
         }
-
         public IActionResult DeletedDebit(int id)
         {
             try
@@ -574,7 +567,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("ManagersEmployeeDebit");
         }
-
         public IActionResult DeletedDocument(int id)
         {
             try
@@ -642,8 +634,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(documentVMd);
         }
-        [HttpGet]
-       
+        [HttpGet]       
         public IActionResult GetEditPremiumModel(int id)
         { EditPremiumVm editPremiumVm = new EditPremiumVm()
         {
@@ -655,8 +646,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         };
             return View(editPremiumVm);
         }
-        [HttpPost]
-       
+        [HttpPost]       
         public IActionResult PostEditPremiumModel(EditPremiumVm  editPremiumVm,int id)
         {
             if (managerService.UpdatePremium(editPremiumVm, id))
@@ -667,9 +657,6 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             throw new Exception("Güncelleme başarısız oldu");
 
         }
-
-
-
         public IActionResult ChangePassword(int id)
         {
             return View();
@@ -948,6 +935,229 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             }
             return View();
+        }
+        [HttpGet]
+        public IActionResult ManagerExpenditureList(int id) 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ManagerExpenditureList(int id , ManagerExpenditureVM managerExpenditureVM) 
+        {
+            try
+            {
+                if (managerService.AddManagerExpenditure(id, managerExpenditureVM)<1)
+                {
+                    throw new Exception("Bir Hata Oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("ecxception", ex.Message);
+            }
+            return View();
+        }
+        public IActionResult DeletedExpenditure(int id)
+        {
+            try
+            {
+                if (managerService.RemoveExpenditure(id) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            catch (Exception ex)
+
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("ManagerExpenditureList");
+        }
+        [HttpGet]
+        public IActionResult EmployeeExpenditure(int id)
+        {          
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EmployeeExpenditure(int id, EmployeesExpenditureVM employeesExpenditureVM)
+        {
+            try
+            {
+                 
+                if (managerService.UpdateByExpenditure(id, employeesExpenditureVM)<1)
+                {
+                    throw new Exception("Henüz harcama isteği bulunmamakta");
+                }
+                else
+                {
+                    return RedirectToAction("EmployeeExpenditure");
+                }
+               
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return View();
+        }
+        [HttpGet]
+        public IActionResult ManagerExpenditureDocument (int id) 
+        {
+            AddManagerExpenditureDocumentVM addManagerExpenditureDocumentVM = new AddManagerExpenditureDocumentVM()
+            {
+                ID = id
+            };
+            return View(addManagerExpenditureDocumentVM);
+        }
+        [HttpPost]
+        public IActionResult ManagerExpenditureDocument (int id , AddManagerExpenditureDocumentVM addManagerExpenditureDocumentVM) 
+        {
+            try
+            {
+                string ext = addManagerExpenditureDocumentVM.File.ContentType.Split('/')[1];
+                if (ext == "pdf")
+                {
+                    string filename = $"file_expenditure{id}_{addManagerExpenditureDocumentVM.FileName}.{ext}";
+                    string filepath = Path.Combine(Environment.CurrentDirectory, "wwwroot\\uploads\\ExpenditureFile", filename);
+                    string documentPath = $"uploads\\ExpenditureFile\\{filename}";
+                    if (managerService.AnyFilePath(documentPath))
+                    {
+                        throw new Exception("Lütfen farklı bir dosya ismi giriniz.");
+                    }
+                    if (managerService.AddDocumentByExpenditureID(id, documentPath, addManagerExpenditureDocumentVM.FileName) < 1)//
+                    {
+                        throw new Exception("Bir hata oluştu.");
+                    }
+                    FileStream fs = new FileStream(filepath, FileMode.OpenOrCreate);
+                    addManagerExpenditureDocumentVM.File.CopyTo(fs);
+                    fs.Close();
+                }
+                else
+                {
+                    throw new Exception("Lütfen .pdf tipinde dosya yüklemesi yapınız.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            AddManagerExpenditureDocumentVM addManagerExpenditureDocumentVM1 = new AddManagerExpenditureDocumentVM()
+            {
+                ID = id
+            };
+            return View(addManagerExpenditureDocumentVM1);
+        }
+        public IActionResult ExpenditureUpdated(int id)
+        {
+            try
+            {
+                EmployeesExpenditureVM employeesExpenditureVM = managerService.GetExpenditureByID(id);
+                if (employeesExpenditureVM != null)
+                {
+                    return View(employeesExpenditureVM);
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ExpenditureUpdated(EmployeesExpenditureVM employeesExpenditureVM)
+        {
+            try
+            {
+                if (managerService.UpdateExpenditure(employeesExpenditureVM) < 1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+
+
+            }
+            return RedirectToAction("EmployeeExpenditure");
+          
+        }
+        //[HttpGet]
+        //public IActionResult ExpenditureReject (int id) 
+        //{
+        //    try
+        //    {
+        //        EmployeesExpenditureVM employeesExpenditureVM = managerService.GetExpenditureById(id);
+        //        if (employeesExpenditureVM != null)
+        //        {
+        //            return View(employeesExpenditureVM);
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Bir hata oluştu.");
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        ModelState.AddModelError("exception", ex.Message);
+
+        //    }
+
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult ExpenditureReject(EmployeesExpenditureVM employeesExpenditureVM) 
+        //{
+        //    try
+        //    {
+        //        if (managerService.UpdateExpenditure(employeesExpenditureVM) < 1)
+        //        {
+        //            throw new Exception("Bir hata oluştu.");
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("exception", ex.Message);
+
+
+        //    }
+        //    return RedirectToAction("EmployeeExpenditure");
+        //}
+        public IActionResult DeleteEmployeeExpenditure(int id) 
+        {
+            try
+            {
+                if (managerService.RemoveEmployeeExpenditure(id)<1)
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("EmployeeExpenditure");
+
         }
     }
 }
