@@ -29,17 +29,17 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             int consistEmployee = 0;
             foreach (Employee item in employees)
             {
-<<<<<<< HEAD
+
                 ContainsSymbolorNumber(employeeVM.FullName);
                 ContainsSymbolorNumber(employeeVM.Status);
 
 
 
-                Employee newEmployee = new Employee
-=======
-              bool  consist =item.Email==employeeVM.Email ? false : true;
+                
+
+              bool consist =item.Email==employeeVM.Email ? false : true;
                 if (!consist)
->>>>>>> aca93f99537c7e670396ef411a2c63a42d27cf0f
+
                 {
                     consistEmployee++;
                 }
