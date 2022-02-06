@@ -257,7 +257,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             updateEmployee.BirthDay = employee.BirthDay;
             updateEmployee.StartDate = employee.StartDate;
             updateEmployee.Salary = employee.Salary;
-            return dbContext.SaveChanges(); // hata olabilir mi ?
+            return dbContext.SaveChanges();
         }
 
         public bool UpdateEmployee4Salary(Employee employee)

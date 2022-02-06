@@ -2,10 +2,12 @@
     Layout = "_Layout";
 
 }
-<br />
-<div class="container pt-7"></div>
-<h2>Doğrulama işleminiz başarılı bir şekilde gerçekleşti.</h2>
-<br />
-<button type="button" class="btn btn-primary" asp-controller="Home" asp-action="Index">Giriş Sayfasına Git</button>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Tebrikler</h4>
+    <p>Üyeliğiniz başarılı bir şekilde onaylanmıştır.</p>
+    <hr>
+    <p class="mb-0">Uygulamamızın kolaylıklarından faydalanabilirsiniz, kolaylıklar dileriz.</p>
+</div>
+<button class="btn btn-primary" asp-controller="Home" asp-action="Login">Giriş Sayfasına Git</button>
 
 

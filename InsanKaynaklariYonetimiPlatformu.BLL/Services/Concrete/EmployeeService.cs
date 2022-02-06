@@ -25,35 +25,53 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension)
         {
-            //şirket uzantısı doğru mu
-            if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
+            List<Employee> employees = employeeRepository.GetListEmployeesByManagerID(id);
+            int consistEmployee = 0;
+            foreach (Employee item in employees)
             {
-                Employee newEmployee = new Employee
+              bool  consist =item.Email==employeeVM.Email ? false : true;
+                if (!consist)
                 {
-                    FullName = employeeVM.FullName,
-                    Email = employeeVM.Email,
-                    ManagerId = id,
-                    StartDate = employeeVM.StartDate,
-                    BirthDay = employeeVM.BirtDay,
-                    Password = $"123{employeeVM.FullName.ToLower()}",
-                    Status = employeeVM.Status,
-                    Photo = "uploads\\image\\userphoto\\_usernophoto.png",
-                    IsActive = false
-                };
-                if (employeeRepository.AddEmployee(newEmployee) > 0)
+                    consistEmployee++;
+                }
+            }
+            if (consistEmployee==0)
+            {
+            //şirket uzantısı doğru mu
+                if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
                 {
-                    return newEmployee;
+                    Employee newEmployee = new Employee
+                    {
+                        FullName = employeeVM.FullName.Trim(),
+                        Email = employeeVM.Email.Trim(),
+                        ManagerId = id,
+                        StartDate = employeeVM.StartDate,
+                        BirthDay = employeeVM.BirtDay,
+                        Password = $"123{employeeVM.FullName.ToLower()}".Trim(),
+                        Status = employeeVM.Status,
+                        Photo = "uploads\\image\\userphoto\\_usernophoto.png",
+                        IsActive = false
+                    };
+
+                    if (employeeRepository.AddEmployee(newEmployee) > 0)
+                    {
+                        return newEmployee;
+                    }
+                    else
+                    {
+                        throw new Exception("Bir hata oluştu.");
+
+                    }
+
                 }
                 else
                 {
-                    throw new Exception("Bir hata oluştu.");
-
-                }
-
+                    throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
+                } 
             }
             else
             {
-                throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
+                throw   new Exception("Daha önce bu kullanıcı eklenmiş");
             }
 
 
@@ -184,8 +202,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     EmployeeDebitVM employeeDebitVM = new EmployeeDebitVM()
                     {
                         ID = debit.ID,
-                        DebitName = debit.DebitName,
-                        Details = debit.Details,
+                        DebitName = debit.DebitName.Trim(),
+                        Details = debit.Details.Trim(),
                         StartedDate = debit.StartedDate,
                         DescofRejec = debit.DescofRejec,
                         IsAproved = debit.IsAproved
@@ -199,12 +217,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return debitVMs;
         }
-      
+
         public List<ExpenditureVM> GetListExpenditure(int id)
         {
-            //Personel harcamalarını listelerken
-            List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
             
+            List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
+
             if (expenditures != null)
             {
                 List<ExpenditureVM> expenditureVMs = new List<ExpenditureVM>();
@@ -213,9 +231,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     ExpenditureVM expenditureVM = new ExpenditureVM()
                     {
                         ID = expenditure.ID,
-                        ExpenditureName = expenditure.ExpenditureName,
+                        ExpenditureName = expenditure.ExpenditureName.Trim(),
                         ExpenditureAmount = expenditure.ExpenditureAmount,
-                        Details = expenditure.Details,
+                        Details = expenditure.Details.Trim(),
                         isAproved = expenditure.isAproved
 
                     };
@@ -234,12 +252,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Expenditure expenditure = new Expenditure()
             {
                 //ID = expenditureVM.ID,
-                ExpenditureName = expenditureVM.ExpenditureName,
+                ExpenditureName = expenditureVM.ExpenditureName.Trim(),
                 ExpenditureAmount = expenditureVM.ExpenditureAmount,
-                Details = expenditureVM.Details,
+                Details = expenditureVM.Details.Trim(),
                 isAproved = expenditureVM.isAproved,
                 EmployeeID = id,
-                ManagerID=employee.ManagerId
+                ManagerID = employee.ManagerId
 
 
             };
@@ -264,7 +282,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 EmployeeID = id,
                 DocumentPath = filepath,
-                DocumentName=fileName
+                DocumentName = fileName
             };
             return employeeRepository.AddDocument(document);
         }
@@ -272,7 +290,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<DocumentVM> GetDocument(int id)
         {
             List<Document> documents = employeeRepository.GetDocumentByID(id);
-            if (documents!=null)
+            if (documents != null)
             {
                 List<DocumentVM> documentVMs = new List<DocumentVM>();
                 foreach (Document document in documents)
@@ -281,9 +299,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     {
                         EmployeeID = (int)document.EmployeeID,
                         FilePath = document.DocumentPath,
-                        DocumentID=document.DocumentID,
-                        fileName=document.DocumentName
-                        
+                        DocumentID = document.DocumentID,
+                        fileName = document.DocumentName.Trim()
+
                     };
                     documentVMs.Add(documentVM);
                 }
@@ -296,7 +314,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Debit GetDebitById(int id)
         {
             return employeeRepository.GetRejectedDebitById(id);
-        }                     
+        }
 
         public int ChangeRejectedDebit(int id, EmployeeDebitVM employeeDebitVM)
         {
@@ -323,7 +341,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 return 0;
             }
-        }       
+        }
 
         public int RemoveDocument(int id)
         {
@@ -344,7 +362,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return employeeRepository.GetNetSalaryByEmployeeId(id);
         }
-    
+
         public List<DocumentsVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);
@@ -359,7 +377,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         ExpenditureId = (int)expenditure.ExpenditureId,
                         FilePath = expenditure.DocumentPath,
                         fileName = expenditure.DocumentName
-
+                   
 
                     };
                     documentsVMs.Add(documentsVM);
@@ -377,7 +395,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 ExpenditureId = id,
                 DocumentPath = documentPath,
-                DocumentName = fileName
+                DocumentName = fileName.Trim()
             };
             return employeeRepository.AddExpenditureDocument(document);
         }
@@ -460,7 +478,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return  0;
         }
     }
-        
+    
 }
     
 

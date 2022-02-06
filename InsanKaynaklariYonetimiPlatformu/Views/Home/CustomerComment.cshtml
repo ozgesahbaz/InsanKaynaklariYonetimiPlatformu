@@ -1,4 +1,6 @@
-﻿@{
+﻿@model LoginVM 
+@{
+    Layout = "_Layout";
     ViewData["Title"] = "CustomerComment";
 
 }
@@ -6,6 +8,47 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 <link href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/icomoon.css" />
 
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Giriş Yap</h4>
+
+            </div>
+            <form method="post" action="/home/Login" id="PostMethod">
+                <div class="modal-body mx-3">
+                    <div asp-validation-summary="All"></div>
+                    <div class="form-group">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <label asp-for="Email" data-error="wrong" data-success="right" for="defaultForm-email"></label>
+                        <input class="form-control" asp-for="Email" type="email" id="defaultForm-email" placeholder="isimsoyisim@firmamaili.com">
+
+                    </div>
+
+                    <div class="form-group">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <label asp-for="Password" data-error="wrong" data-success="right" for="defaultForm-pass"></label>
+                        <input class="form-control" asp-for="Password" type="password" id="defaultForm-pass" te" placeholder="********">
+
+                    </div>
+                    <div class="from-check mb-3">
+
+                        <input asp-for="IsRemember" class="from-check input" value="true" />
+                        <label asp-for="IsRemember" class="from-check label text-dark"></label>
+                    </div>
+                    <br />
+                    <a class="text-dark small" asp-controller="Manager" asp-action="Register">Üye Değilseniz Kayıt Oluşturun.</a>
+
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Giriş</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="container-fluid mt-10">
     <div class="row">
         <div class="col-6 row blog-card">
@@ -27,8 +70,5 @@
             </div>
         </div>
     </div>
-
-</div>
-
 
 </div>

@@ -31,7 +31,7 @@
             <!-- Firma Logo -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="Index" asp-controller="@Statu">
                 <div class="sidebar-brand-icon ">
-                    <img class="img-profile rounded-circle" height="60" src="~/@CompanyLogo" />
+                    <img class="img-profile rounded-circle" width="60" height="60" src="~/@CompanyLogo" />
                 </div>
                 <div class="sidebar-brand-text mx-3">@CompanyName</div>
             </a>
@@ -41,7 +41,7 @@
 
             <!-- Ana Sayfa Kısayolu -->
             <li class="nav-item">
-                <a class="nav-link" href="http://localhost:8021/Manager/index">
+                <a class="nav-link" asp-action="Index" asp-controller="@Statu">
                     <i class="fas fa-user-tie"></i>
                     <span>Ana Sayfa</span>
                 </a>
@@ -225,7 +225,7 @@
             <div id="content">
 
                 <!--NAV BAR -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-1 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -380,7 +380,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">@FullName</span>
-                                <img class="img-profile rounded-circle" src="~/@Photo">
+                                <img class="img-profile rounded-circle" width="30" height="30" src="~/@Photo">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -432,7 +432,7 @@
                     @RenderBody()
 
 
-                    </main>
+                 
 
                 </div>
                 <!-- /.container-fluid -->
@@ -475,6 +475,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="~/Dashboard/vendor/jquery/jquery.min.js"></script>
 

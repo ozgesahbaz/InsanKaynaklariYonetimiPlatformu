@@ -3,3 +3,254 @@
     Layout = "_Layout2";
 
 }
+<link href="~/MAP Page/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="~/MAP Page/css/sb-admin-2.css" rel="stylesheet" />
+
+<p>Tablolara Scroll Bar eklenecek.</p>
+@*MANAGER İZİN GÜNLERİ GRAFİĞİ*@
+<div class="row">
+    <div class="col-4">
+        <div class="card-body">
+            <p class="text-center"> İzin Günleri </p>
+            <div class="chart-pie pt-4">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                    </div>
+                </div>
+                <canvas id="myPieChart" width="327" height="316" style="display: block; height: 253px; width: 262px;" class="chartjs-render-monitor"></canvas>
+            </div>
+
+            <hr>
+
+        </div>
+        <div class="pt-2">
+            <h6 class="font-weight-bold text-primary text-center">
+                <img src="~/MAP Page/img/personel-odeme.png" style="width:32px; height:32px;" />
+                Personel Ödemeleri
+            </h6>
+            <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" width="110%" style="overflow-y:scroll">
+                <thead>
+                    <tr role="row" class="border-bottom-warning">
+                        <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Personel Adı</th>
+                        <th class="border-bottom-warning" style="width: 67px; height: 10px;">Ödeme Tutarı</th>
+                        <th class="border-bottom-warning" style="width: 67px; height: 10px;">Tarih</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-bottom-warning">
+                        <td>Yılbaşı</td>
+                        <td>01.01.2022</td>
+
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Ul. Egemen. ve Çocuk Bayramı</td>
+                        <td>23.04.2022</td>
+
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Emek ve Day. Günü</td>
+                        <td>01.05.2022</td>
+
+                    </tr>
+
+                    <tr class="border-bottom-warning">
+                        <td>Ramazan Bayramı</td>
+                        <td>2-4.05.2022</td>
+
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+
+
+        @*PERSONELLERİN MAAŞLARI*@
+
+    </div>
+
+    @*PERSONELLERİN DEPARTMANLARINA GÖRE GRAFİK GÖSTERİMİ*@
+    <div class="col-5">
+        <div class="card-body">
+            <p class="text-center"> Çalışan Sayısı </p>
+            <div class="chart-pie pt-4">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                    </div>
+                </div>
+                <canvas id="myPieChartPersonal" width="327" height="316" style="display: block; height: 253px; width: 262px;" class="chartjs-render-monitor"></canvas>
+            </div>
+            
+            <hr>
+
+        </div>
+        <div class="row">
+            <div class="col-6 pe-1">
+                <h6 class="font-weight-bold text-primary text-center">
+                    <img src="~/MAP Page/img/card-icon.png" style="width:32px; height:32px;" />
+                    Personel Harcamaları
+                </h6>
+                <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" width="110%" style="overflow-y:scroll">
+                    <thead>
+                        <tr role="row" class="border-bottom-warning">
+                            <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Personel Adı</th>
+                            <th class="border-bottom-warning" style="width: 67px; height: 10px;">Harcama</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-bottom-warning">
+                            <td>Yılbaşı</td>
+                            <td>01.01.2022</td>
+
+                        </tr>
+                        <tr class="border-bottom-warning">
+                            <td>Ul. Egemen. ve Çocuk Bayramı</td>
+                            <td>23.04.2022</td>
+
+                        </tr>
+                        <tr class="border-bottom-warning">
+                            <td>Emek ve Day. Günü</td>
+                            <td>01.05.2022</td>
+
+                        </tr>
+
+                        <tr class="border-bottom-warning">
+                            <td>Ramazan Bayramı</td>
+                            <td>2-4.05.2022</td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6 pe-1">
+                <h6 class="font-weight-bold text-primary text-center">
+                    <img src="~/MAP Page/img/canle-icon.png" style="width:32px; height:32px;" />
+                    Personel Doğum Günleri
+                </h6>
+                <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" width="110%" style="overflow-y:scroll">
+                    <thead>
+                        <tr role="row" class="border-bottom-warning">
+                            <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Personel Adı</th>
+                            <th class="border-bottom-warning" style="width: 67px; height: 10px;">Doğum Günü</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-bottom-warning">
+                            <td>Yılbaşı</td>
+                            <td>01.01.2022</td>
+
+                        </tr>
+                        <tr class="border-bottom-warning">
+                            <td>Ul. Egemen. ve Çocuk Bayramı</td>
+                            <td>23.04.2022</td>
+
+                        </tr>
+                        <tr class="border-bottom-warning">
+                            <td>Emek ve Day. Günü</td>
+                            <td>01.01.2022</td>
+
+                        </tr>
+
+                        <tr class="border-bottom-warning">
+                            <td>Ramazan Bayramı</td>
+                            <td>2-4.05.2022</td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="card-header">
+            <h4 class="font-weight-bold text-primary text-center">
+                <img src="~/Dashboard/public/assets/img/icons/vacation.png" style="width:32px; height:32px;" />
+                Resmi Tatiller
+            </h4>
+        </div>
+        <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" width="110%" style="overflow-y:scroll">
+            <thead>
+                <tr role="row" class="border-bottom-warning">
+                    <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Tatil Adı</th>
+                    <th class="border-bottom-warning" style="width: 67px; height: 10px;">Tarih</th>
+                    <th class="border-bottom-warning " style="width: 67px; height: 10px">Gün Sayısı</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-bottom-warning">
+                    <td>Yılbaşı</td>
+                    <td>01.01.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Ul. Egemen. ve Çocuk Bayramı</td>
+                    <td>23.04.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Emek ve Day. Günü</td>
+                    <td>01.01.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+
+                <tr class="border-bottom-warning">
+                    <td>Ramazan Bayramı</td>
+                    <td>2-4.05.2022</td>
+                    <td>3 Gün</td>
+
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Genç ve Spor Bayramı</td>
+                    <td>19.05.2022</td>
+                    <td>1 Gün</td>
+
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Kurban Bayramı</td>
+                    <td>9-12.07.2022</td>
+                    <td>4 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Zafer Bayramı</td>
+                    <td>30.08.2022</td>
+                    <td>1 Gün</td>
+                </tr>
+                <tr class="border-bottom-warning">
+                    <td>Cumhuriyet Bayramı</td>
+                    <td>29.09.2022</td>
+                    <td>1 Gün</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script src="~/MAP Page/js/demo/chart-pie-demo.js"></script>
+<script src="~/MAP Page/vendor/jquery/jquery.min.js"></script>
+<script src="~/MAP Page/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/MAP Page/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/MAP Page/js/sb-admin-2.min.js"></script>
+<script src="~/MAP Page/vendor/chart.js/Chart.min.js"></script>
+<script src="~/MAP Page/js/demo/chart-pie-personal.js"></script>
+<script src="~/MAP Page/js/demo/pie-chart-permission.js"></script>

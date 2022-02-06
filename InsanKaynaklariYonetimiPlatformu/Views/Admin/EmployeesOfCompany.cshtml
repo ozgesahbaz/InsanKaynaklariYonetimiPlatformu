@@ -1,0 +1,56 @@
+﻿@model ManagerOfCompanyVM
+@{
+    ViewData["Title"] = "Pasif Kullanıcılar";
+    Layout = "_Layout2";
+
+
+}
+<div class="text-end row">
+    <div class="text">@Model.CompanyName
+        <img class="img-profile rounded-circle" width="60" height="60" src="~/@Model.CompanyPhoto" />
+    </div>
+</div>
+<br />
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Çalışan Fotoğrafı</th>
+                <th>Adı Soyadı</th>
+                <th>Statü</th>
+                <th>Mail</th>
+                <th>İşe Başlama Tarihi</th>
+                <th>Doğum Tarihi</th>
+                <th>Onay Durumu</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center"><img class="img-profile rounded-circle" width="40" height="40" src="~/@Model.Photo" /></td>
+                <td>@Model.ManagerName</td>
+                <td>Şirket Yöneticisi</td>
+                <td>@Model.Email</td>
+                <td></td>
+                <td></td>
+                <td class="text-center">
+                    @if (Model.IsApproved == null)
+                    {
+                        <i class="btn btn-warning fas fa-clock disabled"></i>
+                    }
+                    else if (Model.IsApproved == true)
+                    {
+                        <i class="btn btn-success fas fa-check-circle disabled"></i>
+                    }
+                    else
+                    {
+                        <i class="btn btn-danger fas fa-times-circle disabled"></i>
+
+                    }
+                </td>
+            </tr>
+            @await Component.InvokeAsync("CompaniesEmployees", new { id=Model.ManagerID})
+
+
+        </tbody>
+    </table>
+</div>

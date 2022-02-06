@@ -36,11 +36,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             Company company = new Company()
             {
-                CompanyName = companyName,
+                CompanyName = companyName.Trim(),
                 MailExtension = mailextension,
                 RegisterDate = DateTime.Now,
                 CompanyLogo = "uploads\\image\\company\\_companynologo.png",
-                Address = address
+                Address = address.Trim()
             };
             if (managerRepository.InsertCompany(company) > 0)
             {
@@ -83,11 +83,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             Manager manager = new Manager()
             {
-                FullName = register.ManagerFullName,
+                FullName = register.ManagerFullName.Trim(),
                 CompanyId = company.CompanyId,
                 //StatusType = StatusType.CompanyManager, // statustype propertisi kaldırıldı admin db olusturuldugundan 
-                Password = register.ManagerPassword,
-                Email = register.ManagerMail,
+                Password = register.ManagerPassword.Trim(),
+                Email = register.ManagerMail.Trim(),
                 IsActive = false,
                 IsApproved = false,
                 Photo = "uploads\\image\\userphoto\\_usernophoto.png"
@@ -140,10 +140,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 DebitVM debitVM = new DebitVM()
                 {
                     ID = debit.ID,
-                    EmployeeName = debit.Employee.FullName,
-                    DebitName = debit.DebitName,
+                    EmployeeName = debit.Employee.FullName.Trim(),
+                    DebitName = debit.DebitName.Trim(),
                     StartedDate = debit.StartedDate,
-                    Details = debit.Details,
+                    Details = debit.Details.Trim(),
                     IsAproved = debit.IsAproved,
                     DescofRejec = debit.DescofRejec
 
@@ -187,10 +187,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 PermissionVM permissionVM = new PermissionVM()
                 {
                     ID = permission.PermissionId,
-                    FullName = permission.Employee.FullName,
+                    FullName = permission.Employee.FullName.Trim(),
                     StartDate = permission.StartDate,
                     FinishDate = permission.FinishDate,
-                    Statu = permission.Employee.Status,
+                    Statu = permission.Employee.Status.Trim(),
                     IsAproved = permission.isAproved,
                     PermissionType = permission.PermissionType
                 };
@@ -228,7 +228,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
 
                 shiftDetailsVm.EmployeeID = employee.EmployeeId;
-                shiftDetailsVm.EmployeeFullName = employee.FullName;
+                shiftDetailsVm.EmployeeFullName = employee.FullName.Trim();
 
                 List<Shift> Shifts = managerRepository.GetShiftbyEmployeeId(employee.EmployeeId);
                 foreach (Shift item in Shifts)
@@ -296,9 +296,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 ManagerID = id,
                 EmployeeID = debitVM.EmployeeID,
-                DebitName = debitVM.DebitName,
+                DebitName = debitVM.DebitName.Trim(),
                 StartedDate = debitVM.StartedDate,
-                Details = debitVM.Details
+                Details = debitVM.Details.Trim(),
 
 
             };
@@ -431,9 +431,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 ManagersDebitVM managersDebitVM = new ManagersDebitVM()
                 {
                     ID = debit.ID,
-                    DebitName = debit.DebitName,
+                    DebitName = debit.DebitName.Trim(),
                     StartedDate = debit.StartedDate,
-                    Details = debit.Details
+                    Details = debit.Details.Trim(),
                 };
                 debitVMs.Add(managersDebitVM);
 
@@ -446,9 +446,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Debit debit = new Debit()
             {
-                DebitName = managersDebitVM.DebitName,
+                DebitName = managersDebitVM.DebitName.Trim(),
                 StartedDate = managersDebitVM.StartedDate,
-                Details = managersDebitVM.Details,
+                Details = managersDebitVM.Details.Trim(),
                 IsAproved = true,
                 ManagerID = id,
 
@@ -495,7 +495,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Manager manager = FindManager(id);
             if (manager != null)
             {
-                manager.FullName = settingsVM.FullName;
+                manager.FullName = settingsVM.FullName.Trim();
                 if (documentPath != null)
                 {
                     manager.Photo = documentPath;
@@ -514,8 +514,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Company company = FindCompanyByManagerID(id);
             if (company != null)
             {
-                company.CompanyName = settingsVM.CompanyName;
-                company.Address = settingsVM.Adress;
+                company.CompanyName = settingsVM.CompanyName.Trim();
+                company.Address = settingsVM.Adress.Trim();
                 if (documentPath != null)
                 {
                     company.CompanyLogo = documentPath;
@@ -561,7 +561,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             Comment comment = new Comment()
             {
                 ManagerId = id,
-                Description = commentVM.Comment,
+                Description = commentVM.Comment.Trim(),
                 Manager = manager
             };
 
