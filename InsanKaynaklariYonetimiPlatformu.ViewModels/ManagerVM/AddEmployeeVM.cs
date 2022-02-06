@@ -11,10 +11,13 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Adı Soyadı")]
+        [DataType(DataType.Text)]
         public string FullName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Departman")]
+        [DataType(DataType.Text)]
+
         public string Status { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Email",Prompt ="isimsoyisim@sirketuzantisi.com")]

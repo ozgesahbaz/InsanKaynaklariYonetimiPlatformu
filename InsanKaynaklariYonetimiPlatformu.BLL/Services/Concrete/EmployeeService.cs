@@ -26,6 +26,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             //şirket uzantısı doğru mu
             if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
             {
+                ContainsSymbolorNumber(employeeVM.FullName);
+                ContainsSymbolorNumber(employeeVM.Status);
+
+
+
                 Employee newEmployee = new Employee
                 {
                     FullName = employeeVM.FullName,
@@ -55,6 +60,18 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
 
 
+        }
+
+        private static void ContainsSymbolorNumber(string text)
+        {
+            char[] harfler = text.ToCharArray();
+            foreach (char harf in harfler)
+            {
+                if (char.IsSymbol(harf) || char.IsNumber(harf))
+                {
+                    throw new Exception($"{text} bir sayı veya özel karakter içeriyor. Yeniden deneyiniz.");
+                }
+            }
         }
 
         public string GetMailExtension(string email)
@@ -101,6 +118,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int UpdateEmployees(int id, Employee employee)
         {
+            ContainsSymbolorNumber(employee.FullName);
+            ContainsSymbolorNumber(employee.Status);
             Employee updatedEmploye = employeeRepository.GetEmployeeById(id);
             return employeeRepository.UpdateEmployee(updatedEmploye, employee);
         }

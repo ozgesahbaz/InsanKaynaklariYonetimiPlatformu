@@ -291,6 +291,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddEmployeesDebit(int id, AddEmployeesDebitVM debitVM)
         { //AddEmployeesDebitVm referans alarak Debite çeviriyoruz. Db debit atabiliriz. Bu sebeple AddEmployee debite çevrilmeli
+
+
             Debit debit = new Debit()
             {
                 ManagerID = id,

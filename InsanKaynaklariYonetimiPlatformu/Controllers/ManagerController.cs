@@ -49,6 +49,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 {
                     return RedirectToAction("ManagersEmployees", "Manager");
                 }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
             }
             catch (Exception ex)
             {
@@ -66,6 +70,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
+                if (DateTime.Now.Year-employeeVM.BirtDay.Year<18)
+                {
+                    throw new Exception("18 yaşından küçük çalışan ekleyemezsiniz.");
+                }
                 //mail uzantısı controlü için şirket manager id(layouttaki sessiondan geldi) ile bulundu.
                 Company company = managerService.FindCompanyByManagerID(id);
                 //çalışan eklendi. kontroller employee servicede (controller->services->repository)
