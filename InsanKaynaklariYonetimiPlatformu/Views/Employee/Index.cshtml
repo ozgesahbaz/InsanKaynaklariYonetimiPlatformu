@@ -1,4 +1,4 @@
-﻿
+﻿@model List<ShiftDateVM>
 @{
     Layout = "_Layout2";
 
@@ -9,19 +9,19 @@
 <link href="~/MAP Page/css/sb-admin-2.css" rel="stylesheet" />
 <link href="~/Calender/StyleSheet.css" rel="stylesheet" />
 <div class="row">
-    <section></section>
-    <div class="col-8 pt-5">
+    
+    
 
-        <div class="wrapper">
-            <div id="calendarContainer" style="padding-left:20px">
-
-            </div>
-            <div id="organizerContainer" style="padding-left:20px">
-                @*Buraya Script'te Content=""; in içeriği gelecek, personel vardiyalarını görebilecek.*@
-
-            </div>
+        <!--<div class="wrapper">
+        <div id="calendarContainer" style="padding-left:20px">
 
         </div>
+        <div id="organizerContainer" style="padding-left:20px">-->
+        @*Buraya Script'te Content=""; in içeriği gelecek, personel vardiyalarını görebilecek.*@
+
+        <!--</div>
+
+    </div>-->
         <div class="card-body">
             <p class="text-center"> İzin Günleri </p>
             <div class="chart-pie pt-4">
@@ -109,6 +109,7 @@
             </table>
         </div>
     </div>
+    
 
 
 </div>
@@ -514,94 +515,95 @@ https://github.com/nizarmah/calendar-javascript-lib/blob/master/README.md
                 ]
             },
             {
+               
                 int: (new Date().getFullYear()),
                 months: [
                     {
-                        int: (new Date().getMonth() + 1),
+                    int: (new Date().getMonth() + 1),
                         days: [
                             {
-                                int: (new Date().getDate()),
+                        int: (new Date().getDate()),
                                 events: [
                                     {
-                                        startTime: "6:00",
+                        startTime: "6:00",
                                         endTime: "7:00",
                                         mTime: "am",
                                         text: "This is scheduled to show today, anyday."
                                     },
                                     {
-                                        startTime: "5:45",
+                        startTime: "5:45",
                                         endTime: "7:15",
                                         mTime: "pm",
                                         text: "WIP Library"
                                     },
                                     {
-                                        startTime: "10:00",
+                        startTime: "10:00",
                                         endTime: "11:00",
                                         mTime: "pm",
                                         text: "Probably won't fix that (time width)"
                                     },
                                     {
-                                        startTime: "8:00",
+                        startTime: "8:00",
                                         endTime: "9:00",
                                         mTime: "pm",
                                         text: "Next spam is for demonstration purposes only"
                                     },
                                     {
-                                        startTime: "5:45",
+                        startTime: "5:45",
                                         endTime: "7:15",
                                         mTime: "pm",
                                         text: "WIP Library"
                                     },
                                     {
-                                        startTime: "10:00",
+                        startTime: "10:00",
                                         endTime: "11:00",
                                         mTime: "pm",
                                         text: "Probably won't fix that (time width)"
                                     },
                                     {
-                                        startTime: "5:45",
+                        startTime: "5:45",
                                         endTime: "7:15",
                                         mTime: "pm",
                                         text: "WIP Library"
                                     },
                                     {
-                                        startTime: "10:00",
+                        startTime: "10:00",
                                         endTime: "11:00",
                                         mTime: "pm",
                                         text: "Probably won't fix that (time width)"
                                     },
                                     {
-                                        startTime: "5:45",
+                        startTime: "5:45",
                                         endTime: "7:15",
                                         mTime: "pm",
                                         text: "WIP Library"
                                     },
                                     {
-                                        startTime: "10:00",
+                        startTime: "10:00",
                                         endTime: "11:00",
                                         mTime: "pm",
                                         text: "Probably won't fix that (time width)"
                                     },
                                     {
-                                        startTime: "5:45",
+                        startTime: "5:45",
                                         endTime: "7:15",
                                         mTime: "pm",
                                         text: "WIP Library"
                                     },
                                     {
-                                        startTime: "10:00",
+                        startTime: "10:00",
                                         endTime: "11:00",
                                         mTime: "pm",
                                         text: "Probably won't fix that (time width)"
                                     },
                                     {
-                                        startTime: "5:45",
+                        startTime: "5:45",
                                         endTime: "7:15",
                                         mTime: "pm",
                                         text: "WIP Library"
                                     },
                                     {
-                                        startTime: "10:00",
+                        startTime: "10:00",
                                         endTime: "11:00",
                                         mTime: "pm",
                                         text: "Probably won't fix that (time width)"
