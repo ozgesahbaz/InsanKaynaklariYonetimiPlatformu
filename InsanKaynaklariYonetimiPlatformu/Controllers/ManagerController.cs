@@ -648,7 +648,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         { EditPremiumVm editPremiumVm = new EditPremiumVm()
         {
             EmployeeID = id,
-            Employees = employeeService.GetListEmployees(id),
+            Employee = employeeService.GetEmployeeById(id),
             Salary = employeeService.GetSalarybyEmployeeId(id),
             PremiumRate = employeeService.GetPremiumRateByEmployeeId(id),
             NetSalary = employeeService.GetNetSalaryByEmployeeId(id),
