@@ -227,6 +227,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddExpenditure(int id, ExpenditureVM expenditureVM)
         {
+            Employee employee = employeeRepository.GetEmployeeById(id);
 
             Expenditure expenditure = new Expenditure()
             {
@@ -236,6 +237,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 Details = expenditureVM.Details,
                 isAproved = expenditureVM.isAproved,
                 EmployeeID = id,
+                ManagerID=employee.ManagerId
 
 
             };
@@ -340,6 +342,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return employeeRepository.GetNetSalaryByEmployeeId(id);
         }
+    
         public List<DocumentsVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocument = employeeRepository.GetExpenditureDocumentById(id);

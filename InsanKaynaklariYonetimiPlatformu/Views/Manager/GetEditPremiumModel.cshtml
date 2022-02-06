@@ -23,12 +23,13 @@
                                     <label asp-for="PremiumRate"></label>
                                     <input class="form-control" asp-for="PremiumRate">
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group ">
                                     <label asp-for="NetSalary"></label>
-                                    <input class="form-control" asp-for="NetSalary">
+                                    <input class="form-control" readonly asp-for="NetSalary">
                                 </div>
                                
                                 <br />
+
 
 
                                 <div class="modal-footer d-flex justify-content-center">
@@ -40,5 +41,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form  method="get">  
+                        <button <button asp-route-id="@id"  asp-controller="Manager" asp-action="ManagersEmployees" class="btn btn-primary"  >Close</button>
+
+                        </form>
                     </div>

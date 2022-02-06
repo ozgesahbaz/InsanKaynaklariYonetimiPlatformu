@@ -124,7 +124,7 @@
 
                 </li>
                 <li class="nav-item justify-content-end small text-white">
-                    <a class="nav-link" asp-action="Manager" asp-controller="">
+                    <a class="nav-link" asp-action="Comment" asp-controller="Manager" asp-route-id="@id">
                         <span>Bizimle fikirlerini paylaş</span>
                         <i class="fas fa-grin-stars"></i>
                     </a>
@@ -189,6 +189,23 @@
 
                 </li>
 
+            }
+            @if (Statu == "Admin")
+            {
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetwo"
+               aria-expanded="true" aria-controls="collapsetwo">
+                <i class="fas fa-archive"></i>
+                <span>Şirketler</span>
+            </a>
+            <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" asp-action="passivecompany" asp-controller="Admin">Onay Bekleyen Şirketler</a>
+                    <a class="collapse-item" asp-action="ActiveCompany" asp-controller="Admin">Onaylı Şİrketler</a>
+                </div>
+            </div>
+        </li>
+         
             }
 
             <!-- Divider -->

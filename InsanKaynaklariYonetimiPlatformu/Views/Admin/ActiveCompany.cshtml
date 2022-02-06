@@ -1,0 +1,52 @@
+﻿@model List<ActiveCompanyVM>
+@{
+    ViewData["Title"] = "Pasif Kullanıcılar";
+    Layout = "_Layout2";
+
+
+}
+
+<div class="table-responsive">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Firma Adı</th>
+                <th>Firma Mail Uzantısı</th>
+                <th>Yönetici Adı Soyadı</th>
+                <th>Yönetici Maili</th>
+                <th>Kayıt Başlangıç Tarihi</th>
+                <th>Kayıt Türü</th>
+                <th>Kayıt Bitiş Tarihi</th>
+                <th>Şirket Çalışanları</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (ActiveCompanyVM companyVM in Model)
+            {
+                <tr>
+
+                    <td>@companyVM.CompanyName</td>
+                    <td>@companyVM.Mailextension</td>
+                    <td>@companyVM.ManagerFullName</td>
+                    <td>@companyVM.ManagerMail</td>
+                    <td>@companyVM.RegisterDate.ToShortDateString()</td>
+                    <td>@companyVM.membershipType</td>
+                    <td>@companyVM.FinishedDate.ToShortDateString()</td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a class="btn btn-outline-primary btn-sm" asp-action="CompaniesEmployee" asp-route-id="@companyVM.CompanyId"><i class="fas fa-users"></i></a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <a class="btn btn-outline-danger btn-sm" asp-action="DeActivate" asp-route-id="@companyVM.CompanyId">Pasifleştir</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

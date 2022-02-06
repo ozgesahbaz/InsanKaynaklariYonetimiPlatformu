@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM
 {
-    public class AdminPassiveCompanyVM
+    public class ActiveCompanyVM
     {
+
         [Display(Name = "FirmaID")]
 
         public int CompanyId { get; set; }
+
+        [Display(Name = "YoneticiID")]
+
+        public int ManagerID { get; set; }
         [Display(Name = "Firma Adı")]
 
         public string CompanyName { get; set; }
@@ -28,5 +33,15 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM
         [Display(Name = "Kayıt Türü")]
 
         public MembershipType membershipType { get; set; }
+
+        [Display(Name = "Kayıt Tarihi")]
+
+        public DateTime RegisterDate { get; set; }
+
+        [Display(Name = "Kayıt Bitiş Tarihi")]
+
+        public DateTime FinishedDate { get; set; }
+
     }
 }
+

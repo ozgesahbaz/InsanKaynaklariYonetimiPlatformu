@@ -24,9 +24,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         }
 
-        public ManagerService()
-        {
-        }
+     
 
         public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
@@ -548,6 +546,41 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return shiftDetailsVM;
         }
 
+
+        public Manager GetCommentByManagerId(int id)
+        {
+            Manager manager = managerRepository.GetCommentByManagerId(id);
+            if (manager!=null)
+            {
+                return manager;
+            }
+            return null;
+        }
+
+        public bool AddComment(CommentVM commentVM, int id)
+        {
+            Manager manager = managerRepository.FindManager(id);
+            Comment comment = new Comment()
+            {
+                ManagerId = id,
+                Description = commentVM.Comment,
+                Manager = manager
+            };
+
+            return managerRepository.AddComment(comment);
+        }
+
+        public int RemoveComment(int id)
+        {
+            Comment comment = managerRepository.FindComment(id);
+            if (comment != null)
+            {
+                return managerRepository.RemoveComment(comment);
+
+            }
+            return 1;
+        }
+
         public bool UpdatePremium(EditPremiumVm editPremiumVm, int id)
         {
             Employee employee= employeeRepository.GetEmployeeById(id);
@@ -562,6 +595,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 return false;
             }
+
         }
     }
 }

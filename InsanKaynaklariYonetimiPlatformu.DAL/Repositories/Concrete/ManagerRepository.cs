@@ -260,6 +260,34 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return shift;
 
         }
+
+        public Manager GetCommentByManagerId(int id)
+        {
+            return dbContext.Managers.Include("Comment").Where(a => a.ManagerId == id).SingleOrDefault();
+        }
+
+        public bool AddComment(Comment comment)
+        {
+            dbContext.Comments.Add(comment);
+
+            if (dbContext.SaveChanges()>0)
+            {
+                return true;
+
+            }
+            return false;
+        }
+
+        public Comment FindComment(int id)
+        {
+            return dbContext.Comments.Where(a => a.CommentId == id).SingleOrDefault();
+        }
+
+        public int RemoveComment(Comment comment)
+        {
+            dbContext.Comments.Remove(comment);
+            return dbContext.SaveChanges();
+        }
     }
 }
 
