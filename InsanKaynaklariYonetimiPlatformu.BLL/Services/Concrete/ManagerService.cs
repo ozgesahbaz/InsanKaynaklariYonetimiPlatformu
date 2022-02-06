@@ -10,6 +10,9 @@ using InsanKaynaklariYonetimiPlatformu.Entity.Enums;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
+using System.Net.Mail;
+using System.Net;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 
 namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 {
@@ -22,9 +25,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             managerRepository = _managerRepository;
             employeeRepository = _employeeRepository;
 
-        }
-
-     
+        }     
 
         public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
@@ -459,8 +460,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             return managerRepository.DeletedDocument(id);
         }
-
-
         public int ChangePassword(int id, PasswordVM passwordVM)
         {
             Manager manager = managerRepository.FindManager(id);
@@ -546,7 +545,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             return shiftDetailsVM;
         }
 
-
         public Manager GetCommentByManagerId(int id)
         {
             Manager manager = managerRepository.GetCommentByManagerId(id);
@@ -596,6 +594,194 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 return false;
             }
 
+        }
+
+        public List<ManagerExpenditureVM> GetListManagerExpenditure(int id)
+        {
+            List<Expenditure> expenditures = managerRepository.GetManagerExpenditureList(id);
+            if (expenditures!=null)
+            {
+                List<ManagerExpenditureVM> managerExpenditureVMs = new List<ManagerExpenditureVM>();
+                foreach (Expenditure expenditure in expenditures)
+                {
+                    ManagerExpenditureVM managerExpenditureVM = new ManagerExpenditureVM()
+                    {
+                        ID = expenditure.ID,
+                        ExpenditureName = expenditure.ExpenditureName,
+                        ExpenditureAmount = expenditure.ExpenditureAmount,
+                        Details = expenditure.Details
+                    };
+                    managerExpenditureVMs.Add(managerExpenditureVM);
+                }
+                return managerExpenditureVMs;
+
+            }
+            return null;
+        }
+
+        public int AddManagerExpenditure(int id, ManagerExpenditureVM managerExpenditureVM)
+        {
+            Manager manager = managerRepository.GetManagerById(id);
+            Expenditure expenditure = new Expenditure()
+            {
+                ExpenditureName = managerExpenditureVM.ExpenditureName,
+                Details = managerExpenditureVM.Details,
+                ExpenditureAmount = managerExpenditureVM.ExpenditureAmount,
+                ManagerID = id
+
+            };
+            return managerRepository.AddManagerExpenditure(expenditure);
+        }
+
+        public int RemoveExpenditure(int id)
+        {
+            Expenditure expenditure = managerRepository.GetExpenditureById(id);
+            return managerRepository.DeletedExpenditure(expenditure);
+
+        }
+
+        public List<ManagerExpenditureDocumentVM> GetExpenditureDocument(int id)
+        {
+            List<ExpenditureDocument> expenditureDocuments = managerRepository.GetExpenditureDocumentById(id);
+            if (expenditureDocuments!=null)
+            {
+                List<ManagerExpenditureDocumentVM> managerExpenditureDocumentVMs = new List<ManagerExpenditureDocumentVM>();
+                foreach (ExpenditureDocument expenditure in expenditureDocuments)
+                {
+                    ManagerExpenditureDocumentVM managerExpenditureDocumentVM = new ManagerExpenditureDocumentVM()
+                    {
+                        DocumentID = expenditure.DocumentID,
+                        ExpenditureId = (int)expenditure.ExpenditureId,
+                        FilePath = expenditure.DocumentPath,
+                        fileName = expenditure.DocumentName
+
+                    };
+                    managerExpenditureDocumentVMs.Add(managerExpenditureDocumentVM);
+                }
+
+                return managerExpenditureDocumentVMs;
+            }
+            return null;
+        }
+
+        public int AddDocumentByExpenditureID(int id, string documentPath, string fileName)
+        {
+            ExpenditureDocument document = new ExpenditureDocument()
+            {
+                ExpenditureId = id,
+                DocumentPath = documentPath,
+                DocumentName = fileName
+            };
+            return managerRepository.AddExpenditureDocument(document);
+        }
+
+        public bool AnyFilePath(string filepath)
+        {
+            return managerRepository.AnyFilePath(filepath);
+        }
+
+        public Manager GetManagerByMail(string email)
+        {
+            Manager manager = managerRepository.GetManagerByMail(email);
+            if (manager!=null)
+            {
+                Guid rastgele = Guid.NewGuid();
+                manager.Password = rastgele.ToString().Substring(0, 8);
+                if (managerRepository.AddPassword(manager)>0)
+                {
+                    Manager manager1 = managerRepository.GetManagerByMail(email);
+                    MailMessage msg = new MailMessage();
+                    msg.Subject = "Şifre Sıfırlama talebi.";
+                    msg.From = new MailAddress("redteamproject@outlook.com");
+                    msg.To.Add(new MailAddress(manager.Email));
+                    msg.IsBodyHtml = true;
+                    msg.Body = $"<h1 style='font-size:28px;font-weight:300;line-height:150%;margin:0;text-align:center;color:black;background-color:inherit'>Merhabalar</h1>Sayın { manager.FullName} Şifreniz değiştirilmiştir.<br/> Şifreniz:{manager1.Password}";
+
+                    SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
+                    NetworkCredential AccountInfo = new NetworkCredential("redteamproject@outlook.com", "123toci123");
+                    smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
+                    smtp.Credentials = AccountInfo;
+                    smtp.EnableSsl = true;
+                    smtp.Send(msg);
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            return null;
+
+        }
+        public EmployeesExpenditureVM GetExpenditureByID(int id)
+        {
+            Expenditure expenditure = managerRepository.GetEmployeeExpenditureById(id);
+            if (expenditure != null)
+            {
+                EmployeesExpenditureVM employeesExpenditureVM = new EmployeesExpenditureVM()
+                {
+                    ID = expenditure.ID,
+                    //ExpenditureName = expenditure.ExpenditureName,
+                    //ExpenditureAmount = expenditure.ExpenditureAmount,
+                    //Details = expenditure.Details,
+                    isAproved = expenditure.isAproved
+
+                };
+                return employeesExpenditureVM;
+            }
+            return null;
+        }
+
+        public int UpdateExpenditure(EmployeesExpenditureVM employeesExpenditureVM)
+        {
+            Expenditure expenditure = managerRepository.GetEmployeeExpenditureById(employeesExpenditureVM.ID);
+            //expenditure.ExpenditureName = employeesExpenditureVM.ExpenditureName;
+            //expenditure.ExpenditureAmount = employeesExpenditureVM.ExpenditureAmount;
+            //expenditure.Details = employeesExpenditureVM.Details;
+            expenditure.isAproved = employeesExpenditureVM.isAproved;
+                        
+            return managerRepository.UpdatedExpenditure(expenditure);
+        }
+
+        public int RemoveEmployeeExpenditure(int id)
+        {
+            Expenditure expenditure = managerRepository.GetExpenditureById(id);
+            return managerRepository.DeletedEmployeeExpenditure(expenditure);
+        }
+
+        public List<EmployeesExpenditureVM> GetEmployeeExpenditureList(int id)
+        {
+            List<Expenditure> expenditures = managerRepository.GetEmployeeExpenditureList(id);
+            List<EmployeesExpenditureVM> employeesExpenditureVMs = new List<EmployeesExpenditureVM>();
+            if (expenditures!=null)
+            {
+                foreach (Expenditure expenditure in expenditures)
+                {
+                    EmployeesExpenditureVM employeesExpenditureVM = new EmployeesExpenditureVM()
+                    {
+                        ID = expenditure.ID,
+                        ExpenditureName = expenditure.ExpenditureName,
+                        ExpenditureAmount = expenditure.ExpenditureAmount,
+                        Details = expenditure.Details,
+                        isAproved = expenditure.isAproved
+
+                    };
+                    employeesExpenditureVMs.Add(employeesExpenditureVM);
+                }
+            }
+            return employeesExpenditureVMs;
+            
+        }
+
+        public int UpdateByExpenditure(int id, EmployeesExpenditureVM employeesExpenditureVM)
+        {
+            Expenditure expenditure = managerRepository.GetExpenditureById(id);
+            if (expenditure!=null)
+            {
+                expenditure.isAproved = employeesExpenditureVM.isAproved;
+                return managerRepository.UpdatedExpenditure(expenditure);
+
+            }
+            return 0;
         }
     }
 }

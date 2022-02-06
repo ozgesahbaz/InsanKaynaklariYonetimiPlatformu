@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM
+namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
 {
-    public class ExpenditureVM
+    public class ManagerExpenditureVM
     {
         public int ID { get; set; }
         [DataType(DataType.Text)]
@@ -18,8 +16,5 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM
         public decimal ExpenditureAmount { get; set; }
         [DataType(DataType.Text)]
         public string Details { get; set; }
-        public bool? isAproved { get; set; }
-     
     }
-
 }

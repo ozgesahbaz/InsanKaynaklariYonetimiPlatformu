@@ -1,5 +1,6 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -266,6 +267,37 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             dbContext.Employees.Update(employeeatDb);
             return dbContext.SaveChanges() > 0 ? true : false;
 
+        }
+
+        public Employee FindEmployee(int id)
+        {
+            Employee employee = dbContext.Employees.Where(a => a.EmployeeId == id).SingleOrDefault();
+            return employee;
+        }
+
+        public int ChangesPassword(Employee employee)
+        {
+            return dbContext.SaveChanges();
+        }
+
+        public Employee GetEmployeeByMail(string email)
+        {
+            return dbContext.Employees.Where(a => a.Email == email).SingleOrDefault();
+        }
+
+        public int AddPassword(Employee employee)
+        {
+            return dbContext.SaveChanges();
+        }
+
+        public List<Expenditure> GetExpenditureListForManager(int id)
+        {
+            return dbContext.Expenditures.Include("Employee").Where(a => a.ManagerID == id && a.EmployeeID != null).ToList();
+        }
+
+        public int AcceptDebit(Debit debit)
+        {
+            return dbContext.SaveChanges();
         }
     }
 }

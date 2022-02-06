@@ -7,6 +7,8 @@ using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -200,7 +202,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
       
         public List<ExpenditureVM> GetListExpenditure(int id)
         {
-            
+            //Personel harcamalarını listelerken
             List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
             
             if (expenditures != null)
@@ -300,6 +302,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             Debit debit = GetDebitById(id);
             debit.DescofRejec = employeeDebitVM.DescofRejec;
+            debit.IsAproved = false;
             return employeeRepository.ChangeRejectedDebit(debit);
         }
 
@@ -321,7 +324,6 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 return 0;
             }
         }       
-
 
         public int RemoveDocument(int id)
         {
@@ -378,6 +380,84 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 DocumentName = fileName
             };
             return employeeRepository.AddExpenditureDocument(document);
+        }
+
+        public int ChangePassword(int id, EmployeePasswordVM employeePasswordVM)
+        {
+            Employee employee = employeeRepository.FindEmployee(id);
+            if (employee!=null)
+            {
+                if (employee.Password == employeePasswordVM.OldPassword)
+                {
+                    if (employeePasswordVM.NewPassword==employeePasswordVM.AgainNewPassword)
+                    {
+                        employee.Password = employeePasswordVM.NewPassword;
+                        return employeeRepository.ChangesPassword(employee);
+                    }
+                    else
+                    {
+                        throw new Exception("Girdiğiniz şifreler uyuşmamaktadır.");
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("Girilen şifre yanlıştır.Lütfen tekrar deneyiniz");
+                }
+            }
+            else
+            {
+                throw new Exception("Bir hata oluştu");
+            }
+        }
+
+        public Employee GetEmployeeByMail(string email)
+        {
+            Employee employee = employeeRepository.GetEmployeeByMail(email);
+            if (employee!=null)
+            {
+                Guid rastgele = Guid.NewGuid();
+                employee.Password = rastgele.ToString().Substring(0, 8);
+                if (employeeRepository.AddPassword(employee)>0)
+                {
+                    Employee employee1 = employeeRepository.GetEmployeeByMail(email);
+                    MailMessage msg = new MailMessage();
+                    msg.Subject = "Şifre Sıfırlama talebi.";
+                    msg.From = new MailAddress("redteamproject@outlook.com");
+                    msg.To.Add(new MailAddress(employee.Email));
+                    msg.IsBodyHtml = true;
+                    msg.Body = $"<h1 style='font-size:28px;font-weight:300;line-height:150%;margin:0;text-align:center;color:black;background-color:inherit'>Merhabalar</h1>Sayın { employee.FullName} Şifreniz değiştirilmiştir.<br/> Şifreniz {employee1.Password}";
+
+                    SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
+                    NetworkCredential AccountInfo = new NetworkCredential("redteamproject@outlook.com", "123toci123");
+                    smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
+                    smtp.Credentials = AccountInfo;
+                    smtp.EnableSsl = true;
+                    smtp.Send(msg);
+
+                }
+                else
+                {
+                    throw new Exception("Bir hata oluştu.");
+                }
+            }
+            return null;
+        }       
+
+        public List<Expenditure> GetExpenditureListForManager(int id)
+        {
+            return employeeRepository.GetExpenditureListForManager(id);
+        }
+
+        public int GetAcceptDebitBy(int id)
+        {
+            Debit debit = employeeRepository.GetRejectedDebitById(id);
+            if (debit!=null)
+            {
+                debit.IsAproved = true;
+                return employeeRepository.AcceptDebit(debit);
+            }
+            return  0;
         }
     }
         

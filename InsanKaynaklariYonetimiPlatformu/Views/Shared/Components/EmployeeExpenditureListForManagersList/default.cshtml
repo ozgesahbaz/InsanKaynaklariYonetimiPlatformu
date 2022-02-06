@@ -1,5 +1,4 @@
-﻿@model List<ExpenditureVM>
-
+﻿@model List<EmployeesExpenditureVM>
 <div asp-validation-summary="All"></div>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -7,18 +6,15 @@
             <tr>
                 <th>Harcama Adı</th>
                 <th>Harcama Tutarı</th>
-                <th>Harcama Detayı</th>
-                <th>Harcama Dosyası</th>
-
+                <th>Detaylar</th>
+                <th>Harcama Belgeleri</th>
                 <th>Onay Durumu</th>
-                <th>Sil</th>
-
-
+                <th>Onay Durumunu Değiştir</th>
 
             </tr>
         </thead>
         <tbody>
-            @foreach (ExpenditureVM expenditureVM in Model)//
+            @foreach (EmployeesExpenditureVM expenditureVM in Model)
             {
                 <tr>
                     <td>@expenditureVM.ExpenditureName</td>
@@ -33,21 +29,26 @@
                     <td class="text-center">
                         @if (expenditureVM.isAproved == null)
                         {
-                            <i class="btn btn-outline-info far fa-clock"></i>
-
+                            <i class="btn btn-warning fas fa-clock disabled"></i>
                         }
                         else if (expenditureVM.isAproved == true)
                         {
-                            <i class="btn btn-outline-info far fa-check-circle"></i>
+                            <i class="btn btn-success fas fa-check-circle disabled"></i>
                         }
-                        else if (expenditureVM.isAproved == false)
+                        else
                         {
-                            <i class="btn btn-outline-info far fa-times-circle"></i>
+                            <i class="btn btn-danger fas fa-times-circle disabled"></i>
+
                         }
+                    </td>
                     <td class="text-center">
-                        <a asp-controller="Employee" asp-action="DeletedExpenditure" asp-route-id="@expenditureVM.ID">
-                            <i class="btn btn-danger far fa-trash-alt"></i>
-                        </a>
+                        @if (expenditureVM.isAproved == null)
+                        {
+                            <a asp-controller="Manager" asp-action="ExpenditureUpdated" asp-route-id="@expenditureVM.ID">
+                                <i class="btn btn-success fas fa-edit"></i>
+                            </a>
+
+                        }
 
                     </td>
 
@@ -57,4 +58,3 @@
         </tbody>
     </table>
 </div>
-

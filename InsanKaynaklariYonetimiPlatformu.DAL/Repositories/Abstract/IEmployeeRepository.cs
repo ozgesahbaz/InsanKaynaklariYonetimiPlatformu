@@ -42,5 +42,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int DeletedDocument(int id);
         List<ExpenditureDocument> GetExpenditureDocumentById(int id);
         int AddExpenditureDocument(ExpenditureDocument document);
+        Employee FindEmployee(int id);
+        int ChangesPassword(Employee employee);
+        Employee GetEmployeeByMail(string email);
+        int AddPassword(Employee employee);
+      
+        List<Expenditure> GetExpenditureListForManager(int id);
+        int AcceptDebit(Debit debit);
     }
 }

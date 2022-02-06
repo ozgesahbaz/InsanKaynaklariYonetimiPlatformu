@@ -1,5 +1,6 @@
 ﻿using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.Entity.Enums;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         bool ManagerApproval(int id);
         Company FindCompany(int companyId);
         List<ManagersDebitVM> GetListManagersDebit(int id);
+        List<ManagerExpenditureDocumentVM> GetExpenditureDocument(int id);
+        List<ManagerExpenditureVM> GetListManagerExpenditure(int id);
         List<ManagersPermissionVM> GetPermissionListManagers(int id);
         List<DebitVM> GetListDebit(int id);
 
@@ -59,6 +62,16 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int RemoveComment(int id);
 
         bool UpdatePremium(EditPremiumVm editPremiumVm, int id);
-
+        int AddManagerExpenditure(int id, ManagerExpenditureVM managerExpenditureVM);
+        int RemoveExpenditure(int id);
+        int AddDocumentByExpenditureID(int id, string documentPath, string fileName);
+        bool AnyFilePath(string filepath);
+        Manager GetManagerByMail(string email);
+        
+        int UpdateExpenditure(EmployeesExpenditureVM employeesExpenditureVM);
+        int RemoveEmployeeExpenditure(int id);
+        List<EmployeesExpenditureVM> GetEmployeeExpenditureList(int id);
+        EmployeesExpenditureVM GetExpenditureByID(int id);
+        int UpdateByExpenditure(int id, EmployeesExpenditureVM employeesExpenditureVM);
     }
 }

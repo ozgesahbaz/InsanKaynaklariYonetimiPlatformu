@@ -17,6 +17,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
             Permissions = new HashSet<Permission>();
             Expenditures = new HashSet<Expenditure>();
             Debits = new HashSet<Debit>();
+           
         }
 
         public int ManagerId { get; set; }
@@ -35,6 +36,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
         public virtual ICollection<Permission> Permissions { get; set; }
         public virtual ICollection<Expenditure> Expenditures { get; set; }
         public virtual ICollection<Debit> Debits { get; set; }
+       
 
         public static bool AddComment(Comment comment)
         {
