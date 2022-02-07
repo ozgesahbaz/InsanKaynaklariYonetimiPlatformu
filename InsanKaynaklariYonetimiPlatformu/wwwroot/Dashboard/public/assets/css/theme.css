@@ -57,7 +57,7 @@
 body {
   margin: 0;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 1rem;
+  font-size: 1rem !important;
   font-weight: 400;
   line-height: 1.5;
   color: #778295;
@@ -402,7 +402,7 @@ legend {
 
 @media (min-width: 1200px) {
   legend {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 }
 
@@ -4198,7 +4198,7 @@ fieldset:disabled .btn {
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0;
-  font-size: 1rem;
+  font-size: 1rem !important;
   color: #778295;
   text-align: left;
   list-style: none;
@@ -4454,7 +4454,7 @@ fieldset:disabled .btn {
   display: block;
   padding: 0.5rem 1rem;
   margin-bottom: 0;
-  font-size: 0.875rem;
+  font-size: 0.875rem !important;
   color: #C3BCC4;
   white-space: nowrap;
 }
@@ -4780,13 +4780,13 @@ fieldset:disabled .btn {
   padding-top: -0.046rem;
   padding-bottom: -0.046rem;
   margin-right: 1rem;
-  font-size: calc(1.2978rem + 0.5736vw);
+  font-size: calc(1.2978rem + 0.5736vw) !important;
   white-space: nowrap;
 }
 
 @media (min-width: 1200px) {
   .navbar-brand {
-    font-size: 1.728rem;
+    font-size: 1.728rem !important;
   }
 }
 
@@ -4817,8 +4817,8 @@ fieldset:disabled .btn {
 }
 
 .navbar-text {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .navbar-collapse {
@@ -4834,7 +4834,7 @@ fieldset:disabled .btn {
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
-  font-size: 1.2rem;
+  font-size: 1.2rem !important;
   line-height: 1;
   background-color: transparent;
   border: 1px solid transparent;
