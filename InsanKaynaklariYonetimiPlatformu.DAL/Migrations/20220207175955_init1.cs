@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
-    public partial class initial : Migration
+    public partial class init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,7 +242,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeID = table.Column<int>(type: "int", nullable: true),
                     ManagerID = table.Column<int>(type: "int", nullable: true),
-                    isAproved = table.Column<bool>(type: "bit", nullable: false)
+                    isAproved = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -344,8 +345,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Adminler",
-                columns: new[] { "AdminId", "FullName", "Password", "UserName" },
-                values: new object[] { 1, "Red Team", "admin", "admin@admin.com" });
+                columns: new[] { "AdminId", "Email", "FullName", "Password", "UserName" },
+                values: new object[] { 1, null, "Red Team", "admin", "admin@admin.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dokumanlar_DocumentPath",
