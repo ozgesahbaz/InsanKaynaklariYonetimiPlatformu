@@ -35,9 +35,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
 
 
+<<<<<<< HEAD
                 Employee newEmployee = new Employee();
 
               bool consist = item.Email == employeeVM.Email ? false : true;
+=======
+                
+
+              bool consist =item.Email==employeeVM.Email ? false : true;
+>>>>>>> 2e64ce2c37cd79c6aa479f89a2eac71f1ef93478
                 if (!consist)
 
                 {
@@ -59,7 +65,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         Password = $"123{employeeVM.FullName.ToLower()}".Trim(),
                         Status = employeeVM.Status,
                         Photo = "uploads\\image\\userphoto\\_usernophoto.png",
-                        IsActive = false
+                        IsActive = false,
+                       NetSalary=employeeVM.Salary
                     };
 
                     if (employeeRepository.AddEmployee(newEmployee) > 0)

@@ -32,7 +32,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Display(Name = "İşe Başlama Tarihi")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
-
+        public decimal Salary { get; set; }
 
 
     }
