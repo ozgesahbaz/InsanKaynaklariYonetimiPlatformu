@@ -1,13 +1,13 @@
 ﻿@model List<ShiftDateVM>
-<div class="col-8 pt-5">
-    <div class="container pt-5">
+<div class="col-5 pt-2">
+    <div class="container pt-3">
         <div class="card-header">
             <h4 class="font-weight-bold text-primary text-center">
-                <img src="~/Dashboard/public/assets/img/icons/vacation.png" style="width:32px; height:32px;" />
+                <img src="~/MAP Page/img/shift.png" style="width:32px; height:32px;" />
                 Vardiyalarım
             </h4>
         </div>
-        <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" style="overflow-y:scroll">
+        <table class="m-0 table border-left-warning table-bordered  dataTable" id="dataTable" style="overflow-y:scroll">
             <thead>
                 <tr role="row" class="border-bottom-warning">
                     <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Personel Adı</th>
@@ -18,27 +18,26 @@
                     <th class="border-bottom-warning" style="width: 67px; height: 10px;">Vardiya Bitiş Saati</th>
                     <th class="border-bottom-warning" style="width: 67px; height: 10px;">Vardiya Bitiş Tarihi</th>
 
-                    
+
                 </tr>
             </thead>
             <tbody>
                 @foreach (ShiftDateVM item in Model)
                 {
-                <tr class="border-bottom-warning">
-                    <td>@item.FullName</td>
-                    <td>@item.ShiftStartTime.ToShortDateString()</td>
-                    <td>@item.ShiftStartTime.ToShortTimeString()</td>
-                    <td>@item.RespiteStartTime.ToShortTimeString()</td>
-                    <td>@item.RespiteFinishTime.ToShortTimeString()</td>
-                    <td>@item.ShiftFinishTime.ToShortTimeString()</td>
-                    <td>@item.ShiftFinishTime.ToShortDateString()</td>
+                    <tr class="border-bottom-warning">
+                        <td>@item.FullName</td>
+                        <td>@item.ShiftStartTime.ToShortDateString()</td>
+                        <td>@item.ShiftStartTime.ToShortTimeString()</td>
+                        <td>@item.RespiteStartTime.ToShortTimeString()</td>
+                        <td>@item.RespiteFinishTime.ToShortTimeString()</td>
+                        <td>@item.ShiftFinishTime.ToShortTimeString()</td>
+                        <td>@item.ShiftFinishTime.ToShortDateString()</td>
 
-
-                    <td>1 Gün</td>
-                </tr>
+                    </tr>
                 }
 
 
             </tbody>
         </table>
     </div>
+</div>
