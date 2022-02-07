@@ -14,59 +14,63 @@
             <div class="col-xl-9">
                 <div class="carousel slide" data-bs-ride="carousel" id="carouselTestimonials">
                     <div class="carousel-inner">
-                        @foreach (CommentVM item in Model)
+                        @if (Model != null)
                         {
-                            if (i == 1)
+
+                            @foreach (CommentVM item in Model)
                             {
-                                <div class="carousel-item active" data-bs-interval="10000">
-                                    <div class="row justify-content-center">
-                                        <div class="col-12 mb-2">
-                                            <div class="card shadow card-span p-3">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="img-fluid" src="~/@item.ManagerPhoto" height="60" width="60" />
-                                                        <div class="flex-1 ms-2">
-                                                            <h6 class="fw-light fs-lg-1 mb-1">@item.ManagerFullName</h6>
-                                                            <p class="fw-normal mb-0 text-800">Şirket Yöneticisi</p>
+                                if (i == 1)
+                                {
+                                    <div class="carousel-item active" data-bs-interval="10000">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 mb-2">
+                                                <div class="card shadow card-span p-3">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <img class="img-fluid" src="~/@item.ManagerPhoto" height="60" width="60" />
+                                                            <div class="flex-1 ms-2">
+                                                                <h6 class="fw-light fs-lg-1 mb-1">@item.ManagerFullName</h6>
+                                                                <p class="fw-normal mb-0 text-800">Şirket Yöneticisi</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div>
-                                                        <p class="mb-0 mt-2 fw-light lh-lg">@item.Comment ...</p>
-                                                        <button class="btn btn-primary btn-sm order-0" type="button" asp-controller="Home" asp-action="CustomerComment">Detay</button>
+                                                        <div>
+                                                            <p class="mb-0 mt-2 fw-light lh-lg">@item.Comment ...</p>
+                                                            <button class="btn btn-primary btn-sm order-0" type="button" asp-controller="Home" asp-action="CustomerComment">Detay</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
-
                                     </div>
-                                </div>
-                                @(i++);
-                            }
-                            else
-                            {
+                                    @(i++);
+                                }
+                                else
+                                {
 
-                                <div class="carousel-item" data-bs-interval="5000">
-                                    <div class="row justify-content-center">
-                                        <div class="col-12 mb-2">
-                                            <div class="card shadow card-span p-3">
-                                                <div class="card-body">
-                                                    <div class="d-flex align-items-center">
-                                                        <img class="img-fluid" src="~/@item.ManagerPhoto" height="60" width="60" alt="Müşterilerimiz" />
-                                                        <div class="flex-1 ms-2">
-                                                            <h6 class="fw-light fs-lg-1 mb-1">@item.ManagerFullName</h6>
-                                                            <p class="fw-normal mb-0 text-800">Şirket Yöneticisi</p>
+                                    <div class="carousel-item" data-bs-interval="5000">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 mb-2">
+                                                <div class="card shadow card-span p-3">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center">
+                                                            <img class="img-fluid" src="~/@item.ManagerPhoto" height="60" width="60" alt="Müşterilerimiz" />
+                                                            <div class="flex-1 ms-2">
+                                                                <h6 class="fw-light fs-lg-1 mb-1">@item.ManagerFullName</h6>
+                                                                <p class="fw-normal mb-0 text-800">Şirket Yöneticisi</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div>
-                                                        <p class="mb-0 mt-2 fw-light lh-lg">@item.Comment ... </p>
-                                                        <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                        <div>
+                                                            <p class="mb-0 mt-2 fw-light lh-lg">@item.Comment ... </p>
+                                                            <button class="btn btn-primary btn-sm order-0" asp-controller="Home" asp-action="index">Detay</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             }
                         }
 
@@ -76,20 +80,23 @@
                     <div class="col-auto position-relative z-index-2">
                         <ol class="carousel-indicators">
 
-                            @foreach (CommentVM item in Model)
+                            @if (Model != null)
                             {
-                                if (x == 1)
+                                @foreach (CommentVM item in Model)
                                 {
-                                    <li class="active mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="@(x-1)"></li>
-                                    @(x++);
-                                }
-                                else
-                                {
-                                    <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="@(x-1)"></li>
-                                    @(x++);
+                                    if (x == 1)
+                                    {
+                                        <li class="active mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="@(x - 1)"></li>
+                                        @(x++);
+                                    }
+                                    else
+                                    {
+                                        <li class="mx-2" data-bs-target="#carouselTestimonials" data-bs-slide-to="@(x - 1)"></li>
+                                        @(x++);
+
+                                    }
 
                                 }
-
                             }
 
                         </ol>

@@ -30,12 +30,12 @@
                                 <div asp-validation-summary="All"></div>
                                 <div class="form-group">
                                     <label asp-for="FullName"></label>
-                                    <input type="text"  class="form-control " asp-for="FullName" onkeypress="return isHarfKey(event)">
+                                    <input type="text"  class="form-control " asp-for="FullName" onkeypress="return isHarfKey(event)" title="Lütfen sayı veya özel karakter girmeyin.">
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="Status"></label>
-                                    <input type="text" pattern="[A-Za-z]*" title="Sadece Harf girin" class="form-control " asp-for="Status" onkeypress="return isHarfKey(event)">
+                                    <input type="text" pattern="[A-Za-z]*" title="Lütfen sayı veya özel karakter girmeyin." class="form-control " asp-for="Status" onkeypress="return isHarfKey(event)">
                                 </div>
 
                                 <div class="form-group">
@@ -69,7 +69,7 @@
             </div>
         </div>
     </div>
-      @section Scripts{
+      @*@section Scripts{
 
             <script type="text/javascript">
                    function isHarfKey(evt) 
@@ -81,7 +81,7 @@
                }
              
             </script>
-            }
+            }*@
 
     <div class="card-body">
         @await Component.InvokeAsync("EmployeeList", new { id = id })

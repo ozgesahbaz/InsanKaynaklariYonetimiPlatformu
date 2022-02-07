@@ -29,24 +29,24 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             int consistEmployee = 0;
             foreach (Employee item in employees)
             {
-<<<<<<< HEAD
+
                 ContainsSymbolorNumber(employeeVM.FullName);
                 ContainsSymbolorNumber(employeeVM.Status);
 
 
 
-                Employee newEmployee = new Employee
-=======
-              bool  consist =item.Email==employeeVM.Email ? false : true;
+                Employee newEmployee = new Employee();
+
+              bool consist = item.Email == employeeVM.Email ? false : true;
                 if (!consist)
->>>>>>> aca93f99537c7e670396ef411a2c63a42d27cf0f
+
                 {
                     consistEmployee++;
                 }
             }
-            if (consistEmployee==0)
+            if (consistEmployee == 0)
             {
-            //şirket uzantısı doğru mu
+                //şirket uzantısı doğru mu
                 if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
                 {
                     Employee newEmployee = new Employee
@@ -76,11 +76,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 else
                 {
                     throw new Exception("Çalışan mail uzantısı şirket mail uzantısı ile aynı olmalıdır.");
-                } 
+                }
             }
             else
             {
-                throw   new Exception("Daha önce bu kullanıcı eklenmiş");
+                throw new Exception("Daha önce bu kullanıcı eklenmiş");
             }
 
 
@@ -243,7 +243,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public List<ExpenditureVM> GetListExpenditure(int id)
         {
-            
+
             List<Expenditure> expenditures = employeeRepository.GetListExpenditure(id);
 
             if (expenditures != null)
@@ -400,7 +400,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         ExpenditureId = (int)expenditure.ExpenditureId,
                         FilePath = expenditure.DocumentPath,
                         fileName = expenditure.DocumentName
-                   
+
 
                     };
                     documentsVMs.Add(documentsVM);
@@ -426,11 +426,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int ChangePassword(int id, EmployeePasswordVM employeePasswordVM)
         {
             Employee employee = employeeRepository.FindEmployee(id);
-            if (employee!=null)
+            if (employee != null)
             {
                 if (employee.Password == employeePasswordVM.OldPassword)
                 {
-                    if (employeePasswordVM.NewPassword==employeePasswordVM.AgainNewPassword)
+                    if (employeePasswordVM.NewPassword == employeePasswordVM.AgainNewPassword)
                     {
                         employee.Password = employeePasswordVM.NewPassword;
                         return employeeRepository.ChangesPassword(employee);
@@ -455,11 +455,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Employee GetEmployeeByMail(string email)
         {
             Employee employee = employeeRepository.GetEmployeeByMail(email);
-            if (employee!=null)
+            if (employee != null)
             {
                 Guid rastgele = Guid.NewGuid();
                 employee.Password = rastgele.ToString().Substring(0, 8);
-                if (employeeRepository.AddPassword(employee)>0)
+                if (employeeRepository.AddPassword(employee) > 0)
                 {
                     Employee employee1 = employeeRepository.GetEmployeeByMail(email);
                     MailMessage msg = new MailMessage();
@@ -483,7 +483,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 }
             }
             return null;
-        }       
+        }
 
         public List<Expenditure> GetExpenditureListForManager(int id)
         {
@@ -493,15 +493,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public int GetAcceptDebitBy(int id)
         {
             Debit debit = employeeRepository.GetRejectedDebitById(id);
-            if (debit!=null)
+            if (debit != null)
             {
                 debit.IsAproved = true;
                 return employeeRepository.AcceptDebit(debit);
             }
-            return  0;
+            return 0;
         }
     }
-    
+
 }
-    
+
 
