@@ -30,12 +30,15 @@
                                 <div asp-validation-summary="All"></div>
                                 <div class="form-group">
                                     <label asp-for="FullName"></label>
-                                    <input type="text"  class="form-control " asp-for="FullName" onkeypress="return isHarfKey(event)">
+                                    <input type="text"  class="form-control " asp-for="FullName" onkeypress="return isHarfKey(event)" title="Lütfen sayı veya özel karakter girmeyin.">
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="Status"></label>
+
+
                                     <input type="text"  class="form-control " asp-for="Status" onkeypress="return isHarfKey(event)">
+
                                 </div>
 
                                 <div class="form-group">
