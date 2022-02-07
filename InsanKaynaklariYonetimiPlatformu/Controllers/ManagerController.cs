@@ -67,7 +67,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (DateTime.Now.Year-employeeVM.BirtDay.Year<18)
+                if (DateTime.Now.Year - employeeVM.BirtDay.Year < 18)
                 {
                     throw new Exception("18 yaşından küçük çalışan ekleyemezsiniz.");
                 }
@@ -172,7 +172,12 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ModelState.AddModelError("Exception", ex.Message);
             }
             //Ekleme yapamazsa sayfaya geri döndür hatayı gösteriyor.
-            return View();
+            List<Employee> employees = employeeService.GetListEmployees(id);
+            AddEmployeesDebitVM debitforEmployees = new AddEmployeesDebitVM()
+            {
+                Employees = employees
+            };
+            return View(debitforEmployees);
 
 
         }
@@ -290,7 +295,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 }
                 if (managerService.AddPermissionEmployee(permissionVM, id) > 0)
                 {
-                    return RedirectToAction("EmployeesPermissionRequest", "Manager");
+                    return RedirectToAction("EmployeesPermissionRequest");
                 }
                 else
                 {
@@ -303,7 +308,13 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ModelState.AddModelError("exception", ex.Message);
 
             }
-            return View();
+            List<Employee> employees = employeeService.GetListEmployees(id);
+            AddEmployeesPermissionVM permissionforEmployees = new AddEmployeesPermissionVM()
+            {
+                Employees = employees
+            };
+            return View(permissionforEmployees);
+
         }
         public IActionResult PermissionUpdated(int id)
         {
@@ -419,7 +430,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(shiftDetailsVM);
         }
         [HttpPost]
-        [ActionName("ShiftDetails")] 
+        [ActionName("ShiftDetails")]
         public IActionResult Post(ShiftDetailsVM shiftDetailsVM, int id)
         {
             managerService.AddShiftDetails(shiftDetailsVM, id);
@@ -479,7 +490,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 return RedirectToAction("ShiftDetails");
             }
 
-        }       
+        }
         [HttpGet]
         public IActionResult ManagersPermission(int id)
         {
@@ -548,7 +559,12 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             }
 
-            return View();
+            ManagersPermissionVM permissionVM1 = managerService.UpdatePermissionManager(id);
+
+
+
+            return View(permissionVM1);
+
         }
         public IActionResult DeletedDebit(int id)
         {
@@ -634,24 +650,25 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return View(documentVMd);
         }
-        [HttpGet]       
+        [HttpGet]
         public IActionResult GetEditPremiumModel(int id)
-        { EditPremiumVm editPremiumVm = new EditPremiumVm()
         {
-            EmployeeID = id,
-            Employee = employeeService.GetEmployeeById(id),
-            Salary = employeeService.GetSalarybyEmployeeId(id),
-            PremiumRate = employeeService.GetPremiumRateByEmployeeId(id),
-            NetSalary = employeeService.GetNetSalaryByEmployeeId(id),
-        };
+            EditPremiumVm editPremiumVm = new EditPremiumVm()
+            {
+                EmployeeID = id,
+                Employee = employeeService.GetEmployeeById(id),
+                Salary = employeeService.GetSalarybyEmployeeId(id),
+                PremiumRate = employeeService.GetPremiumRateByEmployeeId(id),
+                NetSalary = employeeService.GetNetSalaryByEmployeeId(id),
+            };
             return View(editPremiumVm);
         }
-        [HttpPost]       
-        public IActionResult PostEditPremiumModel(EditPremiumVm  editPremiumVm,int id)
+        [HttpPost]
+        public IActionResult PostEditPremiumModel(EditPremiumVm editPremiumVm, int id)
         {
             if (managerService.UpdatePremium(editPremiumVm, id))
             {
-            return RedirectToAction("ManagersEmployees");
+                return RedirectToAction("ManagersEmployees");
 
             }
             throw new Exception("Güncelleme başarısız oldu");
@@ -857,7 +874,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult Comment(int id)
         {
-             id = HttpContext.Session.GetInt32("ID").Value;
+            id = HttpContext.Session.GetInt32("ID").Value;
             try
             {
                 Manager manager = managerService.GetCommentByManagerId(id);
@@ -898,7 +915,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.AddComment(commentVM ,id))
+                if (managerService.AddComment(commentVM, id))
                 {
                     return RedirectToAction("Comment");
                 }
@@ -919,7 +936,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (managerService.RemoveComment(id)>0)
+                if (managerService.RemoveComment(id) > 0)
                 {
                     return RedirectToAction("Comment");
                 }
@@ -937,16 +954,16 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ManagerExpenditureList(int id) 
+        public IActionResult ManagerExpenditureList(int id)
         {
             return View();
         }
         [HttpPost]
-        public IActionResult ManagerExpenditureList(int id , ManagerExpenditureVM managerExpenditureVM) 
+        public IActionResult ManagerExpenditureList(int id, ManagerExpenditureVM managerExpenditureVM)
         {
             try
             {
-                if (managerService.AddManagerExpenditure(id, managerExpenditureVM)<1)
+                if (managerService.AddManagerExpenditure(id, managerExpenditureVM) < 1)
                 {
                     throw new Exception("Bir Hata Oluştu");
                 }
@@ -977,7 +994,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
         [HttpGet]
         public IActionResult EmployeeExpenditure(int id)
-        {          
+        {
 
             return View();
         }
@@ -986,8 +1003,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                 
-                if (managerService.UpdateByExpenditure(id, employeesExpenditureVM)<1)
+
+                if (managerService.UpdateByExpenditure(id, employeesExpenditureVM) < 1)
                 {
                     throw new Exception("Henüz harcama isteği bulunmamakta");
                 }
@@ -995,7 +1012,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 {
                     return RedirectToAction("EmployeeExpenditure");
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -1005,7 +1022,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult ManagerExpenditureDocument (int id) 
+        public IActionResult ManagerExpenditureDocument(int id)
         {
             AddManagerExpenditureDocumentVM addManagerExpenditureDocumentVM = new AddManagerExpenditureDocumentVM()
             {
@@ -1014,7 +1031,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View(addManagerExpenditureDocumentVM);
         }
         [HttpPost]
-        public IActionResult ManagerExpenditureDocument (int id , AddManagerExpenditureDocumentVM addManagerExpenditureDocumentVM) 
+        public IActionResult ManagerExpenditureDocument(int id, AddManagerExpenditureDocumentVM addManagerExpenditureDocumentVM)
         {
             try
             {
@@ -1095,7 +1112,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             }
             return RedirectToAction("EmployeeExpenditure");
-          
+
         }
         //[HttpGet]
         //public IActionResult ExpenditureReject (int id) 
@@ -1141,11 +1158,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         //    }
         //    return RedirectToAction("EmployeeExpenditure");
         //}
-        public IActionResult DeleteEmployeeExpenditure(int id) 
+        public IActionResult DeleteEmployeeExpenditure(int id)
         {
             try
             {
-                if (managerService.RemoveEmployeeExpenditure(id)<1)
+                if (managerService.RemoveEmployeeExpenditure(id) < 1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
