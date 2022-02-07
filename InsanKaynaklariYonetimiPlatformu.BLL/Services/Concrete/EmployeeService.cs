@@ -29,8 +29,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             ContainsSymbolorNumber(employeeVM.FullName);
             ContainsSymbolorNumber(employeeVM.Status);
             Employee employee = employeeRepository.GetEmployeeByMail(employeeVM.Email);
-        
-            if (employee==null)
+
+            if (employee == null)
             {
                 //şirket uzantısı doğru mu
                 if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
@@ -46,7 +46,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         Status = employeeVM.Status,
                         Photo = "uploads\\image\\userphoto\\_usernophoto.png",
                         IsActive = false,
-                        NetSalary=employeeVM.Salary
+                        NetSalary = employeeVM.Salary
                     };
 
                     if (employeeRepository.AddEmployee(newEmployee) > 0)
@@ -180,23 +180,30 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM)
         {
-            Employee employee = employeeRepository.GetEmployeeById(id);
-            if (employee != null)
+            if (permissionVM.StartDate > permissionVM.FinishDate)
             {
-                Permission permission = new Permission()
-                {
-                    EmployeeId = id,
-                    StartDate = permissionVM.StartDate,
-                    FinishDate = permissionVM.FinishDate,
-                    isAproved = null,
-                    PermissionType = permissionVM.PermissionType,
-                    ManagerId = employee.ManagerId
-                };
-
-                return employeeRepository.AddPermission(permission);
-
+                throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
             }
-            return 0;
+            else
+            {
+                Employee employee = employeeRepository.GetEmployeeById(id);
+                if (employee != null)
+                {
+                    Permission permission = new Permission()
+                    {
+                        EmployeeId = id,
+                        StartDate = permissionVM.StartDate,
+                        FinishDate = permissionVM.FinishDate,
+                        isAproved = null,
+                        PermissionType = permissionVM.PermissionType,
+                        ManagerId = employee.ManagerId
+                    };
+
+                    return employeeRepository.AddPermission(permission);
+
+                }
+                return 0;
+            }
 
 
         }

@@ -20,12 +20,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
     {
         IManagerRepository managerRepository;
         IEmployeeRepository employeeRepository;
-        public ManagerService(IManagerRepository _managerRepository,IEmployeeRepository _employeeRepository)
+        public ManagerService(IManagerRepository _managerRepository, IEmployeeRepository _employeeRepository)
         {
             managerRepository = _managerRepository;
             employeeRepository = _employeeRepository;
 
-        }     
+        }
 
         public Company AddCompany(string companyName, string managerMail, MembershipType membership, string address)
         {
@@ -274,7 +274,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 respite.RespiteFinishTime = ShiftDetailsVM.RespiteFinishTime;
                 respite.RespiteStartTime = ShiftDetailsVM.RespiteStartTime;
 
-              bool isadded= managerRepository.addRespitebyShiftID(respite)? true: false;
+                bool isadded = managerRepository.addRespitebyShiftID(respite) ? true : false;
                 return isadded;
 
 
@@ -335,20 +335,28 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddManagersPermission(int id, ManagersPermissionVM permissionVM)
         {
-            Permission permission = new Permission()
+            if (permissionVM.StartDate > permissionVM.FinishDate)
             {
-                StartDate = permissionVM.StartDate,
-                PermissionType = permissionVM.PermissionType,
-                FinishDate = permissionVM.FinishDate,
-                ManagerId = id,
-                EmployeeId = null,
-                isAproved = true,
-            };
-            return managerRepository.AddPermissionManager(permission);
-        }
+                throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
+            }
+            else
+            {
+                Permission permission = new Permission()
+                {
+                    StartDate = permissionVM.StartDate,
+                    PermissionType = permissionVM.PermissionType,
+                    FinishDate = permissionVM.FinishDate,
+                    ManagerId = id,
+                    EmployeeId = null,
+                    isAproved = true,
+                };
+                return managerRepository.AddPermissionManager(permission);
 
+            }
+        }
         public ManagersPermissionVM UpdatePermissionManager(int id)
         {
+
             Permission permission = managerRepository.GetPermissionById(id);
             ManagersPermissionVM permissionVM = new ManagersPermissionVM()
             {
@@ -363,12 +371,24 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int UpdatePermissionManager(int id, ManagersPermissionVM permissionVM)
         {
-            Permission permission = managerRepository.GetPermissionById(id);
-            permission.PermissionType = permissionVM.PermissionType;
-            permission.StartDate = permissionVM.StartDate;
-            permission.FinishDate = permissionVM.FinishDate;
+            if (permissionVM.StartDate > permissionVM.FinishDate)
+            {
+                throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
+            }
+            else
+            {
+                Permission permission = managerRepository.GetPermissionById(id);
+                if (permissionVM.PermissionType != null)
+                {
+                    permission.PermissionType = permissionVM.PermissionType;
 
-            return managerRepository.UpdatePermissionManager(permission);
+                }
+                permission.StartDate = permissionVM.StartDate;
+                permission.FinishDate = permissionVM.FinishDate;
+
+                return managerRepository.UpdatePermissionManager(permission);
+            }
+
         }
 
         public int RemoveDebit(int id)
@@ -550,7 +570,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Manager GetCommentByManagerId(int id)
         {
             Manager manager = managerRepository.GetCommentByManagerId(id);
-            if (manager!=null)
+            if (manager != null)
             {
                 return manager;
             }
@@ -583,9 +603,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public bool UpdatePremium(EditPremiumVm editPremiumVm, int id)
         {
-            Employee employee= employeeRepository.GetEmployeeById(id);
-             employee.Salary = editPremiumVm.Salary;
-            employee.PremiumRate=editPremiumVm.PremiumRate;
+            Employee employee = employeeRepository.GetEmployeeById(id);
+            employee.Salary = editPremiumVm.Salary;
+            employee.PremiumRate = editPremiumVm.PremiumRate;
             employee.NetSalary = editPremiumVm.NetSalary;
             if (employeeRepository.UpdateEmployee4Salary(employee))
             {
@@ -601,7 +621,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<ManagerExpenditureVM> GetListManagerExpenditure(int id)
         {
             List<Expenditure> expenditures = managerRepository.GetManagerExpenditureList(id);
-            if (expenditures!=null)
+            if (expenditures != null)
             {
                 List<ManagerExpenditureVM> managerExpenditureVMs = new List<ManagerExpenditureVM>();
                 foreach (Expenditure expenditure in expenditures)
@@ -645,7 +665,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public List<ManagerExpenditureDocumentVM> GetExpenditureDocument(int id)
         {
             List<ExpenditureDocument> expenditureDocuments = managerRepository.GetExpenditureDocumentById(id);
-            if (expenditureDocuments!=null)
+            if (expenditureDocuments != null)
             {
                 List<ManagerExpenditureDocumentVM> managerExpenditureDocumentVMs = new List<ManagerExpenditureDocumentVM>();
                 foreach (ExpenditureDocument expenditure in expenditureDocuments)
@@ -685,11 +705,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         public Manager GetManagerByMail(string email)
         {
             Manager manager = managerRepository.GetManagerByMail(email);
-            if (manager!=null)
+            if (manager != null)
             {
                 Guid rastgele = Guid.NewGuid();
                 manager.Password = rastgele.ToString().Substring(0, 8);
-                if (managerRepository.AddPassword(manager)>0)
+                if (managerRepository.AddPassword(manager) > 0)
                 {
                     Manager manager1 = managerRepository.GetManagerByMail(email);
                     MailMessage msg = new MailMessage();
@@ -740,7 +760,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             //expenditure.ExpenditureAmount = employeesExpenditureVM.ExpenditureAmount;
             //expenditure.Details = employeesExpenditureVM.Details;
             expenditure.isAproved = employeesExpenditureVM.isAproved;
-                        
+
             return managerRepository.UpdatedExpenditure(expenditure);
         }
 
@@ -754,7 +774,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
         {
             List<Expenditure> expenditures = managerRepository.GetEmployeeExpenditureList(id);
             List<EmployeesExpenditureVM> employeesExpenditureVMs = new List<EmployeesExpenditureVM>();
-            if (expenditures!=null)
+            if (expenditures != null)
             {
                 foreach (Expenditure expenditure in expenditures)
                 {
@@ -771,13 +791,13 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 }
             }
             return employeesExpenditureVMs;
-            
+
         }
 
         public int UpdateByExpenditure(int id, EmployeesExpenditureVM employeesExpenditureVM)
         {
             Expenditure expenditure = managerRepository.GetExpenditureById(id);
-            if (expenditure!=null)
+            if (expenditure != null)
             {
                 expenditure.isAproved = employeesExpenditureVM.isAproved;
                 return managerRepository.UpdatedExpenditure(expenditure);
