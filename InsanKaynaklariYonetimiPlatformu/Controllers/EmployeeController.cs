@@ -173,7 +173,24 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         
         
         }
+        [HttpGet]
+        public IActionResult AcceptDebit(int id) 
+        {
+            try
+            {
+                if (employeeService.GetAcceptDebitBy(id)<1)
+                {
+                    throw new Exception("Bİr hata oluştu");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("exception", ex.Message);
+            }
+            return RedirectToAction("EmployeesDebit");
 
+        }
+       
         [HttpPost]
         public IActionResult ExpenditureList(int id, ExpenditureVM expenditureVM)
         {
@@ -374,8 +391,34 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             return RedirectToAction("ExpenditureDocuments");
         }
-        
+        [HttpGet]
+        public IActionResult ChangePassword(int id) 
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangePassword (int id, EmployeePasswordVM employeePasswordVM) 
+        {
+            try
+            {
+                if (employeeService.ChangePassword(id, employeePasswordVM) < 1)
+                {
+                    throw new Exception("Bir hata oluştu");
+                }
+                else
+                {
+                    throw new Exception("Şifreniz başarılı bir şekilde değiştirildi.");
+                }
+            }
+            catch (Exception ex)
+            {
 
+                ModelState.AddModelError("exception", ex.Message);
+
+            }
+            return View();
+
+        }
     }
 
 }

@@ -14,5 +14,6 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public DateTime BirtDay { get; set; }
         public DateTime StartDate { get; set; }
         public bool IsActive { get; set; }
+        public decimal Salary { get; set; }
     }
 }

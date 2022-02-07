@@ -18,38 +18,42 @@
         <tbody>
             @foreach (EmployeeDebitVM debit in Model)
             {
-            <tr>
-                <td>@debit.DebitName</td>
-                <td>@debit.Details</td>
-                <td>@debit.StartedDate.ToShortDateString()</td>
-                <td>@debit.DescofRejec</td>
-                <td>@debit.IsAproved</td>
+                <tr>
+                    <td>@debit.DebitName</td>
+                    <td>@debit.Details</td>
+                    <td>@debit.StartedDate.ToShortDateString()</td>
+                    <td>@debit.DescofRejec</td>
+                    <td>@debit.IsAproved</td>
 
 
-                @*<td class="text-center">
-                    @if (debit.IsAproved == false)
-            {
-                <i class="btn btn-danger far fa-times-circle"></i>
-            }
-            else
-            {
-                <i class="btn btn-success fas fa-edit"></i>
-            }
+                    @*<td class="text-center">
+                                @if (debit.IsAproved == false)
+                        {
+                            <i class="btn btn-danger far fa-times-circle"></i>
+                        }
+                        else
+                        {
+                            <i class="btn btn-success fas fa-edit"></i>
+                        }
 
 
-                </td>*@
+                            </td>*@
                 <td class="text-center">
+                    @if (debit.IsAproved == null)
+                    {
+                        <a asp-controller="Employee" asp-action="AcceptDebit" asp-route-id="@debit.ID">
+                            <i class="btn btn-success fas fa-edit"></i>
+                        </a>
+                        <a asp-controller="Employee" asp-action="RejectedDebit" asp-route-id="@debit.ID">
+                            <i class="btn btn-danger far fa-times-circle"></i>
+                        </a>
 
-                    <a asp-controller="Employee" asp-action="EmployeesDebit" asp-route-id="@debit.ID">
-                <i class="btn btn-success fas fa-edit"></i>
-            </a>
-                    <a asp-controller="Employee" asp-action="RejectedDebit" asp-route-id="@debit.ID">
-                        <i class="btn btn-danger far fa-times-circle"></i>
-                    </a>
+                    }
+
 
                 </td>
 
-            </tr>
+                </tr>
 
             }
         </tbody>

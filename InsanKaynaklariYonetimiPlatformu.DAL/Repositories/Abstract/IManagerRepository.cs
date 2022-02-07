@@ -73,5 +73,19 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         bool AddComment(Comment comment);
         Comment FindComment(int id);
         int RemoveComment(Comment comment);
+        List<Expenditure> GetManagerExpenditureList(int id);
+        Manager GetManagerById(int id);
+        int AddManagerExpenditure(Expenditure expenditure);
+        Expenditure GetExpenditureById(int id);
+        int DeletedExpenditure(Expenditure expenditure);
+        List<ExpenditureDocument> GetExpenditureDocumentById(int id);
+        int AddExpenditureDocument(ExpenditureDocument document);
+        bool AnyFilePath(string filepath);
+        Manager GetManagerByMail(string email);
+        int AddPassword(Manager manager);
+        Expenditure GetEmployeeExpenditureById(int id);
+        int UpdatedExpenditure(Expenditure expenditure);
+        int DeletedEmployeeExpenditure(Expenditure expenditure);
+        List<Expenditure> GetEmployeeExpenditureList(int id);
     }
 }

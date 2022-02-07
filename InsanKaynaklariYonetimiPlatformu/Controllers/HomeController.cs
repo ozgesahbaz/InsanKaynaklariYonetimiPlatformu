@@ -2,6 +2,7 @@
 using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.Models;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,24 +28,19 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             employeeService = _employeeService;
             adminService = _adminService;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-
         public IActionResult CustomerComment()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
         [HttpGet]
         public IActionResult Login()
         {
@@ -88,8 +84,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
             }
             return View();
         }
-
-
         [HttpPost]
         public IActionResult Login(LoginVM Login)
         {
@@ -186,8 +180,6 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
 
 
         }
-
-
         [HttpGet]
         public IActionResult Register()
         {
@@ -199,6 +191,38 @@ namespace InsanKaynaklariYonetimiPlatformu.Controllers
 
             return RedirectToAction("Index", "Home");
 
+        }
+        [HttpGet]
+        public IActionResult ForgetPassword() 
+        {
+            return View();        
+        }
+
+        [HttpPost]
+        public IActionResult ForgetPassword(ForgetVM forgetVM) 
+        { 
+            
+            try
+            {
+                Manager manager = managerService.GetManagerByMail(forgetVM.Email);
+                if (manager== null)
+                {
+                    Employee employee = employeeService.GetEmployeeByMail(forgetVM.Email);
+                    if (employee == null)
+                    {
+                        throw new Exception("Böyle bir kullanıcı bulunamadı");
+                    }
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("Exception", ex.Message);
+            }
+            return View();           
         }
     }
 }

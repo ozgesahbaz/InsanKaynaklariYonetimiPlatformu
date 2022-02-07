@@ -55,10 +55,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 {
                     CommentVM commentVM = new CommentVM()
                     {
-                        Comment = comment.Description,
+                        Comment = comment.Description.Trim(),
                         CommentID = comment.CommentId,
-                        ManagerFullName = comment.Manager.FullName,
-                        ManagerPhoto = comment.Manager.Photo
+                        ManagerFullName = comment.Manager.FullName.Trim(),
+                        ManagerPhoto = comment.Manager.Photo.Trim()
                     };
                     commentVMs.Add(commentVM);
 
@@ -80,9 +80,9 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     ActiveCompanyVM companyVM = new ActiveCompanyVM();
 
                     companyVM.CompanyId = company.CompanyId;
-                    companyVM.CompanyName = company.CompanyName;
+                    companyVM.CompanyName = company.CompanyName.Trim();
                     companyVM.ManagerID = company.Manager.ManagerId;
-                    companyVM.ManagerFullName = company.Manager.FullName;
+                    companyVM.ManagerFullName = company.Manager.FullName.Trim();
                     companyVM.ManagerMail = company.Manager.Email;
                     companyVM.Mailextension = company.MailExtension;
                     companyVM.membershipType = company.Membership.MembershipType;
@@ -328,11 +328,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 ManagerOfCompanyVM managerOfCompany = new ManagerOfCompanyVM()
                 {
                     CompanyID = company.CompanyId,
-                    CompanyName = company.CompanyName,
+                    CompanyName = company.CompanyName.Trim(),
                     CompanyPhoto = company.CompanyLogo,
-                    Email = manager.Email,
+                    Email = manager.Email.Trim(),
                     ManagerID = manager.ManagerId,
-                    ManagerName = manager.FullName,
+                    ManagerName = manager.FullName.Trim(),
                     Photo = manager.Photo,
                     IsApproved = manager.IsApproved
                 };
@@ -358,11 +358,11 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     {
                         IsApproved = employee.IsActive,
                         StartDate = employee.StartDate,
-                        Statu = employee.Status,
+                        Statu = employee.Status.Trim(),
                         BirthDay = employee.BirthDay,
-                        Email = employee.Email,
-                        FullName = employee.FullName,
-                        Photo = employee.Photo
+                        Email = employee.Email.Trim(),
+                        FullName = employee.FullName.Trim(),
+                        Photo = employee.Photo.Trim()
                     };
                     employeesVM.Add(employeeVM);
 

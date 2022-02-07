@@ -14,10 +14,10 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public string FullName { get; set; }
         public string Statu { get; set; }
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; }//
         [DataType(DataType.Date)]
-        public DateTime FinishDate { get; set; }
-        public PermissionType PermissionType { get; set; }
-        public bool? IsAproved { get; set; }
+        public DateTime FinishDate { get; set; }//
+        public PermissionType PermissionType { get; set; }//
+        public bool? IsAproved { get; set; }//
     }
 }

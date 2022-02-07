@@ -41,6 +41,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -288,7 +291,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int?>("ManagerID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isAproved")
+                    b.Property<bool?>("isAproved")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");

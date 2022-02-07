@@ -31,8 +31,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.ViewComponents
                         PermissionVM permissionVM = new PermissionVM()
                         {
                             ID = permission.PermissionId,
-                            FullName = permission.Employee.FullName,
-                            Statu = permission.Employee.Status,
+                            FullName = permission.Employee.FullName.Trim(),
+                            Statu = permission.Employee.Status.Trim(),
                             PermissionType = permission.PermissionType,
                             StartDate = permission.StartDate,
                             FinishDate = permission.FinishDate,

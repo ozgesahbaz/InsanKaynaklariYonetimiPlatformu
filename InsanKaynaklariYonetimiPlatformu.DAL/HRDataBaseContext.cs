@@ -43,6 +43,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
         public DbSet<Respite> Respites { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<ExpenditureDocument> ExpenditureDocuments { get; set; }
+      
 
 
 
@@ -61,6 +62,8 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL
             modelBuilder.ApplyConfiguration(new RespiteConfig());
             modelBuilder.ApplyConfiguration(new DocumentConfig());
             modelBuilder.ApplyConfiguration(new ExpenditureDocumentConfig());
+            
+
 
 
 

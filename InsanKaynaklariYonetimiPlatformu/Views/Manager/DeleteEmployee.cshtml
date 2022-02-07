@@ -1,6 +1,7 @@
 ﻿@model DeleteEmployeVM
 @{
     Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
 
 }
 <div class="card justify-content-center">
@@ -15,7 +16,7 @@
 
             <div class="form-group form-button">
                 <input type="submit"  asp-route-id="@Model.id" class="form-submit btn btn-success" value="Sil" />
-                <input type="button" class="btn btn-danger" asp-controller="Manager" asp-action="ManagersEmployes" value="Vazgeç" />
+                <input type="submit"  asp-route-id="@id" asp-controller="Manager" asp-action="ManagersEmployees"  class="btn btn-danger" value="Vazgeç" />
             </div>
         </form>
 

@@ -98,8 +98,8 @@
                     </a>
                     <div id="collapsethree" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" asp-action="Manager" asp-controller="">Personel Harcamaları</a>
-                            <a class="collapse-item" asp-action="Manager" asp-controller="">Harcamalarım</a>
+                            <a class="collapse-item"  asp-route-id="@id" asp-action="EmployeeExpenditure" asp-controller="Manager">Personel Harcamaları</a>
+                            <a class="collapse-item" asp-action="ManagerExpenditureList" asp-controller="Manager">Harcamalarım</a>
                         </div>
                     </div>
 
@@ -318,6 +318,10 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 @if (Statu == "Employee")
                                 {
+                                    <a class="dropdown-item" asp-route-id="@id" asp-action="ChangePassword" asp-controller="Employee">
+                                        <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Şifremi Değiştir
+                                    </a>
                                     <a class="dropdown-item" asp-route-id="@id" asp-action="AccountSetting" asp-controller="Employee">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Hesap Ayarlarım

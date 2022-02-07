@@ -1,4 +1,4 @@
-﻿@model AddEmployeeVM 
+﻿@model AddEmployeeVM
 @{
     Layout = "_Layout2";
     int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
@@ -14,7 +14,7 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddEmploye">
             Personel Ekle
         </button>
-        
+
 
         <!-- Modal -->
         <div class="modal fade" id="AddEmploye" tabindex="-1" aria-labelledby="AddEmployeModal" aria-hidden="true">
@@ -30,28 +30,30 @@
                                 <div asp-validation-summary="All"></div>
                                 <div class="form-group">
                                     <label asp-for="FullName"></label>
-                                    <input class="form-control" asp-for="FullName">
+                                    <input type="text"  class="form-control " asp-for="FullName" onkeypress="return isHarfKey(event)">
                                 </div>
 
                                 <div class="form-group">
                                     <label asp-for="Status"></label>
-                                    <input class="form-control" asp-for="Status">
+                                    <input type="text"  class="form-control " asp-for="Status" onkeypress="return isHarfKey(event)">
                                 </div>
+
                                 <div class="form-group">
                                     <label asp-for="Email"></label>
-                                    <input class="form-control" asp-for="Email">
+                                    <input type="email" class="form-control" asp-for="Email">
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="BirtDay"></label>
-                                    <input class="form-control" asp-for="BirtDay">
+                                    <input type="date" class="form-control" asp-for="BirtDay">
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="StartDate"></label>
-                                    <input class="form-control" asp-for="StartDate">
+                                    <input type="date" class="form-control" asp-for="StartDate">
                                 </div>
-                                
+
                                 <br />
- 
+                           
+
 
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button asp-route-id="@id" type="submit" class="btn btn-primary">Kaydet</button>
@@ -67,6 +69,20 @@
             </div>
         </div>
     </div>
+      @section Scripts{
+
+            <script type="text/javascript">
+                   function isHarfKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if ((charCode <= 93 && charCode >= 65) || ( charCode<=122 && charCode>=97) || charCode ==8 || charCode==350 || charCode==351 || charCode==304 || charCode==286|| charCode==287|| charCode==231|| charCode==199|| charCode==305|| charCode==214|| charCode==246|| charCode==220|| charCode==252 || charCode==32)
+               return true;
+               return  false;
+               }
+             
+            </script>
+            }
+
     <div class="card-body">
         @await Component.InvokeAsync("EmployeeList", new { id = id })
     </div>
