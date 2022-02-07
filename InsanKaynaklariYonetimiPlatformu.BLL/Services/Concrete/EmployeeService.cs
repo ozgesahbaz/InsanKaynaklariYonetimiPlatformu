@@ -25,32 +25,12 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public Employee AddEmployee(AddEmployeeVM employeeVM, int id, string mailextension)
         {
-            List<Employee> employees = employeeRepository.GetListEmployeesByManagerID(id);
-            int consistEmployee = 0;
-            foreach (Employee item in employees)
-            {
 
-                ContainsSymbolorNumber(employeeVM.FullName);
-                ContainsSymbolorNumber(employeeVM.Status);
-
-
-
-<<<<<<< HEAD
-                Employee newEmployee = new Employee();
-
-              bool consist = item.Email == employeeVM.Email ? false : true;
-=======
-                
-
-              bool consist =item.Email==employeeVM.Email ? false : true;
->>>>>>> 2e64ce2c37cd79c6aa479f89a2eac71f1ef93478
-                if (!consist)
-
-                {
-                    consistEmployee++;
-                }
-            }
-            if (consistEmployee == 0)
+            ContainsSymbolorNumber(employeeVM.FullName);
+            ContainsSymbolorNumber(employeeVM.Status);
+            Employee employee = employeeRepository.GetEmployeeByMail(employeeVM.Email);
+        
+            if (employee==null)
             {
                 //şirket uzantısı doğru mu
                 if (GetMailExtension(employeeVM.Email) == mailextension)//şirket mail uzantısı ile eklenen çalışan mail uzantısı aynı mu
@@ -66,7 +46,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                         Status = employeeVM.Status,
                         Photo = "uploads\\image\\userphoto\\_usernophoto.png",
                         IsActive = false,
-                       NetSalary=employeeVM.Salary
+                        NetSalary=employeeVM.Salary
                     };
 
                     if (employeeRepository.AddEmployee(newEmployee) > 0)
