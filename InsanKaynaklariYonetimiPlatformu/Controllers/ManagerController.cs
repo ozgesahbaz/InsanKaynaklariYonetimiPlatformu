@@ -412,7 +412,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
                 ModelState.AddModelError("exception", ex.Message);
             }
-            return RedirectToAction("ManagersDebit");
+            return RedirectToAction("ManagersPersonelDebit");
         }
         [HttpGet]
         [ActionName("ShiftDetails")]
