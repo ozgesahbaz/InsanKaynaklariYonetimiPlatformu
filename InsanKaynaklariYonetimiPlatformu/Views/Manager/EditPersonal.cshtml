@@ -25,9 +25,9 @@
                 <input type="date" asp-for="StartDate" class="col-5" />
             </div>
             <div class="form-group row">
-                <label asp-for="Salary" class="col-2 text-primary"><i class="fas fa-money-bill-wave"></i>Ücret</label>
+                <label asp-for="NetSalary" class="col-2 text-primary"><i class="fas fa-money-bill-wave"></i>Ücret</label>
 
-                <input  type="number" asp-for="Salary" class="col-5"  onkeypress="return isNumberKey(event)"/>
+                <input  asp-for="NetSalary" class="col-5" readonly onkeypress="return isNumberKey(event)" title="Ücret Güncelleme işlemleri için lütfen  personel listesi sayfasında uygun personel ismine tıklayınız"/>
 
 
             </div>

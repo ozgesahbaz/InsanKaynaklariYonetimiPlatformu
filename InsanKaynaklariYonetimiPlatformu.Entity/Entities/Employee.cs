@@ -31,7 +31,7 @@ namespace InsanKaynaklariYonetimiPlatformu.Entity.Entities
 
         public decimal Salary { get; set; } = 0;
         public decimal PremiumRate { get; set; } = 0;
-        public decimal NetSalary { get; set; } = 0;
+        public decimal NetSalary { get; set; } 
       
 
         public  int ManagerId { get; set; }
