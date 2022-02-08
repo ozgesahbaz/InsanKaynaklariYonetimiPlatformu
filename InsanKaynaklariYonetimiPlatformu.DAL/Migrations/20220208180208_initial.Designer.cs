@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220203194316_initial")]
+    [Migration("20220208180208_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -290,7 +293,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
                     b.Property<int?>("ManagerID")
                         .HasColumnType("int");
 
-                    b.Property<bool>("isAproved")
+                    b.Property<bool?>("isAproved")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");
