@@ -494,6 +494,23 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return 0;
         }
+
+        public int AmountEmployee()
+        {
+            int empCount = employeeRepository.AmountEmployee();
+            if (empCount>0)
+            {
+                return empCount;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        
+
+    
     }
 
 }

@@ -19,9 +19,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int UpdateEmployees(int id, Employee employee);
         List<DocumentsVM> GetExpenditureDocument(int id);
         List<Expenditure> GetExpenditureListForManager(int id);
+
         //List<ExpenditureVM> GetListEmployeeExpenditure(int id);
         int DeleteEmployee(int id);
-      
+        
         List<DocumentVM> GetDocument(int id);
         List<ExpenditureVM> GetListExpenditure(int id);
         List<EmployeeDebitVM> GetEmployeeDebitList(int id);
@@ -31,15 +32,15 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM);
         bool AnyFilePath(string filepath);
         int AddDocumentByEmployeID(int id, string filePath, string fileName);
-       
+
         //int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM);              
         int AddExpenditure(int id, ExpenditureVM expenditureVM);
         int RemoveExpenditure(int id);
-   
+
         Debit GetDebitById(int id);
         int ChangeRejectedDebit(int id, EmployeeDebitVM employeeDebitVM);
         int ChangeAccount(int id, AccountSettingVM accountSettingVM, string documentPath);
-      
+
         int RemoveDocument(int id);
         int AddDocumentByExpenditureID(int id, string documentPath, string fileName);
         decimal GetSalarybyEmployeeId(int id);
@@ -48,5 +49,8 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         int ChangePassword(int id, EmployeePasswordVM employeePasswordVM);
         Employee GetEmployeeByMail(string email);
         int GetAcceptDebitBy(int id);
+        int AmountEmployee();
+        
+        
     }
 }

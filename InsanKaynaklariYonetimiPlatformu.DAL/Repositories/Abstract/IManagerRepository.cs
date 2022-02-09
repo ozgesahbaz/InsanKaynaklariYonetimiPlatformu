@@ -87,5 +87,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         int UpdatedExpenditure(Expenditure expenditure);
         int DeletedEmployeeExpenditure(Expenditure expenditure);
         List<Expenditure> GetEmployeeExpenditureList(int id);
+        int AmountCompany();
+        int AmountManager();
     }
 }

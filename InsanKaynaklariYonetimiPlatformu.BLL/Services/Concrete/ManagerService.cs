@@ -805,5 +805,31 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
             return 0;
         }
+
+        public int AmountCompany()
+        {
+            int CompanyCount = managerRepository.AmountCompany();
+            if (CompanyCount>0)
+            {
+                return CompanyCount;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public int AmountManager()
+        {
+            int ManagerCount = managerRepository.AmountManager();
+            if (ManagerCount>0)
+            {
+                return ManagerCount;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

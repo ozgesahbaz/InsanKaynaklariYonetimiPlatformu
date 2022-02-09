@@ -1,6 +1,9 @@
-﻿@{
+﻿@using InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM
+@model IndexVM
+@{
     ViewData["Title"] = "Index";
     Layout = "_Layout2";
+    int id = ViewContext.HttpContext.Session.GetInt32("ID").Value;
 
 }
 
@@ -18,7 +21,7 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Şirket Sayısı
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CompanyCount</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-briefcase fa-2x text-gray-300"></i>
@@ -37,7 +40,7 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Kayıtlı Yönetici
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">15</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ManagerCount</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user-alt fa-2x text-gray-300"></i>
@@ -56,7 +59,9 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Personel
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">300</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.EmployeeCount
+                        </div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -64,9 +69,84 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4">
+            <div class="card-header">
+                <h4 class="font-weight-bold text-primary text-center">
+                    <img src="~/Dashboard/public/assets/img/icons/vacation.png" style="width:32px; height:32px;" />
+                    Resmi Tatiller
+                </h4>
+            </div>
+            <table class="m-0 table border-left-warning table-bordered dataTable" id="dataTable" width="110%" style="overflow-y:scroll">
+                <thead>
+                    <tr role="row" class="border-bottom-warning">
+                        <th class="border-bottom-warning" style="width: 67px; height:10px; " colspan="1">Tatil Adı</th>
+                        <th class="border-bottom-warning" style="width: 67px; height: 10px;">Tarih</th>
+                        <th class="border-bottom-warning " style="width: 67px; height: 10px">Gün Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-bottom-warning">
+                        <td>Yılbaşı</td>
+                        <td>01.01.2022</td>
+                        <td>1 Gün</td>
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Ul. Egemen. ve Çocuk Bayramı</td>
+                        <td>23.04.2022</td>
+                        <td>1 Gün</td>
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Emek ve Day. Günü</td>
+                        <td>01.01.2022</td>
+                        <td>1 Gün</td>
+                    </tr>
+
+                    <tr class="border-bottom-warning">
+                        <td>Ramazan Bayramı</td>
+                        <td>2-4.05.2022</td>
+                        <td>3 Gün</td>
+
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Genç ve Spor Bayramı</td>
+                        <td>19.05.2022</td>
+                        <td>1 Gün</td>
+
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Kurban Bayramı</td>
+                        <td>9-12.07.2022</td>
+                        <td>4 Gün</td>
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Zafer Bayramı</td>
+                        <td>30.08.2022</td>
+                        <td>1 Gün</td>
+                    </tr>
+                    <tr class="border-bottom-warning">
+                        <td>Cumhuriyet Bayramı</td>
+                        <td>29.09.2022</td>
+                        <td>1 Gün</td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
 
     </div>
+    
 </div>
+</div>
+
 <script src="~/MAP Page/js/demo/chart-pie-demo.js"></script>
 <script src="~/MAP Page/vendor/jquery/jquery.min.js"></script>
 <script src="~/MAP Page/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

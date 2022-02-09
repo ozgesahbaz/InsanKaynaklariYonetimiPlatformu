@@ -1,6 +1,7 @@
 ﻿   
 using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
+using InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM;
 using Microsoft.AspNetCore.Http;
@@ -419,6 +420,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
 
         }
+        
     }
 
 }
