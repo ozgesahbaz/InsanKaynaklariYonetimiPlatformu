@@ -339,6 +339,14 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             {
                 throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
             }
+            else if (permissionVM.StartDate<DateTime.Now && permissionVM.FinishDate<DateTime.Now)
+            {
+                throw new Exception("Başlangıç tarihi bugün tarihinden daha geri bir tarih olmalıdır.");
+            }
+            else if (permissionVM.PermissionType == null)
+            {
+                throw new Exception("İzin tipi boş geçilemez.");
+            }   
             else
             {
                 Permission permission = new Permission()
@@ -493,7 +501,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                     {
                         manager.Password = passwordVM.NewPassword;
                         return managerRepository.ChangePassword(manager);
-
+                       
                     }
                     else
                     {

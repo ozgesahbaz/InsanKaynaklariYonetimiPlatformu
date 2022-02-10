@@ -19,6 +19,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public string Details { get; set; }
         public List<Employee> Employees { get; set; }
         [Display(Name = "Başlama Tarihi")]
+        [DataType(DataType.Date)]
         public DateTime StartedDate { get; set; }
         
 

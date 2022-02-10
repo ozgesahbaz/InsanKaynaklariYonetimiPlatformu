@@ -397,7 +397,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             return RedirectToAction("ManagersPermission");
         }
-        public IActionResult DeletedManagersDebit(int id)
+        public IActionResult DeletedManagersDebit(int id) 
         {
             try
             {
@@ -412,7 +412,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
                 ModelState.AddModelError("exception", ex.Message);
             }
-            return RedirectToAction("ManagersDebit");
+            return RedirectToAction("ManagersPersonelDebit");
         }
         [HttpGet]
         [ActionName("ShiftDetails")]
@@ -499,6 +499,11 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpPost]
         public IActionResult ManagersPermission(int id, ManagersPermissionVM permissionVM)
         {
+            if (permissionVM.PermissionType==null)
+            {
+                throw new Exception("İzin tipi boş geçilemez");
+            }
+            return View();
             try
             {
                 if (managerService.AddManagersPermission(id, permissionVM) < 1)

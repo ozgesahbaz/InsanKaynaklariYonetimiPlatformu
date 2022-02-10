@@ -17,7 +17,9 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM
         [DataType(DataType.Date)]
 
         public DateTime FinishDate { get; set; }
+      
         public PermissionType PermissionType { get; set; }
+        [Required(ErrorMessage = "İzin tipi boş geçilemez")]
         public bool? isAproved { get; set; }
     }
 }

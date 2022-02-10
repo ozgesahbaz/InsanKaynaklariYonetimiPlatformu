@@ -158,7 +158,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             //Personel izinleri listelerken 
             List<Permission> permissions = employeeRepository.GetPermissionListEmployeeByID(id);
             List<EmployeePermissionVM> employeePermissionVMs = new List<EmployeePermissionVM>();
-            if (permissions != null)
+            if (permissions != null )
             {
                 foreach (Permission item in permissions)
                 {
@@ -180,10 +180,16 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
 
         public int AddPermissionEmployee(int id, EmployeePermissionVM permissionVM)
         {
-            if (permissionVM.StartDate > permissionVM.FinishDate)
+                      
+            if (permissionVM.StartDate > permissionVM.FinishDate )
             {
                 throw new Exception("Bitiş tarihi başlangıç tarihinden daha ileri bir tarih olmalıdır.");
             }
+            else if (permissionVM.StartDate < DateTime.Now && permissionVM.FinishDate<DateTime.Now)
+            {
+                throw new Exception("Başlangıç tarihi bu günden tarihinden geri bir tarih olmamalıdır.");
+            }
+          
             else
             {
                 Employee employee = employeeRepository.GetEmployeeById(id);
@@ -204,7 +210,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
                 }
                 return 0;
             }
-
+         
 
         }
 
