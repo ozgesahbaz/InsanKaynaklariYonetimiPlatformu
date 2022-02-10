@@ -299,5 +299,12 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             return dbContext.SaveChanges();
         }
+
+        public int AmountEmployee()
+        {
+            return dbContext.Employees.Count();
+        }
+
+       
     }
 }

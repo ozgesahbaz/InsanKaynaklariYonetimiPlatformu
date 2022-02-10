@@ -14,7 +14,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
     {
         HRDataBaseContext dbContext;
         IEmployeeRepository employeeRepository;
-        public ManagerRepository(HRDataBaseContext dataBaseContext,IEmployeeRepository _employeeRepository)
+        public ManagerRepository(HRDataBaseContext dataBaseContext, IEmployeeRepository _employeeRepository)
         {
             dbContext = dataBaseContext;
             employeeRepository = _employeeRepository;
@@ -267,7 +267,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         {
             dbContext.Comments.Add(comment);
 
-            if (dbContext.SaveChanges()>0)
+            if (dbContext.SaveChanges() > 0)
             {
                 return true;
 
@@ -346,7 +346,7 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public int UpdatedExpenditure(Expenditure expenditure)
         {
-            
+
             return dbContext.SaveChanges();
         }
 
@@ -359,6 +359,15 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
         public List<Expenditure> GetEmployeeExpenditureList(int id)
         {
             return dbContext.Expenditures.Include("Employee").Where(a => a.ManagerID == id).ToList();
+        }
+
+        public int AmountCompany()
+        {
+            return dbContext.Companies.Count();
+        }
+        public int AmountManager()
+        {
+            return dbContext.Managers.Count();
         }
     }
 }

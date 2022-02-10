@@ -20,10 +20,11 @@
             {
                 <tr>
                     <td>
-                        <a asp-controller="Manager" asp-action="GetEditPremiumModel" asp-route-id="@employee.EmployeeId" style="text-decoration:none; color:inherit;">
+                        <a asp-controller="Manager" asp-action="GetEditPremiumModel" asp-route-id="@employee.EmployeeId" title="Ücret bilgilerinde değişiklik için tıklayınız" style="text-decoration:none; color:inherit;">
 
-                            @employee.FullName
+                            @employee.FullName 
                         </a>
+                        
                     </td>
                    
                     <td>@employee.Status</td>

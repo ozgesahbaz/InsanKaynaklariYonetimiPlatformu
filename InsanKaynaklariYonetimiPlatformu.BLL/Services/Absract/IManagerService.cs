@@ -73,5 +73,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         List<EmployeesExpenditureVM> GetEmployeeExpenditureList(int id);
         EmployeesExpenditureVM GetExpenditureByID(int id);
         int UpdateByExpenditure(int id, EmployeesExpenditureVM employeesExpenditureVM);
+        int AmountCompany();
+        int AmountManager();
     }
 }
