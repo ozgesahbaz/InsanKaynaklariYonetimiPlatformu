@@ -63,12 +63,21 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpPost]
         public IActionResult MyPermissions(int id, EmployeePermissionVM permissionVM)
         {
+            if (permissionVM.PermissionType == null)
+            {
+                throw new Exception("İzin tipi boş geçilemez.");
+
+            }
+            return View();
             try
             {
-                if (employeeService.AddPermissionEmployee(id,permissionVM)<1)
+               
+                 if (employeeService.AddPermissionEmployee(id,permissionVM)<1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
+              
+
             }
             catch (Exception ex)
             {

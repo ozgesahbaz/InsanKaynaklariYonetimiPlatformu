@@ -16,6 +16,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
+        [StringLength(8, ErrorMessage = "Şifre 8 karakterli olmalıdır.")]
         public string Password { get; set; }
         [Display(Name = "Beni Hatırla")]
         public bool IsRemember { get; set; }

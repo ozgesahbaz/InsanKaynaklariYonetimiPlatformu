@@ -12,14 +12,17 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Güncel şifrenizi giriniz")]
         [DataType(DataType.Password)]
+        [StringLength(8, ErrorMessage ="Şifre 8 karakterli olmalıdır.")]
         public string OldPassword { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Yeni şifrenizi giriniz")]
         [DataType(DataType.Password)]
+        [StringLength(8, ErrorMessage = "Şifre 8 karakterli olmalıdır.")]
         public string NewPassword { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Yeni şifrenizi tekrar giriniz")]
         [DataType(DataType.Password)]
+        [StringLength(8, ErrorMessage = "Şifre 8 karakterli olmalıdır.")]
         public string AgainNewPassword { get; set; }
 
 

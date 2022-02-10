@@ -16,7 +16,8 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         public string CompanyName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
-        [Display(Name = "Firma Adres")]
+        [Display(Name = "Firma Adresi", Prompt = "Firma Adresi")]
+        [StringLength(300, ErrorMessage ="Adres uzunluğu en fazla 300 karakter olabilir", MinimumLength =  50) ]
         public string Address { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
