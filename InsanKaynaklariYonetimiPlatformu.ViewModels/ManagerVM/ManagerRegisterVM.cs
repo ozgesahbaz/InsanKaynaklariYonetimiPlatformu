@@ -28,7 +28,9 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.ManagerVM
         [Display(Name = "Yönetici Mail Adresi", Prompt = "isimsoyisim@firmaadi.com")]
         [DataType(DataType.EmailAddress)]
         public string ManagerMail { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
+        [StringLength(8, ErrorMessage = "parolanız 8 karakter olmalıdır", MinimumLength = 8)]
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
         public string ManagerPassword { get; set; }
