@@ -65,11 +65,19 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpPost]
         public IActionResult ManagersEmployees(AddEmployeeVM employeeVM, int id)
         {
+           
             try
             {
+                int dateTime = employeeVM.BirtDay.Year;
+                int StartDate = employeeVM.StartDate.Year;
                 if (DateTime.Now.Year - employeeVM.BirtDay.Year < 18)
                 {
                     throw new Exception("18 yaşından küçük çalışan ekleyemezsiniz.");
+                }
+                //işe giriş tarihi kontrolü
+                else if (StartDate <dateTime+18)
+                {
+                    throw new Exception("Başlangıç tarihini güncelleyiniz");
                 }
                 //mail uzantısı controlü için şirket manager id(layouttaki sessiondan geldi) ile bulundu.
                 Company company = managerService.FindCompanyByManagerID(id);
@@ -221,6 +229,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
             }
             return View();
+        }
+        public IActionResult StopDeleteEmployee (int id) 
+        {
+         return RedirectToAction("ManagersEmployees");
         }
         [HttpPost]
         public IActionResult Register(ManagerRegisterVM register)
@@ -502,22 +514,28 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             if (permissionVM.PermissionType==null)
             {
                 throw new Exception("İzin tipi boş geçilemez");
+                return View();
             }
-            return View();
-            try
-            {
-                if (managerService.AddManagersPermission(id, permissionVM) < 1)
+            
+            
+                try
                 {
-                    throw new Exception("Bir hata oluştu.");
+                    if (managerService.AddManagersPermission(id, permissionVM) < 1)
+                    {
+                        throw new Exception("Bir hata oluştu.");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex)
+                {
 
-                ModelState.AddModelError("exception", ex.Message);
+                    ModelState.AddModelError("exception", ex.Message);
 
-            }
-            return View();
+                }
+                return View();
+
+          
+           
+           
         }
         [HttpGet]
         public IActionResult ManagerPermissionUpdated(int id)

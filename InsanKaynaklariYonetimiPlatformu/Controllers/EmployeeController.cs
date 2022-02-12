@@ -66,9 +66,9 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             if (permissionVM.PermissionType == null)
             {
                 throw new Exception("İzin tipi boş geçilemez.");
-
+                return View();
             }
-            return View();
+           
             try
             {
                

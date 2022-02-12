@@ -14,6 +14,7 @@ namespace InsanKaynaklariYonetimiPlatformu.ViewModels.EmployeeVM
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Lütfen şifre oluşturun")]
         [DataType(DataType.Password)]
+        
         public string Password { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "{0} boş geçilemez")]
         [Display(Name = "Şifrenizi doğrulayın")]

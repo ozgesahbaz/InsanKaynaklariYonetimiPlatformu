@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InsanKaynaklariYonetimiPlatformu.DAL.Migrations
 {
     [DbContext(typeof(HRDataBaseContext))]
-    [Migration("20220209150919_init")]
-    partial class init
+    [Migration("20220211091052_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

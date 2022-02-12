@@ -58,6 +58,8 @@
             <!--Personel Yönetimi -->
             @if (Statu == "Manager")
             {
+
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" asp-controller="Manager" asp-action="ManagersEmployees" asp-route-id="@id">
                         <i class="fas fa-users"></i>
@@ -98,7 +100,7 @@
                     </a>
                     <div id="collapsethree" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item"  asp-route-id="@id" asp-action="EmployeeExpenditure" asp-controller="Manager">Personel Harcamaları</a>
+                            <a class="collapse-item" asp-route-id="@id" asp-action="EmployeeExpenditure" asp-controller="Manager">Personel Harcamaları</a>
                             <a class="collapse-item" asp-action="ManagerExpenditureList" asp-controller="Manager">Harcamalarım</a>
                         </div>
                     </div>
@@ -190,20 +192,20 @@
             }
             @if (Statu == "Admin")
             {
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetwo"
-               aria-expanded="true" aria-controls="collapsetwo">
-                <i class="fas fa-archive"></i>
-                <span>Şirketler</span>
-            </a>
-            <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" asp-action="passivecompany" asp-controller="Admin">Onay Bekleyen Şirketler</a>
-                    <a class="collapse-item" asp-action="ActiveCompany" asp-controller="Admin">Onaylı Şİrketler</a>
-                </div>
-            </div>
-        </li>
-         
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsetwo"
+                       aria-expanded="true" aria-controls="collapsetwo">
+                        <i class="fas fa-archive"></i>
+                        <span>Şirketler</span>
+                    </a>
+                    <div id="collapsetwo" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" asp-action="passivecompany" asp-controller="Admin">Onay Bekleyen Şirketler</a>
+                            <a class="collapse-item" asp-action="ActiveCompany" asp-controller="Admin">Onaylı Şİrketler</a>
+                        </div>
+                    </div>
+                </li>
+
             }
 
             <!-- Divider -->
@@ -256,14 +258,14 @@
                         </li>
 
                         <!-- Bildirimler -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!--<li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <i class="fas fa-bell fa-fw"></i>-->
+                        <!-- Counter - Alerts -->
+                        <!--<span class="badge badge-danger badge-counter">3+</span>
+                        </a>-->
+                        <!-- Dropdown - Alerts -->
+                        <!--<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Bildirimler
                                 </h6>
@@ -304,10 +306,9 @@
                             </div>
                         </li>
 
-                       
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
+                        <div class="topbar-divider d-none d-sm-block"></div>-->
                         <!-- Sağ Üst Toggle (Profile-Settings-Logout)  -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -363,7 +364,7 @@
                     @RenderBody()
 
                 </div>
-                
+
 
             </div>
 
@@ -413,6 +414,14 @@
     <script src="~/Dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <script src="~/Dashboard/gulp/sb-admin-2.js"></script>
+    <script src="~/MAP Page/js/demo/chart-pie-demo.js"></script>
+    
+    <script src="~/MAP Page/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/MAP Page/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/MAP Page/js/sb-admin-2.min.js"></script>
+    <script src="~/MAP Page/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/MAP Page/js/demo/chart-pie-personal.js"></script>
+    <script src="~/MAP Page/js/demo/pie-chart-permission.js"></script>
 
 
     @await RenderSectionAsync("Scripts", required: false)
