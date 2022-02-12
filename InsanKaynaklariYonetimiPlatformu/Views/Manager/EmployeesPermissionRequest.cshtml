@@ -44,19 +44,19 @@
                                         <div class="form-group">
                                             <div class="form-group">
                                                 <label asp-for="PermissionType">Yıllık İzin</label>
-                                                <input type="radio" asp-for="PermissionType" value="1" />
+                                                <input id="yillik" type="radio" asp-for="PermissionType" value="1" />
                                             </div>
                                             <div class="form-group ">
                                                 <label asp-for="PermissionType">Doğum İzni</label>
-                                                <input type="radio" asp-for="PermissionType" value="2" />
+                                                <input id="Dogum" type="radio" asp-for="PermissionType" value="2" />
                                             </div>
                                             <div class="form-group ">
                                                 <label asp-for="PermissionType">Babalık İzni</label>
-                                                <input type="radio" asp-for="PermissionType" value="3" />
+                                                <input id="Baba"  type="radio" asp-for="PermissionType" value="3" />
                                             </div>
                                             <div class="form-group ">
                                                 <label asp-for="PermissionType">Ücretsiz İzin</label>
-                                                <input type="radio" asp-for="PermissionType" value="4" />
+                                                <input id="Free"  type="radio" asp-for="PermissionType" value="4" />
                                             </div>
                                         </div>
                                     </div>
@@ -68,13 +68,18 @@
                                 <div class="form-group">
                                     <label asp-for="FinishDate"></label>
                                     <input class="form-control" value="(@DateTime.Now)" asp-for="FinishDate">
+                                    
                                 </div>
 
                                 <br />
 
 
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button asp-route-id="@id" type="submit" class="btn btn-primary">Kaydet</button>
+                                    <button  id="Save" asp-route-id="@id" type="submit" class="btn btn-primary"  >Kaydet</button>
+                                    <label id="sonuc">Devam etmek için lütfen  izin türü seçiniz </label>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                 
                                 </div>
                             </div>
                         </form>
@@ -89,4 +94,38 @@
     <div class="card-body">
         @await Component.InvokeAsync("EmployeePermissionList", new { id = id })
     </div>
+   
 </div>
+ <script>
+     var durum=document.getElementById("sonuc");
+         var save=document.getElementById("Save");
+         var yillik=document.getElementById("yillik");
+          var Dogum=document.getElementById("Dogum");
+           var Baba=document.getElementById("Baba");
+            var Free=document.getElementById("Free");
+           
+          save.disabled=true;
+   
+      
+      yillik.onclick=function()
+      {
+          save.disabled=false;
+         durum.textContent="";
+      }
+      Dogum.onclick=function()
+      {
+          save.disabled=false;
+          durum.textContent="";
+      }
+       Baba.onclick=function()
+      {
+          save.disabled=false;
+            durum.textContent="";
+      }
+       Free.onclick=function()
+      {
+          save.disabled=false;
+           durum.textContent="";
+      }
+   
+    </script>

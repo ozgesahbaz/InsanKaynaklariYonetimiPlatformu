@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="ManagerFullName"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input asp-for="ManagerFullName" type="text" id="name" placeholder="İsim Soyisim" />
+                                <input asp-for="ManagerFullName" type="text" id="name" placeholder="İsim Soyisim" onkeypress="return isHarfKey(event)" />
                             </div>
                             <div class="form-group">
                                 <label asp-For="ManagerMail"><i class="zmdi zmdi-email"></i></label>
@@ -88,7 +88,16 @@
             </div>
         </section>
     </div>
-
+     <script type="text/javascript">
+                   function isHarfKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if ((charCode <= 93 && charCode >= 65) || ( charCode<=122 && charCode>=97) || charCode ==8 || charCode==350 || charCode==351 || charCode==304 || charCode==286|| charCode==287|| charCode==231|| charCode==199|| charCode==305|| charCode==214|| charCode==246|| charCode==220|| charCode==252 || charCode==32)
+               return true;
+               return  false;
+               }
+              
+            </script>
 
 
     <!-- JS -->

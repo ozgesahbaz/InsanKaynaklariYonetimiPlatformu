@@ -1,4 +1,4 @@
-﻿   
+﻿
 using InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract;
 using InsanKaynaklariYonetimiPlatformu.Entity.Entities;
 using InsanKaynaklariYonetimiPlatformu.ViewModels.AdminVM;
@@ -26,10 +26,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult EmployeesDebit (int id) 
+        public IActionResult EmployeesDebit(int id)
         {
             return View();
-        
+
         }
         [HttpPost]
         public IActionResult EmployeesDebit(int id, EmployeeDebitVM employeeDebitVM)
@@ -66,23 +66,23 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             if (permissionVM.PermissionType == null)
             {
                 throw new Exception("İzin tipi boş geçilemez.");
-                return View();
+
+            return View();
             }
-           
             try
             {
-               
-                 if (employeeService.AddPermissionEmployee(id,permissionVM)<1)
+
+                if (employeeService.AddPermissionEmployee(id, permissionVM) < 1)
                 {
                     throw new Exception("Bir hata oluştu.");
                 }
-              
+
 
             }
             catch (Exception ex)
             {
 
-                 ModelState.AddModelError("exception", ex.Message);
+                ModelState.AddModelError("exception", ex.Message);
 
             }
             return View();
@@ -90,10 +90,10 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         [HttpGet]
         public IActionResult CreatePasswordByEmployeeMail(int id)
         {
-            RegisterEmployeeVM register = new RegisterEmployeeVM()
-            {
-                ID = id
-            };
+            RegisterEmployeeVM register = new RegisterEmployeeVM();
+           
+                register.ID = id;
+
             return View(register);
         }
         [HttpPost]
@@ -101,13 +101,13 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (register.Password == register.AgainPassword)
+                if (register.Password == register.AgainPassword && (register.Password.Length==8))
                 {
                     Employee employee = employeeService.GetEmployeeById(register.ID);
-                    if (employee!=null)
+                    if (employee != null)
                     {
-                        int AffectedRows= employeeService.ChangesPassword(employee, register.Password);
-                        if (AffectedRows<=0)
+                        int AffectedRows = employeeService.ChangesPassword(employee, register.Password);
+                        if (AffectedRows <= 0)
                         {
                             throw new Exception("Bir hata oluştu.");
                         }
@@ -120,25 +120,70 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             }
             catch (Exception ex)
             {
-                 ModelState.AddModelError("exception", ex.Message);
-
+                ModelState.AddModelError("exception", ex.Message);
+                //return  View(register);
             }
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
+        //    try
+        //    {
+        //        if (register.Password == register.AgainPassword )
+        //        {
+        //                Employee employee = employeeService.GetEmployeeById(register.ID);
+        //            if (register.Password.Length == 8)
+        //            {
+        //                if (employee != null)
+        //                {
+
+
+        //                    int AffectedRows = employeeService.ChangesPassword(employee, register.Password);
+        //                    if (AffectedRows <= 0)
+        //                    {
+        //                        throw new Exception("Bir hata oluştu.");
+        //                    }
+        //                    else
+        //                    {
+        //                        return RedirectToAction("Index", "Home");
+        //                    }
+
+        //                }
+
+        //            }
+        //            else
+        //            {
+        //                throw new Exception("Parolanız en az 8 karakter olmalıdır");
+
+        //            }
+
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Parolalar uyuşmuyor.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("exception", ex.Message);
+        //        return View(register);
+
+        //    }
+
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         [HttpGet]
-        public IActionResult ExpenditureList(int id) 
+        public IActionResult ExpenditureList(int id)
         {
             return View();
         }
         [HttpGet]
-        public IActionResult RejectedDebit (int id) 
+        public IActionResult RejectedDebit(int id)
         {
             try
             {
                 Debit debit = employeeService.GetDebitById(id);
-                if (debit== null)
+                if (debit == null)
                 {
                     throw new Exception("Bir hata oluştu");
                 }
@@ -149,7 +194,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                         DebitName = debit.DebitName,
                         DescofRejec = debit.DescofRejec,
                         ID = debit.ID
-                        
+
                     };
 
                     return View(employeeDebitVM);
@@ -162,14 +207,14 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ModelState.AddModelError("exception", ex.Message);
             }
             return RedirectToAction("EmployeesDebit");
-        
+
         }
         [HttpPost]
-        public IActionResult RejectedDebit (int id, EmployeeDebitVM employeeDebitVM) 
+        public IActionResult RejectedDebit(int id, EmployeeDebitVM employeeDebitVM)
         {
             try
             {
-                if (employeeService.ChangeRejectedDebit(id, employeeDebitVM)<1)
+                if (employeeService.ChangeRejectedDebit(id, employeeDebitVM) < 1)
                 {
                     throw new Exception("Bir hata oluştu");
                 }
@@ -180,15 +225,15 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 ModelState.AddModelError("exception", ex.Message);
             }
             return RedirectToAction("EmployeesDebit");
-        
-        
+
+
         }
         [HttpGet]
-        public IActionResult AcceptDebit(int id) 
+        public IActionResult AcceptDebit(int id)
         {
             try
             {
-                if (employeeService.GetAcceptDebitBy(id)<1)
+                if (employeeService.GetAcceptDebitBy(id) < 1)
                 {
                     throw new Exception("Bİr hata oluştu");
                 }
@@ -200,7 +245,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("EmployeesDebit");
 
         }
-       
+
         [HttpPost]
         public IActionResult ExpenditureList(int id, ExpenditureVM expenditureVM)
         {
@@ -274,7 +319,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AccountSetting(int id, AccountSettingVM accountSettingVM) 
+        public IActionResult AccountSetting(int id, AccountSettingVM accountSettingVM)
         {
             try
             {
@@ -325,7 +370,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
                 HttpContext.Session.SetString("FullName", employee.FullName);
                 HttpContext.Session.SetString("Photo", employee.Photo);
                 return View(settingVM1);
-             
+
             }
 
             return View();
@@ -402,12 +447,12 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return RedirectToAction("ExpenditureDocuments");
         }
         [HttpGet]
-        public IActionResult ChangePassword(int id) 
+        public IActionResult ChangePassword(int id)
         {
             return View();
         }
         [HttpPost]
-        public IActionResult ChangePassword (int id, EmployeePasswordVM employeePasswordVM) 
+        public IActionResult ChangePassword(int id, EmployeePasswordVM employeePasswordVM)
         {
             try
             {
@@ -429,7 +474,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             return View();
 
         }
-        
+
     }
 
 }
