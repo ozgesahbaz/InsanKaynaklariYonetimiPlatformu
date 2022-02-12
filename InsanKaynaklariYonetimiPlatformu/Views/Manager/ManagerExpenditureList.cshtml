@@ -29,11 +29,11 @@
                                 <div asp-validation-summary="All"></div>
                                 <div class="form-group">
                                     <label asp-for="ExpenditureName">Harcama Adı</label>
-                                    <input class="form-control" asp-for="ExpenditureName">
+                                    <input class="form-control" asp-for="ExpenditureName" onkeypress="return isHarfKey(event)" >
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="ExpenditureAmount">Harcama Tutarı</label>
-                                    <input class="form-control" asp-for="ExpenditureAmount">
+                                    <input class="form-control" asp-for="ExpenditureAmount"  onkeypress="return isNumberKey(event)" >
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Details">Detay</label>
@@ -63,3 +63,19 @@
 
     </div>
 </div>
+<script type="text/javascript">
+                   function isHarfKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if ((charCode <= 93 && charCode >= 65) || ( charCode<=122 && charCode>=97) || charCode ==8 || charCode==350 || charCode==351 || charCode==304 || charCode==286|| charCode==287|| charCode==231|| charCode==199|| charCode==305|| charCode==214|| charCode==246|| charCode==220|| charCode==252 || charCode==32)
+               return true;
+               return  false;
+               }
+               function isNumberKey(evt) 
+                {
+               var charCode = (evt.which) ? evt.which : event.keyCode;
+               if (charCode > 31 && (charCode < 44 || charCode > 57 || charCode==45 || charCode==46 || charCode==47))
+               return false;
+               return true;
+               }
+            </script>

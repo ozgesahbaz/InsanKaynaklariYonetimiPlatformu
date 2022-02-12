@@ -502,8 +502,8 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
             if (permissionVM.PermissionType==null)
             {
                 throw new Exception("İzin tipi boş geçilemez");
-            }
             return View();
+            }
             try
             {
                 if (managerService.AddManagersPermission(id, permissionVM) < 1)
