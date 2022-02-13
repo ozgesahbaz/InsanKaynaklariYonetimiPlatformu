@@ -50,6 +50,6 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Abstract
         List<Expenditure> GetExpenditureListForManager(int id);
         int AcceptDebit(Debit debit);
         int AmountEmployee();
-      
+        List<Expenditure> GetListExpenditureByManagerID(int id);
     }
 }

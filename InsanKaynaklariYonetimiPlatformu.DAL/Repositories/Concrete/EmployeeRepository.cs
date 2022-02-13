@@ -305,6 +305,20 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
             return dbContext.Employees.Count();
         }
 
-       
+        public List<Expenditure> GetListExpenditureByManagerID(int id)
+        {
+            List<Employee> employees = dbContext.Employees.Where(a => a.ManagerId==id).ToList();
+            List<Expenditure> expenditures=new List<Expenditure>();
+            foreach (Employee item in employees)
+            {
+                List<Expenditure> _expenditures = dbContext.Expenditures.Where(a=>a.EmployeeID==item.ShiftID).ToList();
+                foreach (Expenditure expenditure in _expenditures)
+                {
+                    expenditures.Add(expenditure);
+                }
+
+            }
+            return expenditures;
+        }
     }
 }

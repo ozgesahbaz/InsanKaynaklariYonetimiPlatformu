@@ -514,9 +514,10 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Concrete
             }
         }
 
-        
-
-    
+        public List<Expenditure> GetListExpenditureByManagerID(int id)
+        {
+            return employeeRepository.GetListExpenditureByManagerID(id);
+        }
     }
 
 }

@@ -25,6 +25,7 @@ namespace InsanKaynaklariYonetimiPlatformu.BLL.Services.Absract
         
         List<DocumentVM> GetDocument(int id);
         List<ExpenditureVM> GetListExpenditure(int id);
+        List<Expenditure> GetListExpenditureByManagerID(int id);
         List<EmployeeDebitVM> GetEmployeeDebitList(int id);
         List<Permission> GetPermissionListEmployees(int id);
         List<EmployeePermissionVM> GetPermissionListEmployeeByID(int id);
