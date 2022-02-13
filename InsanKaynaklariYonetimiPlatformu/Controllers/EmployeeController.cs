@@ -101,7 +101,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             try
             {
-                if (register.Password == register.AgainPassword && (register.Password.Length==8))
+                if (register.Password == register.AgainPassword /*&& (register.Password.Length==8)*/)
                 {
                     Employee employee = employeeService.GetEmployeeById(register.ID);
                     if (employee != null)
