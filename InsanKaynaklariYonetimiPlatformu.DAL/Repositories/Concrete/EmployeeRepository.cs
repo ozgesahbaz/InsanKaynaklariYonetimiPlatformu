@@ -307,17 +307,18 @@ namespace InsanKaynaklariYonetimiPlatformu.DAL.Repositories.Concrete
 
         public List<Expenditure> GetListExpenditureByManagerID(int id)
         {
-            List<Employee> employees = dbContext.Employees.Where(a => a.ManagerId==id).ToList();
-            List<Expenditure> expenditures=new List<Expenditure>();
+            List<Employee> employees = dbContext.Employees.Where(a => a.ManagerId == id).ToList();
+
+            ////List<Expenditure> expenditures1 = dbContext.Expenditures.Where(a=>a.ManagerID==id).ToList();
+            List<Expenditure> expenditures = new List<Expenditure>();
             foreach (Employee item in employees)
             {
-                List<Expenditure> _expenditures = dbContext.Expenditures.Where(a=>a.EmployeeID==item.ShiftID).ToList();
+                List<Expenditure> _expenditures = dbContext.Expenditures.Where(a => a.EmployeeID == item.EmployeeId).ToList();
                 foreach (Expenditure expenditure in _expenditures)
                 {
                     expenditures.Add(expenditure);
                 }
-
-            }
+             }
             return expenditures;
         }
     }

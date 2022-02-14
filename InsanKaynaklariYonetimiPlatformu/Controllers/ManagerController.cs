@@ -108,7 +108,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
         {
             MailMessage msg = new MailMessage();
             msg.Subject = "Üyeliğinizi doğrulayın.";
-            msg.From = new MailAddress("redteamproject@outlook.com");
+            msg.From = new MailAddress("readteamproject1@outlook.com");
             msg.To.Add(new MailAddress(employee.Email));
             msg.IsBodyHtml = true;
             msg.Body = "<div style='background-color:#422222;margin:0;padding:30px 0;width:100%'>"
@@ -118,7 +118,7 @@ namespace InsanKaynaklariYonetimiPlatformu.UI.Controllers
 
 
             SmtpClient smtp = new SmtpClient("smtp.office365.com", 587); //Bu alanda gönderim yapacak hizmetin smtp adresini ve size verilen portu girmelisiniz.
-            NetworkCredential AccountInfo = new NetworkCredential("redteamproject@outlook.com", "123toci123");
+            NetworkCredential AccountInfo = new NetworkCredential("readteamproject1@outlook.com", "123toci123");
             smtp.UseDefaultCredentials = false; //Standart doğrulama kullanılsın mı? -> Yalnızca gönderici özellikle istiyor ise TRUE işaretlenir.
             smtp.Credentials = AccountInfo;
             smtp.EnableSsl = true;
